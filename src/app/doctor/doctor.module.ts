@@ -7,6 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { DoctorRegistrationComponent } from './doctor-registration/doctor-registration.component';
 import {InputMaskModule} from 'primeng/inputmask';
+import {TableModule} from 'primeng/table';
 
 import {CardModule} from 'primeng/card';
 import { ChipsModule } from 'primeng/chips';
@@ -21,7 +22,8 @@ import { DoctorProfileComponent } from './doctor-profile/doctor-profile.componen
   ],
   exports: [
     DoctorRegistrationComponent,
-    DoctorListComponent
+    DoctorListComponent,
+    DoctorProfileComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import { DoctorProfileComponent } from './doctor-profile/doctor-profile.componen
     ChipsModule,
     ButtonModule,
     DropdownModule,
+    TableModule,
     InputMaskModule,
     BrowserModule,
     BrowserAnimationsModule,
