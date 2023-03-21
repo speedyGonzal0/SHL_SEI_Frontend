@@ -4,7 +4,7 @@
 
   <div class="cardContainer">
 
-    <form [formGroup]="doctorRegForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="doctorRegForm" (ngSubmit)="onSubmit()" name="myForm">
 
       <span class="inputField">
         <label for="name">Name</label>
@@ -75,7 +75,7 @@
                pInputText/>
       </span>
 
-      <button pButton type="submit" label="Create"></button>
+      <button pButton type="submit" label="Create" [disabled]="!doctorRegForm.valid"></button>
 
     </form>
 
