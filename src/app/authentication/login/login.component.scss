@@ -1,0 +1,49 @@
+.loginContainer{
+  background-color: #eff3f8;
+  /*background-color: aquamarine;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.loginCard{
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  width: clamp(30%, 300px, 1000px);
+  height: clamp(70%, 500px, 1000px);
+  padding: 25px;
+  border-radius: 15px;
+}
+
+.cardHeader {
+  flex: 1;
+  /*background-color: aquamarine;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardBody{
+  flex: 2;
+  /*background-color: aqua;*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5%;
+}
+
+.fields{
+  /*background-color: aqua;*/
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
+  /*height: 80%;*/
+  gap: 10px;
+  /*width: 100%;*/
+}
+
+button{
+  margin-top: 10%;
+}
