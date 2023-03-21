@@ -1,0 +1,38 @@
+.doctorProfileContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.doctorHeader{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0;
+
+}
+
+.personalDetails{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.personalDetails span{
+  display: flex;
+  align-items: center;
+}
+
+.orgContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.docOrgInfoTables{
+  display: flex;
+  margin: 20px 0;
+}
+
+::ng-deep .p-card{
+  margin: 20px;
+}
