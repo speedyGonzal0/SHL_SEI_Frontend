@@ -1,0 +1,33 @@
+.orgRegContainer{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.orgRegCardContainer{
+  width: 70%;
+  height: auto;
+  padding: 16px;
+}
+
+.inputField{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.orgRegCardContainer form{
+  display: flex;
+  flex-direction: column;
+}
+
+.orgRegCardContainer button{
+  margin-top: 20px;
+}
+
+.orgRegCardContainer label{
+  margin: 5px 0;
+}
