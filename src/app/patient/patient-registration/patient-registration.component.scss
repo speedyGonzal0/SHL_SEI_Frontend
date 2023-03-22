@@ -1,0 +1,39 @@
+.patientRegContainer{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.patientRegCardContainer{
+  width: 70%;
+  height: auto;
+  padding: 16px;
+}
+
+.inputField{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.genderFields{
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.patientRegCardContainer form{
+  display: flex;
+  flex-direction: column;
+}
+
+.patientRegCardContainer button{
+  margin-top: 20px;
+}
+
+.patientRegCardContainer label{
+  margin: 5px 0;
+}
