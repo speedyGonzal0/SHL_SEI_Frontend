@@ -7,6 +7,18 @@ import { Component } from '@angular/core';
 })
 export class DoctorProfileComponent {
 
+  doctor = {
+    id: 123,
+    name: "Renu Akter",
+    phone: "01613887722",
+    email: "renu@gmail.com",
+    gender: "Female",
+    specialities: ["Pediatrics", "Dermatology"],
+    degrees: ["PhD", "MBBS"]
+  }
+
+  colHeaders = ["Sa", "Su", "Mo", "Tu", "We", "Th", "Fr"]
+
   orgs : any = [
     {
     name: "Popular Hospital",
