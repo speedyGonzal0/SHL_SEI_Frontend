@@ -1,0 +1,28 @@
+.orgProfileContainer{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.orgInfo span{
+  display: flex;
+}
+
+.userCount{
+  display: flex;
+}
+
+.userCountCard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+::ng-deep p-card{
+  width: 300px;
+  margin: 20px;
+}
