@@ -1,29 +1,25 @@
 <div class="doctorProfileContainer">
   <div class="doctorHeader">
-    <h2>doctor name</h2>
-    <p>OPHTHALMOLOGY</p>
+    <h2>{{doctor.name}}</h2>
+    <div class="chipContainer">
+      <p-tag *ngFor="let speciality of doctor.specialities">{{speciality}}</p-tag>
+    </div>
+    <div class="chipContainer">
+      <p-tag *ngFor="let degree of doctor.degrees">{{degree}}</p-tag>
+    </div>
   </div>
 
-  <p-card [style]="{'min-width': '43rem'}">
-    <div class="personalDetails">
-      <span>
-        <i class="pi pi-envelope"></i>
-        <p>abc@gmail.com</p>
-      </span>
-      <span>
-        <i class="pi pi-phone"></i>
-        <p>01712345312</p>
-      </span>
-      <span>
-        <i class="pi pi-user"></i>
-        <p>Female</p>
-      </span>
-      <span>
-        <i class="pi pi-file"></i>
-        <p>MBBS D.N.B</p>
-      </span>
-    </div>
-  </p-card>
+  <div class="personalDetails">
+    <span>
+      <p-chip icon="pi pi-envelope" label={{doctor.email}}></p-chip>
+    </span>
+    <span>
+      <p-chip icon="pi pi-phone" label={{doctor.phone}}></p-chip>
+    </span>
+    <span>
+      <p-chip icon="pi pi-user" label={{doctor.gender}}></p-chip>
+    </span>
+  </div>
 
   <div class="orgContainer" *ngFor="let org of orgs">
     <h2>{{org.name}}</h2>
@@ -48,13 +44,7 @@
         <ng-template pTemplate="caption">Availability</ng-template>
         <ng-template pTemplate="header">
           <tr>
-            <th>Sa</th>
-            <th>Su</th>
-            <th>Mo</th>
-            <th>Tu</th>
-            <th>We</th>
-            <th>Th</th>
-            <th>Fr</th>
+            <th *ngFor="let header of colHeaders">{{header}}</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body">
