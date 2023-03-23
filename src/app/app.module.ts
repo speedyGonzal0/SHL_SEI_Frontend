@@ -15,7 +15,6 @@ import {DoctorModule} from "./doctor/doctor.module";
     BrowserModule,
     BrowserAnimationsModule,
     AuthenticationModule,
-    BrowserModule,
     DoctorModule,
   ],
   providers: [],
