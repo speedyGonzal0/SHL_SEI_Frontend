@@ -14,7 +14,7 @@
                pInputText
         />
         <p
-          *ngIf="!doctorRegForm.get('name').valid && doctorRegForm.get('name').touched">
+          *ngIf="!doctorRegForm.controls['name'].valid && doctorRegForm.controls['name'].touched">
           This field is required!
         </p>
       </span>
@@ -27,7 +27,7 @@
                pInputText
         />
         <p
-          *ngIf="!doctorRegForm.get('phone').valid && doctorRegForm.get('phone').touched">
+          *ngIf="!doctorRegForm.controls['phone'].valid && doctorRegForm.controls['phone'].touched">
           This field is required!
         </p>
       </span>
@@ -39,7 +39,7 @@
                type="email"
                pInputText/>
         <p
-          *ngIf="!doctorRegForm.get('email').valid && doctorRegForm.get('email').touched">
+          *ngIf="!doctorRegForm.controls['email'].valid && doctorRegForm.controls['email'].touched">
           This field is required!
         </p>
       </span>
@@ -54,7 +54,7 @@
                     optionLabel="gender">
         </p-dropdown>
         <p
-          *ngIf="!doctorRegForm.get('gender').valid && doctorRegForm.get('gender').touched">
+          *ngIf="!doctorRegForm.controls['gender'].valid && doctorRegForm.controls['gender'].touched">
           This field is required!
         </p>
       </span>

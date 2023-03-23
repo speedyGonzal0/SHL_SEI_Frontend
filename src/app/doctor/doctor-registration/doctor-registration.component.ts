@@ -8,7 +8,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class DoctorRegistrationComponent implements OnInit{
   genders = [{gender: "Male"}, {gender: "Female"}];
 
-  doctorRegForm: FormGroup | undefined;
+  doctorRegForm!: FormGroup;
 
   ngOnInit() {
     this.doctorRegForm = new FormGroup({
