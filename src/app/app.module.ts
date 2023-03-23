@@ -5,6 +5,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import {AuthenticationModule} from "./authentication/authentication.module";
 
+import {DoctorModule} from "./doctor/doctor.module";
+
 @NgModule({
   declarations: [
     AppComponent
@@ -13,6 +15,7 @@ import {AuthenticationModule} from "./authentication/authentication.module";
     BrowserModule,
     BrowserAnimationsModule,
     AuthenticationModule,
+    DoctorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
