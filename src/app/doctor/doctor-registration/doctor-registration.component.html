@@ -1,0 +1,82 @@
+<div class="docRegContainer">
+
+  <h1>Doctor Registration</h1>
+
+  <div class="docRegCardContainer">
+
+    <form [formGroup]="doctorRegForm" (ngSubmit)="onSubmit()">
+
+      <span class="inputField">
+        <label for="name">Name</label>
+        <input formControlName="name"
+               id="name"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!doctorRegForm.get('name').valid && doctorRegForm.get('name').touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="phone">Phone</label>
+        <input formControlName="phone"
+               id="phone"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!doctorRegForm.get('phone').valid && doctorRegForm.get('phone').touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="email">Email</label>
+        <input formControlName="email"
+               id="email"
+               type="email"
+               pInputText/>
+        <p
+          *ngIf="!doctorRegForm.get('email').valid && doctorRegForm.get('email').touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="gender">Gender</label>
+        <p-dropdown formControlName="gender"
+                    [options]="genders"
+                    placeholder="-"
+                    id="gender"
+                    [style]="{width: '100%'}"
+                    optionLabel="gender">
+        </p-dropdown>
+        <p
+          *ngIf="!doctorRegForm.get('gender').valid && doctorRegForm.get('gender').touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="degree">Degree</label>
+        <p-chips formControlName="degree"
+                 id="degree">
+        </p-chips>
+      </span>
+
+      <span class="inputField">
+        <label for="specialities">Specialities</label>
+        <p-chips formControlName="specialities"
+                 id="specialities">
+        </p-chips>
+      </span>
+
+      <button pButton type="submit" label="Create" [disabled]="!doctorRegForm.valid"></button>
+
+    </form>
+
+  </div>
+
+</div>
