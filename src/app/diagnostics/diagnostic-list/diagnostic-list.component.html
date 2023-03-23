@@ -1,0 +1,41 @@
+<div class="container h-100 align-items-center d-flex flex-column gap-5">
+  <h2 class="mt-5"> Available Diagnostic Services </h2>
+
+  <p-table #dt [rowHover]="true" [value]="diagService.diagnostics" [tableStyle]="{'min-width': '75rem'}"
+           [globalFilterFields]="['name']" >
+    <ng-template pTemplate="caption">
+      <div class="col d-flex justify-content-between">
+        <button (click)="showCreateDialog()" pButton icon="pi pi-plus" class="p-button-success" label="Add"></button>
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search..." />
+          </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+<!--        <th pSortableColumn="{{field}}" *ngFor="let field of Object.keys(diagnostics[0])"><p-sortIcon field="{{field}}"></p-sortIcon> {{field.charAt(0).toUpperCase() + field.substring(1)}}</th>-->
+        <th style="text-align: center"> ID </th>
+        <th style="text-align: center" pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon> Name </th>
+        <th style="text-align: center" pSortableColumn="price"><p-sortIcon field="price"></p-sortIcon> Price </th>
+        <th style="text-align: center">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-index='rowIndex'>
+      <tr>
+        <td style="text-align: center"> {{item.id}} </td>
+        <td style="text-align: center"> {{item.name}} </td>
+        <td style="text-align: center"> BDT {{item.price.toFixed(2)}}</td>
+        <td style="text-align: center">
+          <span class="p-buttonset">
+            <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
+            <button (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
+          </span>
+        </td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-confirmDialog icon="pi pi-exclamation-triangle" [baseZIndex]="10000"></p-confirmDialog>
+</div>

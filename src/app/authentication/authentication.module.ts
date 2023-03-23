@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {CardModule} from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
@@ -8,11 +8,11 @@ import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {PasswordModule} from 'primeng/password';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-
+import {ConfirmationService} from "primeng/api";
 
 import {LoginComponent} from "./login/login.component";
 import { LogoutComponent } from './logout/logout.component';
-import {ConfirmationService} from "primeng/api";
+
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import {ConfirmationService} from "primeng/api";
     ButtonModule,
     DropdownModule,
     PasswordModule,
-    FormsModule,
+    ReactiveFormsModule,
     ConfirmDialogModule
   ],
   providers:[ConfirmationService],

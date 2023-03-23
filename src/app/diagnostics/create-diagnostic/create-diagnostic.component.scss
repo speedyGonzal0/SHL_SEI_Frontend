@@ -1,0 +1,31 @@
+.createDiagContainer{
+  display: flex;
+  //background-color: saddlebrown;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  //justify-content: center;
+  height: 100%;
+  padding: 25px;
+  gap: 20px;
+  //border-radius: 15px;
+}
+
+.createDiagForm{
+  display: flex;
+  flex-direction: column;
+  //background-color: aqua;
+  width: 80%;
+  gap: 40px;
+}
+
+
+.fields{
+  /*background-color: aqua;*/
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
+  /*height: 80%;*/
+  gap: 10px;
+  /*width: 100%;*/
+}

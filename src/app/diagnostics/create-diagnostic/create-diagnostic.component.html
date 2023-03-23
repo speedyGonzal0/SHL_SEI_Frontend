@@ -1,0 +1,25 @@
+<div class="createDiagContainer">
+<!--  <h2> Create New Diagnostic </h2>-->
+  <form class="createDiagForm" [formGroup]="createDiagForm" (ngSubmit)="onSubmit()">
+    <div class="fields">
+      <label for="diagName" class="block">Diagnostic Name</label>
+      <input formControlName="diagName" id="diagName" placeholder="New diagnostic" class="ng-dirty" pInputText />
+    </div>
+
+<!--    should be displayed for org-admin only-->
+    <div class="fields">
+      <label for="diagPrice" class="block">Diagnostic Price</label>
+<!--      <input id="diagPrice" placeholder="Unit Price" class="ng-dirty" pInputText />-->
+      <p-inputNumber formControlName="diagPrice" [style]="{'width': '100%'}" placeholder="Unit price" inputId="diagPrice" mode="currency" currency="BDT" [minFractionDigits]="2"></p-inputNumber>
+    </div>
+
+    <div class="fields">
+      <button *ngIf="!diagService.editMode; else updateDiag" [style]="{'width': '100%'}" pButton type="submit" label="Add Diagnostic" class="p-button-success"></button>
+      <ng-template #updateDiag>
+        <button  [style]="{'width': '100%'}" pButton type="submit" label="Update Diagnostic" class="p-button-success"></button>
+      </ng-template>
+
+    </div>
+
+  </form>
+</div>
