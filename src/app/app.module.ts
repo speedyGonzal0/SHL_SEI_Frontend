@@ -18,6 +18,7 @@ import {DoctorModule} from "./doctor/doctor.module";
     AuthenticationModule,
     DiagnosticsModule,
     DoctorModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

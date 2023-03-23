@@ -12,6 +12,7 @@ import { TagModule  } from 'primeng/tag';
 import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
+import {DynamicDialogModule} from "primeng/dynamicdialog";
 @NgModule({
   declarations: [
     DoctorRegistrationComponent,
@@ -30,6 +31,7 @@ import {TableModule} from 'primeng/table';
     ButtonModule,
     DropdownModule,
     TableModule,
+    DynamicDialogModule,
     ReactiveFormsModule,
   ]
 })
