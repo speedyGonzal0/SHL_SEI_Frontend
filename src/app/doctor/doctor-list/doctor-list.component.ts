@@ -10,7 +10,7 @@ import {DoctorRegistrationComponent} from "../doctor-registration/doctor-registr
   providers: [MessageService, DialogService]
 })
 export class DoctorListComponent {
-  diagnostics = [
+  doctors = [
     {
       name: "Renu Akter",
       orgs: ["Square","Labaid"],
@@ -19,14 +19,14 @@ export class DoctorListComponent {
       degrees: ["PhD", "MBBS"]
     },
     {
-      name: "Renu Akter",
+      name: "Monjil Akter",
       orgs: ["Apollo","Labaid", "Popular"],
       specialities: ["Dermatology"],
       gender: "Male",
       degrees: ["MBBS"]
     },
     {
-      name: "Renu Akter",
+      name: "Shawkat Ahmed",
       orgs: ["Square","Labaid"],
       specialities: ["Pediatrics", "Dermatology"],
       gender: "Female",
@@ -45,8 +45,8 @@ export class DoctorListComponent {
 
   showCreateDialog(){
     this.dialogService.open(DoctorRegistrationComponent, {
-      header: "Create New Diagnostic",
-      width: '50%'
+      header: "Register New Doctor",
+      width: '50%',
     });
   }
 }
