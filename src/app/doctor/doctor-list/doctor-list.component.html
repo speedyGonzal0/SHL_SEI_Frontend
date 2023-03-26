@@ -1,11 +1,10 @@
 <div class="diagListContainer">
-  <h2> Available Diagnostic Services </h2>
-
-  <p-table #dt [rowHover]="true" [value]="diagnostics" [tableStyle]="{'min-width': '75rem'}"
-           [globalFilterFields]="['name']" >
+  <p-table #dt [rowHover]="true" [value]="doctors" [tableStyle]="{'min-width': '75rem'}"
+           [globalFilterFields]="['name', 'orgs', 'specialities']" >
     <ng-template pTemplate="caption">
       <div class="tableToolbar">
         <button (click)="showCreateDialog()" pButton icon="pi pi-plus" class="p-button-success" label="Add"></button>
+        <h1>Registered Doctors</h1>
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search..." />
@@ -15,14 +14,18 @@
     <ng-template pTemplate="header">
       <tr>
         <th style="text-align: center" pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon> Name </th>
-        <th style="text-align: center" pSortableColumn="price"><p-sortIcon field="price"></p-sortIcon> Price </th>
+        <th style="text-align: center" pSortableColumn="orgs"><p-sortIcon field="orgs"></p-sortIcon> Organizations </th>
+        <th style="text-align: center" pSortableColumn="specialities"><p-sortIcon field="specialities"></p-sortIcon> Specialities </th>
+        <th style="text-align: center" pSortableColumn="gender"><p-sortIcon field="gender"></p-sortIcon> Gender </th>
         <th style="text-align: center">Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item >
       <tr>
         <td style="text-align: center"> {{item.name}} </td>
-        <td style="text-align: center"> {{item.price}}</td>
+        <td style="text-align: center"> {{item.orgs}}</td>
+        <td style="text-align: center"> {{item.specialities}}</td>
+        <td style="text-align: center"> {{item.gender}}</td>
         <td style="text-align: center">
           <span class="p-buttonset">
             <button pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
