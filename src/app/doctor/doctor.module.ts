@@ -13,6 +13,7 @@ import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
 import {DynamicDialogModule} from "primeng/dynamicdialog";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 @NgModule({
   declarations: [
     DoctorRegistrationComponent,
@@ -22,17 +23,18 @@ import {DynamicDialogModule} from "primeng/dynamicdialog";
     DoctorListComponent,
     DoctorProfileComponent
   ],
-  imports: [
-    CommonModule,
-    CardModule,
-    ChipsModule,
-    ChipModule,
-    TagModule,
-    ButtonModule,
-    DropdownModule,
-    TableModule,
-    DynamicDialogModule,
-    ReactiveFormsModule,
-  ]
+    imports: [
+        CommonModule,
+        CardModule,
+        ChipsModule,
+        ChipModule,
+        TagModule,
+        ButtonModule,
+        DropdownModule,
+        TableModule,
+        DynamicDialogModule,
+        ReactiveFormsModule,
+        ConfirmDialogModule,
+    ]
 })
 export class DoctorModule { }
