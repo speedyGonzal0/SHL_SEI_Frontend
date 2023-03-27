@@ -15,6 +15,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
 import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
+import { DividerModule } from 'primeng/divider';
 @NgModule({
   declarations: [
     DoctorRegistrationComponent,
@@ -38,6 +39,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
         DynamicDialogModule,
         ReactiveFormsModule,
         ConfirmDialogModule,
+        DividerModule
     ]
 })
 export class DoctorModule { }
