@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import {AuthenticationModule} from "./authentication/authentication.module";
+import {AuthenticationModule} from "@authentication/authentication.module";
+import {DiagnosticsModule} from "@diagnostics/diagnostics.module";
 
 import {DoctorModule} from "./doctor/doctor.module";
 
@@ -15,6 +16,7 @@ import {DoctorModule} from "./doctor/doctor.module";
     BrowserModule,
     BrowserAnimationsModule,
     AuthenticationModule,
+    DiagnosticsModule,
     DoctorModule,
   ],
   providers: [],

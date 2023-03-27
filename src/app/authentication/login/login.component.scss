@@ -1,5 +1,5 @@
 .loginContainer{
-  background-color: #eff3f8;
+  //background-color: #eff3f8;
   /*background-color: aquamarine;*/
   display: flex;
   align-items: center;
@@ -11,8 +11,8 @@
   display: flex;
   background-color: white;
   flex-direction: column;
-  width: clamp(30%, 300px, 1000px);
-  height: clamp(70%, 500px, 1000px);
+  width: clamp(30%, 400px, 1000px);
+  height: clamp(70%, 500px, 1100px);
   padding: 25px;
   border-radius: 15px;
 }
