@@ -1,52 +1,12 @@
-.doctorProfileContainer{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.doctorHeader{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 40px;
-
-}
-
 .chipContainer{
   display: flex;
   gap: 10px;
   margin: 16px 0;
 }
-
-.personalDetails{
-  display: flex;
-  flex-direction: column;
-}
-
 .doctorInfo{
   display: flex;
   gap: 50px;
   margin-bottom: 30px;
-}
-
-.degrees{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.orgContainer{
-  display: flex;
-  flex-direction: column;
-}
-
-.docOrgInfoTables{
-  display: flex;
-  margin: 20px 0;
-}
-
-::ng-deep .p-card{
-  margin: 20px;
 }
 
 ::ng-deep .p-tag{

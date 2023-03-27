@@ -1,34 +1,34 @@
-<div class="doctorProfileContainer">
-  <div class="doctorHeader">
+<div class="container-md">
+  <div class="text-center">
     <h1>{{doctor.name}}</h1>
-    <div class="chipContainer">
+    <div class="chipContainer justify-content-center">
       <p-tag *ngFor="let speciality of doctor.specialities"
               [style]="{
                 borderRadius: '5px',
                 padding: '10px',
-                width: '130px',
+                width: '120px',
                 display: 'flex',
                 justifyContent: 'center',
                 background: '#2D3649',
                 color: 'white'}">
         {{speciality}}</p-tag >
     </div>
-    <p-divider [style]="{width: '50rem'}"></p-divider>
+    <p-divider></p-divider>
   </div>
 
-  <div class="doctorInfo">
-    <div class="personalDetails">
-      <h2>Personal Details</h2>
-      <div class="chipContainer">
-        <p-tag>Email: {{doctor.email}}</p-tag>
-        <p-tag>Phone: {{doctor.phone}}</p-tag>
-        <p-tag>Gender: {{doctor.gender}}</p-tag>
+  <div class="row">
+    <div class="col personalDetails">
+      <h3 class="text-md-start text-center">Personal Details</h3>
+      <div class="chipContainer justify-content-md-start justify-content-center">
+        <p-tag>{{doctor.email}}</p-tag>
+        <p-tag>{{doctor.phone}}</p-tag>
+        <p-tag>{{doctor.gender}}</p-tag>
       </div>
     </div>
 
-    <div class="degrees">
-      <h2>Degrees</h2>
-      <div class="chipContainer">
+    <div class="col degrees">
+      <h3 class="text-md-end text-center">Degrees</h3>
+      <div class="chipContainer justify-content-md-end justify-content-center">
         <p-tag *ngFor="let degree of doctor.degrees"
                [style]="{
                 borderRadius: '5px',
@@ -44,9 +44,10 @@
   </div>
 
   <div class="orgContainer" *ngFor="let org of orgs">
-    <h2>{{org.name}}</h2>
-    <div class="docOrgInfoTables">
-      <p-table [value]=[1] styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '25rem'}">
+    <h3 class="mt-4">{{org.name}}</h3>
+    <div class="docOrgInfoTables row">
+      <p-table [value]=[1] styleClass="p-datatable-gridlines"
+               class="col" [tableStyle]="{'min-width': '25rem'}">
         <ng-template pTemplate="caption">Fees (BDT)</ng-template>
         <ng-template pTemplate="header">
           <tr>
@@ -62,7 +63,8 @@
         </ng-template>
       </p-table>
 
-      <p-table [value]=[1] styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '20rem'}">
+      <p-table [value]=[1] styleClass="p-datatable-gridlines"
+               class="col" [tableStyle]="{'min-width': '20rem'}">
         <ng-template pTemplate="caption">Availability</ng-template>
         <ng-template pTemplate="header">
           <tr>

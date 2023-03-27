@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from "@angular/forms";
 
-import { DoctorRegistrationComponent } from './doctor-registration/doctor-registration.component';
-import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
+import { DoctorRegistrationComponent } from '@doctor/doctor-registration/doctor-registration.component';
+import {DoctorListComponent} from "@doctor/doctor-list/doctor-list.component";
+import { DoctorProfileComponent } from '@doctor/doctor-profile/doctor-profile.component';
 
 import {CardModule} from 'primeng/card';
 import {ChipsModule} from 'primeng/chips';
@@ -18,25 +19,27 @@ import { DividerModule } from 'primeng/divider';
 @NgModule({
   declarations: [
     DoctorRegistrationComponent,
+    DoctorListComponent,
+    DoctorProfileComponent
   ],
   exports: [
     DoctorRegistrationComponent,
     DoctorListComponent,
     DoctorProfileComponent
   ],
-    imports: [
-        CommonModule,
-        CardModule,
-        ChipsModule,
-        ChipModule,
-        TagModule,
-        ButtonModule,
-        DropdownModule,
-        TableModule,
-        DynamicDialogModule,
-        ReactiveFormsModule,
-        ConfirmDialogModule,
-        DividerModule
-    ]
+  imports: [
+    CommonModule,
+    CardModule,
+    ChipsModule,
+    ChipModule,
+    TagModule,
+    ButtonModule,
+    DropdownModule,
+    TableModule,
+    DynamicDialogModule,
+    ReactiveFormsModule,
+    ConfirmDialogModule,
+    DividerModule
+  ]
 })
 export class DoctorModule { }
