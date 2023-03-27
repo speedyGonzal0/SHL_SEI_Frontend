@@ -1,0 +1,74 @@
+<div class="orgRegContainer">
+
+  <h1>Organization Registration</h1>
+
+  <div class="orgRegCardContainer">
+
+    <form [formGroup]="orgRegForm" (ngSubmit)="onCreateOrg()">
+
+      <span class="inputField">
+        <label for="name">Name</label>
+        <input formControlName="name"
+               id="name"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!orgRegForm.controls['name'].valid && orgRegForm.controls['name'].touched">
+           This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="address">Address</label>
+        <input formControlName="address"
+               id="address"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!orgRegForm.controls['address'].valid && orgRegForm.controls['address'].touched">
+           This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="phone">Phone</label>
+        <input formControlName="phone"
+               id="phone"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!orgRegForm.controls['phone'].valid && orgRegForm.controls['phone'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="email">Email</label>
+        <input formControlName="email"
+               id="email"
+               type="email"
+               pInputText/>
+        <p
+          *ngIf="!orgRegForm.controls['email'].valid && orgRegForm.controls['email'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="website">Website</label>
+        <input formControlName="website"
+               id="website"
+               type="text"
+               pInputText/>
+      </span>
+
+      <button pButton type="submit" label="Create" [disabled]="!orgRegForm.valid"></button>
+
+    </form>
+
+  </div>
+
+</div>

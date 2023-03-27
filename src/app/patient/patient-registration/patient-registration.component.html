@@ -1,0 +1,76 @@
+<div class="patientRegContainer">
+
+  <h1>Patient Registration</h1>
+
+  <div class="patientRegCardContainer">
+
+    <form [formGroup]="patientRegForm" (ngSubmit)="onCreatePatient()">
+
+      <span class="inputField">
+        <label for="name">Name</label>
+        <input formControlName="name"
+               id="name"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!patientRegForm.controls['name'].valid && patientRegForm.controls['name'].touched">
+           This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="phone">Phone</label>
+        <input formControlName="phone"
+               id="phone"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!patientRegForm.controls['phone'].valid && patientRegForm.controls['phone'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="email">Email</label>
+        <input formControlName="email"
+               id="email"
+               type="email"
+               pInputText/>
+        <p
+          *ngIf="!patientRegForm.controls['email'].valid && patientRegForm.controls['email'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="age">Age</label>
+        <input formControlName="age"
+               id="age"
+               type="number"
+               pInputText/>
+        <p
+          *ngIf="!patientRegForm.controls['age'].valid && patientRegForm.controls['age'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span class="inputField">
+        <label for="gender">Gender</label>
+        <p-dropdown formControlName="gender"
+                    [options]="genders"
+                    placeholder="-"
+                    id="gender"
+                    [style]="{width: '100%'}"
+                    optionLabel="gender">
+        </p-dropdown>
+      </span>
+
+      <button pButton type="submit" label="Create" [disabled]="!patientRegForm.valid"></button>
+
+    </form>
+
+  </div>
+
+</div>

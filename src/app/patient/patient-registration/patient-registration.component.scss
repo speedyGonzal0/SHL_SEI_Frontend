@@ -1,12 +1,13 @@
-.docRegContainer{
+.patientRegContainer{
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.docRegCardContainer{
+.patientRegCardContainer{
   width: 70%;
   height: auto;
   padding: 16px;
@@ -24,15 +25,15 @@
   gap: 24px;
 }
 
-.docRegCardContainer form{
+.patientRegCardContainer form{
   display: flex;
   flex-direction: column;
 }
 
-.docRegCardContainer button{
+.patientRegCardContainer button{
   margin-top: 20px;
 }
 
-.docRegCardContainer label{
+.patientRegCardContainer label{
   margin: 5px 0;
 }

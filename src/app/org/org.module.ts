@@ -2,30 +2,30 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from "@angular/forms";
 
-import { DoctorRegistrationComponent } from '@doctor/doctor-registration/doctor-registration.component';
-import {DoctorListComponent} from "@doctor/doctor-list/doctor-list.component";
-import { DoctorProfileComponent } from '@doctor/doctor-profile/doctor-profile.component';
+import {OrgProfileComponent} from "./org-profile/org-profile.component";
+import {OrgRegistrationComponent} from "./org-registration/org-registration.component";
 
 import {CardModule} from 'primeng/card';
 import {ChipsModule} from 'primeng/chips';
 import {ChipModule} from 'primeng/chip';
-import { TagModule  } from 'primeng/tag';
+import {TagModule} from 'primeng/tag';
 import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {TableModule} from 'primeng/table';
 import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DividerModule } from 'primeng/divider';
+import { OrgListComponent } from './org-list/org-list.component';
+
 @NgModule({
   declarations: [
-    DoctorRegistrationComponent,
-    DoctorListComponent,
-    DoctorProfileComponent
+    OrgProfileComponent,
+    OrgRegistrationComponent,
+    OrgListComponent
   ],
   exports: [
-    DoctorRegistrationComponent,
-    DoctorListComponent,
-    DoctorProfileComponent
+    OrgProfileComponent,
+    OrgRegistrationComponent
   ],
   imports: [
     CommonModule,
@@ -42,4 +42,4 @@ import { DividerModule } from 'primeng/divider';
     DividerModule
   ]
 })
-export class DoctorModule { }
+export class OrgModule { }

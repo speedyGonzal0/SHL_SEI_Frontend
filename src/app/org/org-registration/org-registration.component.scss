@@ -1,12 +1,13 @@
-.docRegContainer{
+.orgRegContainer{
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.docRegCardContainer{
+.orgRegCardContainer{
   width: 70%;
   height: auto;
   padding: 16px;
@@ -18,21 +19,15 @@
   margin: 10px 0;
 }
 
-.genderFields{
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.docRegCardContainer form{
+.orgRegCardContainer form{
   display: flex;
   flex-direction: column;
 }
 
-.docRegCardContainer button{
+.orgRegCardContainer button{
   margin-top: 20px;
 }
 
-.docRegCardContainer label{
+.orgRegCardContainer label{
   margin: 5px 0;
 }

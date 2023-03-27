@@ -1,0 +1,20 @@
+.chipContainer{
+  display: flex;
+  gap: 10px;
+  margin: 16px 0;
+}
+.doctorInfo{
+  display: flex;
+  gap: 50px;
+  margin-bottom: 30px;
+}
+
+::ng-deep .p-tag{
+  border-radius: 5px;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: center;
+  border: 2px solid #2D3649;
+  background: transparent;
+  color: #2D3649;
+}
