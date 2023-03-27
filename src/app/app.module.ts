@@ -5,8 +5,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import {AuthenticationModule} from "@authentication/authentication.module";
 import {DiagnosticsModule} from "@diagnostics/diagnostics.module";
-
-import {DoctorModule} from "./doctor/doctor.module";
+import {DoctorModule} from "@doctor/doctor.module";
+import {OrgModule} from "./org/org.module";
+import {PatientModule} from "./patient/patient.module";
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {DoctorModule} from "./doctor/doctor.module";
     AuthenticationModule,
     DiagnosticsModule,
     DoctorModule,
-    BrowserAnimationsModule
+    OrgModule,
+    PatientModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
