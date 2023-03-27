@@ -14,7 +14,7 @@
                pInputText
         />
         <p
-          *ngIf="!orgRegForm.get('name').valid && orgRegForm.get('name').touched">
+          *ngIf="!orgRegForm.controls['name'].valid && orgRegForm.controls['name'].touched">
            This field is required!
         </p>
       </span>
@@ -27,7 +27,7 @@
                pInputText
         />
         <p
-          *ngIf="!orgRegForm.get('address').valid && orgRegForm.get('address').touched">
+          *ngIf="!orgRegForm.controls['address'].valid && orgRegForm.controls['address'].touched">
            This field is required!
         </p>
       </span>
@@ -40,7 +40,7 @@
                pInputText
         />
         <p
-          *ngIf="!orgRegForm.get('phone').valid && orgRegForm.get('phone').touched">
+          *ngIf="!orgRegForm.controls['phone'].valid && orgRegForm.controls['phone'].touched">
           This field is required!
         </p>
       </span>
@@ -52,7 +52,7 @@
                type="email"
                pInputText/>
         <p
-          *ngIf="!orgRegForm.get('email').valid && orgRegForm.get('email').touched">
+          *ngIf="!orgRegForm.controls['email'].valid && orgRegForm.controls['email'].touched">
           This field is required!
         </p>
       </span>

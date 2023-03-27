@@ -7,7 +7,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./org-registration.component.scss']
 })
 export class OrgRegistrationComponent {
-  orgRegForm: FormGroup;
+  orgRegForm!: FormGroup;
 
   ngOnInit() {
     this.orgRegForm = new FormGroup({
