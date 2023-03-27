@@ -8,7 +8,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class PatientRegistrationComponent {
   genders = [{gender: "Male"}, {gender: "Female"}];
-  patientRegForm: FormGroup;
+  patientRegForm!: FormGroup;
   ngOnInit() {
     this.patientRegForm = new FormGroup({
       'name' : new FormControl(null, Validators.required),

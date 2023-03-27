@@ -14,7 +14,7 @@
                pInputText
         />
         <p
-          *ngIf="!patientRegForm.get('name').valid && patientRegForm.get('name').touched">
+          *ngIf="!patientRegForm.controls['name'].valid && patientRegForm.controls['name'].touched">
            This field is required!
         </p>
       </span>
@@ -27,7 +27,7 @@
                pInputText
         />
         <p
-          *ngIf="!patientRegForm.get('phone').valid && patientRegForm.get('phone').touched">
+          *ngIf="!patientRegForm.controls['phone'].valid && patientRegForm.controls['phone'].touched">
           This field is required!
         </p>
       </span>
@@ -39,7 +39,7 @@
                type="email"
                pInputText/>
         <p
-          *ngIf="!patientRegForm.get('email').valid && patientRegForm.get('email').touched">
+          *ngIf="!patientRegForm.controls['email'].valid && patientRegForm.controls['email'].touched">
           This field is required!
         </p>
       </span>
@@ -51,7 +51,7 @@
                type="number"
                pInputText/>
         <p
-          *ngIf="!patientRegForm.get('age').valid && patientRegForm.get('age').touched">
+          *ngIf="!patientRegForm.controls['age'].valid && patientRegForm.controls['age'].touched">
           This field is required!
         </p>
       </span>
