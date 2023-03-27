@@ -14,23 +14,25 @@
 
 .chipContainer{
   display: flex;
-  gap: 5px;
-  margin-top: 10px;
+  gap: 10px;
+  margin: 16px 0;
 }
 
 .personalDetails{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  margin: 50px;
+  flex-direction: column;
 }
 
-.personalDetails span{
+.doctorInfo{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+  gap: 50px;
+  margin-bottom: 30px;
+}
+
+.degrees{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .orgContainer{
@@ -45,4 +47,14 @@
 
 ::ng-deep .p-card{
   margin: 20px;
+}
+
+::ng-deep .p-tag{
+  border-radius: 5px;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: center;
+  border: 2px solid #2D3649;
+  background: transparent;
+  color: #2D3649;
 }

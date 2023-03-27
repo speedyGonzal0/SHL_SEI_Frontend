@@ -13,8 +13,8 @@ export class DoctorProfileComponent {
     phone: "01613887722",
     email: "renu@gmail.com",
     gender: "Female",
-    specialities: ["Pediatrics", "Dermatology"],
-    degrees: ["PhD", "MBBS"]
+    specialities: ["Pediatrics", "Dermatology", "dasdsadsadda"],
+    degrees: ["PhD (Glasgow)","FCPS (Glasgow)","MBBS (DMC)"]
   }
 
   colHeaders = ["Sa", "Su", "Mo", "Tu", "We", "Th", "Fr"]
