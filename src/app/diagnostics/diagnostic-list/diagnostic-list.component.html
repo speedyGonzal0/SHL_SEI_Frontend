@@ -1,11 +1,11 @@
 <div class="container h-100 align-items-center d-flex flex-column gap-5">
   <h2 class="mt-5"> Available Diagnostic Services </h2>
 
-  <p-table #dt [rowHover]="true" [value]="diagService.diagnostics" [tableStyle]="{'min-width': '75rem'}"
+  <p-table #dt [rowHover]="true" [value]="diagService.orgDiagnostics" [tableStyle]="{'min-width': '75rem'}"
            [globalFilterFields]="['name']" >
     <ng-template pTemplate="caption">
       <div class="col d-flex justify-content-between">
-        <button (click)="showCreateDialog()" pButton icon="pi pi-plus" class="p-button-success" label="Add"></button>
+        <button (click)="showCreateDialog()" pButton icon="pi pi-plus" class="p-button-success p-button-outlined" label="Add"></button>
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search..." />

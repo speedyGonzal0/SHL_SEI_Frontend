@@ -35,7 +35,7 @@ export class DiagnosticListComponent {
   showEditDialog(index: number){
     this.diagService.toggleEditMode();
     this.diagService.ref = this.dialogService.open(CreateDiagnosticComponent, {
-      header: `Edit Diagnostic: ${this.diagService.diagnostics[index].id}`,
+      header: `Edit Diagnostic: ${this.diagService.orgDiagnostics[index].id}`,
       data: {
         index: index
       },

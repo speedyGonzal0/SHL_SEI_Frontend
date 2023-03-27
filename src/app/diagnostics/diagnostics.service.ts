@@ -10,20 +10,23 @@ export class DiagnosticsService implements OnInit{
   diagnostics = [
     {
       id: 1,
-      name: "X-ray",
-      price: 500.00
+      name: "X-ray"
     },
     {
       id: 2,
-      name: "CBC",
-      price: 400.00
+      name: "CBC"
     },
     {
       id: 3,
-      name: "Ultrasonography",
-      price: 600.00
+      name: "Ultrasonography"
+    },
+    {
+      id: 4,
+      name: "CBS"
     }
   ];
+
+  orgDiagnostics: {id: number, name: string, price: number}[] = [] ;
 
   ref!: DynamicDialogRef;
 
@@ -40,18 +43,26 @@ export class DiagnosticsService implements OnInit{
   }
 
   appendValue(value: ɵTypedOrUntyped<any, ɵFormGroupValue<any>, any>){
-    this.diagnostics.push( {id: this.diagnostics[this.diagnostics.length - 1].id + 1, name: value.diagName, price: value.diagPrice});
+    let extractedName: string;
+    if(value.diagName.id){
+      extractedName = value.diagName.name;
+    }
+    else{
+      extractedName = value.diagName;
+    }
+    this.orgDiagnostics.push( {id: this.orgDiagnostics.length + 1, name: extractedName, price: value.diagPrice});
+
     this.ref.close();
   }
 
   updateValue(index: number, value: ɵTypedOrUntyped<any, ɵFormGroupValue<any>, any>){
-    this.diagnostics[index].name = value.diagName;
-    this.diagnostics[index].price = value.diagPrice;
+    this.orgDiagnostics[index].name = value.diagName;
+    this.orgDiagnostics[index].price = value.diagPrice;
     this.ref.close();
   }
 
   deleteValue(index: number){
-    this.diagnostics.splice(index, 1);
+    this.orgDiagnostics.splice(index, 1);
   }
 
 }

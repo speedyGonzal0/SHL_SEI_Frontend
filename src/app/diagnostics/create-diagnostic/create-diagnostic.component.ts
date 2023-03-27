@@ -11,6 +11,7 @@ import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 export class CreateDiagnosticComponent implements OnInit{
 
   createDiagForm !: FormGroup;
+  selectedDiag: any;
 
 
   constructor(public config: DynamicDialogConfig, public diagService: DiagnosticsService) {
@@ -23,7 +24,7 @@ export class CreateDiagnosticComponent implements OnInit{
     })
 
     if(this.config.data){
-      let item = this.diagService.diagnostics[this.config.data.index];
+      let item = this.diagService.orgDiagnostics[this.config.data.index];
       this.createDiagForm.controls['diagName'].setValue(item.name)
       this.createDiagForm.controls['diagPrice'].setValue(item.price)
     }
