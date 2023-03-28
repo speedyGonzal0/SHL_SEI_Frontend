@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 import {AuthenticationModule} from "@authentication/authentication.module";
 import {DiagnosticsModule} from "@diagnostics/diagnostics.module";
 import {DoctorModule} from "@doctor/doctor.module";
-import {OrgModule} from "./org/org.module";
-import {PatientModule} from "./patient/patient.module";
+import {OrgModule} from "@org/org.module";
+import {PatientModule} from "@patient/patient.module";
 import {AppRoutingModule} from "./app-routing.module";
+import {MedicineModule} from "@medicine/medicine.module";
+import {HomeModule} from "@home/home.module";
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import {AppRoutingModule} from "./app-routing.module";
     AuthenticationModule,
     DiagnosticsModule,
     DoctorModule,
+    MedicineModule,
+    HomeModule,
     OrgModule,
     PatientModule,
     AppRoutingModule,

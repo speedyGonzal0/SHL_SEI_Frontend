@@ -8,7 +8,7 @@ import {DiagnosticsService} from "@diagnostics/diagnostics.service";
   selector: 'app-diagnostic-list',
   templateUrl: './diagnostic-list.component.html',
   styleUrls: ['./diagnostic-list.component.scss'],
-  providers: [MessageService, DialogService]
+  providers: [MessageService, DialogService, ConfirmationService]
 })
 export class DiagnosticListComponent {
 

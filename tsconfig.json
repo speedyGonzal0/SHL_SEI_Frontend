@@ -8,6 +8,10 @@
       "@diagnostics/*": ["src/app/diagnostics/*"],
       "@shared/*": ["src/app/shared/*"],
       "@doctor/*": ["src/app/doctor/*"],
+      "@medicine/*": ["src/app/medicine/*"],
+      "@home/*": ["src/app/home/*"],
+      "@org/*": ["src/app/org/*"],
+      "@patient/*": ["src/app/patient/*"],
       "@scss/*": ["src/app/scss/*"]
     },
     "outDir": "./dist/out-tsc",

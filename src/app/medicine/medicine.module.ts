@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
@@ -11,23 +12,19 @@ import {ToastModule} from 'primeng/toast';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
-import { DiagnosticListComponent } from './diagnostic-list/diagnostic-list.component';
-import { DiagnosticDetailsComponent } from './diagnostic-details/diagnostic-details.component';
-import { CreateDiagnosticComponent } from './create-diagnostic/create-diagnostic.component';
-import {SharedModule} from "@shared/shared.module";
+
+import { CreateMedicineComponent } from './create-medicine/create-medicine.component';
+import { MedicineListComponent } from './medicine-list/medicine-list.component';
 
 
 
 @NgModule({
   declarations: [
-    DiagnosticListComponent,
-    DiagnosticDetailsComponent,
-    CreateDiagnosticComponent
+    CreateMedicineComponent,
+    MedicineListComponent
   ],
   exports: [
-    DiagnosticListComponent,
-    CreateDiagnosticComponent,
-    DiagnosticDetailsComponent
+    MedicineListComponent
   ],
   imports: [
     CommonModule,
@@ -38,10 +35,8 @@ import {SharedModule} from "@shared/shared.module";
     InputNumberModule,
     TableModule,
     ToastModule,
-    SharedModule,
     DynamicDialogModule,
     ConfirmDialogModule
-  ],
-  providers: []
+  ]
 })
-export class DiagnosticsModule { }
+export class MedicineModule { }
