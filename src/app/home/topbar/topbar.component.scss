@@ -1,12 +1,12 @@
 .navContainer{
   background-color: white;
   width: 100%;
-  min-width: 600px;
   display: flex;
-  height: 100%;
-  position: sticky;
-  top: 0;
+  height: 70px;
+  position: fixed;
+  //top: 0;
   padding: 0 15px;
+  align-items: center;
   border-bottom: 2px #e7e7e7 solid;
 }
 

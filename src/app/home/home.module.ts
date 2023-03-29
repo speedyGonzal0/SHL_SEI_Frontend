@@ -9,7 +9,10 @@ import {AuthenticationModule} from "@authentication/authentication.module";
 
 
 import {ButtonModule} from 'primeng/button';
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
+import {DoctorModule} from "@doctor/doctor.module";
+import {DiagnosticsModule} from "@diagnostics/diagnostics.module";
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -17,19 +20,21 @@ import {RouterLink, RouterOutlet} from "@angular/router";
   declarations: [
     HomeComponent,
     TopbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    DashboardComponent
   ],
   exports:[
     HomeComponent,
     TopbarComponent,
     SidebarComponent
   ],
-  imports: [
-    CommonModule,
-    AuthenticationModule,
-    ButtonModule,
-    RouterLink,
-    RouterOutlet
-  ]
+    imports: [
+        CommonModule,
+        AuthenticationModule,
+        ButtonModule,
+        RouterLink,
+        RouterOutlet,
+        RouterLinkActive
+    ]
 })
 export class HomeModule { }

@@ -4,25 +4,27 @@
   height: 100%;
 }
 
-.header{
-  flex: 1;
-}
-
-.bodyContainer{
-  display: flex;
-  flex: 9;
-}
-.sidebar{
-  flex: 2;
-}
+//.header{
+//  //flex: 1;
+//}
+//
+//.bodyContainer{
+//  display: flex;
+//  height: 100%;
+//  //flex: 9;
+//}
+//
+//.sidebar{
+//  flex: 2;
+//}
 
 .mainContent{
+  margin-left: 270px;
+  margin-top: 70px;
   display: flex;
-  flex: 10;
   padding: 20px;
-  align-items: center;
   justify-content: center;
-  overflow: auto;
+  overflow-y: auto;
   //background-color: aquamarine;
 }
 
