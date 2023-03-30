@@ -1,11 +1,27 @@
 <nav class="navContainer">
   <div class="navLeft">
-    <button pButton class="p-button-outlined p-button-success" icon="pi pi-bars"></button>
+<!--    <button pButton class="p-button-outlined p-button-success d-md-none" icon="pi pi-bars"></button>-->
+    <p-sidebar [(visible)]="sidebarVisible" [baseZIndex]=10000>
+      <div class="sidebarBody">
+        <ul>
+          <li routerLink="dashboard" routerLinkActive="linkActive"> Dashboard </li>
+          <li routerLink="doctor/list" routerLinkActive="linkActive">  Doctors </li>
+          <li routerLink="org/list" routerLinkActive="linkActive" > Organizations </li>
+          <li routerLink="diagnostics" routerLinkActive="linkActive"> Diagnostics </li>
+          <li routerLink="medicine" routerLinkActive="linkActive"> Medicines </li>
+          <li routerLink="patients" routerLinkActive="linkActive"> Patients </li>
+        </ul>
+        <button routerLink="/login" pButton label="Login" class="p-button-success"></button>
+
+      </div>
+
+    </p-sidebar>
+    <p-button (click)="sidebarVisible = true" icon="pi pi-bars" styleClass="p-button-success p-button-outlined" class="d-md-none"></p-button>
     <h5> SHL Billing </h5>
   </div>
 
   <div class="navRight">
-    <h5>Username</h5>
+    <h5 class="d-md-flex d-none align-items-center">Username</h5>
     <app-logout></app-logout>
   </div>
 

@@ -4,28 +4,18 @@
   height: 100%;
 }
 
-//.header{
-//  //flex: 1;
-//}
-//
-//.bodyContainer{
-//  display: flex;
-//  height: 100%;
-//  //flex: 9;
-//}
-//
-//.sidebar{
-//  flex: 2;
-//}
-
 .mainContent{
   margin-left: 270px;
-  margin-top: 70px;
-  display: flex;
+  height: 100%;
   padding: 20px;
-  justify-content: center;
   overflow-y: auto;
   //background-color: aquamarine;
+}
+
+@media screen and (max-width: 768px ) {
+  .mainContent{
+    margin-left: 0;
+  }
 }
 
 
