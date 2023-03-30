@@ -1,0 +1,21 @@
+.homeContainer{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mainContent{
+  margin-left: 270px;
+  height: 100%;
+  padding: 20px;
+  overflow-y: auto;
+  //background-color: aquamarine;
+}
+
+@media screen and (max-width: 768px ) {
+  .mainContent{
+    margin-left: 0;
+  }
+}
+
+

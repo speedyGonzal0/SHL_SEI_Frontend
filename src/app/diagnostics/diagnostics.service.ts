@@ -43,12 +43,12 @@ export class DiagnosticsService implements OnInit{
   }
 
   appendValue(value: ɵTypedOrUntyped<any, ɵFormGroupValue<any>, any>){
-    let extractedName: string;
-    if(value.diagName.id){
-      extractedName = value.diagName.name;
+    let extractedName;
+    if(value.diag.name){
+      extractedName = value.diag.name;
     }
     else{
-      extractedName = value.diagName;
+      extractedName = value.diag;
     }
     this.orgDiagnostics.push( {id: this.orgDiagnostics.length + 1, name: extractedName, price: value.diagPrice});
 

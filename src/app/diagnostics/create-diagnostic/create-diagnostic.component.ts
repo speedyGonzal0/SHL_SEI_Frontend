@@ -19,6 +19,7 @@ export class CreateDiagnosticComponent implements OnInit{
 
   ngOnInit() {
     this.createDiagForm = new FormGroup({
+      "diag": new FormControl(null),
       "diagName": new FormControl(null, Validators.required),
       "diagPrice": new FormControl(null)
     })

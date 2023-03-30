@@ -4,7 +4,7 @@
 
     <div class="fields" *ngIf="!diagService.editMode">
       <label for="diagOptions"> Choose Diagnostic </label>
-      <p-dropdown [style]="{'width': '100%'}" inputId="diagOptions" [options]="diagService.diagnostics" formControlName="diagName" placeholder="Select a Diagnostic" [editable]="true" optionLabel="name"></p-dropdown>
+      <p-dropdown [style]="{'width': '100%'}" inputId="diagOptions" [options]="diagService.diagnostics" formControlName="diag" placeholder="Select a Diagnostic" [editable]="true" optionLabel="name"></p-dropdown>
     </div>
 
     <div class="fields" *ngIf="diagService.editMode">

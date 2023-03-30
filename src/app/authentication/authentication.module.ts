@@ -9,6 +9,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {PasswordModule} from 'primeng/password';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from "primeng/api";
+import { MenuModule } from 'primeng/menu';
 
 import {LoginComponent} from "./login/login.component";
 import { LogoutComponent } from './logout/logout.component';
@@ -28,7 +29,8 @@ import { LogoutComponent } from './logout/logout.component';
     DropdownModule,
     PasswordModule,
     ReactiveFormsModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MenuModule
   ],
   providers:[ConfirmationService],
   exports: [
