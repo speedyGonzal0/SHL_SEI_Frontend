@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MessageService, ConfirmationService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import {DoctorRegistrationComponent} from "../doctor-registration/doctor-registration.component";
+import {HttpService} from "@shared/services/http.service";
+import {DoctorService} from "@shared/services/doctor.service";
 
 @Component({
   selector: 'app-doctor-list',
@@ -9,61 +11,47 @@ import {DoctorRegistrationComponent} from "../doctor-registration/doctor-registr
   styleUrls: ['./doctor-list.component.scss'],
   providers: [MessageService, DialogService, ConfirmationService]
 })
-export class DoctorListComponent {
-  doctors = [
-    {
-      name: "Renu Akter",
-      orgs: ["Square","Labaid"],
-      specialities: ["Pediatrics", "Dermatology"],
-      gender: "Female",
-      degrees: ["PhD", "MBBS"]
-    },
-    {
-      name: "Monjil Akter",
-      orgs: ["Apollo","Labaid", "Popular"],
-      specialities: ["Dermatology"],
-      gender: "Male",
-      degrees: ["MBBS"]
-    },
-    {
-      name: "Shawkat Ahmed",
-      orgs: ["Square","Labaid"],
-      specialities: ["Pediatrics", "Dermatology"],
-      gender: "Female",
-      degrees: ["PhD", "MBBS"]
-    }
-  ];
+export class DoctorListComponent implements OnInit{
 
-  constructor(private messageService: MessageService, private dialogService: DialogService, private confirmationService: ConfirmationService) {
+  constructor(private messageService: MessageService, private dialogService: DialogService,
+              private confirmationService: ConfirmationService, private httpService: HttpService,
+              public doctorService: DoctorService) {
   }
 
-  addSingle() {
-    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
+  ngOnInit() {
+    this.getDoctorList()
+  }
+
+  getDoctorList(){
+    this.httpService.getRequest("http://localhost:9000/doctor/all")
+      .subscribe((response: any) => {
+        this.doctorService.doctors = response
+      })
   }
 
   showCreateDialog(){
-    this.dialogService.open(DoctorRegistrationComponent, {
+    this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
       header: "Register New Doctor",
       width: '50%',
     });
   }
 
   showEditDialog(index: number){
-    // this.diagService.toggleEditMode();
-    // this.diagService.ref = this.dialogService.open(CreateDiagnosticComponent, {
-    //   header: `Edit Diagnostic: ${this.diagService.diagnostics[index].id}`,
-    //   data: {
-    //     index: index
-    //   },
-    //   width: '50%'
-    // });
-    //
-    // this.diagService.ref.onClose.subscribe(() => this.diagService.toggleEditMode());
+    this.doctorService.toggleEditMode();
+    this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
+      header: `Editing Dr. ${this.doctorService.doctors[index].name}`,
+      data: {
+        index: index
+      },
+      width: '50%'
+    });
+
+    this.doctorService.doctorRef.onClose.subscribe(() => this.doctorService.toggleEditMode());
   }
 
   onDelete(index: number) {
     this.confirmationService.confirm({
-      message: `Are you sure that you want to delete ${index}?`,
+      message: `Are you sure you want to delete doctor ID: ${this.doctorService.doctors[index].id}?`,
       acceptButtonStyleClass: "p-button-danger",
       rejectButtonStyleClass: "p-button-outlined p-button-secondary",
       accept: () => {

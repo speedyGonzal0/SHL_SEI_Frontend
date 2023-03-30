@@ -1,20 +1,23 @@
 <div class="doctorListContainer">
-  <p-table #dt [rowHover]="true" [value]="doctors" [tableStyle]="{'min-width': '75rem'}"
-           [globalFilterFields]="['name', 'orgs', 'specialities']" >
+  <h2 class="text-center">Registered Doctors</h2>
+  <p-table #dt [rowHover]="true" [value]="doctorService.doctors" [tableStyle]="{'min-width': '50rem'}"
+           [globalFilterFields]="['id', 'name', 'specialities']" >
     <ng-template pTemplate="caption">
       <div class="tableToolbar">
-        <button (click)="showCreateDialog()" pButton icon="pi pi-plus" class="p-button-success" label="Add"></button>
-        <h1>Registered Doctors</h1>
+        <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
+                class="p-button-success p-button-outlined" label="Add"></button>
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="name/speciality/org" />
+            <input pInputText type="text"
+                   (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                   placeholder="ID/Name/Speciality" />
           </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
+        <th style="text-align: center" pSortableColumn="id"><p-sortIcon field="id"></p-sortIcon> ID </th>
         <th style="text-align: center" pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon> Name </th>
-        <th style="text-align: center" pSortableColumn="orgs"><p-sortIcon field="orgs"></p-sortIcon> Organizations </th>
         <th style="text-align: center" pSortableColumn="specialities"><p-sortIcon field="specialities"></p-sortIcon> Specialities </th>
         <th style="text-align: center" pSortableColumn="gender"><p-sortIcon field="gender"></p-sortIcon> Gender </th>
         <th style="text-align: center">Actions</th>
@@ -22,8 +25,8 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
+        <td style="text-align: center"> {{item.id}}</td>
         <td style="text-align: center"> {{item.name}} </td>
-        <td style="text-align: center"> {{item.orgs}}</td>
         <td style="text-align: center"> {{item.specialities}}</td>
         <td style="text-align: center"> {{item.gender}}</td>
         <td style="text-align: center">
@@ -31,7 +34,9 @@
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
                     class="p-button-outlined p-button-secondary"></button>
             <button (click)="onDelete(index)" pButton icon="pi pi-trash"
-                    class="p-button-outlined p-button-danger"></button>
+                    class="p-button-outlined p-button-secondary"></button>
+            <button [routerLink]="['/doctor/profile', item.id]" pButton icon="pi pi-eye"
+                    class="p-button-outlined p-button-secondary"></button>
           </span>
         </td>
 

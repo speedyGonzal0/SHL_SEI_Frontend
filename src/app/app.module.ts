@@ -11,6 +11,7 @@ import {PatientModule} from "@patient/patient.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {MedicineModule} from "@medicine/medicine.module";
 import {HomeModule} from "@home/home.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {HomeModule} from "@home/home.module";
     OrgModule,
     PatientModule,
     AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

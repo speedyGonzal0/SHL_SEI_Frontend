@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DoctorService} from "@shared/services/doctor.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-doctor-profile',
   templateUrl: './doctor-profile.component.html',
   styleUrls: ['./doctor-profile.component.scss']
 })
-export class DoctorProfileComponent {
+export class DoctorProfileComponent implements OnInit{
 
+  id! : number;
   doctor = {
     id: 123,
     name: "Renu Akter",
@@ -31,4 +34,24 @@ export class DoctorProfileComponent {
       fees: [1200, 600, 800]
     },
   ]
+
+  constructor(public doctorService: DoctorService, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.doctorService.getDoctorByID(this.route.snapshot.params['id'])
+    // this.route.params.subscribe(
+    //   (params: Params) => {
+    //     console.log(params['id'])
+    //     this.doctorID = params['id'];
+    //     if (this.doctorID){
+    //       this.doctorService.getDoctorByID(this.doctorID)
+    //     }
+    //   }
+    // )
+    // this.route.paramMap.subscribe((params: ParamMap) => {
+    //   console.log(params.get('id'));
+    //   console.log(this.doctorService.getDoctorByID(this.doctorID))
+    // });
+  }
+
 }
