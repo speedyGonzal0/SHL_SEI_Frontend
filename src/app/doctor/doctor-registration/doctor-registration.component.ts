@@ -1,28 +1,55 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {DoctorService} from "@shared/services/doctor.service";
+import {DynamicDialogConfig} from "primeng/dynamicdialog";
 @Component({
   selector: 'app-doctor-registration',
   templateUrl: './doctor-registration.component.html',
   styleUrls: ['./doctor-registration.component.scss']
 })
 export class DoctorRegistrationComponent implements OnInit{
-  genders = [{gender: "Male"}, {gender: "Female"}];
 
-  doctorRegForm!: FormGroup;
+  constructor(public doctorService: DoctorService, private config: DynamicDialogConfig) {}
+
+  doctorForm!: FormGroup;
+
+  doctorEditID! : number;
+  formLabel = this.doctorService.editMode ? "Edit" : "Create";
 
   ngOnInit() {
-    this.doctorRegForm = new FormGroup({
+    this.doctorForm = new FormGroup({
       'name' : new FormControl(null, Validators.required),
       'phone' : new FormControl(null, [Validators.required]),
       'email' : new FormControl(null, [Validators.required, Validators.email]),
       'gender' : new FormControl(null, [Validators.required]),
-      'degree' : new FormControl(null),
+      'degrees' : new FormControl(null),
       'specialities' : new FormControl(null),
-
     })
+
+    if(this.config.data) {
+      let doctor = this.doctorService.doctors[this.config.data.index];
+      this.doctorForm.setValue({
+        name: doctor.name,
+        phone: doctor.phone,
+        email: doctor.email,
+        gender: this.doctorService.genders.find(
+          (genders) =>
+          genders.gender.toLowerCase() === doctor.gender.toLowerCase()
+        ),
+        degrees: doctor.degrees,
+        specialities: doctor.specialities
+      })
+      this.doctorEditID = doctor.id
+    }
   }
 
   onSubmit(){
-    console.log(this.doctorRegForm)
+    this.doctorService.editMode
+      ?
+      this.doctorService.editDoctor(this.doctorEditID, this.doctorForm.value)
+      :
+      this.doctorService.createDoctor(this.doctorForm.value)
+
+    this.doctorForm.reset()
   }
 }

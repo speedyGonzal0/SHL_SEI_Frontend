@@ -6,20 +6,31 @@
       <h1>SHL Billing</h1>
     </div>
 
-    <form class="cardBody">
+    <form class="cardBody" [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
       <div class="fields">
-        <label for="username" class="block">E-mail</label>
-        <input id="username" placeholder="Type your email" class="ng-dirty" pInputText />
+        <label for="username">E-mail</label>
+        <input
+          id="username"
+          pInputText
+          formControlName="email"/>
       </div>
 
       <div class="fields">
-        <label for="password" class="block">Password</label>
-        <input id="password" type="password" class="ng-dirty" pPassword placeholder="Password" />
+        <label for="password">Password</label>
+        <p-password id="password"
+                    class="p-fluid"
+                    [toggleMask]="true"
+                    formControlName="password"/>
       </div>
 
       <div class="fields">
-        <button [style]="{'width': '100%'}" pButton type="submit" label="Log in" class="p-button-success"></button>
+        <button
+          [style]="{'width': '100%'}"
+          pButton
+          type="submit"
+          label="Log in"
+          [disabled]="!loginForm.valid"></button>
       </div>
     </form>
 

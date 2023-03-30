@@ -1,12 +1,15 @@
 <div class="docRegContainer">
 
-  <h1>Doctor Registration</h1>
-
   <div class="docRegCardContainer">
 
-    <form [formGroup]="doctorRegForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
 
-      <span class="inputField">
+      <!------------------------------------------------------------------
+      ------------------------ Create Doctor Form ------------------------
+      ------------------------------------------------ ------------------->
+
+      <span *ngIf="!doctorService.editMode"
+            class="inputField">
         <label for="name">Name</label>
         <input formControlName="name"
                id="name"
@@ -14,12 +17,13 @@
                pInputText
         />
         <p
-          *ngIf="!doctorRegForm.controls['name'].valid && doctorRegForm.controls['name'].touched">
+          *ngIf="!doctorForm.controls['name'].valid && doctorForm.controls['name'].touched">
           This field is required!
         </p>
       </span>
 
-      <span class="inputField">
+      <span *ngIf="!doctorService.editMode"
+            class="inputField">
         <label for="phone">Phone</label>
         <input formControlName="phone"
                id="phone"
@@ -27,53 +31,120 @@
                pInputText
         />
         <p
-          *ngIf="!doctorRegForm.controls['phone'].valid && doctorRegForm.controls['phone'].touched">
+          *ngIf="!doctorForm.controls['phone'].valid && doctorForm.controls['phone'].touched">
           This field is required!
         </p>
       </span>
 
-      <span class="inputField">
+      <span *ngIf="!doctorService.editMode"
+            class="inputField">
         <label for="email">Email</label>
         <input formControlName="email"
                id="email"
                type="email"
                pInputText/>
         <p
-          *ngIf="!doctorRegForm.controls['email'].valid && doctorRegForm.controls['email'].touched">
+          *ngIf="!doctorForm.controls['email'].valid && doctorForm.controls['email'].touched">
           This field is required!
         </p>
       </span>
 
-      <span class="inputField">
+      <span *ngIf="!doctorService.editMode"
+            class="inputField">
         <label for="gender">Gender</label>
         <p-dropdown formControlName="gender"
-                    [options]="genders"
+                    [options]="doctorService.genders"
                     placeholder="-"
                     id="gender"
                     [style]="{width: '100%'}"
                     optionLabel="gender">
         </p-dropdown>
         <p
-          *ngIf="!doctorRegForm.controls['gender'].valid && doctorRegForm.controls['gender'].touched">
+          *ngIf="!doctorForm.controls['gender'].valid && doctorForm.controls['gender'].touched">
           This field is required!
         </p>
       </span>
 
-      <span class="inputField">
-        <label for="degree">Degree</label>
-        <p-chips formControlName="degree"
-                 id="degree">
+      <span *ngIf="!doctorService.editMode"
+            class="inputField p-fluid">
+        <label for="degrees">Degrees</label>
+        <p-chips formControlName="degrees"
+                 id="degrees">
         </p-chips>
       </span>
 
-      <span class="inputField">
+      <span *ngIf="!doctorService.editMode"
+            class="inputField p-fluid">
         <label for="specialities">Specialities</label>
         <p-chips formControlName="specialities"
                  id="specialities">
         </p-chips>
       </span>
 
-      <button pButton type="submit" label="Create" [disabled]="!doctorRegForm.valid"></button>
+
+      <!------------------------------------------------------------------
+     ------------------------ Edit Doctor Form ------------------------
+     ------------------------------------------------ ------------------->
+
+      <span *ngIf="doctorService.editMode"
+        class="inputField">
+        <label for="name">Name</label>
+        <input formControlName="name"
+               inputId="name"
+               type="text"
+               pInputText
+        />
+      </span>
+
+      <span *ngIf="doctorService.editMode"
+            class="inputField">
+        <label for="phone">Phone</label>
+        <input formControlName="phone"
+               inputId="phone"
+               type="text"
+               pInputText
+        />
+      </span>
+
+      <span *ngIf="doctorService.editMode"
+            class="inputField">
+        <label for="email">Email</label>
+        <input formControlName="email"
+               inputId="email"
+               type="email"
+               pInputText/>
+      </span>
+
+      <span *ngIf="doctorService.editMode"
+            class="inputField">
+        <label for="gender">Gender</label>
+        <p-dropdown formControlName="gender"
+                    [options]="doctorService.genders"
+                    placeholder="-"
+                    inputId="gender"
+                    [style]="{width: '100%'}"
+                    optionLabel="gender">
+        </p-dropdown>
+      </span>
+
+      <span *ngIf="doctorService.editMode"
+            class="inputField p-fluid">
+        <label for="degrees">Degrees</label>
+        <p-chips formControlName="degrees"
+                 inputId="degrees">
+        </p-chips>
+      </span>
+
+      <span *ngIf="doctorService.editMode"
+            class="inputField p-fluid">
+        <label for="specialities">Specialities</label>
+        <p-chips formControlName="specialities"
+                 inputId="specialities">
+        </p-chips>
+      </span>
+
+      <button pButton type="submit" label={{formLabel}}
+              [disabled]="!doctorForm.valid && !doctorService.editMode"></button>
 
     </form>
 
