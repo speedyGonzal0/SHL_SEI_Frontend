@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {Params} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -7,11 +8,15 @@ import {HttpClient} from "@angular/common/http";
 export class HttpService {
   constructor(private http: HttpClient) {}
   getRequest(url: string){
-    return this.http.get(url)
+    return this.http.get(url);
+  }
+
+  getRequestWithParams(url: string, queryParams: Params){
+    return this.http.get(url, {params: queryParams})
   }
 
   deleteRequest(url: string){
-    return this.http.delete(url)
+    return this.http.delete(url, {responseType: 'text'})
   }
 
   updateRequest(url: string, body: any){
