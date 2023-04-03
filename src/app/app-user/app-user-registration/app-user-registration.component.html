@@ -1,0 +1,197 @@
+<div class="appUserContainer">
+
+  <div class="appUserCardContainer">
+
+    <form [formGroup]="appUserForm" (ngSubmit)="onSubmit()">
+
+      <!------------------------------------------------------------------
+      ------------------------ Create Doctor Form ------------------------
+      ------------------------------------------------ ------------------->
+      <span *ngIf="!appUserService.editMode"
+            class="inputField">
+        <label for="name">Name</label>
+        <input formControlName="name"
+               id="name"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!appUserForm.controls['name'].valid && appUserForm.controls['name'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="!appUserService.editMode"
+            class="inputField">
+        <label for="phone">Phone</label>
+        <input formControlName="phone"
+               id="phone"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!appUserForm.controls['phone'].valid && appUserForm.controls['phone'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="!appUserService.editMode"
+            class="inputField">
+        <label for="email">Email</label>
+        <input formControlName="email"
+               id="email"
+               type="email"
+               pInputText/>
+        <p
+          *ngIf="!appUserForm.controls['email'].valid && appUserForm.controls['email'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="!appUserService.editMode"
+            class="inputField">
+        <label for="gender">Gender</label>
+        <p-dropdown formControlName="gender"
+                    [options]="appUserService.genders"
+                    placeholder="-"
+                    id="gender"
+                    [style]="{width: '100%'}"
+                    optionLabel="gender">
+        </p-dropdown>
+        <p
+          *ngIf="!appUserForm.controls['gender'].valid && appUserForm.controls['gender'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="!appUserService.editMode && !authService.isAdmin"
+            class="inputField">
+        <label for="role">Role</label>
+        <p-multiSelect formControlName="role"
+                    [options]="appUserService.roles"
+                    placeholder="-"
+                    id="role"
+                    [style]="{width: '100%'}"
+                    optionLabel="role">
+        </p-multiSelect>
+        <p
+          *ngIf="!appUserForm.controls['role'].valid && appUserForm.controls['role'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="!appUserService.editMode"
+            class="inputField">
+        <label for="age">Age</label>
+        <input formControlName="age"
+               id="age"
+               type="number"
+               pInputText/>
+        <p
+          *ngIf="!appUserForm.controls['age'].valid && appUserForm.controls['age'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="!appUserService.editMode"
+            class="inputField">
+        <label for="address">Address</label>
+        <input formControlName="address"
+               id="address"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!appUserForm.controls['address'].valid && appUserForm.controls['address'].touched">
+          This field is required!
+        </p>
+      </span>
+
+
+      <span *ngIf="!appUserService.editMode"
+            class="inputField">
+        <label for="password">Password</label>
+        <input formControlName="password"
+               id="password"
+               type="password"
+               pInputText/>
+        <p
+          *ngIf="!appUserForm.controls['password'].valid && appUserForm.controls['password'].touched">
+          This field is required!
+        </p>
+      </span>
+
+
+      <!------------------------------------------------------------------
+      ------------------------ Edit Doctor Form --------------------------
+      ------------------------------------------------ ------------------->
+
+      <span *ngIf="appUserService.editMode"
+            class="inputField">
+        <label for="name">Name</label>
+        <input formControlName="name"
+               inputId="name"
+               type="text"
+               pInputText
+        />
+      </span>
+
+      <span *ngIf="appUserService.editMode"
+            class="inputField">
+        <label for="phone">Phone</label>
+        <input formControlName="phone"
+               inputId="phone"
+               type="text"
+               pInputText
+        />
+      </span>
+
+      <span *ngIf="appUserService.editMode"
+            class="inputField">
+        <label for="email">Email</label>
+        <input formControlName="email"
+               inputId="email"
+               type="email"
+               pInputText/>
+      </span>
+
+      <span *ngIf="appUserService.editMode"
+            class="inputField">
+        <label for="gender">Gender</label>
+        <p-dropdown formControlName="gender"
+                    [options]="appUserService.genders"
+                    placeholder="-"
+                    inputId="gender"
+                    [style]="{width: '100%'}"
+                    optionLabel="gender">
+        </p-dropdown>
+      </span>
+
+      <span *ngIf="appUserService.editMode"
+            class="inputField">
+        <label for="age">Age</label>
+        <input formControlName="age"
+               inputId="age"
+               type="number"
+               pInputText/>
+      </span>
+
+      <span *ngIf="appUserService.editMode"
+            class="inputField">
+        <label for="address">Address</label>
+        <input formControlName="address"
+               inputId="address"
+               type="text"
+               pInputText
+        />
+      </span>
+
+
+      <button pButton type="submit" label={{submitLabel}}
+              [disabled]="!appUserForm.valid && !appUserService.editMode"></button>
+
+    </form>
+
+  </div>
+
+</div>

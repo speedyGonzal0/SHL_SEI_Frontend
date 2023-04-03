@@ -12,10 +12,11 @@ import {AppRoutingModule} from "./app-routing.module";
 import {MedicineModule} from "@medicine/medicine.module";
 import {HomeModule} from "@home/home.module";
 import {HttpClientModule} from "@angular/common/http";
+import {AppUserModule} from "./app-user/app-user.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +27,7 @@ import {HttpClientModule} from "@angular/common/http";
     MedicineModule,
     HomeModule,
     OrgModule,
+    AppUserModule,
     PatientModule,
     AppRoutingModule,
     HttpClientModule

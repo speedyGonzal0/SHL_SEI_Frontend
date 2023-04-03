@@ -82,8 +82,8 @@
       </span>
 
 
-      <!------------------------------------------------------------------
-     ------------------------ Edit Doctor Form ------------------------
+     <!------------------------------------------------------------------
+     ------------------------ Edit Doctor Form --------------------------
      ------------------------------------------------ ------------------->
 
       <span *ngIf="doctorService.editMode"
@@ -143,7 +143,7 @@
         </p-chips>
       </span>
 
-      <button pButton type="submit" label={{formLabel}}
+      <button pButton type="submit" label={{submitLabel}}
               [disabled]="!doctorForm.valid && !doctorService.editMode"></button>
 
     </form>

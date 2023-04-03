@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DoctorService} from "@shared/services/doctor.service";
-import {DynamicDialogConfig} from "primeng/dynamicdialog";
 @Component({
   selector: 'app-doctor-registration',
   templateUrl: './doctor-registration.component.html',
@@ -14,7 +14,7 @@ export class DoctorRegistrationComponent implements OnInit{
   doctorForm!: FormGroup;
 
   doctorEditID! : number;
-  formLabel = this.doctorService.editMode ? "Edit" : "Create";
+  submitLabel = this.doctorService.editMode ? "Edit" : "Create";
 
   ngOnInit() {
     this.doctorForm = new FormGroup({

@@ -1,7 +1,5 @@
 <div class="patientRegContainer">
 
-  <h1>Patient Registration</h1>
-
   <div class="patientRegCardContainer">
 
     <form [formGroup]="patientRegForm" (ngSubmit)="onCreatePatient()">
@@ -45,6 +43,17 @@
       </span>
 
       <span class="inputField">
+        <label for="gender">Gender</label>
+        <p-dropdown formControlName="gender"
+                    [options]="patientService.genders"
+                    placeholder="-"
+                    id="gender"
+                    [style]="{width: '100%'}"
+                    optionLabel="gender">
+        </p-dropdown>
+      </span>
+
+      <span class="inputField">
         <label for="age">Age</label>
         <input formControlName="age"
                id="age"
@@ -54,17 +63,6 @@
           *ngIf="!patientRegForm.controls['age'].valid && patientRegForm.controls['age'].touched">
           This field is required!
         </p>
-      </span>
-
-      <span class="inputField">
-        <label for="gender">Gender</label>
-        <p-dropdown formControlName="gender"
-                    [options]="genders"
-                    placeholder="-"
-                    id="gender"
-                    [style]="{width: '100%'}"
-                    optionLabel="gender">
-        </p-dropdown>
       </span>
 
       <button pButton type="submit" label="Create" [disabled]="!patientRegForm.valid"></button>

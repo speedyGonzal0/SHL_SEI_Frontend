@@ -1,8 +1,8 @@
 <div class="container-md">
   <div class="text-center">
-    <h1>{{doctor.name}}</h1>
+    <h2>Dr. {{doctorService.doctor.name}}</h2>
     <div class="chipContainer justify-content-center">
-      <p-tag *ngFor="let speciality of doctor.specialities"
+      <p-tag *ngFor="let speciality of doctorService.doctor.specialities"
               [style]="{
                 borderRadius: '5px',
                 padding: '10px',
@@ -20,16 +20,16 @@
     <div class="col personalDetails">
       <h3 class="text-md-start text-center">Personal Details</h3>
       <div class="chipContainer justify-content-md-start justify-content-center">
-        <p-tag>{{doctor.email}}</p-tag>
-        <p-tag>{{doctor.phone}}</p-tag>
-        <p-tag>{{doctor.gender}}</p-tag>
+        <p-tag>{{doctorService.doctor.email}}</p-tag>
+        <p-tag>{{doctorService.doctor.phone}}</p-tag>
+        <p-tag>{{doctorService.doctor.gender}}</p-tag>
       </div>
     </div>
 
     <div class="col degrees">
       <h3 class="text-md-end text-center">Degrees</h3>
       <div class="chipContainer justify-content-md-end justify-content-center">
-        <p-tag *ngFor="let degree of doctor.degrees"
+        <p-tag *ngFor="let degree of doctorService.doctor.degrees"
                [style]="{
                 borderRadius: '5px',
                 padding: '6px 10px',

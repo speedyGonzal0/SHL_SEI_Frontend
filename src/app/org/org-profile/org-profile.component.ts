@@ -1,17 +1,22 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from "@angular/router";
+import {OrgService} from "@shared/services/org.service";
 
 @Component({
   selector: 'app-org-profile',
   templateUrl: './org-profile.component.html',
   styleUrls: ['./org-profile.component.scss']
 })
-export class OrgProfileComponent {
-  org = {
-    id: 123,
-    name: "Labaid Hospital",
-    address: "House#06, Road#04, Dhanmondi, Dhaka 1205, Bangladesh",
-    phone: "01715227710",
-    email: "info@labaid.net",
-    website: "www.labaid.com"
+export class OrgProfileComponent implements OnInit{
+
+  constructor(public orgService: OrgService, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.params.subscribe(
+      (params: Params) => {
+        console.log(params['id'])
+        this.orgService.getOrgByID(params['id'])
+      }
+    )
   }
 }

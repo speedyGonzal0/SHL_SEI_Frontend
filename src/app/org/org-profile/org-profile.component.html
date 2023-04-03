@@ -1,40 +1,39 @@
 <div class="orgProfileContainer">
 
-  <h2>{{org.name}}</h2>
+  <h2>{{orgService.org.name}}</h2>
 
-  <div class="orgInfo">
-  <span class="website">
-    <i class="pi pi-globe"></i>
-    <p>{{org.website}}</p>
-  </span>
-    <span class="phone">
-    <i class="pi pi-phone"></i>
-    <p>{{org.phone}}</p>
-  </span>
-    <span class="email">
-    <i class="pi pi-envelope"></i>
-    <p>{{org.email}}</p>
-  </span>
-    <span class="address">
-    <i class="pi pi-map-marker"></i>
-    <p>{{org.address}}</p>
-  </span>
-  </div>
+  <p-card>
+    <div class="orgInfo">
+      <div class="orgContact">
+        <span class="website">
+          <i class="pi pi-globe"></i>
+          <p>{{orgService.org.website}}</p>
+        </span>
 
-  <div class="userCount">
-    <p-card>
-      <div class="userCountCard">
-        <h1>500</h1>
-        <p>Doctors</p>
-        <button pButton type="button" label="Doctors List" class="p-button-raised p-button-text"></button>
+          <span class="phone">
+          <i class="pi pi-phone"></i>
+          <p>{{orgService.org.phone}}</p>
+        </span>
+
+          <span class="email">
+          <i class="pi pi-envelope"></i>
+          <p>{{orgService.org.email}}</p>
+        </span>
       </div>
-    </p-card>
-    <p-card>
-      <div class="userCountCard">
-        <h1>750</h1>
-        <p>Employees</p>
-        <button pButton type="button" label="Employees List" class="p-button-raised p-button-text"></button>
+
+      <div class="orgAddress">
+        <span class="address">
+        <i class="pi pi-map-marker"></i>
+        <p>{{orgService.org.address}}</p>
+      </span>
       </div>
-    </p-card>
+    </div>
+  </p-card>
+
+  <div class="userListButtons">
+    <button pButton type="button" label="Doctors List"
+            class="p-button-raised p-button-text p-button-success"></button>
+    <button pButton type="button" label="Employees List"
+            class="p-button-raised p-button-text p-button-success"></button>
   </div>
 </div>

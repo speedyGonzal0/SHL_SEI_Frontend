@@ -20,6 +20,16 @@ export class DoctorService {
     degrees: string[]
   }[] = [];
 
+  doctor = {
+    id: 0,
+    name: '',
+    email: '',
+    phone: '',
+    gender: '',
+    specialities: [],
+    degrees: []
+  }
+
   genders = [
     {gender: "Male", value: 0},
     {gender: "Female", value: 1},
@@ -32,7 +42,6 @@ export class DoctorService {
   }
 
   createDoctor(doctorInfo: any){
-    console.log(doctorInfo)
     this.httpService.createRequest(
       "http://localhost:9000/doctor/admin/1/add",{
           name: doctorInfo.name,
@@ -60,8 +69,8 @@ export class DoctorService {
   getDoctorByID(id: number){
     this.httpService.getRequest(`http://localhost:9000/doctor/${id}`)
       .subscribe((response: any) => {
-        this.doctors = response
-        console.log(this.doctors)
+        this.doctor = response
+        console.log(this.doctor)
       })
   }
 }
