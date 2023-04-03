@@ -1,4 +1,4 @@
-.orgRegContainer{
+.appUserContainer{
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -6,7 +6,7 @@
   justify-content: center;
 }
 
-.orgRegCardContainer{
+.appUserCardContainer{
   width: 70%;
   height: auto;
   padding: 16px;
@@ -15,18 +15,17 @@
 .inputField{
   display: flex;
   flex-direction: column;
-  margin: 10px 0;
 }
 
-.orgRegCardContainer form{
+.appUserCardContainer form{
   display: flex;
   flex-direction: column;
 }
 
-.orgRegCardContainer button{
+.appUserCardContainer button{
   margin-top: 20px;
 }
 
-.orgRegCardContainer label{
+.appUserCardContainer label{
   margin: 5px 0;
 }

@@ -1,5 +1,6 @@
 <div class="doctorListContainer">
-  <h2 class="text-center">Registered Doctors</h2>
+
+  <h2 class="text-center mb-4">Registered Doctors</h2>
   <p-table #dt [rowHover]="true" [value]="doctorService.doctors" [tableStyle]="{'min-width': '50rem'}"
            [globalFilterFields]="['id', 'name', 'specialities']" >
     <ng-template pTemplate="caption">

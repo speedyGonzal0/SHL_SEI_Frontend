@@ -39,7 +39,7 @@ export class DoctorListComponent implements OnInit{
   showEditDialog(index: number){
     this.doctorService.toggleEditMode();
     this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
-      header: `Editing Dr. ${this.doctorService.doctors[index].name}`,
+      header: `Editing ${this.doctorService.doctors[index].name}`,
       data: {
         index: index
       },

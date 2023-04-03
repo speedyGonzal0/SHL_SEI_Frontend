@@ -1,12 +1,15 @@
 <div class="orgRegContainer">
 
-  <h1>Organization Registration</h1>
-
   <div class="orgRegCardContainer">
 
-    <form [formGroup]="orgRegForm" (ngSubmit)="onCreateOrg()">
+    <form [formGroup]="orgForm" (ngSubmit)="onSubmit()">
 
-      <span class="inputField">
+      <!------------------------------------------------------------------
+      ------------------------ Create Doctor Form ------------------------
+      ------------------------------------------------ ------------------->
+
+      <span *ngIf="!orgService.editMode"
+            class="inputField">
         <label for="name">Name</label>
         <input formControlName="name"
                id="name"
@@ -14,12 +17,13 @@
                pInputText
         />
         <p
-          *ngIf="!orgRegForm.controls['name'].valid && orgRegForm.controls['name'].touched">
+          *ngIf="!orgForm.controls['name'].valid && orgForm.controls['name'].touched">
            This field is required!
         </p>
       </span>
 
-      <span class="inputField">
+      <span *ngIf="!orgService.editMode"
+            class="inputField">
         <label for="address">Address</label>
         <input formControlName="address"
                id="address"
@@ -27,12 +31,13 @@
                pInputText
         />
         <p
-          *ngIf="!orgRegForm.controls['address'].valid && orgRegForm.controls['address'].touched">
+          *ngIf="!orgForm.controls['address'].valid && orgForm.controls['address'].touched">
            This field is required!
         </p>
       </span>
 
-      <span class="inputField">
+      <span *ngIf="!orgService.editMode"
+            class="inputField">
         <label for="phone">Phone</label>
         <input formControlName="phone"
                id="phone"
@@ -40,24 +45,26 @@
                pInputText
         />
         <p
-          *ngIf="!orgRegForm.controls['phone'].valid && orgRegForm.controls['phone'].touched">
+          *ngIf="!orgForm.controls['phone'].valid && orgForm.controls['phone'].touched">
           This field is required!
         </p>
       </span>
 
-      <span class="inputField">
+      <span *ngIf="!orgService.editMode"
+            class="inputField">
         <label for="email">Email</label>
         <input formControlName="email"
                id="email"
                type="email"
                pInputText/>
         <p
-          *ngIf="!orgRegForm.controls['email'].valid && orgRegForm.controls['email'].touched">
+          *ngIf="!orgForm.controls['email'].valid && orgForm.controls['email'].touched">
           This field is required!
         </p>
       </span>
 
-      <span class="inputField">
+      <span *ngIf="!orgService.editMode"
+            class="inputField">
         <label for="website">Website</label>
         <input formControlName="website"
                id="website"
@@ -65,7 +72,77 @@
                pInputText/>
       </span>
 
-      <button pButton type="submit" label="Create" [disabled]="!orgRegForm.valid"></button>
+
+     <!------------------------------------------------------------------
+     ------------------------ Edit Doctor Form --------------------------
+     ------------------------------------------------ ------------------->
+
+
+      <span *ngIf="orgService.editMode"
+            class="inputField">
+        <label for="name">Name</label>
+        <input formControlName="name"
+               inputId="name"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!orgForm.controls['name'].valid && orgForm.controls['name'].touched">
+           This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="orgService.editMode"
+            class="inputField">
+        <label for="address">Address</label>
+        <input formControlName="address"
+               inputId="address"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!orgForm.controls['address'].valid && orgForm.controls['address'].touched">
+           This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="orgService.editMode"
+            class="inputField">
+        <label for="phone">Phone</label>
+        <input formControlName="phone"
+               inputId="phone"
+               type="text"
+               pInputText
+        />
+        <p
+          *ngIf="!orgForm.controls['phone'].valid && orgForm.controls['phone'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="orgService.editMode"
+            class="inputField">
+        <label for="email">Email</label>
+        <input formControlName="email"
+               inputId="email"
+               type="email"
+               pInputText/>
+        <p
+          *ngIf="!orgForm.controls['email'].valid && orgForm.controls['email'].touched">
+          This field is required!
+        </p>
+      </span>
+
+      <span *ngIf="orgService.editMode"
+            class="inputField">
+        <label for="website">Website</label>
+        <input formControlName="website"
+               inputId="website"
+               type="text"
+               pInputText/>
+      </span>
+
+      <button pButton type="submit" label={{submitLabel}} [disabled]="!orgForm.valid"></button>
 
     </form>
 

@@ -1,1 +1,40 @@
-<p>patient-list works!</p>
+<div class="doctorListContainer">
+
+  <h2 class="text-center mb-4">Registered Patients</h2>
+  <p-table #dt [rowHover]="true" [value]="patientService.patients" [tableStyle]="{'min-width': '50rem'}"
+           [globalFilterFields]="['id', 'name', 'phone', 'email']" >
+    <ng-template pTemplate="caption">
+      <div class="tableToolbar">
+        <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
+                class="p-button-success p-button-outlined" label="Add"></button>
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text"
+                   (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                   placeholder="Search....." />
+          </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="text-align: center" pSortableColumn="id"><p-sortIcon field="id"></p-sortIcon> ID </th>
+        <th style="text-align: center" pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon> Name </th>
+        <th style="text-align: center" pSortableColumn="specialities"><p-sortIcon field="phone"></p-sortIcon> Phone </th>
+        <th style="text-align: center" pSortableColumn="specialities"><p-sortIcon field="email"></p-sortIcon> Email </th>
+        <th style="text-align: center" pSortableColumn="gender"><p-sortIcon field="gender"></p-sortIcon> Gender </th>
+        <th style="text-align: center" pSortableColumn="gender"><p-sortIcon field="age"></p-sortIcon> Age </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-index='rowIndex'>
+      <tr>
+        <td style="text-align: center"> {{item.id}}</td>
+        <td style="text-align: center"> {{item.name}} </td>
+        <td style="text-align: center"> {{item.phone}}</td>
+        <td style="text-align: center"> {{item.email}}</td>
+        <td style="text-align: center"> {{item.gender}}</td>
+        <td style="text-align: center"> {{item.age}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-confirmDialog icon="pi pi-exclamation-triangle" [baseZIndex]="10000"></p-confirmDialog>
+</div>

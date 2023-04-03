@@ -12,6 +12,7 @@ import {PatientListComponent} from "@patient/patient-list/patient-list.component
 import {MedicineListComponent} from "@medicine/medicine-list/medicine-list.component";
 import {HomeComponent} from "@home/home/home.component";
 import {DashboardComponent} from "@home/dashboard/dashboard.component";
+import {AppUserListComponent} from "./app-user/app-user-list/app-user-list.component";
 
 const routes : Routes = [
   // {path: "", redirectTo: "/home", pathMatch: "full" },
@@ -24,7 +25,8 @@ const routes : Routes = [
       {path: "org/list", component: OrgListComponent},
       {path: "org/profile/:id", component: OrgProfileComponent},
       {path: "patients", component: PatientListComponent},
-      {path: "medicine", component: MedicineListComponent}
+      {path: "medicine", component: MedicineListComponent},
+      {path: "users", component: AppUserListComponent}
     ]
   },
   {path: "login", component: LoginComponent},

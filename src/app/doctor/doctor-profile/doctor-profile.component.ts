@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DoctorService} from "@shared/services/doctor.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
   selector: 'app-doctor-profile',
@@ -10,15 +10,6 @@ import {ActivatedRoute} from "@angular/router";
 export class DoctorProfileComponent implements OnInit{
 
   id! : number;
-  doctor = {
-    id: 123,
-    name: "Renu Akter",
-    phone: "01613887722",
-    email: "renu@gmail.com",
-    gender: "Female",
-    specialities: ["Pediatrics", "Dermatology", "dasdsadsadda"],
-    degrees: ["PhD (Glasgow)","FCPS (Glasgow)","MBBS (DMC)"]
-  }
 
   colHeaders = ["Sa", "Su", "Mo", "Tu", "We", "Th", "Fr"]
 
@@ -38,20 +29,12 @@ export class DoctorProfileComponent implements OnInit{
   constructor(public doctorService: DoctorService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.doctorService.getDoctorByID(this.route.snapshot.params['id'])
-    // this.route.params.subscribe(
-    //   (params: Params) => {
-    //     console.log(params['id'])
-    //     this.doctorID = params['id'];
-    //     if (this.doctorID){
-    //       this.doctorService.getDoctorByID(this.doctorID)
-    //     }
-    //   }
-    // )
-    // this.route.paramMap.subscribe((params: ParamMap) => {
-    //   console.log(params.get('id'));
-    //   console.log(this.doctorService.getDoctorByID(this.doctorID))
-    // });
+    // this.doctorService.getDoctorByID(this.route.snapshot.params['id'])
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.doctorService.getDoctorByID(params['id'])
+      }
+    )
   }
 
 }
