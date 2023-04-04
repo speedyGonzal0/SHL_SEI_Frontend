@@ -17,6 +17,7 @@ import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DividerModule } from 'primeng/divider';
 import {RouterLink} from "@angular/router";
+import {DoctorRoutingModule} from "@doctor/doctor-routing.module";
 @NgModule({
   declarations: [
     DoctorRegistrationComponent,
@@ -24,9 +25,7 @@ import {RouterLink} from "@angular/router";
     DoctorProfileComponent
   ],
   exports: [
-    DoctorRegistrationComponent,
     DoctorListComponent,
-    DoctorProfileComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +41,7 @@ import {RouterLink} from "@angular/router";
     ConfirmDialogModule,
     DividerModule,
     RouterLink,
+    DoctorRoutingModule
   ]
 })
 export class DoctorModule { }
