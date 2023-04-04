@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from "@angular/forms";
 
 import {PatientRegistrationComponent} from "./patient-registration/patient-registration.component";
+import { PatientListComponent } from './patient-list/patient-list.component';
 
-import {CardModule} from 'primeng/card';
 import {ChipsModule} from 'primeng/chips';
 import {ChipModule} from 'primeng/chip';
 import {TagModule} from 'primeng/tag';
@@ -14,7 +14,7 @@ import {TableModule} from 'primeng/table';
 import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DividerModule } from 'primeng/divider';
-import { PatientListComponent } from './patient-list/patient-list.component';
+import {PatientRoutingModule} from "@patient/patient-routing.module";
 
 @NgModule({
   declarations: [
@@ -22,11 +22,10 @@ import { PatientListComponent } from './patient-list/patient-list.component';
     PatientListComponent
   ],
   exports: [
-    PatientRegistrationComponent
+    PatientListComponent,
   ],
   imports: [
     CommonModule,
-    CardModule,
     ChipsModule,
     ChipModule,
     TagModule,
@@ -36,7 +35,8 @@ import { PatientListComponent } from './patient-list/patient-list.component';
     DynamicDialogModule,
     ReactiveFormsModule,
     ConfirmDialogModule,
-    DividerModule
+    DividerModule,
+    PatientRoutingModule
   ]
 })
 export class PatientModule { }

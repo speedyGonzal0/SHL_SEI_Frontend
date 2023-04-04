@@ -11,10 +11,9 @@ import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
-
 import { CreateMedicineComponent } from './create-medicine/create-medicine.component';
 import { MedicineListComponent } from './medicine-list/medicine-list.component';
+import {MedicineRoutingModule} from "@medicine/medicine-routing.module";
 
 
 
@@ -36,7 +35,8 @@ import { MedicineListComponent } from './medicine-list/medicine-list.component';
     TableModule,
     ToastModule,
     DynamicDialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MedicineRoutingModule
   ]
 })
 export class MedicineModule { }

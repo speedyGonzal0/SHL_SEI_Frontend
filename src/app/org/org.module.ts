@@ -17,6 +17,7 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DividerModule } from 'primeng/divider';
 import { OrgListComponent } from './org-list/org-list.component';
 import {RouterLink} from "@angular/router";
+import {OrgRoutingModule} from "@org/org-routing.module";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {RouterLink} from "@angular/router";
     ReactiveFormsModule,
     ConfirmDialogModule,
     DividerModule,
-    RouterLink
+    RouterLink,
+    OrgRoutingModule
   ]
 })
 export class OrgModule { }
