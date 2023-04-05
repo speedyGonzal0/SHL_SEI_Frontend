@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { AppUserRegistrationComponent } from './app-user-registration/app-user-registration.component';
+import {AppUserListComponent} from './app-user-list/app-user-list.component';
+import {AppUserRoutingModule} from "./app-user-routing.module";
 
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
-import {AppUserListComponent} from './app-user-list/app-user-list.component';
 import {RouterLink} from "@angular/router";
 import {TableModule} from "primeng/table";
 import {DropdownModule} from "primeng/dropdown";
@@ -30,7 +31,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     RouterLink,
     TableModule,
     DropdownModule,
-    MultiSelectModule
+    MultiSelectModule,
+    AppUserRoutingModule
   ]
 })
 export class AppUserModule { }

@@ -15,6 +15,7 @@ import { DiagnosticListComponent } from './diagnostic-list/diagnostic-list.compo
 import { DiagnosticDetailsComponent } from './diagnostic-details/diagnostic-details.component';
 import { CreateDiagnosticComponent } from './create-diagnostic/create-diagnostic.component';
 import {SharedModule} from "@shared/shared.module";
+import {DiagnosticsRoutingModule} from "@diagnostics/diagnostics-routing.module";
 
 
 
@@ -40,7 +41,8 @@ import {SharedModule} from "@shared/shared.module";
     ToastModule,
     SharedModule,
     DynamicDialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    DiagnosticsRoutingModule
   ],
   providers: []
 })

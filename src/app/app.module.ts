@@ -1,18 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { AppComponent } from './app.component';
-import {AuthenticationModule} from "@authentication/authentication.module";
-import {DiagnosticsModule} from "@diagnostics/diagnostics.module";
-import {DoctorModule} from "@doctor/doctor.module";
-import {OrgModule} from "@org/org.module";
-import {PatientModule} from "@patient/patient.module";
+import {AppComponent} from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
-import {MedicineModule} from "@medicine/medicine.module";
-import {HomeModule} from "@home/home.module";
-import {HttpClientModule} from "@angular/common/http";
-import {AppUserModule} from "./app-user/app-user.module";
+import {AuthenticationModule} from "@authentication/authentication.module";
 
 @NgModule({
   declarations: [
@@ -22,13 +15,6 @@ import {AppUserModule} from "./app-user/app-user.module";
     BrowserModule,
     BrowserAnimationsModule,
     AuthenticationModule,
-    DiagnosticsModule,
-    DoctorModule,
-    MedicineModule,
-    HomeModule,
-    OrgModule,
-    AppUserModule,
-    PatientModule,
     AppRoutingModule,
     HttpClientModule
   ],
