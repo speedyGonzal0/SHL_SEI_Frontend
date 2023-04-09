@@ -12,6 +12,9 @@
       "@home/*": ["src/app/home/*"],
       "@org/*": ["src/app/org/*"],
       "@patient/*": ["src/app/patient/*"],
+      "@enums/*": ["src/enums/*"],
+      "@environments/*": ["src/environments/*"],
+      "@models/*": ["src/models/*"],
       "@scss/*": ["src/app/scss/*"]
     },
     "outDir": "./dist/out-tsc",

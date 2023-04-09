@@ -1,30 +1,86 @@
-<div class="createDiagContainer">
-<!--  <h2> Create New Diagnostic </h2>-->
-  <form class="createDiagForm" [formGroup]="createDiagForm" (ngSubmit)="onSubmit()">
+<div class="createDiagContainer container-fluid p-0 h-100 d-flex flex-column gap-5">
 
-    <div class="fields" *ngIf="!diagService.editMode">
-      <label for="diagOptions"> Choose Diagnostic </label>
-      <p-dropdown [style]="{'width': '100%'}" inputId="diagOptions" [options]="diagService.diagnostics" formControlName="diag" placeholder="Select a Diagnostic" [editable]="true" optionLabel="name"></p-dropdown>
-    </div>
+<!--  <div class="row p-0 gap-3">-->
+    <form class="createDiagForm row p-0 m-0" [formGroup]="createDiagForm" (ngSubmit)="onSubmit()">
 
-    <div class="fields" *ngIf="diagService.editMode">
-      <label for="diagName" class="block">Diagnostic Name</label>
-      <input formControlName="diagName" id="diagName" placeholder="New diagnostic" class="ng-dirty" pInputText />
-    </div>
+      <div class="fields col p-0 m-0" *ngIf="!diagService.editMode && diagService.role !=='admin'">
+        <label for="diagOptions"> Search Diagnostic </label>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+              <i class="pi pi-search"></i>
+          </span>
+          <p-autoComplete
+            [style]="{'width': '100%'}"
+            [inputStyle]="{'width': '100%'}"
+            inputId="diagOptions"
+            formControlName="diag"
+            placeholder="Search..."
+            [showEmptyMessage] = "true"
+            [showClear] = "true"
+            [suggestions]="filteredDiags"
+            [forceSelection]="true"
+            (completeMethod)="filterDiag($event)"
+            field="serviceName">
+          </p-autoComplete>
+        </div>
 
-<!--    should be displayed for org-admin only-->
-    <div class="fields">
-      <label for="diagPrice" class="block">Diagnostic Price</label>
-      <p-inputNumber formControlName="diagPrice" [style]="{'width': '100%'}" placeholder="Unit price" inputId="diagPrice" mode="currency" currency="BDT" [minFractionDigits]="2"></p-inputNumber>
-    </div>
+      </div>
 
-    <div class="fields">
-      <button *ngIf="!diagService.editMode; else updateDiag" [style]="{'width': '100%'}" pButton type="submit" label="Add Diagnostic" class="p-button-success"></button>
-      <ng-template #updateDiag>
-        <button  [style]="{'width': '100%'}" pButton type="submit" label="Update Diagnostic" class="p-button-success"></button>
+      <div class="fields col" *ngIf="diagService.role ==='admin'">
+        <label for="diagName"> Diagnostic name </label>
+        <input type="text" pInputText id="diagName" placeholder="Enter Name" formControlName="diagName"/>
+      </div>
+
+
+
+
+      <!--    should be displayed for org-admin only-->
+      <div class="fields col" *ngIf="diagService.role !=='admin'">
+        <label for="diagPrice" class="block">Diagnostic Price</label>
+        <p-inputNumber formControlName="diagPrice" [style]="{'width': '100%'}" placeholder="Price" inputId="diagPrice" mode="decimal" [maxFractionDigits]="2"></p-inputNumber>
+      </div>
+
+
+
+      <div class="fields col p-0 m-0 d-flex flex-column justify-content-end">
+        <button *ngIf="!diagService.editMode; else updateDiag" [style]="{'width': '100%'}" pButton type="submit" label="Add Diagnostic" class="p-button-secondary"></button>
+        <ng-template #updateDiag>
+          <button  [style]="{'width': '100%'}" pButton type="submit" label="Update Diagnostic" class="p-button-success"></button>
+        </ng-template>
+
+      </div>
+
+    </form>
+
+  <div class="container-fluid fields" *ngIf="!diagService.editMode && diagService.role !== 'admin'">
+    <p class="p-0 m-0">Selected diagnostics</p>
+
+    <p-table [value]="diagService.selectedDiags" styleClass="p-datatable-sm p-datatable-gridlines">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="text-align: center">Name</th>
+          <th style="text-align: center">Price</th>
+          <th style="text-align: center">Action</th>
+
+        </tr>
       </ng-template>
+      <ng-template pTemplate="body" let-diag let-index='rowIndex'>
+        <tr>
+          <td style="text-align: center">{{ diag.serviceName }}</td>
+          <td style="text-align: center">{{ diag.price }}</td>
+          <td style="text-align: center">
+            <button (click)="onDelete(index)"  pButton class="p-button-outlined p-button-danger p-button-sm" icon="pi pi-trash"></button>
 
-    </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
 
-  </form>
+    <button (click)="onConfirm()" [disabled]="diagService.selectedDiags.length < 1" pButton
+            label="Confirm selection"
+            class="p-button-success">
+    </button>
+
+  </div>
+
 </div>

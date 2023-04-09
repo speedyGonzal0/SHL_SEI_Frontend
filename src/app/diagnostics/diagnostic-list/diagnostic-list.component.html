@@ -1,31 +1,55 @@
-<div class="container-fluid h-100 text-center d-flex flex-column gap-5">
-  <h2 class="mt-5"> Available Diagnostic Services </h2>
+<div class="container-fluid text-center d-flex flex-column gap-5">
+  <h2> Available Diagnostic Services </h2>
 
-  <p-table #dt [rowHover]="true" [value]="diagService.orgDiagnostics" [style]="{'width': '100%', 'min-width': '500px'}"
-           [globalFilterFields]="['name']" >
-    <ng-template pTemplate="caption">
-      <div class="col d-flex justify-content-between">
-        <button (click)="showCreateDialog()" pButton icon="pi pi-plus" class="p-button-success p-button-outlined" label="Add"></button>
-        <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search..." />
+  <p-table styleClass="p-datatable-sm p-datatable-gridlines" #dt
+           [rowHover]="true"
+           [lazy]="true"
+           (onLazyLoad)="onPagination($event.first)"
+           [value]="diagService.diagnostics"
+           [style]="{'width': '100%', 'min-width': '800px'}"
+           [paginator]="true"
+           [rows]="10"
+           [totalRecords]="diagService.totalDiagnostics"
+           [scrollable]="true"
+           (onPage)="onPagination($event)"
+  >
+    <ng-template pTemplate="caption" class="container">
+      <div class="row">
+
+        <div class="col d-flex justify-content-start px-3">
+          <button (click)="showCreateDialog()" pButton icon="pi pi-plus" class="p-button-success p-button-outlined" label="New Diagnostic"></button>
+        </div>
+
+        <div class="col d-flex justify-content-end gap-3 px-3">
+
+<!--          <p-dropdown [formControl]="sortBy" (onChange)="onSort()" [options]="sortOptions" optionLabel="name"></p-dropdown>-->
+
+          <span class="p-input-icon-left ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText (input)="onSearch($any($event.target).value)" type="text" placeholder="Search by name" />
           </span>
+
+
+        </div>
+
+
+
       </div>
+
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-<!--        <th pSortableColumn="{{field}}" *ngFor="let field of Object.keys(diagnostics[0])"><p-sortIcon field="{{field}}"></p-sortIcon> {{field.charAt(0).toUpperCase() + field.substring(1)}}</th>-->
         <th style="text-align: center"> ID </th>
-        <th style="text-align: center" pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon> Name </th>
-        <th style="text-align: center" pSortableColumn="price"><p-sortIcon field="price"></p-sortIcon> Price </th>
+        <th style="text-align: center"> Name </th>
+        <th style="text-align: center" *ngIf="diagService.role !== 'admin'"> Price </th>
         <th style="text-align: center">Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
-        <td style="text-align: center"> {{item.id}} </td>
-        <td style="text-align: center"> {{item.name}} </td>
-        <td style="text-align: center"> BDT {{item.price.toFixed(2)}}</td>
+        <td style="text-align: center"> {{index + 1}} </td>
+        <td style="text-align: center"> {{item.serviceName}} </td>
+        <td style="text-align: center" *ngIf="diagService.role !== 'admin'"> {{item.price}}</td>
         <td style="text-align: center">
           <span class="p-buttonset">
             <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
