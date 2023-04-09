@@ -5,24 +5,16 @@ import {environment} from "@environments/environment.development";
 import {ApiPaths} from "@enums/api-paths";
 import {HttpService} from "@shared/services/http.service";
 import {Params} from "@angular/router";
+import {Diagnostic} from "@models/diagnostic";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiagnosticsService{
 
-  diagnostics!: {id: number, serviceName: string, price?: number, organizationId?: number}[];
+  diagnostics!: Diagnostic[];
   totalDiagnostics!: number;
-
-
-  selectedDiags:
-    {
-      id?: number,
-      serviceName?: string,
-      price?: number,
-      organizationId?: number,
-      diagnosticId?: number
-    }[] = [];
+  selectedDiags!: Diagnostic[];
 
   adminUrl : string = ApiPaths.diagnostic;
   orgAdminUrl : string = ApiPaths.orgDiag;
@@ -42,13 +34,14 @@ export class DiagnosticsService{
     if (this.role === 'admin'){
       this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams).subscribe(
         (response: any) => {
-          this.diagnostics = response;
+          this.diagnostics = response.content;
+          this.totalDiagnostics = response.totalElements;
           // console.log(response);
         }
       )
     }
     else {
-      this.httpService.getRequestWithParams(`${this.orgAdminUrl}/search`, queryParams).subscribe(
+      this.httpService.getRequestWithParams(`${this.orgAdminUrl}/organization/1/search`, queryParams).subscribe(
         (response: any) => {
           this.diagnostics = response.content;
           this.totalDiagnostics = response.totalElements;

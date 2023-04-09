@@ -123,7 +123,11 @@ export class DiagnosticListComponent implements OnInit{
       this.router.navigate([]);
     }
     else{
-      this.router.navigate([], {queryParams: {page: parseInt(String(page), 10)}})
+      this.router.navigate([],
+        {
+          queryParams: {page: parseInt(String(page), 10)},
+          queryParamsHandling: "merge"
+        })
     }
   }
 

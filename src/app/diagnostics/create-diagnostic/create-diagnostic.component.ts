@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 import {HttpService} from "@shared/services/http.service";
+import {Diagnostic} from "@models/diagnostic";
 
 @Component({
   selector: 'app-create-diagnostic',
@@ -13,9 +14,7 @@ export class CreateDiagnosticComponent implements OnInit{
 
   createDiagForm !: FormGroup;
   selectedDiag: any;
-  filteredDiags: {id: number, serviceName: string}[] = [];
-
-  products = [{name: "adsa", code: "asd", quantity: "asdaw", category: "asdwd"}]
+  filteredDiags !: Diagnostic[];
 
 
   constructor(public config: DynamicDialogConfig,
@@ -29,6 +28,8 @@ export class CreateDiagnosticComponent implements OnInit{
       "diagName": new FormControl(null),
       "diagPrice": new FormControl(null)
     })
+
+    this.diagService.selectedDiags = [];
 
     if(this.config.data){
       let item = this.diagService.diagnostics[this.config.data.index];
@@ -46,7 +47,7 @@ export class CreateDiagnosticComponent implements OnInit{
     let query = e.query;
 
     this.httpService.getRequestWithParams(`${this.diagService.adminUrl}/search`, {query: query}).subscribe(
-      (response:any) => this.filteredDiags = response
+      (response:any) => this.filteredDiags = response.content
     )
   }
 
