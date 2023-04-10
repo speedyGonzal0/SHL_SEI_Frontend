@@ -38,7 +38,7 @@ export class MedicineListComponent implements OnInit{
   showCreateDialog(){
     this.medService.ref = this.dialogService.open(CreateMedicineComponent, {
       header: "New Medicine",
-      style: {'min-width': '800px', 'max-height': '600px'}
+      style: {'min-width': '500px', 'max-height': '600px'}
     });
   }
 
@@ -48,8 +48,7 @@ export class MedicineListComponent implements OnInit{
       header: `Edit Medicine: ${this.medService.medicines[index].name}`,
       data: {
         index: index
-      },
-      style: {'min-width': '400px'}
+      }
     });
 
     this.medService.ref.onClose.subscribe(() => this.medService.toggleEditMode());

@@ -66,14 +66,8 @@ export class MedicineService{
     let body = {
       "id": item.id,
       ...value
-      // "name": value.name,
-      // "price": value.price,
-      // "genericName": value.genericName,
-      // "strength": value.strength,
-      // "vendor": value.vendor
     };
     this.httpService.updateRequest(`${this.adminUrl}/update`, body).subscribe();
-    // console.log(body)
     this.ref.close();
   }
 
