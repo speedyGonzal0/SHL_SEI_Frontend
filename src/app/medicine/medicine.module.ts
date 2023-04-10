@@ -5,15 +5,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
-import {DropdownModule} from 'primeng/dropdown';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { CreateMedicineComponent } from './create-medicine/create-medicine.component';
-import { MedicineListComponent } from './medicine-list/medicine-list.component';
+import { CreateMedicineComponent } from '@medicine/create-medicine/create-medicine.component';
+import { MedicineListComponent } from '@medicine/medicine-list/medicine-list.component';
 import {MedicineRoutingModule} from "@medicine/medicine-routing.module";
+import {SharedModule} from "@shared/shared.module";
+import {AutoCompleteModule} from "primeng/autocomplete";
 
 
 
@@ -22,20 +23,19 @@ import {MedicineRoutingModule} from "@medicine/medicine-routing.module";
     CreateMedicineComponent,
     MedicineListComponent
   ],
-  exports: [
-    MedicineListComponent
-  ],
+  exports: [],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
-    DropdownModule,
     InputNumberModule,
     TableModule,
     ToastModule,
+    SharedModule,
     DynamicDialogModule,
     ConfirmDialogModule,
+    AutoCompleteModule,
     MedicineRoutingModule
   ]
 })

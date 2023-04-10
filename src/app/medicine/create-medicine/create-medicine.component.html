@@ -1,1 +1,126 @@
-<p>create-medicine works!</p>
+<form *ngIf="medService.role ==='admin'; else orgAdminFunctions"
+      class="container-fluid d-flex flex-column gap-4 p-0 m-0"
+      [formGroup]="createMedForm"
+      (ngSubmit)="onSubmit()">
+
+  <div class="row p-0">
+
+    <div class="fields col">
+      <label for="medName"> Name </label>
+      <input type="text" pInputText id="medName" placeholder="E.g: Napa" formControlName="name"/>
+    </div>
+
+    <div class="fields col">
+      <label for="medGeneric" class="block"> Generic </label>
+      <input type="text" pInputText id="medGeneric" placeholder="E.g: Paracetamol" formControlName="genericName"/>
+    </div>
+
+    <div class="fields col">
+      <label for="medStrength" class="block"> Strength </label>
+      <input type="text" pInputText id="medStrength" placeholder="E.g: 20mg" formControlName="strength"/>
+    </div>
+
+  </div>
+
+  <div class="row p-0">
+
+    <div class="fields col">
+      <label for="medVendor" class="block"> Vendor </label>
+      <input type="text" pInputText id="medVendor" placeholder="E.g: BEXIMCO" formControlName="vendor"/>
+    </div>
+
+    <div class="fields col">
+      <label for="medPrice" class="block"> Price </label>
+      <p-inputNumber formControlName="price" [style]="{'width': '100%'}" placeholder="E.g: 2.00" inputId="medPrice" mode="decimal" [maxFractionDigits]="2"></p-inputNumber>
+    </div>
+
+  </div>
+
+  <div class="row p-0">
+    <button *ngIf="!medService.editMode; else updateDiag" [style]="{'width': '100%'}" pButton type="submit" label="Add Medicine" class="p-button-success"></button>
+    <ng-template #updateDiag>
+      <button  [style]="{'width': '100%'}" pButton type="submit" label="Update Medicine" class="p-button-success"></button>
+    </ng-template>
+  </div>
+
+</form>
+
+
+<ng-template #orgAdminFunctions>
+  <div class="container-fluid p-0 m-0 d-flex flex-column gap-5">
+    <form class="container-fluid d-flex flex-column gap-4 p-0 m-0" [formGroup] = "selectedMedForm" (ngSubmit)="onOrgAdminSubmit()" >
+
+      <div class="row p-0 m-0">
+
+        <div class="fields" *ngIf="!medService.editMode">
+          <label for="medOptions"> Search Medicines </label>
+
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-search"></i>
+            </span>
+            <p-autoComplete
+              [style]="{'width': '100%'}"
+              [inputStyle]="{'width': '100%'}"
+              inputId="medOptions"
+              formControlName="med"
+              placeholder="Search..."
+              [showEmptyMessage] = "true"
+              [showClear] = "true"
+              [suggestions]="filteredMeds"
+              [forceSelection]="true"
+              (completeMethod)="filterMeds($event)"
+              field="name">
+            </p-autoComplete>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row p-0 m-0">
+        <button *ngIf="!medService.editMode"
+                [disabled]="!selectedMedForm.value.med"
+                pButton type="submit"
+                label="Add Medicine"
+                class="p-button-secondary">
+        </button>
+      </div>
+
+    </form>
+
+    <div class="container-fluid fields" *ngIf="!medService.editMode">
+      <p class="p-0 m-0">Selected Medicines</p>
+
+      <p-table [value]="medService.selectedMeds" styleClass="p-datatable-sm p-datatable-gridlines">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="text-align: center">Name</th>
+            <th style="text-align: center">Price</th>
+            <th style="text-align: center">Action</th>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-med let-index='rowIndex'>
+          <tr>
+            <td style="text-align: center">{{ med.name }}</td>
+            <td style="text-align: center">{{ med.price }}</td>
+            <td style="text-align: center">
+              <button (click)="onDelete(index)"
+                      pButton
+                      class="p-button-outlined p-button-danger p-button-sm"
+                      icon="pi pi-trash">
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <button (click)="onConfirm()" [disabled]="medService.selectedMeds.length < 1" pButton
+              label="Confirm selection"
+              class="p-button-success">
+      </button>
+
+    </div>
+  </div>
+</ng-template>

@@ -1,1 +1,68 @@
-<p>medicine-list works!</p>
+<div class="container-fluid text-center d-flex flex-column gap-5">
+  <h2> Available Medicines </h2>
+
+  <p-table styleClass="p-datatable-sm p-datatable-gridlines" #dt
+           [rowHover]="true"
+           [lazy]="true"
+           (onLazyLoad)="onPagination($event.first)"
+           [value]="medService.medicines"
+           [style]="{'width': '100%', 'min-width': '800px'}"
+           [paginator]="true"
+           [rows]="10"
+           [totalRecords]="medService.totalMedicine"
+           [scrollable]="true"
+           (onPage)="onPagination($event)"
+  >
+    <ng-template pTemplate="caption" class="container">
+      <div class="row">
+
+        <div class="col d-flex justify-content-start px-3">
+          <button (click)="showCreateDialog()" pButton icon="pi pi-plus" class="p-button-success p-button-outlined" label="New Medicine"></button>
+        </div>
+
+        <div class="col d-flex justify-content-end gap-3 px-3">
+
+          <span class="p-input-icon-left ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText (input)="onSearch($any($event.target).value)"
+                         type="text"
+                         placeholder="Search name/generic" />
+          </span>
+
+        </div>
+
+      </div>
+
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="text-align: center"> # </th>
+        <th style="text-align: center"> Name </th>
+        <th style="text-align: center"> Generic </th>
+        <th style="text-align: center"> Strength </th>
+        <th style="text-align: center"> Vendor </th>
+        <th style="text-align: center"> Price </th>
+        <th style="text-align: center">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-index='rowIndex'>
+      <tr>
+        <td style="text-align: center"> {{index + 1}} </td>
+        <td style="text-align: center"> {{medService.role === 'admin' ? item.name : item.medicine.name}} </td>
+        <td style="text-align: center"> {{medService.role === 'admin' ? item.genericName : item.medicine.genericName}} </td>
+        <td style="text-align: center"> {{medService.role === 'admin' ? item.strength : item.medicine.strength}} </td>
+        <td style="text-align: center"> {{medService.role === 'admin' ? item.vendor : item.medicine.vendor}} </td>
+        <td style="text-align: center"> {{medService.role === 'admin' ? item.price : item.medicine.price}}</td>
+        <td style="text-align: center">
+          <span class="p-buttonset">
+            <button [disabled]="medService.role !== 'admin'" (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
+            <button [disabled]="medService.role === 'admin'" (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
+          </span>
+        </td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-confirmDialog icon="pi pi-exclamation-triangle" [baseZIndex]="10000"></p-confirmDialog>
+</div>
