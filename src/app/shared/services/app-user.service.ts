@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
 import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
+import {ApiPaths} from "@enums/api-paths";
+import {AppUser} from "@models/appUser";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppUserService {
+
+  userURL = ApiPaths.users
   appUserRef! : DynamicDialogRef
   editMode : boolean = false;
 
-  appUsers : {
-    id: number,
-    name: string,
-    email: string,
-    phone: string,
-    gender: string,
-    address: string,
-    age: number,
-    role: string,
-    password: string,
-  }[] = [];
+  appUsers! : AppUser[];
 
   appUser = {
     id: 0,
@@ -29,7 +23,7 @@ export class AppUserService {
     gender: '',
     address: '',
     age: 0,
-    role: '',
+    role: [],
     password: ''
   }
 
@@ -57,7 +51,7 @@ export class AppUserService {
 
     console.log(roles)
     this.httpService.createRequest(
-      "http://localhost:9000/appUser/add",{
+      `${this.userURL}/add`,{
         name: appUserInfo.name,
         phone: appUserInfo.phone,
         email: appUserInfo.email,
@@ -75,7 +69,7 @@ export class AppUserService {
 
   editUser(id:number, appUserInfo: any){
     appUserInfo.gender = appUserInfo.gender.value
-    this.httpService.updateRequest(`http://localhost:9000/appUser/update/${id}`,appUserInfo)
+    this.httpService.updateRequest(`${this.userURL}/update/${id}`,appUserInfo)
       .subscribe(Response => {
         console.log(Response);
       })
@@ -83,7 +77,7 @@ export class AppUserService {
   }
 
   deleteUser(id: number){
-    this.httpService.deleteRequest(`http://localhost:9000/appUser/delete/${id}`)
+    this.httpService.deleteRequest(`${this.userURL}/delete/${id}`)
       .subscribe(Response => {
         console.log(Response);
       })

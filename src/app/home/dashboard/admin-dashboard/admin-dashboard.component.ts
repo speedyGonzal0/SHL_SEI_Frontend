@@ -1,4 +1,9 @@
 import {Component} from '@angular/core';
+import {OrgService} from "@shared/services/org.service";
+import {ActivatedRoute} from "@angular/router";
+import {HttpService} from "@shared/services/http.service";
+import {RefreshService} from "@shared/services/refresh.service";
+import {ApiPaths} from "@enums/api-paths";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -7,20 +12,11 @@ import {Component} from '@angular/core';
 })
 export class AdminDashboardComponent{
 
-  count = {
-    doc : 123,
-    diag: 88,
-    med: 500,
-    employee: 300,
-    org: 25,
-    orgAdmin: 33
-  }
-
   cardInfo = [
     {
-      title: "Doctors",
-      icon: "stethoscope",
-      count: 123
+      title: "Diagnostics",
+      icon: "ecg",
+      count: 500
     },
     {
       title: "Medicines",
@@ -28,9 +24,9 @@ export class AdminDashboardComponent{
       count: 88
     },
     {
-      title: "Diagnostics",
-      icon: "ecg",
-      count: 500
+      title: "Doctors",
+      icon: "stethoscope",
+      count: 123
     },
     {
       title: "Organizations",
@@ -48,5 +44,31 @@ export class AdminDashboardComponent{
       count: 33
     },
   ]
+
+  adminURL = ApiPaths.admin
+
+
+  constructor(private httpService: HttpService, private refreshService: RefreshService) {}
+
+  ngOnInit() {
+    this.refreshService.refreshNeeded$
+      .subscribe(() => {
+          this.getAdminInfo()
+        }
+      )
+    this.getAdminInfo()
+  }
+
+  getAdminInfo(){
+    this.httpService.getRequest(`${this.adminURL}/dashboard`)
+      .subscribe((response: any) => {
+        this.cardInfo[0].count = response.diagnostics
+        this.cardInfo[1].count = response.medicines
+        this.cardInfo[2].count = response.doctors
+        this.cardInfo[3].count = response.organizations
+        this.cardInfo[4].count = response.diagnostics
+        this.cardInfo[5].count = response.employees
+      })
+  }
 
 }

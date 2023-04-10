@@ -21,13 +21,13 @@ export class AppUserRegistrationComponent implements OnInit{
   ngOnInit() {
     this.appUserForm = new FormGroup({
       'name' : new FormControl(null, Validators.required),
-      'phone' : new FormControl(null, [Validators.required]),
+      'phone' : new FormControl(null, [Validators.required, Validators.pattern(/(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$/)]),
       'email' : new FormControl(null, [Validators.required, Validators.email]),
       'gender' : new FormControl(null, [Validators.required]),
       'address' : new FormControl(null),
-      'age' : new FormControl(null, [Validators.required]),
-      'role' : new FormControl([{value: 2}], [Validators.required]),
-      'password' : new FormControl(null, [Validators.required]),
+      'age' : new FormControl(null, [Validators.required, Validators.min(1)]),
+      'role' : new FormControl([{value: 1}], [Validators.required]),
+      'password' : new FormControl(null, [Validators.required, Validators.minLength(8)]),
     })
 
     if(this.config.data) {

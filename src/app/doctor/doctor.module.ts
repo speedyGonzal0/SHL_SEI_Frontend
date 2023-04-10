@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import { DoctorRegistrationComponent } from '@doctor/doctor-registration/doctor-registration.component';
 import {DoctorListComponent} from "@doctor/doctor-list/doctor-list.component";
@@ -18,6 +18,8 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DividerModule } from 'primeng/divider';
 import {RouterLink} from "@angular/router";
 import {DoctorRoutingModule} from "@doctor/doctor-routing.module";
+import { DoctorBillingComponent } from './doctor-billing/doctor-billing.component';
+import { CheckoutComponent } from './doctor-billing/checkout/checkout.component';
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {InputNumberModule} from "primeng/inputnumber";
 import {MultiSelectModule} from "primeng/multiselect";
@@ -25,7 +27,9 @@ import {MultiSelectModule} from "primeng/multiselect";
   declarations: [
     DoctorRegistrationComponent,
     DoctorListComponent,
-    DoctorProfileComponent
+    DoctorProfileComponent,
+    DoctorBillingComponent,
+    CheckoutComponent
   ],
   exports: [
     DoctorListComponent,
@@ -45,6 +49,7 @@ import {MultiSelectModule} from "primeng/multiselect";
     DividerModule,
     RouterLink,
     DoctorRoutingModule,
+    FormsModule,
     AutoCompleteModule,
     InputNumberModule,
     MultiSelectModule

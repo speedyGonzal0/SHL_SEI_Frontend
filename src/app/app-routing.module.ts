@@ -7,13 +7,13 @@ import {LoginComponent} from "@authentication/login/login.component";
 const routes : Routes = [
   {path: "", loadChildren: () => import('./home/home.module').then(m => m.HomeModule)},
   {path: "login", component: LoginComponent},
-
+  {path: '**', redirectTo: 'login' },
 ]
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

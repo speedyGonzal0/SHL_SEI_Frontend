@@ -27,7 +27,7 @@ const routes: Routes = [
         loadChildren: () => import('../app-user/app-user.module')
           .then(m => m.AppUserModule) },
     ]
-  },
+  }
 ];
 
 @NgModule({

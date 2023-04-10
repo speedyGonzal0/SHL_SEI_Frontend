@@ -4,6 +4,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
 import {AppUserService} from "@shared/services/app-user.service";
 import {AppUserRegistrationComponent} from "../app-user-registration/app-user-registration.component";
+import {ApiPaths} from "@enums/api-paths";
 
 @Component({
   selector: 'app-app-user-list',
@@ -13,6 +14,8 @@ import {AppUserRegistrationComponent} from "../app-user-registration/app-user-re
 
 })
 export class AppUserListComponent implements OnInit{
+
+  adminURL = ApiPaths.users
   constructor(private messageService: MessageService, private dialogService: DialogService,
               private confirmationService: ConfirmationService, private httpService: HttpService,
               public appUserService: AppUserService) {
@@ -23,9 +26,10 @@ export class AppUserListComponent implements OnInit{
   }
 
   getUserList(){
-    this.httpService.getRequest("http://localhost:9000/appUser/get/all")
+    this.httpService.getRequest(`${this.adminURL}/get/all`)
       .subscribe((response: any) => {
-        this.appUserService.appUsers = response
+        console.log(response.content)
+        this.appUserService.appUsers = response.content
       })
   }
 

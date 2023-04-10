@@ -3,9 +3,11 @@ export enum ApiPaths {
   diagnostic = '/diagnostic',
   doctor = '/doctor',
   medicine = '/medicine',
-  org = '/orgnanization',
+  org = '/organization',
   orgDiag = '/org-diagnostic',
   orgDoc = '/orgDoctor',
   orgMed = '/org-medicine',
-  patient = '/patient'
+  patient = '/patient',
+  admin = '/admin',
+  orgAdmin = '/org-admin'
 }

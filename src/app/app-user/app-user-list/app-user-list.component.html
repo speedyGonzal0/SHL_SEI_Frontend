@@ -1,7 +1,7 @@
 <div class="doctorListContainer">
 
   <h2 class="text-center mb-4">Users List</h2>
-  <p-table #dt [rowHover]="true" [value]="appUserService.appUsers" [tableStyle]="{'min-width': '50rem'}"
+  <p-table #dt [rowHover]="true" [value]="appUserService.appUsers"
            [globalFilterFields]="['id', 'name', 'role']" >
     <ng-template pTemplate="caption">
       <div class="tableToolbar">
@@ -17,9 +17,9 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center" pSortableColumn="id"><p-sortIcon field="id"></p-sortIcon> ID </th>
-        <th style="text-align: center" pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon> Name </th>
-        <th style="text-align: center" pSortableColumn="gender"><p-sortIcon field="role"></p-sortIcon> Role </th>
+        <th style="text-align: center"> ID </th>
+        <th style="text-align: center"> Name </th>
+        <th style="text-align: center"> Role </th>
         <th style="text-align: center">Actions</th>
       </tr>
     </ng-template>

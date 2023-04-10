@@ -10,6 +10,7 @@
                id="name"
                type="text"
                pInputText
+               class="p-inputtext-sm"
         />
         <p
           *ngIf="!patientRegForm.controls['name'].valid && patientRegForm.controls['name'].touched">
@@ -23,6 +24,7 @@
                id="phone"
                type="text"
                pInputText
+               class="p-inputtext-sm"
         />
         <p
           *ngIf="!patientRegForm.controls['phone'].valid && patientRegForm.controls['phone'].touched">
@@ -35,7 +37,9 @@
         <input formControlName="email"
                id="email"
                type="email"
-               pInputText/>
+               pInputText
+               class="p-inputtext-sm"
+        />
         <p
           *ngIf="!patientRegForm.controls['email'].valid && patientRegForm.controls['email'].touched">
           This field is required!
@@ -49,7 +53,8 @@
                     placeholder="-"
                     id="gender"
                     [style]="{width: '100%'}"
-                    optionLabel="gender">
+                    optionLabel="gender"
+                    class="p-inputtext-sm">
         </p-dropdown>
       </span>
 
@@ -58,7 +63,8 @@
         <input formControlName="age"
                id="age"
                type="number"
-               pInputText/>
+               pInputText
+               class="p-inputtext-sm"/>
         <p
           *ngIf="!patientRegForm.controls['age'].valid && patientRegForm.controls['age'].touched">
           This field is required!

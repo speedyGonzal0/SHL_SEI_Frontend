@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
+import {ApiPaths} from "@enums/api-paths";
+import {Params} from "@angular/router";
+import {Organization} from "@models/organization";
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +12,9 @@ export class OrgService {
   orgRef! : DynamicDialogRef
   editMode : boolean = false;
 
-  orgs : {
-    id: number,
-    name: string,
-    email: string,
-    phone: string,
-    address: string,
-    website: string,
-  }[] = [];
+  orgs! : Organization[];
+
+  totalOrgs! : number;
 
   org = {
     id: 0,
@@ -27,6 +25,8 @@ export class OrgService {
     website: ''
   }
 
+  orgURL = ApiPaths.org
+
   constructor(private httpService: HttpService) {}
 
   toggleEditMode(){
@@ -36,7 +36,7 @@ export class OrgService {
   createOrg(orgInfo: any){
     console.log(orgInfo)
     this.httpService.createRequest(
-      "http://localhost:9000/organization/admin/1/add",{
+      `${this.orgURL}/add`,{
         name: orgInfo.name,
         phone: orgInfo.phone,
         email: orgInfo.email,
@@ -49,8 +49,19 @@ export class OrgService {
     this.orgRef.close()
   }
 
+
+  getOrg(queryParams: Params){
+      this.httpService.getRequestWithParams(`${this.orgURL}/search`, queryParams).subscribe(
+        (response: any) => {
+          this.orgs = response.content;
+          this.totalOrgs = response.totalElement;
+          console.log(response.totalElement)
+        }
+      )
+  }
+
   editOrg(id:number, orgInfo: any){
-    this.httpService.updateRequest(`http://localhost:9000/organization/update/${id}`,orgInfo)
+    this.httpService.updateRequest(`${this.orgURL}/update/${id}`,orgInfo)
       .subscribe(Response => {
         console.log(Response);
       })
@@ -58,14 +69,14 @@ export class OrgService {
   }
 
   deleteOrg(id: number){
-    this.httpService.deleteRequest(`http://localhost:9000/organization/delete/${id}`)
+    this.httpService.deleteRequest(`${this.orgURL}/delete/${id}`)
       .subscribe(Response => {
         console.log(Response);
       })
   }
 
   getOrgByID(id: number){
-    this.httpService.getRequest(`http://localhost:9000/organization/${id}`)
+    this.httpService.getRequest(`${this.orgURL}/${id}`)
       .subscribe((response: any) => {
         this.org = response
         console.log(this.org)

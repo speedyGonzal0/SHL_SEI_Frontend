@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
+import {Patient} from "@models/patient";
+import {ApiPaths} from "@enums/api-paths";
+import {Params} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
+  patientURL = ApiPaths.patient
   patientRef! : DynamicDialogRef
-
-  patients : {
-    id: number,
-    name: string,
-    email: string,
-    phone: string,
-    gender: string,
-    age: string,
-  }[] = [];
+  patients! : Patient[];
+  totalPatients! : number
 
   genders = [
     {gender: "Male", value: 0},
@@ -27,7 +24,7 @@ export class PatientService {
   createPatient(patientInfo: any){
     console.log(patientInfo)
     this.httpService.createRequest(
-      "http://localhost:9000/patient/add",{
+      `${this.patientURL}/add`,{
         name: patientInfo.name,
         phone: patientInfo.phone,
         email: patientInfo.email,
@@ -38,5 +35,15 @@ export class PatientService {
         console.log(response)
       })
     this.patientRef.close()
+  }
+
+  getPatient(queryParams: Params){
+    this.httpService.getRequestWithParams(`${this.patientURL}/search`, queryParams).subscribe(
+      (response: any) => {
+        this.patients = response.content;
+        this.totalPatients = response.totalElements;
+        console.log(response.totalElements)
+      }
+    )
   }
 }

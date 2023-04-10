@@ -6,16 +6,20 @@
   gap: 40px;
 }
 
-.orgContact{
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-}
-
-.orgInfo span{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.orgInfo{
+  span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin: 8px;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+  p{
+    margin: 0;
+  }
 }
 
 .orgInfo i{
@@ -23,11 +27,31 @@
   color: #15A34A;
 }
 
-.userListButtons{
-  display: flex;
-  gap: 24px;
+.cardBody{
+  background: white;
+  border-radius: 20px;
+  padding: 20px 0;
+  margin: 10px;
 }
 
-.userListButtons button{
-  background: white;
+.cardContainer{
+  padding: 0 30px;
+}
+
+.cardTitle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardTitle p{
+  margin: 0 5px;
+}
+
+.icon{
+  font-size: 24px;
+  color: #15A34A;
+  background: #D4FFE3;
+  padding: 5px;
+  border-radius: 8px;
 }

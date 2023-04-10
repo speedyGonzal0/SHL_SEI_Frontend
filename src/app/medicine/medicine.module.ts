@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+import { MedicineBillingComponent } from '@medicine/medicine-billing/medicine-billing.component';
+import { CheckoutComponent } from '@medicine/medicine-billing/checkout/checkout.component';
 
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
@@ -17,11 +19,14 @@ import {SharedModule} from "@shared/shared.module";
 import {AutoCompleteModule} from "primeng/autocomplete";
 
 
+import {TagModule} from "primeng/tag";
 
 @NgModule({
   declarations: [
     CreateMedicineComponent,
-    MedicineListComponent
+    MedicineListComponent,
+    MedicineBillingComponent,
+    CheckoutComponent
   ],
   exports: [],
   imports: [
@@ -32,9 +37,12 @@ import {AutoCompleteModule} from "primeng/autocomplete";
     InputNumberModule,
     TableModule,
     ToastModule,
+    TagModule,
     SharedModule,
     DynamicDialogModule,
     ConfirmDialogModule,
+    MedicineRoutingModule,
+    FormsModule,
     AutoCompleteModule,
     MedicineRoutingModule
   ]
