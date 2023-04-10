@@ -5,7 +5,6 @@ import {CreateDiagnosticComponent} from "@diagnostics/create-diagnostic/create-d
 import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 import {FormControl} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {HttpParams} from "@angular/common/http";
 
 @Component({
   selector: 'app-diagnostic-list',

@@ -43,7 +43,6 @@ export class CreateDiagnosticComponent implements OnInit{
   }
 
   filterDiag(e : any){
-    let filtered: any[] = [];
     let query = e.query;
 
     this.httpService.getRequestWithParams(`${this.diagService.adminUrl}/search`, {query: query}).subscribe(

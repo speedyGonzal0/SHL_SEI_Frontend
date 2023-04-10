@@ -1,91 +1,83 @@
-import { Injectable } from '@angular/core';
-import {DynamicDialogRef} from "primeng/dynamicdialog";
+import {Injectable} from '@angular/core';
 import {ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
+import {DynamicDialogRef} from "primeng/dynamicdialog";
+import {ApiPaths} from "@enums/api-paths";
+import {HttpService} from "@shared/services/http.service";
+import {Params} from "@angular/router";
+import {Medicine} from "@models/medicine";
 
 @Injectable({
   providedIn: 'root'
 })
-export class MedicineService {
+export class MedicineService{
 
-  medicines = [
-    {
-      id: 1,
-      name: "Napa",
-      price: 5.00,
-      formula: "Paracetamol",
-      strength: "20mg",
-      mfr: "Beximco"
-    },
-    {
-      id: 2,
-      name: "Ace",
-      price: 5.00,
-      formula: "Paracetamol",
-      strength: "20mg",
-      mfr: "Square"
-    },
-    {
-      id: 3,
-      name: "Roaccutane",
-      price: 90.00,
-      formula: "Isotretinoin",
-      strength: "20mg",
-      mfr: "Roche"
-    },
-    {
-      id: 4,
-      name: "Fexo",
-      price: 9.00,
-      formula: "Fexofanadine",
-      strength: "60mg",
-      mfr: "Square"
-    }
-  ];
+  medicines!: Medicine[];
+  totalMedicine!: number;
+  selectedMeds!: Medicine[];
 
-  orgMedicines: {
-    id: number,
-    name: string,
-    price: number,
-    formula: string,
-    strength: string,
-    mfr: string
-  }[] = [] ;
+  adminUrl : string = ApiPaths.medicine;
+  orgAdminUrl : string = ApiPaths.orgMed;
 
   ref!: DynamicDialogRef;
 
   editMode : boolean = false;
+  role: string = 'admin';
 
-  constructor() { }
-
-  ngOnInit(){
-
-  }
+  constructor(public httpService: HttpService) { }
 
   toggleEditMode(){
     this.editMode = !this.editMode;
   }
 
-  appendValue(value: ɵTypedOrUntyped<any, ɵFormGroupValue<any>, any>){
-    this.orgMedicines.push( {
-      id: this.orgMedicines.length + 1,
-      name: value.med.name,
-      price: value.med.price,
-      formula: value.med.formula,
-      strength: value.med.strength,
-      mfr: value.med.mfr
-    });
+  getData(queryParams: Params){
+    if (this.role === 'admin'){
+      this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams).subscribe(
+        (response: any) => {
+          this.medicines = response.content;
+          this.totalMedicine = response.totalElements;
+          // console.log(response);
+        }
+      )
+    }
+    else {
+      this.httpService.getRequestWithParams(`${this.orgAdminUrl}/organization/1/search`, queryParams).subscribe(
+        (response: any) => {
+          this.medicines = response.content;
+          this.totalMedicine = response.totalElements;
+        }
+      )
+    }
+  }
+
+  appendValue(body: Medicine){
+    if(this.role === 'admin'){
+      this.httpService.createRequest(`${this.adminUrl}/add`, body).subscribe();
+    }
+    else{
+      this.httpService.createRequest(`${this.orgAdminUrl}/add`, this.selectedMeds).subscribe();
+    }
 
     this.ref.close();
   }
 
   updateValue(index: number, value: ɵTypedOrUntyped<any, ɵFormGroupValue<any>, any>){
-    this.orgMedicines[index].name = value.medName;
-    this.orgMedicines[index].price = value.medPrice;
+    // this.diagnostics[index].price = value.diagPrice;
+    let item = this.medicines[index];
+    let body = {
+      "id": item.id,
+      ...value
+      // "name": value.name,
+      // "price": value.price,
+      // "genericName": value.genericName,
+      // "strength": value.strength,
+      // "vendor": value.vendor
+    };
+    this.httpService.updateRequest(`${this.adminUrl}/update`, body).subscribe();
+    // console.log(body)
     this.ref.close();
   }
 
   deleteValue(index: number){
-    this.orgMedicines.splice(index, 1);
+    this.httpService.deleteRequest(`${this.orgAdminUrl}/delete/${this.medicines[index].id}`).subscribe();
   }
-
 }
