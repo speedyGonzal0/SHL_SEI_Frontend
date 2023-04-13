@@ -5,6 +5,7 @@ import {CreateDiagnosticComponent} from "@diagnostics/create-diagnostic/create-d
 import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 import {FormControl} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
   selector: 'app-diagnostic-list',
@@ -24,17 +25,29 @@ export class DiagnosticListComponent implements OnInit{
               private confirmationService: ConfirmationService,
               public diagService: DiagnosticsService,
               private router: Router,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private refreshService: RefreshService
               ) {
   }
 
   ngOnInit(){
+    this.refreshService.refreshNeeded$
+      .subscribe(() => {
+        this.route.queryParams.subscribe(
+          (qp:Params) => {
+            this.diagService.getData(qp);
+            // console.log(qp)
+          }
+        )
+        }
+      )
     this.route.queryParams.subscribe(
       (qp:Params) => {
         this.diagService.getData(qp);
         // console.log(qp)
       }
     )
+
 
     // this.sortBy = new FormControl(null);
     //

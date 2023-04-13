@@ -7,5 +7,6 @@ export interface Medicine{
   vendor?: string,
   organizationId?: number,
   medicineId?: number,
-  medicine?: any
+  medicine?: any,
+  quantity?: number;
 }

@@ -39,6 +39,7 @@ export class OrgListComponent {
     this.httpService.getRequest(`${this.orgURL}/all`)
       .subscribe((response: any) => {
         this.orgService.orgs = response.content
+        this.orgService.totalOrgs = response.totalElements
       })
     // this.route.queryParams.subscribe(
     //   (param:Params) => {

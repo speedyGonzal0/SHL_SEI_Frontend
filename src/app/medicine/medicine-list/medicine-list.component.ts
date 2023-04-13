@@ -5,6 +5,7 @@ import {FormControl} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MedicineService} from "@medicine/medicine.service";
 import {CreateMedicineComponent} from "@medicine/create-medicine/create-medicine.component";
+import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
   selector: 'app-medicine-list',
@@ -18,11 +19,22 @@ export class MedicineListComponent implements OnInit{
               private confirmationService: ConfirmationService,
               public medService: MedicineService,
               private router: Router,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private refreshService: RefreshService
   ) {
   }
 
   ngOnInit(){
+
+    this.refreshService.refreshNeeded$
+      .subscribe(() => {
+        this.route.queryParams.subscribe(
+          (qp:Params) => {
+            this.medService.getData(qp);
+          }
+        )
+        }
+      )
     this.route.queryParams.subscribe(
       (qp:Params) => {
         this.medService.getData(qp);

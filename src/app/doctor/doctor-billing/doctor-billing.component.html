@@ -1,1 +1,189 @@
-<app-checkout></app-checkout>
+<div class="container-fluid p-0 m-0 text-center d-flex flex-column gap-5">
+
+  <div class="row p-0 m-0">
+    <div class="col">
+      <h1> Hospital Dr Appointment billing </h1>
+    </div>
+  </div>
+
+  <div class="card p-3 m-0">
+    <div class="row p-0 m-0">
+      <div class="col text-start">
+        <p>Receptionist ID: 12123</p>
+      </div>
+      <div class="col">
+        <p>Receptionist Name: XYZ</p>
+      </div>
+      <div class="col text-end">
+        <p>Date: 12/04/23</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row p-0 m-0">
+    <div class="col-9 text-start fields">
+
+      <label for="searchPatient"> Search Patient </label>
+      <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+              <i class="pi pi-search"></i>
+          </span>
+        <p-autoComplete
+          [style]="{'width': '100%'}"
+          [inputStyle]="{'width': '100%'}"
+          inputId="searchPatient"
+          [formControl]="patientSearch"
+          placeholder="Enter name/phone"
+          [showEmptyMessage] = "true"
+          [suggestions]="filteredPatients"
+          [forceSelection]="true"
+          (completeMethod)="filterPatient($event)"
+          field="name">
+
+          <ng-template let-patient pTemplate="item">
+            <p>{{ patient.name }} ({{ patient.phone }})</p>
+          </ng-template>
+
+        </p-autoComplete>
+      </div>
+    </div>
+
+    <div class="col-3 d-flex flex-column justify-content-end">
+      <button pButton
+              class="p-button-success p-button-outlined d-none d-lg-block"
+              label="Add new patient"
+              icon="pi pi-plus"
+              (click)="showCreateDialog()"
+
+      ></button>
+      <button pButton
+              class="p-button-success p-button-outlined d-lg-none"
+              icon="pi pi-plus"
+              (click)="showCreateDialog()"
+      ></button>
+    </div>
+  </div>
+
+  <div *ngIf="patientSearch.valid" class="row p-0 m-0">
+    <div class="col">
+      <div class="card text-start p-3 d-flex flex-column gap-3">
+        <div class="row p-0 m-0">
+          <div class="col-10 p-0 m-0">
+            <h4>Patient: {{patientSearch.value.name}}</h4>
+          </div>
+          <div class="col-2 d-flex justify-content-end p-0 m-0">
+            <button pButton
+                    icon="pi pi-times"
+                    class="p-button-sm p-button-outlined p-button-danger"
+                    (click)="resetPatientSearch()"
+            >
+            </button>
+          </div>
+        </div>
+
+        <div class="row p-0 m-0">
+          <div class="col p-0 m-0">
+            <p-chip class="mx-2" label="Phone: {{patientSearch.value.phone}}"></p-chip>
+            <p-chip class="mx-2" label="Email: {{patientSearch.value.email}}"></p-chip>
+            <p-chip class="mx-2" label="Age: {{patientSearch.value.age}}"></p-chip>
+            <p-chip class="mx-2" label="Gender: {{patientSearch.value.gender}}"></p-chip>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row p-0 m-0">
+    <div class="col-9 fields text-start">
+      <label for="searchDocs"> Search Doctor </label>
+      <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-search"></i>
+                </span>
+        <p-autoComplete
+          [style]="{'width': '100%'}"
+          [inputStyle]="{'width': '100%'}"
+          inputId="searchDocs"
+          [formControl]="docSearch"
+          placeholder="Enter name"
+          [showEmptyMessage] = "true"
+          [suggestions]="filteredDocs"
+          [forceSelection]="true"
+          (completeMethod)="filterDocs($event)"
+          field="doctor.name">
+          <ng-template let-doc pTemplate="item">
+            <p>{{ doc.name }} ({{ doc.id }})</p>
+          </ng-template>
+
+        </p-autoComplete>
+      </div>
+
+    </div>
+
+    <div class="col-3">
+
+    </div>
+  </div>
+
+  <div *ngIf="docSearch.valid" class="row p-0 m-0">
+    <div class="col">
+      <div class="card text-start p-3 d-flex flex-column gap-3">
+        <div class="row p-0 m-0">
+          <div class="col-10 p-0 m-0">
+            <h4>Doctor: {{docSearch.value.name}}</h4>
+          </div>
+          <div class="col-2 d-flex justify-content-end p-0 m-0">
+            <button pButton
+                    icon="pi pi-times"
+                    class="p-button-sm p-button-outlined p-button-danger"
+                    (click)="resetDocSearch()"
+            >
+            </button>
+          </div>
+        </div>
+
+        <div class="row p-0 m-0">
+          <div class="col p-0 m-0">
+            <p-chip class="mx-2" label="Phone: {{docSearch.value.phone}}"></p-chip>
+            <p-chip class="mx-2" label="Email: {{docSearch.value.email}}"></p-chip>
+            <p-chip class="mx-2" label="Specialities: {{docSearch.value.specialities}}"></p-chip>
+            <p-chip class="mx-2" label="Degrees: {{docSearch.value.degrees}}"></p-chip>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row p-0 m-0">
+    <div class="col-9 fields text-start">
+      <label for="docTime"> Select Appointment Date </label>
+      <p-calendar inputId="docTime"
+                  [formControl]="docTime"
+                  [minDate]="minDate"
+                  icon="pi pi-calendar"
+                  [showIcon]="true"
+                  hourFormat="12"
+                  [showTime]="true">
+      </p-calendar>
+
+    </div>
+  </div>
+
+
+
+  <div class="row p-0 m-0">
+    <div class="col p-0 m-0">
+      <button pButton
+              type="button"
+              class="p-button-success"
+              icon="pi pi-arrow-right"
+              iconPos="right"
+              [disabled]="!patientSearch.valid || !docSearch.valid || !docTime.valid"
+              label="Proceed to checkout"
+              routerLink="/doctor/checkout"
+      ></button>
+    </div>
+  </div>
+
+</div>

@@ -18,18 +18,19 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DividerModule } from 'primeng/divider';
 import {RouterLink} from "@angular/router";
 import {DoctorRoutingModule} from "@doctor/doctor-routing.module";
-import { DoctorBillingComponent } from './doctor-billing/doctor-billing.component';
-import { CheckoutComponent } from './doctor-billing/checkout/checkout.component';
+import { DoctorBillingComponent } from '@doctor/doctor-billing/doctor-billing.component';
+import { CheckoutComponent } from '@doctor/doctor-billing/checkout/checkout.component';
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {InputNumberModule} from "primeng/inputnumber";
 import {MultiSelectModule} from "primeng/multiselect";
+import {CalendarModule} from "primeng/calendar";
 @NgModule({
   declarations: [
     DoctorRegistrationComponent,
     DoctorListComponent,
     DoctorProfileComponent,
     DoctorBillingComponent,
-    CheckoutComponent
+    CheckoutComponent,
   ],
   exports: [
     DoctorListComponent,
@@ -52,7 +53,8 @@ import {MultiSelectModule} from "primeng/multiselect";
     FormsModule,
     AutoCompleteModule,
     InputNumberModule,
-    MultiSelectModule
+    MultiSelectModule,
+    CalendarModule
   ]
 })
 export class DoctorModule { }
