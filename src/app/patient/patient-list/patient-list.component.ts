@@ -47,6 +47,7 @@ export class PatientListComponent {
   showCreateDialog(){
     this.patientService.patientRef = this.dialogService.open(PatientRegistrationComponent, {
       header: "Register New Patient",
+      style: {'width':'50%', 'max-width': '800px'}
     });
   }
 

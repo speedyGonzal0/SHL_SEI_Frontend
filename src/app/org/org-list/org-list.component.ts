@@ -31,21 +31,18 @@ export class OrgListComponent {
         }
       )
     this.getOrgList()
-
-
   }
 
   getOrgList(){
-    this.httpService.getRequest(`${this.orgURL}/all`)
-      .subscribe((response: any) => {
-        this.orgService.orgs = response.content
-        this.orgService.totalOrgs = response.totalElements
-      })
-    // this.route.queryParams.subscribe(
-    //   (param:Params) => {
-    //     this.orgService.getOrg(param);
-    //   }
-    // )
+    // this.httpService.getRequest(`${this.orgURL}/all`)
+    //   .subscribe((response: any) => {
+    //     this.orgService.orgs = response.content
+    //   })
+    this.route.queryParams.subscribe(
+      (param:Params) => {
+        this.orgService.getOrg(param);
+      }
+    )
   }
 
   showCreateDialog(){

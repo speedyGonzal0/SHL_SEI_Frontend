@@ -5,6 +5,7 @@ export interface AppUser{
   phone: string,
   gender: string,
   address: string,
+  organization_id: number,
   age: number,
   role: [],
   password: string,

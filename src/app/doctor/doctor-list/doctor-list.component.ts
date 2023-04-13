@@ -39,10 +39,15 @@ export class DoctorListComponent implements OnInit{
   }
 
   getDoctorList(){
-    this.httpService.getRequest(`${this.doctorURL}/all`)
-      .subscribe((response: any) => {
-        this.doctorService.doctors = response.content
-      })
+    // this.httpService.getRequest(`${this.doctorURL}/all`)
+    //   .subscribe((response: any) => {
+    //     this.doctorService.doctors = response.content
+    //   })
+    this.route.queryParams.subscribe(
+      (param:Params) => {
+        this.doctorService.getDoctor(param);
+      }
+    )
   }
 
   showCreateDialog(){

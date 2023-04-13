@@ -12,7 +12,7 @@
            [rows]="10"
            [totalRecords]="doctorService.totalDoctors"
            [scrollable]="true"
-  >
+           (onPage)="onPagination($event)">
     <ng-template pTemplate="caption">
       <div class="tableToolbar">
         <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
