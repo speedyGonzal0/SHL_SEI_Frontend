@@ -1,153 +1,283 @@
-<div class="docRegContainer">
+<form
+  *ngIf="doctorService.role === 'admin'; else orgAdminFunctions"
+  class="container-fluid d-flex flex-column gap-3 p-0 m-0"
+  [formGroup]="doctorForm"
+  (ngSubmit)="onSubmit()">
 
-  <div class="docRegCardContainer">
+  <!------------------------------------------------------------------
+  ------------------------ Create Doctor Form ------------------------
+  ------------------------------------------------ ------------------->
 
-    <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
-
-      <!------------------------------------------------------------------
-      ------------------------ Create Doctor Form ------------------------
-      ------------------------------------------------ ------------------->
-
-      <span *ngIf="!doctorService.editMode"
-            class="inputField">
+  <div class="row p-0 m-0">
+    <div class="col p-0">
+      <span
+        class="fields">
         <label for="name">Name</label>
         <input formControlName="name"
                id="name"
                type="text"
                pInputText
+               placeholder="E.g: Md Rahim"
+               class="p-inputtext-sm"
         />
-        <p
+        <small
           *ngIf="!doctorForm.controls['name'].valid && doctorForm.controls['name'].touched">
           This field is required!
-        </p>
+        </small>
       </span>
+    </div>
 
-      <span *ngIf="!doctorService.editMode"
-            class="inputField">
+  </div>
+
+  <div class="row p-0 m-0 d-flex gap-3">
+    <div class="col p-0">
+      <span
+        class="fields">
         <label for="phone">Phone</label>
         <input formControlName="phone"
                id="phone"
                type="text"
                pInputText
+               placeholder="E.g: 01xxxxxxxxx"
+               class="p-inputtext-sm"
         />
-        <p
+        <small
           *ngIf="!doctorForm.controls['phone'].valid && doctorForm.controls['phone'].touched">
           This field is required!
-        </p>
+        </small>
       </span>
+    </div>
 
-      <span *ngIf="!doctorService.editMode"
-            class="inputField">
+    <div class="col p-0">
+      <span
+        class="fields">
         <label for="email">Email</label>
         <input formControlName="email"
                id="email"
                type="email"
-               pInputText/>
-        <p
+               pInputText
+               placeholder="E.g: sth@xmail.com"
+               class="p-inputtext-sm"/>
+        <small
           *ngIf="!doctorForm.controls['email'].valid && doctorForm.controls['email'].touched">
           This field is required!
-        </p>
+        </small>
       </span>
+    </div>
 
-      <span *ngIf="!doctorService.editMode"
-            class="inputField">
+  </div>
+
+  <div class="row p-0 m-0">
+    <div class="col p-0">
+      <span
+        class="fields">
         <label for="gender">Gender</label>
         <p-dropdown formControlName="gender"
+                    class="p-inputtext-sm"
                     [options]="doctorService.genders"
                     placeholder="-"
                     id="gender"
                     [style]="{width: '100%'}"
                     optionLabel="gender">
         </p-dropdown>
-        <p
+        <small
           *ngIf="!doctorForm.controls['gender'].valid && doctorForm.controls['gender'].touched">
           This field is required!
-        </p>
+        </small>
       </span>
+    </div>
+  </div>
 
-      <span *ngIf="!doctorService.editMode"
-            class="inputField p-fluid">
+  <div class="row p-0 m-0">
+    <div class="col p-0">
+      <span
+        class="fields p-fluid">
         <label for="degrees">Degrees</label>
         <p-chips formControlName="degrees"
+                 placeholder="E.g: MBBS, FCPS"
                  id="degrees">
         </p-chips>
       </span>
+      <small
+        *ngIf="!doctorForm.controls['degrees'].valid && doctorForm.controls['degrees'].touched">
+        This field is required!
+      </small>
+    </div>
+  </div>
 
-      <span *ngIf="!doctorService.editMode"
-            class="inputField p-fluid">
+  <div class="row p-0 m-0">
+    <div class="col p-0">
+      <span
+        class="fields p-fluid">
         <label for="specialities">Specialities</label>
         <p-chips formControlName="specialities"
+                 placeholder="E.g: Opthalmology"
                  id="specialities">
         </p-chips>
       </span>
-
-
-     <!------------------------------------------------------------------
-     ------------------------ Edit Doctor Form --------------------------
-     ------------------------------------------------ ------------------->
-
-      <span *ngIf="doctorService.editMode"
-        class="inputField">
-        <label for="name">Name</label>
-        <input formControlName="name"
-               inputId="name"
-               type="text"
-               pInputText
-        />
-      </span>
-
-      <span *ngIf="doctorService.editMode"
-            class="inputField">
-        <label for="phone">Phone</label>
-        <input formControlName="phone"
-               inputId="phone"
-               type="text"
-               pInputText
-        />
-      </span>
-
-      <span *ngIf="doctorService.editMode"
-            class="inputField">
-        <label for="email">Email</label>
-        <input formControlName="email"
-               inputId="email"
-               type="email"
-               pInputText/>
-      </span>
-
-      <span *ngIf="doctorService.editMode"
-            class="inputField">
-        <label for="gender">Gender</label>
-        <p-dropdown formControlName="gender"
-                    [options]="doctorService.genders"
-                    placeholder="-"
-                    inputId="gender"
-                    [style]="{width: '100%'}"
-                    optionLabel="gender">
-        </p-dropdown>
-      </span>
-
-      <span *ngIf="doctorService.editMode"
-            class="inputField p-fluid">
-        <label for="degrees">Degrees</label>
-        <p-chips formControlName="degrees"
-                 inputId="degrees">
-        </p-chips>
-      </span>
-
-      <span *ngIf="doctorService.editMode"
-            class="inputField p-fluid">
-        <label for="specialities">Specialities</label>
-        <p-chips formControlName="specialities"
-                 inputId="specialities">
-        </p-chips>
-      </span>
-
-      <button pButton type="submit" label={{submitLabel}}
-              [disabled]="!doctorForm.valid && !doctorService.editMode"></button>
-
-    </form>
-
+      <small
+        *ngIf="!doctorForm.controls['specialities'].valid && doctorForm.controls['specialities'].touched">
+        This field is required!
+      </small>
+    </div>
   </div>
 
-</div>
+  <div class="row p-0 m-0">
+    <div class="col p-0">
+      <button [style]="{'width': '100%'}" pButton class="p-button-success" type="submit" label={{submitLabel}}
+              [disabled]="!doctorForm.valid">
+      </button>
+    </div>
+  </div>
+</form>
+
+<ng-template #orgAdminFunctions>
+  <div class="container-fluid p-0 m-0 d-flex flex-column gap-5">
+    <form class="container-fluid d-flex flex-column gap-3 p-0 m-0"
+          [formGroup] = "doctorSelectForm"
+          (ngSubmit)="onOrgAdminSubmit()" >
+
+      <div class="row p-0 m-0">
+          <div class="col p-0 m-0 fields" *ngIf="!doctorService.editMode">
+            <label for="docOptions"> Search Doctor </label>
+
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon">
+                  <i class="pi pi-search"></i>
+              </span>
+              <p-autoComplete
+                [style]="{'width': '100%'}"
+                class="p-inputtext-sm"
+                [inputStyle]="{'width': '100%'}"
+                inputId="docOptions"
+                formControlName="doctor"
+                placeholder="Search by Name/BMDC"
+                [showEmptyMessage] = "true"
+                [suggestions]="filteredDocs"
+                [forceSelection]="true"
+                (completeMethod)="filterDocs($event)"
+                field="name">
+              </p-autoComplete>
+            </div>
+            <small *ngIf="!doctorSelectForm.controls['doctor'].valid
+             && doctorSelectForm.controls['doctor'].touched"> This field is required! </small>
+        </div>
+
+      </div>
+
+      <div class="row p-0 m-0" *ngIf="doctorSelectForm.value.doctor">
+        <div class="col p-0 fields">
+
+          <label> Selected doctor </label>
+
+          <p-card
+            header="Dr {{doctorSelectForm.value.doctor.name}}"
+            subheader="{{doctorSelectForm.value.doctor.degrees}}"
+          >
+            <p class="m-0">
+              BMDC: {{doctorSelectForm.value.doctor.id}}
+            </p>
+            <p class="m-0">
+              Specialities: {{doctorSelectForm.value.doctor.specialities}}
+            </p>
+          </p-card>
+
+        </div>
+      </div>
+
+      <div class="row p-0 m-0 d-flex gap-3">
+        <div class="col p-0 fields">
+          <label for="consultFee"> Consultation Fee </label>
+          <p-inputNumber
+            class="p-inputtext-sm"
+            inputId="consultFee"
+            mode="decimal"
+            formControlName="consultationFee"
+            placeholder="E.g: 800"
+
+          >
+          </p-inputNumber>
+          <small
+            *ngIf="!doctorSelectForm.controls['consultationFee'].valid
+             && doctorSelectForm.controls['consultationFee'].touched">
+            This field is required!
+          </small>
+        </div>
+
+          <div class="col p-0 fields">
+            <label for="followFee"> Follow-up Fee </label>
+            <p-inputNumber
+              class="p-inputtext-sm"
+              inputId="followFee"
+              mode="decimal"
+              formControlName="followupFee"
+              placeholder="E.g: 500"
+            >
+            </p-inputNumber>
+            <small
+              *ngIf="!doctorSelectForm.controls['followupFee'].valid
+             && doctorSelectForm.controls['followupFee'].touched">
+              This field is required!
+            </small>
+          </div>
+
+          <div class="col p-0 fields">
+            <label for="reportFee"> Report Fee </label>
+            <p-inputNumber
+              class="p-inputtext-sm"
+              inputId="reportFee"
+              mode="decimal"
+              formControlName="reportFee"
+              placeholder="E.g: 300"
+            >
+            </p-inputNumber>
+            <small
+              *ngIf="!doctorSelectForm.controls['reportFee'].valid
+             && doctorSelectForm.controls['reportFee'].touched">
+              This field is required!
+            </small>
+          </div>
+      </div>
+
+      <div class="row p-0 m-0">
+        <div class="col p-0 fields">
+          <label for="docTimes"> Available times </label>
+
+          <p-multiSelect [options]="availableTimes"
+                         formControlName="availableTimes"
+                         class="p-inputtext-sm"
+                         defaultLabel="Select days"
+                         inputId="docTimes"
+                         display="chip"
+                         [style]="{'width': '100%'}"
+          >
+          </p-multiSelect>
+          <small
+            *ngIf="!doctorSelectForm.controls['availableTimes'].valid
+             && doctorSelectForm.controls['availableTimes'].touched">
+            This field is required!
+          </small>
+        </div>
+      </div>
+
+      <div class="row p-0 m-0">
+        <div class="col p-0">
+          <button *ngIf="!doctorService.editMode; else updateDiag"
+                  [style]="{'width': '100%'}"
+                  pButton type="submit"
+                  label="Confirm"
+                  [disabled]="!doctorSelectForm.valid"
+                  class="p-button-success">
+          </button>
+          <ng-template #updateDiag>
+            <button  [style]="{'width': '100%'}"
+                     pButton type="submit"
+                     label="Update"
+                     class="p-button-success"></button>
+          </ng-template>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</ng-template>

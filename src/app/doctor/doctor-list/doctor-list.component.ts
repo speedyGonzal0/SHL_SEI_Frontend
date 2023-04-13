@@ -4,6 +4,8 @@ import {DialogService} from "primeng/dynamicdialog";
 import {DoctorRegistrationComponent} from "../doctor-registration/doctor-registration.component";
 import {HttpService} from "@shared/services/http.service";
 import {DoctorService} from "@shared/services/doctor.service";
+import {ApiPaths} from "@enums/api-paths";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
   selector: 'app-doctor-list',
@@ -13,26 +15,64 @@ import {DoctorService} from "@shared/services/doctor.service";
 })
 export class DoctorListComponent implements OnInit{
 
-  constructor(private messageService: MessageService, private dialogService: DialogService,
-              private confirmationService: ConfirmationService, private httpService: HttpService,
-              public doctorService: DoctorService) {
+  adminUrl = ApiPaths.doctor;
+  orgAdminUrl = ApiPaths.orgDoc;
+
+  constructor(private messageService: MessageService,
+              private dialogService: DialogService,
+              private confirmationService: ConfirmationService,
+              private httpService: HttpService,
+              public doctorService: DoctorService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.getDoctorList()
+    this.route.queryParams.subscribe( (qp) => {
+      JSON.stringify(qp) === "{}" ? this.getDoctorList() : this.searchDoctors(qp);
+    })
+    // this.getDoctorList()
   }
 
   getDoctorList(){
-    this.httpService.getRequest("http://localhost:9000/doctor/all")
-      .subscribe((response: any) => {
-        this.doctorService.doctors = response
-      })
+    if(this.doctorService.role === 'admin'){
+      this.httpService.getRequest(`${this.adminUrl}/all`)
+        .subscribe((response: any) => {
+          this.doctorService.doctors = response.content;
+          this.doctorService.totalDoctors = response.totalElement;
+        })
+    }
+    else{
+      this.httpService.getRequest(`${this.orgAdminUrl}/organization/1/all`)
+        .subscribe((response: any) => {
+          this.doctorService.doctors = response.content;
+          this.doctorService.totalDoctors = response.totalElement;
+        })
+    }
+
+  }
+
+  searchDoctors(queryParams : Params){
+    if(this.doctorService.role === 'admin'){
+      this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams).subscribe(
+        (response: any) => {
+          this.doctorService.doctors = response;
+        }
+      );
+    }
+    else{
+      this.httpService.getRequestWithParams(`${this.orgAdminUrl}/organization/1/search`, queryParams).subscribe(
+        (response: any) => this.doctorService.doctors = response
+      );
+    }
+
+
   }
 
   showCreateDialog(){
     this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
-      header: "Register New Doctor",
-      width: '50%',
+      header: "New Doctor",
+      style: {'width':'50%', 'max-width': '800px'}
     });
   }
 
@@ -43,7 +83,7 @@ export class DoctorListComponent implements OnInit{
       data: {
         index: index
       },
-      width: '50%'
+      style: {'width':'50%', 'max-width': '800px'}
     });
 
     this.doctorService.doctorRef.onClose.subscribe(() => this.doctorService.toggleEditMode());
@@ -51,12 +91,35 @@ export class DoctorListComponent implements OnInit{
 
   onDelete(index: number) {
     this.confirmationService.confirm({
-      message: `Are you sure you want to delete doctor ID: ${this.doctorService.doctors[index].id}?`,
+      message: `Are you sure you want to delete doctor: ${this.doctorService.doctors[index].name}?`,
       acceptButtonStyleClass: "p-button-danger",
       rejectButtonStyleClass: "p-button-outlined p-button-secondary",
       accept: () => {
         // this.diagService.deleteValue(index);
       }
     });
+  }
+
+  onPagination(firstIndex: number){
+    let page = firstIndex / 10;
+    if(firstIndex === 0){
+      this.router.navigate([]);
+    }
+    else{
+      this.router.navigate([],
+        {
+          queryParams: {pageNo: parseInt(String(page), 10)},
+          queryParamsHandling: "merge"
+        })
+    }
+  }
+
+  onSearch(value: any){
+    if(value === ''){
+      this.router.navigate([]);
+    }
+    else{
+      this.router.navigate([], {queryParams: {query: value}, queryParamsHandling: 'merge'})
+    }
   }
 }

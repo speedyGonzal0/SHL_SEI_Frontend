@@ -18,6 +18,9 @@ import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DividerModule } from 'primeng/divider';
 import {RouterLink} from "@angular/router";
 import {DoctorRoutingModule} from "@doctor/doctor-routing.module";
+import {AutoCompleteModule} from "primeng/autocomplete";
+import {InputNumberModule} from "primeng/inputnumber";
+import {MultiSelectModule} from "primeng/multiselect";
 @NgModule({
   declarations: [
     DoctorRegistrationComponent,
@@ -41,7 +44,10 @@ import {DoctorRoutingModule} from "@doctor/doctor-routing.module";
     ConfirmDialogModule,
     DividerModule,
     RouterLink,
-    DoctorRoutingModule
+    DoctorRoutingModule,
+    AutoCompleteModule,
+    InputNumberModule,
+    MultiSelectModule
   ]
 })
 export class DoctorModule { }

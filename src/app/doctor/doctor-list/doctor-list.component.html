@@ -1,26 +1,40 @@
 <div class="doctorListContainer">
 
   <h2 class="text-center mb-4">Registered Doctors</h2>
-  <p-table #dt [rowHover]="true" [value]="doctorService.doctors" [tableStyle]="{'min-width': '50rem'}"
-           [globalFilterFields]="['id', 'name', 'specialities']" >
+  <p-table #dt
+           styleClass="p-datatable-gridlines p-datatable-sm"
+           [rowHover]="true"
+           [value]="doctorService.doctors"
+           [lazy]="true"
+           (onLazyLoad)="onPagination($event.first)"
+           [style]="{'width': '100%', 'min-width': '800px'}"
+           [paginator]="true"
+           [rows]="10"
+           [totalRecords]="doctorService.totalDoctors"
+           [scrollable]="true"
+  >
     <ng-template pTemplate="caption">
       <div class="tableToolbar">
         <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
-                class="p-button-success p-button-outlined" label="Add"></button>
+                class="p-button-success p-button-outlined" label="New Doctor"></button>
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input pInputText type="text"
-                   (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-                   placeholder="ID/Name/Speciality" />
+                   (input)="onSearch($any($event.target).value)"
+                   placeholder="Search Name/Speciality" />
           </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center" pSortableColumn="id"><p-sortIcon field="id"></p-sortIcon> ID </th>
-        <th style="text-align: center" pSortableColumn="name"><p-sortIcon field="name"></p-sortIcon> Name </th>
-        <th style="text-align: center" pSortableColumn="specialities"><p-sortIcon field="specialities"></p-sortIcon> Specialities </th>
-        <th style="text-align: center" pSortableColumn="gender"><p-sortIcon field="gender"></p-sortIcon> Gender </th>
+        <th style="text-align: center"> # </th>
+        <th style="text-align: center"> Name </th>
+        <th style="text-align: center" *ngIf="doctorService.role === 'admin'"> Degrees </th>
+        <th style="text-align: center" *ngIf="doctorService.role === 'admin'"> Specialities </th>
+        <th style="text-align: center" *ngIf="doctorService.role === 'admin'"> Gender </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> Consultation Fee </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> Follow-up Fee </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> Report Fee </th>
         <th style="text-align: center">Actions</th>
       </tr>
     </ng-template>
@@ -28,14 +42,18 @@
       <tr>
         <td style="text-align: center"> {{item.id}}</td>
         <td style="text-align: center"> {{item.name}} </td>
-        <td style="text-align: center"> {{item.specialities}}</td>
-        <td style="text-align: center"> {{item.gender}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role === 'admin'"> {{item.degrees}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role === 'admin'"> {{item.specialities}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role === 'admin'"> {{item.gender}}</td>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> {{item.consultationFee}} </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> {{item.followupFee}} </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> {{item.reportFee}} </th>
         <td style="text-align: center">
           <span class="p-buttonset">
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
                     class="p-button-outlined p-button-secondary"></button>
-            <button (click)="onDelete(index)" pButton icon="pi pi-trash"
-                    class="p-button-outlined p-button-secondary"></button>
+<!--            <button (click)="onDelete(index)" pButton icon="pi pi-trash"-->
+<!--                    class="p-button-outlined p-button-secondary"></button>-->
             <button [routerLink]="['/doctor', item.id]" pButton icon="pi pi-eye"
                     class="p-button-outlined p-button-secondary"></button>
           </span>
