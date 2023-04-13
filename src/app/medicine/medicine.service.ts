@@ -21,7 +21,7 @@ export class MedicineService{
   ref!: DynamicDialogRef;
 
   editMode : boolean = false;
-  role: string = 'admin';
+  role: string = 'org';
 
   constructor(public httpService: HttpService) { }
 

@@ -17,6 +17,7 @@ import { MedicineListComponent } from '@medicine/medicine-list/medicine-list.com
 import {MedicineRoutingModule} from "@medicine/medicine-routing.module";
 import {SharedModule} from "@shared/shared.module";
 import {AutoCompleteModule} from "primeng/autocomplete";
+import {ChipModule} from "primeng/chip";
 
 
 import {TagModule} from "primeng/tag";
@@ -41,10 +42,11 @@ import {TagModule} from "primeng/tag";
     SharedModule,
     DynamicDialogModule,
     ConfirmDialogModule,
-    MedicineRoutingModule,
     FormsModule,
     AutoCompleteModule,
-    MedicineRoutingModule
+    MedicineRoutingModule,
+    ChipModule,
+    FormsModule
   ]
 })
 export class MedicineModule { }

@@ -17,6 +17,8 @@ import {SharedModule} from "@shared/shared.module";
 import {DiagnosticsRoutingModule} from "@diagnostics/diagnostics-routing.module";
 import { DiagnosticBillingComponent } from './diagnostic-billing/diagnostic-billing.component';
 import { CheckoutComponent } from './diagnostic-billing/checkout/checkout.component';
+import {CardModule} from "primeng/card";
+import {ChipModule} from "primeng/chip";
 
 
 
@@ -41,7 +43,8 @@ import { CheckoutComponent } from './diagnostic-billing/checkout/checkout.compon
     ConfirmDialogModule,
     AutoCompleteModule,
     DiagnosticsRoutingModule,
-    DiagnosticsRoutingModule,
+    CardModule,
+    ChipModule,
     FormsModule
   ],
   providers: []

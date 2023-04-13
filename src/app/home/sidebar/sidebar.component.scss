@@ -27,6 +27,7 @@ ul{
   display: flex;
   list-style: none;
   flex-direction: column;
+  width: 95%;
   gap: 10px;
   padding: 0;
 }
@@ -47,4 +48,24 @@ li:hover{
 .linkActive{
   background-color: #d4ffe3;
   color: green;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d2d2d2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #9f9f9f;
 }
