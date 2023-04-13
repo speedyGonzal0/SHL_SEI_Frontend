@@ -1,0 +1,18 @@
+.discount{
+  display: flex;
+  align-items: center;
+
+  i{
+    cursor: pointer;
+    color: #24C55F;
+  }
+}
+
+.tableCaption{
+  //display: flex;
+  //justify-content: space-between;
+  //margin: 0 30px;
+  p{
+    font-weight: lighter;
+  }
+}

@@ -7,7 +7,7 @@
       <!------------------------------------------------------------------
       ------------------------ Create Doctor Form ------------------------
       ------------------------------------------------ ------------------->
-      <span *ngIf="!appUserService.editMode"
+      <span
             class="inputField">
         <label for="name">Name</label>
         <input formControlName="name"
@@ -21,7 +21,7 @@
         </p>
       </span>
 
-      <span *ngIf="!appUserService.editMode"
+      <span
             class="inputField">
         <label for="phone">Phone</label>
         <input formControlName="phone"
@@ -35,7 +35,7 @@
         </p>
       </span>
 
-      <span *ngIf="!appUserService.editMode"
+      <span
             class="inputField">
         <label for="email">Email</label>
         <input formControlName="email"
@@ -48,7 +48,7 @@
         </p>
       </span>
 
-      <span *ngIf="!appUserService.editMode"
+      <span
             class="inputField">
         <label for="gender">Gender</label>
         <p-dropdown formControlName="gender"
@@ -64,7 +64,7 @@
         </p>
       </span>
 
-      <span *ngIf="!appUserService.editMode && !authService.isAdmin"
+      <span *ngIf="!authService.isAdmin"
             class="inputField">
         <label for="role">Role</label>
         <p-multiSelect formControlName="role"
@@ -80,7 +80,7 @@
         </p>
       </span>
 
-      <span *ngIf="!appUserService.editMode"
+      <span
             class="inputField">
         <label for="age">Age</label>
         <input formControlName="age"
@@ -93,7 +93,7 @@
         </p>
       </span>
 
-      <span *ngIf="!appUserService.editMode"
+      <span
             class="inputField">
         <label for="address">Address</label>
         <input formControlName="address"
@@ -108,7 +108,7 @@
       </span>
 
 
-      <span *ngIf="!appUserService.editMode"
+      <span
             class="inputField">
         <label for="password">Password</label>
         <input formControlName="password"
@@ -126,65 +126,65 @@
       ------------------------ Edit Doctor Form --------------------------
       ------------------------------------------------ ------------------->
 
-      <span *ngIf="appUserService.editMode"
-            class="inputField">
-        <label for="name">Name</label>
-        <input formControlName="name"
-               inputId="name"
-               type="text"
-               pInputText
-        />
-      </span>
+<!--      <span *ngIf="appUserService.editMode"-->
+<!--            class="inputField">-->
+<!--        <label for="name">Name</label>-->
+<!--        <input formControlName="name"-->
+<!--               inputId="name"-->
+<!--               type="text"-->
+<!--               pInputText-->
+<!--        />-->
+<!--      </span>-->
 
-      <span *ngIf="appUserService.editMode"
-            class="inputField">
-        <label for="phone">Phone</label>
-        <input formControlName="phone"
-               inputId="phone"
-               type="text"
-               pInputText
-        />
-      </span>
+<!--      <span *ngIf="appUserService.editMode"-->
+<!--            class="inputField">-->
+<!--        <label for="phone">Phone</label>-->
+<!--        <input formControlName="phone"-->
+<!--               inputId="phone"-->
+<!--               type="text"-->
+<!--               pInputText-->
+<!--        />-->
+<!--      </span>-->
 
-      <span *ngIf="appUserService.editMode"
-            class="inputField">
-        <label for="email">Email</label>
-        <input formControlName="email"
-               inputId="email"
-               type="email"
-               pInputText/>
-      </span>
+<!--      <span *ngIf="appUserService.editMode"-->
+<!--            class="inputField">-->
+<!--        <label for="email">Email</label>-->
+<!--        <input formControlName="email"-->
+<!--               inputId="email"-->
+<!--               type="email"-->
+<!--               pInputText/>-->
+<!--      </span>-->
 
-      <span *ngIf="appUserService.editMode"
-            class="inputField">
-        <label for="gender">Gender</label>
-        <p-dropdown formControlName="gender"
-                    [options]="appUserService.genders"
-                    placeholder="-"
-                    inputId="gender"
-                    [style]="{width: '100%'}"
-                    optionLabel="gender">
-        </p-dropdown>
-      </span>
+<!--      <span *ngIf="appUserService.editMode"-->
+<!--            class="inputField">-->
+<!--        <label for="gender">Gender</label>-->
+<!--        <p-dropdown formControlName="gender"-->
+<!--                    [options]="appUserService.genders"-->
+<!--                    placeholder="-"-->
+<!--                    inputId="gender"-->
+<!--                    [style]="{width: '100%'}"-->
+<!--                    optionLabel="gender">-->
+<!--        </p-dropdown>-->
+<!--      </span>-->
 
-      <span *ngIf="appUserService.editMode"
-            class="inputField">
-        <label for="age">Age</label>
-        <input formControlName="age"
-               inputId="age"
-               type="number"
-               pInputText/>
-      </span>
+<!--      <span *ngIf="appUserService.editMode"-->
+<!--            class="inputField">-->
+<!--        <label for="age">Age</label>-->
+<!--        <input formControlName="age"-->
+<!--               inputId="age"-->
+<!--               type="number"-->
+<!--               pInputText/>-->
+<!--      </span>-->
 
-      <span *ngIf="appUserService.editMode"
-            class="inputField">
-        <label for="address">Address</label>
-        <input formControlName="address"
-               inputId="address"
-               type="text"
-               pInputText
-        />
-      </span>
+<!--      <span *ngIf="appUserService.editMode"-->
+<!--            class="inputField">-->
+<!--        <label for="address">Address</label>-->
+<!--        <input formControlName="address"-->
+<!--               inputId="address"-->
+<!--               type="text"-->
+<!--               pInputText-->
+<!--        />-->
+<!--      </span>-->
 
 
       <button pButton type="submit" label={{submitLabel}}

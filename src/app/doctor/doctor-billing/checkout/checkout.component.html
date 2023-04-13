@@ -1,0 +1,71 @@
+<div class="text-center">
+
+  <p-table [value]="appointment" [scrollable]="true" >
+    <ng-template pTemplate="caption">
+      <h2 class="text-center my-2">{{org.name}}Appointments</h2>
+      <div class="mt-4 row">
+        <span class="captionInfo col-md">
+          <p>Patient Name: <b>{{patient.name}}</b></p>
+        </span>
+        <span class="captionInfo col-md">
+          <p>Patient Phone: <b>{{patient.phone}}</b></p>
+        </span>
+        <span class="captionInfo col-md">
+          <p>Issued: <b>{{issued | date:'longDate'}}</b></p>
+        </span>
+        <span class="captionInfo col-md">
+          <p>Issued By: <b>#{{user.id}}</b></p>
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of cols"
+            style="text-align: center">
+          {{col.header}}</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-app>
+      <tr>
+        <td style="text-align: center">{{app.doctor}}</td>
+
+        <td style="text-align: center">{{app.type}}</td>
+
+        <td style="text-align: center">{{app.time}}</td>
+
+        <td style="text-align: center">{{app.fee}}</td>
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td rowspan="4" colspan="2">
+          <div *ngIf="showDiscountInput" class="discount">
+            <input pInputText type="number" placeholder="Enter discount %" [min]="0" [max]="100"
+                   style="border-radius: 10px 0 0 10px; width: 200px" [(ngModel)]="discountPercent">
+            <button pButton label="Apply" class="p-button-success" [disabled]="isDisabled(discountPercent)"
+                    style="border-radius: 0 10px 10px 0" (click)="applyDiscount()"></button>
+          </div>
+          <div *ngIf="!showDiscountInput" class="discount">
+            <p class="mx-2 my-0">{{discountPercent}}% discount has been applied</p>
+            <i class="pi pi-times" (click)="cancelDiscount()"></i>
+          </div>
+        </td>
+        <td style="text-align: center">Total</td>
+        <td style="text-align: center">{{appointment[0].fee}} BDT</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">Discount</td>
+        <td style="text-align: center">-{{discountAmount}} BDT</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">Payable</td>
+        <td style="text-align: center">{{calculatePayable()}} BDT</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <button pButton label="Generate Invoice" icon="pi pi-file-pdf"
+          class="p-button-success mt-4" (click)="exportPdf()"></button>
+</div>

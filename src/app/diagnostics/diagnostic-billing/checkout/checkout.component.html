@@ -1,0 +1,89 @@
+<div class="text-center">
+
+  <p-table [value]="diagnostics" [scrollable]="true" >
+    <ng-template pTemplate="caption">
+      <h2 class="text-center my-2">{{org.name}}Diagnostics</h2>
+      <div class="tableCaption mt-4 row" id="table">
+        <span class="captionInfo col-md">
+          <p>Patient Name: <b>{{patient.name}}</b></p>
+        </span>
+        <span class="captionInfo col-md">
+          <p>Patient Phone: <b>{{patient.phone}}</b></p>
+        </span>
+        <span class="captionInfo col-md">
+          <p>Issued: <b>{{issued | date:'longDate'}}</b></p>
+        </span>
+        <span class="captionInfo col-md">
+          <p>Issued By: <b>#{{user.id}}</b></p>
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of cols"
+            style="text-align: center">
+          {{col.header}}</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-diagnostic let-rowIndex="rowIndex">
+      <tr>
+        <td style="text-align: center">{{diagnostic.name}}</td>
+
+        <td style="text-align: center">{{diagnostic.price}}</td>
+
+        <td style="text-align: center">
+          <div *ngIf="!diagnostic.discountApplied">
+            <input pInputText type="number"
+                   [style]="{width: '80px', borderRadius: '10px 0 0 10px'}"
+                   placeholder="%"
+                   [(ngModel)]="diagnostic.discount">
+            <button pButton icon="pi pi-check"
+                    class="p-button-success"
+                    [disabled]="isDisabled(diagnostic.discount)"
+                    style="border-radius: 0 10px 10px 0"
+                    (click)="applyIndividualDiscount(rowIndex, diagnostic.final_price, diagnostic.discount)">
+            </button>
+          </div>
+          <div *ngIf="diagnostic.discountApplied" class="d-flex justify-content-center align-items-center">
+            <p class="mb-0 mx-2">{{diagnostic.discount}}%</p>
+            <i class="pi pi-times" (click)="cancelIndividualDiscount(rowIndex)"></i>
+          </div>
+        </td>
+
+        <td style="text-align: center">{{diagnostic.final_price}}</td>
+
+
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td rowspan="4" colspan="2">
+          <div *ngIf="showDiscountInput" class="discount">
+            <input pInputText type="number" placeholder="Enter discount %" [min]="0" [max]="100"
+                   style="border-radius: 10px 0 0 10px; width: 200px" [(ngModel)]="discountPercent">
+            <button pButton label="Apply" class="p-button-success" [disabled]="isDisabled(discountPercent)"
+                    style="border-radius: 0 10px 10px 0" (click)="applyDiscount()"></button>
+          </div>
+          <div *ngIf="!showDiscountInput" class="discount">
+            <p class="mx-2 my-0">{{discountPercent}}% discount has been applied</p>
+            <i class="pi pi-times" (click)="cancelDiscount()"></i>
+          </div>
+        </td>
+        <td style="text-align: center">Total</td>
+        <td style="text-align: center">{{calculateTotal()}} BDT</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">Discount</td>
+        <td style="text-align: center">-{{discountAmount}} BDT</td>
+      </tr>
+      <tr>
+        <td style="text-align: center">Payable</td>
+        <td style="text-align: center">{{calculatePayable()}} BDT</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <button pButton label="Generate Invoice" icon="pi pi-file-pdf"
+          class="p-button-success mt-4" (click)="exportPdf()"></button>
+</div>

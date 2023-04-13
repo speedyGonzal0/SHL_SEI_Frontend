@@ -5,6 +5,19 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  isAdmin = false
-  constructor() { }
+  isAdmin = true;
+  role  = 'admin'
+  routeData = 'admin'
+
+  isAuthenticated(){
+    return localStorage.getItem('isLoggedIn') && (localStorage.getItem('isLoggedIn') === this.routeData)
+  }
+
+  login(){
+    localStorage.setItem('isLoggedIn', this.role)
+  }
+
+  logout(){
+    localStorage.clear()
+  }
 }

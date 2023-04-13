@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, MenuItem} from 'primeng/api';
+import {AuthService} from "@authentication/auth.service";
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
@@ -9,7 +10,8 @@ export class LogoutComponent implements OnInit{
 
   menuItems !: MenuItem[];
 
-  constructor(private confirmationService: ConfirmationService){
+  constructor(private confirmationService: ConfirmationService,
+              private authService: AuthService){
   }
 
   ngOnInit() {
@@ -36,7 +38,7 @@ export class LogoutComponent implements OnInit{
     this.confirmationService.confirm({
       message: 'Are you sure you want to Log out?',
       accept: () => {
-        //Actual logic to perform a confirmation
+        this.authService.logout()
       }
     });
   }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
@@ -15,13 +15,17 @@ import { DiagnosticListComponent } from '@diagnostics/diagnostic-list/diagnostic
 import { CreateDiagnosticComponent } from '@diagnostics/create-diagnostic/create-diagnostic.component';
 import {SharedModule} from "@shared/shared.module";
 import {DiagnosticsRoutingModule} from "@diagnostics/diagnostics-routing.module";
+import { DiagnosticBillingComponent } from './diagnostic-billing/diagnostic-billing.component';
+import { CheckoutComponent } from './diagnostic-billing/checkout/checkout.component';
 
 
 
 @NgModule({
   declarations: [
     DiagnosticListComponent,
-    CreateDiagnosticComponent
+    CreateDiagnosticComponent,
+    DiagnosticBillingComponent,
+    CheckoutComponent
   ],
   exports: [],
   imports: [
@@ -36,7 +40,9 @@ import {DiagnosticsRoutingModule} from "@diagnostics/diagnostics-routing.module"
     DynamicDialogModule,
     ConfirmDialogModule,
     AutoCompleteModule,
-    DiagnosticsRoutingModule
+    DiagnosticsRoutingModule,
+    DiagnosticsRoutingModule,
+    FormsModule
   ],
   providers: []
 })

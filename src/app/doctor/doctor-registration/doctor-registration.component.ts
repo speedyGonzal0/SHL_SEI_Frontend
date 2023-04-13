@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DoctorService} from "@shared/services/doctor.service";
 import {Doctor} from "@models/doctor";
 import {HttpService} from "@shared/services/http.service";
+import {ApiPaths} from "@enums/api-paths";
 @Component({
   selector: 'app-doctor-registration',
   templateUrl: './doctor-registration.component.html',
@@ -20,7 +21,6 @@ export class DoctorRegistrationComponent implements OnInit{
   doctorSelectForm!: FormGroup;
   filteredDocs!: Doctor[];
   availableTimes!: any;
-
   doctorEditID! : number;
   submitLabel = this.doctorService.editMode ? "Edit" : "Create";
 
@@ -56,7 +56,7 @@ export class DoctorRegistrationComponent implements OnInit{
           email: doctor.email,
           gender: this.doctorService.genders.find(
             (genders) =>
-              genders.gender.toLowerCase() === doctor.gender.toLowerCase()
+              genders.gender.toLowerCase() === doctor.gender?.toLowerCase()
           ),
           degrees: doctor.degrees,
           specialities: doctor.specialities
@@ -89,7 +89,7 @@ export class DoctorRegistrationComponent implements OnInit{
   filterDocs(e : any){
     let query = e.query;
 
-    this.httpService.getRequestWithParams(`${this.doctorService.adminUrl}/search`, {query: query}).subscribe(
+    this.httpService.getRequestWithParams(`${this.doctorService.doctorURL}/search`, {query: query}).subscribe(
       (response:any) => this.filteredDocs = response
     )
   }

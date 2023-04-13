@@ -3,37 +3,49 @@
   <h2>{{orgService.org.name}}</h2>
 
   <div>
-    <div class="orgInfo">
-      <div class="orgContact">
-        <span class="website">
+    <div class="orgInfo row">
+        <span class="website col">
           <i class="pi pi-globe"></i>
           <p>{{orgService.org.website}}</p>
         </span>
 
-          <span class="phone">
+          <span class="phone col">
           <i class="pi pi-phone"></i>
           <p>{{orgService.org.phone}}</p>
         </span>
 
-          <span class="email">
+          <span class="email col">
           <i class="pi pi-envelope"></i>
           <p>{{orgService.org.email}}</p>
         </span>
-      </div>
 
-      <div class="orgAddress">
-        <span class="address">
+        <span class="address col">
         <i class="pi pi-map-marker"></i>
         <p>{{orgService.org.address}}</p>
       </span>
-      </div>
     </div>
   </div>
 
-  <div class="userListButtons">
-    <button pButton type="button" label="Doctors List"
-            class="p-button-raised p-button-text p-button-success"></button>
-    <button pButton type="button" label="Employees List"
-            class="p-button-raised p-button-text p-button-success"></button>
+
+  <div class="container-lg d-lg-flex align-items-center justify-content-center">
+    <div class="row justify-content-center">
+
+      <div class="col-lg-4 cardBody" *ngFor="let info of cardInfo">
+        <div class="cardContainer row">
+          <div class="col-8 d-flex flex-column align-items-start">
+            <h1>{{info.count}}</h1>
+            <span class="cardTitle">
+            <span class="material-symbols-outlined icon">{{info.icon}}</span>
+            <p>{{info.title}}</p>
+          </span>
+          </div>
+
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            <button pButton icon="pi pi-arrow-right" class="p-button-success p-button-text"></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </div>

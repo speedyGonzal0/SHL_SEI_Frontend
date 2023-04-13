@@ -24,3 +24,11 @@ h1, h2, h3{
   gap: 5px;
 }
 
+.errorMsg{
+  font-size: 14px;
+}
+
+.tableToolbar{
+  display: flex;
+  justify-content: space-between;
+}

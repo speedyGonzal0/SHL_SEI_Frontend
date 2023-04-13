@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {tap} from "rxjs";
+import {RefreshService} from "@shared/services/refresh.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Params} from "@angular/router";
 
@@ -6,7 +8,8 @@ import {Params} from "@angular/router";
   providedIn: 'root'
 })
 export class HttpService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private refreshService: RefreshService) {}
   getRequest(url: string){
     return this.http.get(url);
   }
@@ -16,14 +19,35 @@ export class HttpService {
   }
 
   deleteRequest(url: string){
-    return this.http.delete(url, {responseType: 'text'})
+    return this.http
+      .delete(url, {responseType: 'text'})
+      .pipe(
+        tap(() => {
+            this.refreshService._refreshNeeded$.next();
+          }
+        )
+      )
   }
 
   updateRequest(url: string, body: any){
-    return this.http.put<any>(url, body)
+    return this.http
+      .put<any>(url, body)
+      .pipe(
+        tap(() => {
+            this.refreshService._refreshNeeded$.next();
+          }
+        )
+      )
   }
 
   createRequest(url: string, body: any){
-    return this.http.post<any>(url, body)
+    return this.http
+      .post<any>(url, body)
+      .pipe(
+        tap(() => {
+          this.refreshService._refreshNeeded$.next();
+          }
+        )
+      )
   }
 }

@@ -7,6 +7,8 @@ import {AppRoutingModule} from "./app-routing.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpInterceptorService} from "@shared/services/http-interceptor.service";
 import {AuthenticationModule} from "@authentication/authentication.module";
+import {AuthGuard} from "@authentication/auth.guard";
+import {AuthService} from "@authentication/auth.service";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {AuthenticationModule} from "@authentication/authentication.module";
     provide: HTTP_INTERCEPTORS,
     useClass: HttpInterceptorService,
     multi: true
-  }],
+  },
+  AuthGuard,
+  AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {DoctorRegistrationComponent} from "../doctor-registration/doctor-registration.component";
 import {HttpService} from "@shared/services/http.service";
 import {DoctorService} from "@shared/services/doctor.service";
+import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
@@ -15,7 +16,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 })
 export class DoctorListComponent implements OnInit{
 
-  adminUrl = ApiPaths.doctor;
+  doctorURL = ApiPaths.doctor;
   orgAdminUrl = ApiPaths.orgDoc;
 
   constructor(private messageService: MessageService,
@@ -24,49 +25,24 @@ export class DoctorListComponent implements OnInit{
               private httpService: HttpService,
               public doctorService: DoctorService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private refreshService: RefreshService) {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe( (qp) => {
-      JSON.stringify(qp) === "{}" ? this.getDoctorList() : this.searchDoctors(qp);
-    })
-    // this.getDoctorList()
+    this.refreshService.refreshNeeded$
+      .subscribe(() => {
+        this.getDoctorList()
+        }
+      )
+    this.getDoctorList()
   }
 
   getDoctorList(){
-    if(this.doctorService.role === 'admin'){
-      this.httpService.getRequest(`${this.adminUrl}/all`)
-        .subscribe((response: any) => {
-          this.doctorService.doctors = response.content;
-          this.doctorService.totalDoctors = response.totalElement;
-        })
-    }
-    else{
-      this.httpService.getRequest(`${this.orgAdminUrl}/organization/1/all`)
-        .subscribe((response: any) => {
-          this.doctorService.doctors = response.content;
-          this.doctorService.totalDoctors = response.totalElement;
-        })
-    }
-
-  }
-
-  searchDoctors(queryParams : Params){
-    if(this.doctorService.role === 'admin'){
-      this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams).subscribe(
-        (response: any) => {
-          this.doctorService.doctors = response;
-        }
-      );
-    }
-    else{
-      this.httpService.getRequestWithParams(`${this.orgAdminUrl}/organization/1/search`, queryParams).subscribe(
-        (response: any) => this.doctorService.doctors = response
-      );
-    }
-
-
+    this.httpService.getRequest(`${this.doctorURL}/all`)
+      .subscribe((response: any) => {
+        this.doctorService.doctors = response.content
+      })
   }
 
   showCreateDialog(){
