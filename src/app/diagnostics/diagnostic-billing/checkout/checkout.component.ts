@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {HttpService} from "@shared/services/http.service";
 
 @Component({
   selector: 'app-checkout',
@@ -12,7 +13,7 @@ export class CheckoutComponent {
       name: "CBC",
       price: 2000,
       final_price: 2000,
-      discount: null,
+      discount: 0,
       discountApplied: false
     },
     {
@@ -20,7 +21,7 @@ export class CheckoutComponent {
       name: "X-ray",
       price: 1500,
       final_price: 1500,
-      discount: null,
+      discount: 0,
       discountApplied: false
     },
     {
@@ -28,10 +29,21 @@ export class CheckoutComponent {
       name: "Ultrasono",
       price: 3700,
       final_price: 3700,
-      discount: null,
+      discount: 0,
       discountApplied: false
     },
   ]
+
+  diagInvoice = {
+    orgDiagnosticAndDiscounts : [{orgDiagnosticId: 0, discount: 0}],
+    totalFeeWithoutAnyDiscount : 0,
+    totalFeeAfterIndividualDiscount : 0,
+    overallDiscount : 0,
+    finalFeeAfterAllDiscount : 0,
+    appUserId : 0,
+    patientId : 0,
+    organizationId: 0
+  }
 
   discountPercent! : number;
   discountAmount : number = 0;
@@ -59,6 +71,8 @@ export class CheckoutComponent {
     { field: 'final_price', header: 'Final Price (BDT)' },
   ];
 
+  constructor(private httpService: HttpService) {}
+
   applyIndividualDiscount(index: number, finalPrice:number, discount:number){
     let diagnostic = this.diagnostics[index]
     diagnostic.final_price = finalPrice - ((finalPrice * discount)/100)
@@ -68,7 +82,7 @@ export class CheckoutComponent {
   cancelIndividualDiscount(index:number){
     let diagnostic = this.diagnostics[index]
     diagnostic.discountApplied = false
-    diagnostic.discount = null
+    diagnostic.discount = 0
     diagnostic.final_price = diagnostic.price
     this.cancelDiscount()
   }
@@ -129,5 +143,36 @@ export class CheckoutComponent {
         doc.save('products.pdf');
       });
     });
+  }
+
+  generateInvoice(){
+    this.diagnostics.map(item => {
+      this.diagInvoice
+        .orgDiagnosticAndDiscounts
+        .push({orgDiagnosticId: item.id, discount: item.discount})
+    })
+
+    console.log("discount", this.discountAmount)
+
+    this.diagInvoice.totalFeeWithoutAnyDiscount = 10
+    this.diagInvoice.totalFeeAfterIndividualDiscount = this.calculateTotal()
+    this.diagInvoice.overallDiscount = this.discountAmount
+    this.diagInvoice.finalFeeAfterAllDiscount = this.calculatePayable()
+    this.diagInvoice.appUserId = 1
+    this.diagInvoice.patientId = 1
+    this.diagInvoice.organizationId = 1
+
+    this.diagInvoice.orgDiagnosticAndDiscounts = this.diagInvoice.orgDiagnosticAndDiscounts.slice(1)
+    console.log(this.diagInvoice)
+
+    this.httpService.createRequest(
+      `/diagnostic-bill/add`,{
+        ...this.diagInvoice
+      })
+      .subscribe((response: any) => {
+        console.log(response)
+      })
+
+    this.exportPdf()
   }
 }

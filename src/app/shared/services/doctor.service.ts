@@ -3,19 +3,19 @@ import {HttpService} from "@shared/services/http.service";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {ApiPaths} from "@enums/api-paths";
 import {Doctor} from "@models/doctor"
+import {Params} from "@angular/router";
 @Injectable({
   providedIn: 'root'
 })
 export class DoctorService {
 
   doctorURL = ApiPaths.doctor
+  orgDoctorURL = ApiPaths.orgDoc
   doctorRef! : DynamicDialogRef
   editMode : boolean = false;
-
   doctors! : Doctor[]
-  role = "admin"
+  role = localStorage.getItem("isLoggedIn")
   totalDoctors!: number;
-
   doctor = {
     id: 0,
     name: '',
@@ -37,28 +37,69 @@ export class DoctorService {
     this.editMode = !this.editMode;
   }
 
+  getDoctor(queryParams: Params){
+    if (this.role === 'admin'){
+      this.httpService.getRequestWithParams(`${this.doctorURL}/search`, queryParams).subscribe(
+        (response: any) => {
+          this.doctors = response.content;
+          this.totalDoctors = response.totalElements;
+          console.log(response);
+        }
+      )
+    }
+    else {
+      this.httpService.getRequestWithParams(`${this.orgDoctorURL}/organization/1/search`, queryParams).subscribe(
+        (response: any) => {
+          this.doctors = response.content;
+          this.totalDoctors = response.totalElements;
+        }
+      )
+    }
+  }
+
   createDoctor(doctorInfo: any){
-    this.httpService.createRequest(
-      `${this.doctorURL}/admin/1/add`,{
+    if (this.role === 'admin'){
+      this.httpService.createRequest(
+        `${this.doctorURL}/admin/1/add`,{
           name: doctorInfo.name,
           phone: doctorInfo.phone,
           email: doctorInfo.email,
           gender: doctorInfo.gender.value,
           specialities: doctorInfo.specialities,
           degrees: doctorInfo.degrees
-      })
-      .subscribe((response: any) => {
-        console.log(response)
-      })
+        })
+        .subscribe((response: any) => {
+          console.log(response)
+        })
+    }
+
+    else{
+      this.httpService.createRequest(
+        `${this.orgDoctorURL}/appuser/1/org/1/doctor/1/add`,{
+          ...doctorInfo
+        })
+        .subscribe((response: any) => {
+          console.log(response)
+        })
+
+    }
     this.doctorRef.close()
   }
 
   editDoctor(id:number, doctorInfo: any){
     doctorInfo.gender = doctorInfo.gender.value
-    this.httpService.updateRequest(`${this.doctorURL}/update/${id}`,doctorInfo)
-      .subscribe(Response => {
-        console.log(Response);
-      })
+    if(this.role === 'admin'){
+      this.httpService.updateRequest(`${this.doctorURL}/update/${id}`,doctorInfo)
+        .subscribe(Response => {
+          console.log(Response);
+        })
+    }
+    else{
+      this.httpService.updateRequest(`${this.orgDoctorURL}/update/${id}`,doctorInfo)
+        .subscribe(Response => {
+          console.log(Response);
+        })
+    }
     this.doctorRef.close()
   }
 

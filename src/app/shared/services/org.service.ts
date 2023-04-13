@@ -54,8 +54,9 @@ export class OrgService {
       this.httpService.getRequestWithParams(`${this.orgURL}/search`, queryParams).subscribe(
         (response: any) => {
           this.orgs = response.content;
-          this.totalOrgs = response.totalElement;
-          console.log(response.totalElement)
+          console.log(response)
+          this.totalOrgs = response.totalElements;
+          console.log(response.totalElements)
         }
       )
   }

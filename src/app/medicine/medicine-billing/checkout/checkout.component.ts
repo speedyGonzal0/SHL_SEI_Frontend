@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {HttpService} from "@shared/services/http.service";
 
 @Component({
   selector: 'app-checkout',
@@ -64,6 +65,9 @@ export class CheckoutComponent{
     { field: 'total_price', header: 'Total Price' }
   ];
 
+  constructor(private httpService: HttpService) {
+  }
+
   calculateTotal(){
     return this.medicines.reduce((accumulator, object) => {
       return accumulator + object.total_price;
@@ -116,5 +120,30 @@ export class CheckoutComponent{
         doc.save('products.pdf');
       });
     });
+  }
+  generateInvoice(){
+    let medIDs : any = []
+    let medQuantities : any = []
+    this.medicines.map(item => {
+      medIDs.push(item.id)
+      medQuantities.push(item.quantity)
+    })
+
+    let medInvoice = {
+      medQuantities: medQuantities,
+      totalBill : this.calculateTotal(),
+      discount : this.discountAmount,
+      finalBill: this.calculatePayable()
+    }
+    console.log(medIDs)
+    console.log(medInvoice)
+
+    this.httpService.createRequest(
+      `/pharmacyBill/med/${medIDs}/patient/1/org/1/appUser/1/add`,{
+        ...medInvoice
+      })
+      .subscribe((response: any) => {
+        console.log(response)
+      })
   }
 }
