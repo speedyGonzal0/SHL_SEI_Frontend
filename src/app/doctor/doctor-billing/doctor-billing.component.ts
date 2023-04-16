@@ -36,10 +36,17 @@ export class DoctorBillingComponent {
   ngOnInit() {
     this.DBService.filteredPatients = [];
     this.minDate = new Date();
+    this.DBService.appointmentOptions = [
+      {name: "Consultation", value: 0},
+      {name: "Follow-up", value: 1},
+      {name: "Report", value: 2}
+    ];
+
     this.DBForm = new FormGroup<any>({
       patientSearch: new FormControl(null, Validators.required),
       docSearch: new FormControl(null, Validators.required),
-      docTime: new FormControl(null, Validators.required)
+      docTime: new FormControl(null, Validators.required),
+      aptType: new FormControl(null, Validators.required)
     })
 
     if(this.DBService.selectedPatient){
@@ -52,6 +59,10 @@ export class DoctorBillingComponent {
 
     if(this.DBService.selectedTime){
       this.DBForm.controls['docTime'].setValue(this.DBService.selectedTime);
+    }
+
+    if(this.DBService.selectedAppointment){
+      this.DBForm.controls['aptType'].setValue(this.DBService.selectedAppointment);
     }
 
     // this.patientSearch = new FormControl(null, Validators.required);
@@ -94,6 +105,12 @@ export class DoctorBillingComponent {
 
   onPatientSelect(){
     this.DBService.selectedPatient = this.DBForm.controls['patientSearch'].value;
+  }
+
+  onAptSelect(event: any){
+    // console.log(event)
+    this.DBService.selectedAppointment = event.value.value;
+    console.log(this.DBService.selectedAppointment)
   }
 
   onDocSelect(){

@@ -24,15 +24,15 @@ export class CreateMedicineComponent implements OnInit{
 
   ngOnInit() {
     this.createMedForm = new FormGroup({
-      "name": new FormControl(null),
-      "price": new FormControl(null),
-      "genericName": new FormControl(null),
-      "strength": new FormControl(null),
-      "vendor": new FormControl(null)
+      "name": new FormControl(null, Validators.required),
+      "price": new FormControl(null, Validators.required),
+      "genericName": new FormControl(null, Validators.required),
+      "strength": new FormControl(null, Validators.required),
+      "vendor": new FormControl(null, Validators.required)
     })
 
     this.selectedMedForm = new FormGroup({
-      "med": new FormControl(null)
+      "med": new FormControl(null, Validators.required)
     })
 
     this.medService.selectedMeds = [];

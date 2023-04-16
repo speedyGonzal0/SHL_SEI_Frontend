@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {tap} from "rxjs";
 import {RefreshService} from "@shared/services/refresh.service";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Params} from "@angular/router";
 
 @Injectable({

@@ -1,5 +1,6 @@
 export enum ApiPaths {
   users = '/appUser',
+  auth = '/auth',
   diagnostic = '/diagnostic',
   doctor = '/doctor',
   medicine = '/medicine',

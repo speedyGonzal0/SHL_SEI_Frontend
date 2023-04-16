@@ -8,15 +8,23 @@
     <div class="fields col">
       <label for="diagName"> Name </label>
       <input type="text" pInputText id="diagName" placeholder="E.g: X-Ray" formControlName="serviceName"/>
+      <small *ngIf="createDiagForm.controls['serviceName'].touched && !createDiagForm.valid"> This field is required! </small>
     </div>
 
   </div>
 
   <div class="row p-0">
     <div class="col">
-      <button *ngIf="!diagService.editMode; else updateDiag" [style]="{'width': '100%'}" pButton type="submit" label="Add Diagnostic" class="p-button-success"></button>
+      <button
+        *ngIf="!diagService.editMode; else updateDiag"
+        [style]="{'width': '100%'}" pButton
+        type="submit"
+        label="Add Diagnostic"
+        class="p-button-success"
+        [disabled]="!createDiagForm.valid"
+      ></button>
       <ng-template #updateDiag>
-        <button  [style]="{'width': '100%'}" pButton type="submit" label="Update Diagnostic" class="p-button-success"></button>
+        <button [disabled]="!createDiagForm.valid" [style]="{'width': '100%'}" pButton type="submit" label="Update Diagnostic" class="p-button-success"></button>
       </ng-template>
     </div>
 
@@ -52,17 +60,21 @@
               field="serviceName">
             </p-autoComplete>
           </div>
+          <small *ngIf="selectDiagForm.controls['diag'].touched && !selectDiagForm.controls['diag'].valid"> This field is required! </small>
+
 
         </div>
 
         <div class="fields col-4" *ngIf="!diagService.editMode">
           <label for="diagPrice"> Price </label>
-          <input type="text" pInputText id="diagPrice" placeholder="E.g: 500" formControlName="price"/>
+          <p-inputNumber [style]="{'width': '100%'}" mode="decimal" [min]="1" id="diagPrice" placeholder="E.g: 500" formControlName="price"/>
+          <small *ngIf="selectDiagForm.controls['price'].touched && !selectDiagForm.controls['price'].valid"> This field is required! </small>
         </div>
 
         <div class="fields col" *ngIf="diagService.editMode">
           <label for="updateDiagPrice"> Price </label>
-          <input type="text" pInputText id="updateDiagPrice" placeholder="E.g: 500" formControlName="price"/>
+          <p-inputNumber [style]="{'width': '100%'}" mode="decimal" [min]="1" id="updateDiagPrice" placeholder="E.g: 500" formControlName="price"/>
+          <small *ngIf="selectDiagForm.controls['price'].touched && !selectDiagForm.controls['price'].valid"> This field is required! </small>
         </div>
 
       </div>
@@ -77,7 +89,7 @@
                   class="p-button-secondary">
           </button>
           <ng-template #updateDiag>
-            <button  [style]="{'width': '100%'}" pButton type="submit" label="Update Diagnostic" class="p-button-success"></button>
+            <button [disabled]="!selectDiagForm.valid" [style]="{'width': '100%'}" pButton type="submit" label="Update Diagnostic" class="p-button-success"></button>
           </ng-template>
         </div>
 

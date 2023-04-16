@@ -12,5 +12,7 @@ export class DoctorBillingService {
   selectedPatient!: Patient;
   selectedDoc!: Doctor;
   selectedTime!: Date;
+  appointmentOptions!: any[];
+  selectedAppointment!: string;
   constructor() { }
 }
