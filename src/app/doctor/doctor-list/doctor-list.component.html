@@ -1,7 +1,7 @@
 <div class="doctorListContainer">
 
   <h2 class="text-center mb-4">Registered Doctors</h2>
-  <p-table #dt
+  <p-table
            styleClass="p-datatable-gridlines p-datatable-sm"
            [rowHover]="true"
            [value]="doctorService.doctors"
@@ -29,12 +29,12 @@
       <tr>
         <th style="text-align: center"> # </th>
         <th style="text-align: center"> Name </th>
-        <th style="text-align: center" *ngIf="doctorService.role === 'admin'"> Degrees </th>
-        <th style="text-align: center" *ngIf="doctorService.role === 'admin'"> Specialities </th>
-        <th style="text-align: center" *ngIf="doctorService.role === 'admin'"> Gender </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> Consultation Fee </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> Follow-up Fee </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> Report Fee </th>
+        <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Degrees </th>
+        <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Specialities </th>
+        <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Gender </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Consultation Fee </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Follow-up Fee </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Report Fee </th>
         <th style="text-align: center">Actions</th>
       </tr>
     </ng-template>

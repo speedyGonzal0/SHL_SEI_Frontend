@@ -14,10 +14,6 @@ import {AuthenticationModule} from "@authentication/authentication.module";
 import {ButtonModule} from 'primeng/button';
 import {SidebarModule} from 'primeng/sidebar';
 import {CardModule} from "primeng/card";
-import {AuthService} from "@authentication/auth.service";
-import {AuthGuard} from "@authentication/auth.guard";
-
-
 
 @NgModule({
   declarations: [
@@ -42,6 +38,6 @@ import {AuthGuard} from "@authentication/auth.guard";
         RouterLinkActive,
         CardModule,
         HomeRoutingModule
-    ]
+    ],
 })
 export class HomeModule { }

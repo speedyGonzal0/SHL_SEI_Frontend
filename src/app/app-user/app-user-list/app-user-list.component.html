@@ -1,8 +1,18 @@
 <div class="doctorListContainer">
 
   <h2 class="text-center mb-4">Users List</h2>
-  <p-table #dt [rowHover]="true" [value]="appUserService.appUsers"
-           [globalFilterFields]="['id', 'name', 'role']" >
+  <p-table #dt
+           styleClass="p-datatable-gridlines p-datatable-sm"
+           [rowHover]="true"
+           [value]="appUserService.appUsers"
+           [lazy]="true"
+           (onLazyLoad)="onPagination($event.first)"
+           [style]="{'width': '100%', 'min-width': '800px'}"
+           [paginator]="true"
+           [rows]="10"
+           [totalRecords]="appUserService.totalUsers"
+           [scrollable]="true"
+           (onPage)="onPagination($event)">
     <ng-template pTemplate="caption">
       <div class="tableToolbar">
         <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
@@ -10,7 +20,7 @@
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input pInputText type="text"
-                   (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+                   (input)="onSearch($any($event.target).value)"
                    placeholder="ID/Name/Speciality" />
           </span>
       </div>

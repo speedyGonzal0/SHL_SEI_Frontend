@@ -117,7 +117,7 @@ export class CheckoutComponent{
           startY: 150
         })
 
-        doc.save('products.pdf');
+        doc.save(`${this.patient.ID}_pharmacy_bill.pdf`);
       });
     });
   }
@@ -145,5 +145,7 @@ export class CheckoutComponent{
       .subscribe((response: any) => {
         console.log(response)
       })
+
+    this.exportPdf()
   }
 }

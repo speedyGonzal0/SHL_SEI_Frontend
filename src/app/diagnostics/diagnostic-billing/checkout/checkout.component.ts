@@ -140,7 +140,7 @@ export class CheckoutComponent {
           startY: 150
         })
 
-        doc.save('products.pdf');
+        doc.save(`${this.patient.ID}_diagnostic_bill.pdf`);
       });
     });
   }
@@ -156,7 +156,7 @@ export class CheckoutComponent {
 
     this.diagInvoice.totalFeeWithoutAnyDiscount = 10
     this.diagInvoice.totalFeeAfterIndividualDiscount = this.calculateTotal()
-    this.diagInvoice.overallDiscount = this.discountAmount
+    this.diagInvoice.overallDiscount = this.discountPercent
     this.diagInvoice.finalFeeAfterAllDiscount = this.calculatePayable()
     this.diagInvoice.appUserId = 1
     this.diagInvoice.patientId = 1
