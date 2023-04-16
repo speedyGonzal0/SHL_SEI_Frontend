@@ -110,7 +110,7 @@ export class DoctorBillingComponent {
   onAptSelect(event: any){
     // console.log(event)
     this.DBService.selectedAppointment = event.value.value;
-    console.log(this.DBService.selectedAppointment)
+    // console.log(this.DBService.selectedAppointment)
   }
 
   onDocSelect(){
