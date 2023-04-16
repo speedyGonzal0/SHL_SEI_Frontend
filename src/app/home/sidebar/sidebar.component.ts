@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+  role = this.authService.getRole()
+  constructor(public authService: AuthService) {
+  }
 }

@@ -18,60 +18,138 @@
         </p>
       </span>
 
-      <span class="inputField">
-        <label for="phone">Phone</label>
-        <input formControlName="phone"
-               id="phone"
-               type="text"
-               pInputText
-               class="p-inputtext-sm"
-        />
-        <p
-          *ngIf="!patientRegForm.controls['phone'].valid && patientRegForm.controls['phone'].touched">
-          This field is required!
-        </p>
-      </span>
+<!--      <span class="inputField">-->
+<!--        <label for="phone">Phone</label>-->
+<!--        <input formControlName="phone"-->
+<!--               id="phone"-->
+<!--               type="text"-->
+<!--               pInputText-->
+<!--               class="p-inputtext-sm"-->
+<!--        />-->
+<!--        <p-->
+<!--          *ngIf="!patientRegForm.controls['phone'].valid && patientRegForm.controls['phone'].touched">-->
+<!--          This field is required!-->
+<!--        </p>-->
+<!--      </span>-->
 
-      <span class="inputField">
-        <label for="email">Email</label>
-        <input formControlName="email"
-               id="email"
-               type="email"
-               pInputText
-               class="p-inputtext-sm"
-        />
-        <p
-          *ngIf="!patientRegForm.controls['email'].valid && patientRegForm.controls['email'].touched">
-          This field is required!
-        </p>
-      </span>
-
-      <span class="inputField">
+      <div class="row p-0 m-0 d-flex gap-3">
+        <div class="col p-0">
+      <span
+        class="fields">
         <label for="gender">Gender</label>
         <p-dropdown formControlName="gender"
+                    class="p-inputtext-sm"
                     [options]="patientService.genders"
                     placeholder="-"
                     id="gender"
                     [style]="{width: '100%'}"
-                    optionLabel="gender"
-                    class="p-inputtext-sm">
+                    optionLabel="gender">
         </p-dropdown>
+        <small
+          *ngIf="!patientRegForm.controls['gender'].valid && patientRegForm.controls['gender'].touched">
+          This field is required!
+        </small>
       </span>
+        </div>
 
-      <span class="inputField">
+        <div class="col p-0">
+      <span
+        class="fields">
         <label for="age">Age</label>
         <input formControlName="age"
                id="age"
                type="number"
                pInputText
                class="p-inputtext-sm"/>
-        <p
+        <small
           *ngIf="!patientRegForm.controls['age'].valid && patientRegForm.controls['age'].touched">
           This field is required!
-        </p>
+        </small>
       </span>
+        </div>
+      </div>
 
-      <button pButton type="submit" label="Create" [disabled]="!patientRegForm.valid"></button>
+      <div class="row p-0 m-0 d-flex gap-3">
+        <div class="col p-0">
+      <span
+        class="fields">
+        <label for="phone">Phone</label>
+        <input formControlName="phone"
+               id="phone"
+               type="text"
+               pInputText
+               placeholder="E.g: 01xxxxxxxxx"
+               class="p-inputtext-sm"
+        />
+        <small
+          *ngIf="!patientRegForm.controls['phone'].valid && patientRegForm.controls['phone'].touched">
+          This field is required!
+        </small>
+      </span>
+        </div>
+
+        <div class="col p-0">
+      <span
+        class="fields">
+        <label for="email">Email</label>
+        <input formControlName="email"
+               id="email"
+               type="email"
+               pInputText
+               placeholder="E.g: sth@xmail.com"
+               class="p-inputtext-sm"/>
+        <small
+          *ngIf="!patientRegForm.controls['email'].valid && patientRegForm.controls['email'].touched">
+          This field is required!
+        </small>
+      </span>
+        </div>
+
+      </div>
+
+<!--      <span class="inputField">-->
+<!--        <label for="email">Email</label>-->
+<!--        <input formControlName="email"-->
+<!--               id="email"-->
+<!--               type="email"-->
+<!--               pInputText-->
+<!--               class="p-inputtext-sm"-->
+<!--        />-->
+<!--        <p-->
+<!--          *ngIf="!patientRegForm.controls['email'].valid && patientRegForm.controls['email'].touched">-->
+<!--          This field is required!-->
+<!--        </p>-->
+<!--      </span>-->
+
+
+<!--      <span class="inputField">-->
+<!--        <label for="gender">Gender</label>-->
+<!--        <p-dropdown formControlName="gender"-->
+<!--                    [options]="patientService.genders"-->
+<!--                    placeholder="-"-->
+<!--                    id="gender"-->
+<!--                    [style]="{width: '100%'}"-->
+<!--                    optionLabel="gender"-->
+<!--                    class="p-inputtext-sm">-->
+<!--        </p-dropdown>-->
+<!--      </span>-->
+
+<!--      <span class="inputField">-->
+<!--        <label for="age">Age</label>-->
+<!--        <input formControlName="age"-->
+<!--               id="age"-->
+<!--               type="number"-->
+<!--               pInputText-->
+<!--               class="p-inputtext-sm"/>-->
+<!--        <p-->
+<!--          *ngIf="!patientRegForm.controls['age'].valid && patientRegForm.controls['age'].touched">-->
+<!--          This field is required!-->
+<!--        </p>-->
+<!--      </span>-->
+
+      <button pButton type="submit"
+              label="Create" class="p-button-success"
+              [disabled]="!patientRegForm.valid"></button>
 
     </form>
 

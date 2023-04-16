@@ -51,7 +51,7 @@ export class DiagnosticListComponent implements OnInit{
 
     // this.sortBy = new FormControl(null);
     //
-    // if(this.diagService.role !== 'admin'){
+    // if(this.diagService.role !== 'ROLE_ADMIN'){
     //   this.sortOptions = [
     //     { name: 'Sort By: None', query: '' },
     //     { name: 'Sort By: Name(Ascending)', query: 'serviceName' },

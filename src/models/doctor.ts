@@ -4,6 +4,7 @@ export interface Doctor{
   phone?: string,
   email?: string,
   gender?: string,
+  bmdc?: number,
   specialities?: string[],
   degrees?: string[],
   consultationFee?: number,

@@ -5,6 +5,8 @@ import {HttpService} from "@shared/services/http.service";
 import {AppUserService} from "@shared/services/app-user.service";
 import {AppUserRegistrationComponent} from "../app-user-registration/app-user-registration.component";
 import {ApiPaths} from "@enums/api-paths";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
   selector: 'app-app-user-list',
@@ -18,19 +20,30 @@ export class AppUserListComponent implements OnInit{
   adminURL = ApiPaths.users
   constructor(private messageService: MessageService, private dialogService: DialogService,
               private confirmationService: ConfirmationService, private httpService: HttpService,
-              public appUserService: AppUserService) {
+              public appUserService: AppUserService, private route: ActivatedRoute,
+              private refreshService: RefreshService, private router: Router,) {
   }
 
   ngOnInit() {
+    this.refreshService.refreshNeeded$
+      .subscribe(() => {
+          this.getUserList()
+        }
+      )
     this.getUserList()
   }
 
   getUserList(){
-    this.httpService.getRequest(`${this.adminURL}/get/all`)
-      .subscribe((response: any) => {
-        console.log(response.content)
-        this.appUserService.appUsers = response.content
-      })
+    // this.httpService.getRequest(`${this.adminURL}/get/all`)
+    //   .subscribe((response: any) => {
+    //     console.log(response.content)
+    //     this.appUserService.appUsers = response.content
+    //   })
+    this.route.queryParams.subscribe(
+      (param:Params) => {
+        this.appUserService.getAppUser(param);
+      }
+    )
   }
 
   showCreateDialog(){
@@ -62,5 +75,28 @@ export class AppUserListComponent implements OnInit{
         this.appUserService.deleteUser(this.appUserService.appUsers[index].id)
       }
     });
+  }
+
+  onPagination(firstIndex: number){
+    let page = firstIndex / 10;
+    if(firstIndex === 0){
+      this.router.navigate([]);
+    }
+    else{
+      this.router.navigate([],
+        {
+          queryParams: {pageNo: parseInt(String(page), 10)},
+          queryParamsHandling: "merge"
+        })
+    }
+  }
+
+  onSearch(value: any){
+    if(value === ''){
+      this.router.navigate([]);
+    }
+    else{
+      this.router.navigate([], {queryParams: {query: value}, queryParamsHandling: 'merge'})
+    }
   }
 }

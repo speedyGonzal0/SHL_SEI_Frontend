@@ -4,6 +4,7 @@ import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {ApiPaths} from "@enums/api-paths";
 import {Doctor} from "@models/doctor"
 import {Params} from "@angular/router";
+import {AuthService} from "@authentication/auth.service";
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,7 @@ export class DoctorService {
   doctorRef! : DynamicDialogRef
   editMode : boolean = false;
   doctors! : Doctor[]
-  role = localStorage.getItem("isLoggedIn")
+  role = this.authService.getRole()
   totalDoctors!: number;
   doctor = {
     id: 0,
@@ -22,6 +23,7 @@ export class DoctorService {
     email: '',
     phone: '',
     gender: '',
+    bmdc: 0,
     specialities: [],
     degrees: []
   }
@@ -31,14 +33,14 @@ export class DoctorService {
     {gender: "Female", value: 1},
     {gender: "Other", value: 2}];
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private authService: AuthService) {}
 
   toggleEditMode(){
     this.editMode = !this.editMode;
   }
 
   getDoctor(queryParams: Params){
-    if (this.role === 'admin'){
+    if (this.role === 'ROLE_ADMIN'){
       this.httpService.getRequestWithParams(`${this.doctorURL}/search`, queryParams).subscribe(
         (response: any) => {
           this.doctors = response.content;
@@ -58,13 +60,14 @@ export class DoctorService {
   }
 
   createDoctor(doctorInfo: any){
-    if (this.role === 'admin'){
+    if (this.role === 'ROLE_ADMIN'){
       this.httpService.createRequest(
         `${this.doctorURL}/admin/1/add`,{
           name: doctorInfo.name,
           phone: doctorInfo.phone,
           email: doctorInfo.email,
           gender: doctorInfo.gender.value,
+          bmdc: doctorInfo.bmdc,
           specialities: doctorInfo.specialities,
           degrees: doctorInfo.degrees
         })
@@ -88,7 +91,7 @@ export class DoctorService {
 
   editDoctor(id:number, doctorInfo: any){
     doctorInfo.gender = doctorInfo.gender.value
-    if(this.role === 'admin'){
+    if(this.role === 'ROLE_ADMIN'){
       this.httpService.updateRequest(`${this.doctorURL}/update/${id}`,doctorInfo)
         .subscribe(Response => {
           console.log(Response);

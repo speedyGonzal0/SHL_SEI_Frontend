@@ -1,5 +1,5 @@
 <form
-  *ngIf="doctorService.role === 'admin'; else orgAdminFunctions"
+  *ngIf="doctorService.role === 'ROLE_ADMIN'; else orgAdminFunctions"
   class="container-fluid d-flex flex-column gap-3 p-0 m-0"
   [formGroup]="doctorForm"
   (ngSubmit)="onSubmit()">
@@ -67,7 +67,7 @@
 
   </div>
 
-  <div class="row p-0 m-0">
+  <div class="row p-0 m-0 d-flex gap-3">
     <div class="col p-0">
       <span
         class="fields">
@@ -82,6 +82,23 @@
         </p-dropdown>
         <small
           *ngIf="!doctorForm.controls['gender'].valid && doctorForm.controls['gender'].touched">
+          This field is required!
+        </small>
+      </span>
+    </div>
+
+    <div class="col p-0">
+      <span
+        class="fields">
+        <label for="bmdc">BMDC</label>
+        <input formControlName="bmdc"
+               id="bmdc"
+               type="number"
+               pInputText
+               placeholder="E.g: 123456"
+               class="p-inputtext-sm"/>
+        <small
+          *ngIf="!doctorForm.controls['bmdc'].valid && doctorForm.controls['bmdc'].touched">
           This field is required!
         </small>
       </span>

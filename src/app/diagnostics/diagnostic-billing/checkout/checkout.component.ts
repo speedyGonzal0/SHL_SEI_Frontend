@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {HttpService} from "@shared/services/http.service";
+import {MedicineBillingService} from "@medicine/medicine-billing/medicine-billing.service";
+import {DiagnosticBillingService} from "@diagnostics/diagnostic-billing/diagnostic-billing.service";
 
 @Component({
   selector: 'app-checkout',
@@ -58,11 +60,11 @@ export class CheckoutComponent {
     name: "Labaid Hospital ",
     id: 123
   }
-  patient = {
-    ID: 12345,
-    name: "Ranu Akter",
-    phone: "01715998810"
-  }
+  // patient = {
+  //   ID: 12345,
+  //   name: "Ranu Akter",
+  //   phone: "01715998810"
+  // }
 
   cols = [
     { field: 'name', header: 'Name' },
@@ -71,7 +73,7 @@ export class CheckoutComponent {
     { field: 'final_price', header: 'Final Price (BDT)' },
   ];
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, public diagBillService: DiagnosticBillingService) {}
 
   applyIndividualDiscount(index: number, finalPrice:number, discount:number){
     let diagnostic = this.diagnostics[index]
@@ -119,8 +121,8 @@ export class CheckoutComponent {
         const doc = new jsPDF.default('p', 'px', 'a4');
         doc.setFontSize(10);
         doc.text([
-          `Patient Name: ${this.patient.name}`,
-          `Patient Phone: ${this.patient.phone}`,
+          `Patient Name: ${this.diagBillService.selectedPatient.name}`,
+          `Patient Phone: ${this.diagBillService.selectedPatient.phone}`,
           `Issued: ${this.issued}`,
           `Issued By: #${this.user.id}`
         ],30,40);
@@ -140,7 +142,7 @@ export class CheckoutComponent {
           startY: 150
         })
 
-        doc.save('products.pdf');
+        doc.save(`${this.diagBillService.selectedPatient.id}_diagnostic_bill.pdf`);
       });
     });
   }
@@ -156,10 +158,10 @@ export class CheckoutComponent {
 
     this.diagInvoice.totalFeeWithoutAnyDiscount = 10
     this.diagInvoice.totalFeeAfterIndividualDiscount = this.calculateTotal()
-    this.diagInvoice.overallDiscount = this.discountAmount
+    this.diagInvoice.overallDiscount = this.discountPercent
     this.diagInvoice.finalFeeAfterAllDiscount = this.calculatePayable()
     this.diagInvoice.appUserId = 1
-    this.diagInvoice.patientId = 1
+    this.diagInvoice.patientId = this.diagBillService.selectedPatient.id
     this.diagInvoice.organizationId = 1
 
     this.diagInvoice.orgDiagnosticAndDiscounts = this.diagInvoice.orgDiagnosticAndDiscounts.slice(1)
