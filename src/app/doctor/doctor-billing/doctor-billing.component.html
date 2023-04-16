@@ -1,4 +1,4 @@
-<div class="container-fluid p-0 m-0 text-center d-flex flex-column gap-5">
+<form [formGroup]="DBForm" (ngSubmit)="onSubmit()" class="container-fluid p-0 m-0 text-center d-flex flex-column gap-5">
 
   <div class="row p-0 m-0">
     <div class="col">
@@ -33,11 +33,12 @@
           [style]="{'width': '100%'}"
           [inputStyle]="{'width': '100%'}"
           inputId="searchPatient"
-          [formControl]="patientSearch"
+          formControlName="patientSearch"
           placeholder="Enter name/phone"
           [showEmptyMessage] = "true"
-          [suggestions]="filteredPatients"
+          [suggestions]="DBService.filteredPatients"
           [forceSelection]="true"
+          (onSelect)="onPatientSelect()"
           (completeMethod)="filterPatient($event)"
           field="name">
 
@@ -65,12 +66,12 @@
     </div>
   </div>
 
-  <div *ngIf="patientSearch.valid" class="row p-0 m-0">
+  <div *ngIf="DBForm.controls['patientSearch'].valid" class="row p-0 m-0">
     <div class="col">
       <div class="card text-start p-3 d-flex flex-column gap-3">
         <div class="row p-0 m-0">
           <div class="col-10 p-0 m-0">
-            <h4>Patient: {{patientSearch.value.name}}</h4>
+            <h4>Patient: {{DBService.selectedPatient.name}}</h4>
           </div>
           <div class="col-2 d-flex justify-content-end p-0 m-0">
             <button pButton
@@ -84,10 +85,10 @@
 
         <div class="row p-0 m-0">
           <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="Phone: {{patientSearch.value.phone}}"></p-chip>
-            <p-chip class="mx-2" label="Email: {{patientSearch.value.email}}"></p-chip>
-            <p-chip class="mx-2" label="Age: {{patientSearch.value.age}}"></p-chip>
-            <p-chip class="mx-2" label="Gender: {{patientSearch.value.gender}}"></p-chip>
+            <p-chip class="mx-2" label="Phone: {{DBService.selectedPatient.phone}}"></p-chip>
+            <p-chip class="mx-2" label="Email: {{DBService.selectedPatient.email}}"></p-chip>
+            <p-chip class="mx-2" label="Age: {{DBService.selectedPatient.age}}"></p-chip>
+            <p-chip class="mx-2" label="Gender: {{DBService.selectedPatient.gender}}"></p-chip>
           </div>
         </div>
       </div>
@@ -105,11 +106,12 @@
           [style]="{'width': '100%'}"
           [inputStyle]="{'width': '100%'}"
           inputId="searchDocs"
-          [formControl]="docSearch"
+          formControlName="docSearch"
           placeholder="Enter name"
           [showEmptyMessage] = "true"
-          [suggestions]="filteredDocs"
+          [suggestions]="DBService.filteredDocs"
           [forceSelection]="true"
+          (onSelect)="onDocSelect()"
           (completeMethod)="filterDocs($event)"
           field="doctor.name">
           <ng-template let-doc pTemplate="item">
@@ -126,12 +128,12 @@
     </div>
   </div>
 
-  <div *ngIf="docSearch.valid" class="row p-0 m-0">
+  <div *ngIf="DBForm.controls['docSearch'].valid" class="row p-0 m-0">
     <div class="col">
       <div class="card text-start p-3 d-flex flex-column gap-3">
         <div class="row p-0 m-0">
           <div class="col-10 p-0 m-0">
-            <h4>Doctor: {{docSearch.value.name}}</h4>
+            <h4>Doctor: {{DBService.selectedDoc.name}}</h4>
           </div>
           <div class="col-2 d-flex justify-content-end p-0 m-0">
             <button pButton
@@ -145,10 +147,10 @@
 
         <div class="row p-0 m-0">
           <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="Phone: {{docSearch.value.phone}}"></p-chip>
-            <p-chip class="mx-2" label="Email: {{docSearch.value.email}}"></p-chip>
-            <p-chip class="mx-2" label="Specialities: {{docSearch.value.specialities}}"></p-chip>
-            <p-chip class="mx-2" label="Degrees: {{docSearch.value.degrees}}"></p-chip>
+            <p-chip class="mx-2" label="Phone: {{DBService.selectedDoc.phone}}"></p-chip>
+            <p-chip class="mx-2" label="Email: {{DBService.selectedDoc.email}}"></p-chip>
+            <p-chip class="mx-2" label="Specialities: {{DBService.selectedDoc.specialities}}"></p-chip>
+            <p-chip class="mx-2" label="Degrees: {{DBService.selectedDoc.degrees}}"></p-chip>
           </div>
         </div>
       </div>
@@ -159,9 +161,9 @@
     <div class="col-9 fields text-start">
       <label for="docTime"> Select Appointment Date </label>
       <p-calendar inputId="docTime"
-                  [formControl]="docTime"
+                  formControlName="docTime"
                   [minDate]="minDate"
-                  icon="pi pi-calendar"
+                  placeholder="Enter date"
                   [showIcon]="true"
                   hourFormat="12"
                   [showTime]="true">
@@ -175,15 +177,14 @@
   <div class="row p-0 m-0">
     <div class="col p-0 m-0">
       <button pButton
-              type="button"
+              type="submit"
               class="p-button-success"
               icon="pi pi-arrow-right"
               iconPos="right"
-              [disabled]="!patientSearch.valid || !docSearch.valid || !docTime.valid"
+              [disabled]="!DBForm.valid"
               label="Proceed to checkout"
-              routerLink="/doctor/checkout"
       ></button>
     </div>
   </div>
 
-</div>
+</form>

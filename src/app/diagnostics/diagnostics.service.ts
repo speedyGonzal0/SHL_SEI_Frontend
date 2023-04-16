@@ -21,7 +21,7 @@ export class DiagnosticsService{
   ref!: DynamicDialogRef;
 
   editMode : boolean = false;
-  role: string = 'org';
+  role: string = 'admin';
 
   constructor(public httpService: HttpService) { }
 
@@ -65,12 +65,12 @@ export class DiagnosticsService{
     let item = this.diagnostics[index];
     let body;
     if(this.role === 'admin'){
-      body = {"id": item.id, "serviceName": value.diagName};
+      body = {"id": item.id, ...value};
       this.httpService.updateRequest(`${this.adminUrl}/update`, body).subscribe();
       // this.diagnostics[index].serviceName = value.diagName;
     }
     else{
-      body = {"id": item.id, "serviceName": item.serviceName, "price": value.diagPrice, "organizationId": item.organizationId};
+      body = {"id": item.id, "price": value.price, "organizationId": item.organizationId};
       this.httpService.updateRequest(`${this.orgAdminUrl}/update`, body).subscribe();
     }
     // console.log(body)

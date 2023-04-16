@@ -37,8 +37,8 @@
   </div>
 
   <div class="row p-0">
-    <button *ngIf="!medService.editMode; else updateDiag" [style]="{'width': '100%'}" pButton type="submit" label="Add Medicine" class="p-button-success"></button>
-    <ng-template #updateDiag>
+    <button *ngIf="!medService.editMode; else updateMed" [style]="{'width': '100%'}" pButton type="submit" label="Add Medicine" class="p-button-success"></button>
+    <ng-template #updateMed>
       <button  [style]="{'width': '100%'}" pButton type="submit" label="Update Medicine" class="p-button-success"></button>
     </ng-template>
   </div>

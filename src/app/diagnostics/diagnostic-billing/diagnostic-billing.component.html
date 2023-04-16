@@ -71,7 +71,7 @@
       <div class="card text-start p-3 d-flex flex-column gap-3">
         <div class="row p-0 m-0">
           <div class="col-10 p-0 m-0">
-            <h4>Patient: {{patientSearch.value.name}}</h4>
+            <h4>Patient: {{DBService.selectedPatient.name}}</h4>
           </div>
           <div class="col-2 d-flex justify-content-end p-0 m-0">
             <button pButton
@@ -85,10 +85,10 @@
 
         <div class="row p-0 m-0">
           <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="Phone: {{patientSearch.value.phone}}"></p-chip>
-            <p-chip class="mx-2" label="Email: {{patientSearch.value.email}}"></p-chip>
-            <p-chip class="mx-2" label="Age: {{patientSearch.value.age}}"></p-chip>
-            <p-chip class="mx-2" label="Gender: {{patientSearch.value.gender}}"></p-chip>
+            <p-chip class="mx-2" label="Phone: {{DBService.selectedPatient.phone}}"></p-chip>
+            <p-chip class="mx-2" label="Email: {{DBService.selectedPatient.email}}"></p-chip>
+            <p-chip class="mx-2" label="Age: {{DBService.selectedPatient.age}}"></p-chip>
+            <p-chip class="mx-2" label="Gender: {{DBService.selectedPatient.gender}}"></p-chip>
           </div>
         </div>
       </div>
