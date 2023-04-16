@@ -5,6 +5,7 @@ import {ApiPaths} from "@enums/api-paths";
 import {HttpService} from "@shared/services/http.service";
 import {Params} from "@angular/router";
 import {Diagnostic} from "@models/diagnostic";
+import {AuthService} from "@authentication/auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +22,16 @@ export class DiagnosticsService{
   ref!: DynamicDialogRef;
 
   editMode : boolean = false;
-  role: string = 'admin';
+  role = this.authService.getRole();
 
-  constructor(public httpService: HttpService) { }
+  constructor(public httpService: HttpService, private authService: AuthService) { }
 
   toggleEditMode(){
     this.editMode = !this.editMode;
   }
 
   getData(queryParams: Params){
-    if (this.role === 'admin'){
+    if (this.role === 'ROLE_ADMIN'){
       this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams).subscribe(
         (response: any) => {
           this.diagnostics = response.content;
@@ -50,7 +51,7 @@ export class DiagnosticsService{
   }
 
   appendValue(){
-    if(this.role === 'admin'){
+    if(this.role === 'ROLE_ADMIN'){
       this.httpService.createRequest(`${this.adminUrl}/add/all`, this.selectedDiags).subscribe();
     }
     else{
@@ -64,7 +65,7 @@ export class DiagnosticsService{
     // this.diagnostics[index].price = value.diagPrice;
     let item = this.diagnostics[index];
     let body;
-    if(this.role === 'admin'){
+    if(this.role === 'ROLE_ADMIN'){
       body = {"id": item.id, ...value};
       this.httpService.updateRequest(`${this.adminUrl}/update`, body).subscribe();
       // this.diagnostics[index].serviceName = value.diagName;
@@ -78,7 +79,7 @@ export class DiagnosticsService{
   }
 
   deleteValue(index: number){
-    if(this.role === 'admin'){
+    if(this.role === 'ROLE_ADMIN'){
       this.httpService.deleteRequest(`${this.adminUrl}/delete/${this.diagnostics[index].id}`).subscribe();
     }
     else{
@@ -87,7 +88,7 @@ export class DiagnosticsService{
   }
 
   // searchValue(queryParams: Params){
-  //   if (this.role === 'admin'){
+  //   if (this.role === 'ROLE_ADMIN'){
   //     this.httpService.getRequest(`${this.adminUrl}/search`, queryParams).subscribe(
   //       (response: any) => {
   //         this.diagnostics = response;

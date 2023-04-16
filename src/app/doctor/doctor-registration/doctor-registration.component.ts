@@ -50,7 +50,7 @@ export class DoctorRegistrationComponent implements OnInit{
 
     if(this.config.data) {
       let doctor = this.doctorService.doctors[this.config.data.index];
-      if (this.doctorService.role === 'admin'){
+      if (this.doctorService.role === 'ROLE_ADMIN'){
         this.doctorForm.setValue({
           name: doctor.name,
           phone: doctor.phone,

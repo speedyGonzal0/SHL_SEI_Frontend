@@ -5,6 +5,7 @@ import {ApiPaths} from "@enums/api-paths";
 import {HttpService} from "@shared/services/http.service";
 import {Params} from "@angular/router";
 import {Medicine} from "@models/medicine";
+import {AuthService} from "@authentication/auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +22,16 @@ export class MedicineService{
   ref!: DynamicDialogRef;
 
   editMode : boolean = false;
-  role: string = 'org';
+  role = this.authService.getRole();
 
-  constructor(public httpService: HttpService) { }
+  constructor(public httpService: HttpService, private authService: AuthService) { }
 
   toggleEditMode(){
     this.editMode = !this.editMode;
   }
 
   getData(queryParams: Params){
-    if (this.role === 'admin'){
+    if (this.role === 'ROLE_ADMIN'){
       this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams).subscribe(
         (response: any) => {
           this.medicines = response.content;
@@ -50,7 +51,7 @@ export class MedicineService{
   }
 
   appendValue(body: Medicine){
-    if(this.role === 'admin'){
+    if(this.role === 'ROLE_ADMIN'){
       this.httpService.createRequest(`${this.adminUrl}/add`, body).subscribe();
     }
     else{

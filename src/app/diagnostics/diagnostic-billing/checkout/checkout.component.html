@@ -5,10 +5,10 @@
       <h2 class="text-center my-2">{{org.name}}Diagnostics</h2>
       <div class="tableCaption mt-4 row" id="table">
         <span class="captionInfo col-md">
-          <p>Patient Name: <b>{{patient.name}}</b></p>
+          <p>Patient Name: <b>{{diagBillService.selectedPatient.name}}</b></p>
         </span>
         <span class="captionInfo col-md">
-          <p>Patient Phone: <b>{{patient.phone}}</b></p>
+          <p>Patient Phone: <b>{{diagBillService.selectedPatient.phone}}</b></p>
         </span>
         <span class="captionInfo col-md">
           <p>Issued: <b>{{issued | date:'longDate'}}</b></p>

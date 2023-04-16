@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {HttpService} from "@shared/services/http.service";
+import {DoctorBillingService} from "@doctor/doctor-billing/doctor-billing.service";
 
 @Component({
   selector: 'app-checkout',
@@ -40,6 +42,9 @@ export class CheckoutComponent {
     { field: 'time', header: 'Time' },
     { field: 'fee', header: 'Fee' },
   ];
+
+  constructor(private httpService: HttpService, public docBillService: DoctorBillingService) {
+  }
 
   applyDiscount(){
     this.discountAmount = Number(((this.discountPercent / 100) * this.appointment[0].fee).toFixed(2))
@@ -88,8 +93,26 @@ export class CheckoutComponent {
           startY: 120
         })
 
-        doc.save('products.pdf');
+        doc.save(`${this.patient.ID}_DOCTOR_APPOINTMENT.pdf`);
       });
     });
+  }
+
+  generateInvoice(){
+    let doctorInvoice = {
+      drTime: this.docBillService.selectedTime,
+      fee : this.docBillService.selectedDoc.consultationFee,
+      type : 0,
+      discount : this.discountPercent,
+      finalFee : this.calculatePayable()
+    }
+
+    this.httpService.createRequest(
+      `/appointmentBill/appuser/1/orgDoc/1/patient/1/org/1/add`,{
+        ...doctorInvoice
+      })
+      .subscribe((response: any) => {
+        console.log(response)
+      })
   }
 }

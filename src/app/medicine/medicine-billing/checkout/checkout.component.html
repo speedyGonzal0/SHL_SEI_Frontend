@@ -1,14 +1,14 @@
 <div class="text-center">
 
-  <p-table [value]="medicines" [scrollable]="true" >
+  <p-table [value]="medBillService.selectedMeds" [scrollable]="true" >
     <ng-template pTemplate="caption">
       <h2 class="text-center my-2">{{org.name}}Pharmacy</h2>
       <div class="tableCaption mt-4 row" id="table">
         <span class="captionInfo col-md">
-          <p>Patient Name: <b>{{patient.name}}</b></p>
+          <p>Patient Name: <b>{{medBillService.selectedPatient.name}}</b></p>
         </span>
         <span class="captionInfo col-md">
-          <p>Patient Phone: <b>{{patient.phone}}</b></p>
+          <p>Patient Phone: <b>{{medBillService.selectedPatient.phone}}</b></p>
         </span>
         <span class="captionInfo col-md">
           <p>Issued: <b>{{issued | date:'longDate'}}</b></p>
@@ -29,15 +29,15 @@
 
     <ng-template pTemplate="body" let-medicine>
       <tr>
-        <td style="text-align: center">{{medicine.name}}</td>
+        <td style="text-align: center">{{medicine.medicine.name}}</td>
 
-        <td style="text-align: center">{{medicine.generic}}</td>
+        <td style="text-align: center">{{medicine.medicine.genericName}}</td>
 
-        <td style="text-align: center">{{medicine.strength}}</td>
+        <td style="text-align: center">{{medicine.medicine.strength}}</td>
 
         <td style="text-align: center">{{medicine.quantity}}</td>
 
-        <td style="text-align: center">{{medicine.unit_price}}</td>
+        <td style="text-align: center">{{medicine.medicine.price}}</td>
 
         <td style="text-align: center">{{medicine.total_price}}</td>
 

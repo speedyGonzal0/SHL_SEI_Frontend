@@ -4,13 +4,14 @@ import {HttpService} from "@shared/services/http.service";
 import {ApiPaths} from "@enums/api-paths";
 import {AppUser} from "@models/appUser";
 import {Params} from "@angular/router";
+import {AuthService} from "@authentication/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppUserService {
   orgId = 1
-  role = "ROLE_ADMIN"
+  role = this.authService.getRole()
   userURL = ApiPaths.users
   appUserRef! : DynamicDialogRef
   editMode : boolean = false;
@@ -37,9 +38,9 @@ export class AppUserService {
   roles = [
     {role: "Doctor Receptionist", value: 3},
     {role: "Diagnostic Receptionist", value: 4},
-    {role: "Pharmacist", value: 5}];
+    {role: "ROLE_PHARMACIST", value: 5}];
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private authService: AuthService) {}
 
   getAppUser(queryParams: Params){
     if (this.role === 'ROLE_ADMIN'){

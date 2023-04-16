@@ -47,15 +47,15 @@
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
         <td style="text-align: center"> {{index + 1}} </td>
-        <td style="text-align: center"> {{medService.role === 'admin' ? item.name : item.medicine.name}} </td>
-        <td style="text-align: center"> {{medService.role === 'admin' ? item.genericName : item.medicine.genericName}} </td>
-        <td style="text-align: center"> {{medService.role === 'admin' ? item.strength : item.medicine.strength}} </td>
-        <td style="text-align: center"> {{medService.role === 'admin' ? item.vendor : item.medicine.vendor}} </td>
-        <td style="text-align: center"> {{medService.role === 'admin' ? item.price : item.medicine.price}}</td>
+        <td style="text-align: center"> {{medService.role === 'ROLE_ADMIN' ? item.name : item.medicine.name}} </td>
+        <td style="text-align: center"> {{medService.role === 'ROLE_ADMIN' ? item.genericName : item.medicine.genericName}} </td>
+        <td style="text-align: center"> {{medService.role === 'ROLE_ADMIN' ? item.strength : item.medicine.strength}} </td>
+        <td style="text-align: center"> {{medService.role === 'ROLE_ADMIN' ? item.vendor : item.medicine.vendor}} </td>
+        <td style="text-align: center"> {{medService.role === 'ROLE_ADMIN' ? item.price : item.medicine.price}}</td>
         <td style="text-align: center">
           <span class="p-buttonset">
-            <button [disabled]="medService.role !== 'admin'" (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
-            <button [disabled]="medService.role === 'admin'" (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
+            <button [disabled]="medService.role !== 'ROLE_ADMIN'" (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
+            <button [disabled]="medService.role === 'ROLE_ADMIN'" (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
           </span>
         </td>
 

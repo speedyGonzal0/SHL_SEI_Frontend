@@ -3,38 +3,38 @@
   <div class="sidebarBody">
     <ul>
 
-      <span *ngIf="role === 'ADMIN'">
+      <span *ngIf="role === 'ROLE_ADMIN'">
         <li routerLink="dashboard" routerLinkActive="linkActive"> Dashboard </li>
         <li routerLink="org/list" routerLinkActive="linkActive" > Organizations </li>
       </span>
 
-      <li *ngIf="role === 'ADMIN' || role === 'ORG_ADMIN'"
+      <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
           routerLink="doctor/list"
           routerLinkActive="linkActive">  Doctors </li>
 
-      <li *ngIf="role === 'DOCTOR_RECEPTIONIST'"
+      <li *ngIf="role === 'ROLE_DOCTOR_RECEPTIONIST'"
           routerLink="doctor/billing"
           routerLinkActive="linkActive">
         Doctor Billing </li>
 
-      <li *ngIf="role === 'ADMIN' || role === 'ORG_ADMIN'"
+      <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
           routerLink="diagnostics/list"
           routerLinkActive="linkActive"> Diagnostics </li>
 
-      <li *ngIf="role === 'DIAGNOSTIC_RECEPTIONIST'"
+      <li *ngIf="role === 'ROLE_DIAGNOSTIC_RECEPTIONIST'"
           routerLink="diagnostics/billing"
           routerLinkActive="linkActive">
         Diagnostic Billing </li>
 
-      <li *ngIf="role === 'ADMIN' || role === 'ORG_ADMIN'"
+      <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
           routerLink="medicine/list"
           routerLinkActive="linkActive"> Medicines </li>
 
-      <li *ngIf="role === 'PHARMACIST'"
+      <li *ngIf="role === 'ROLE_PHARMACIST'"
           routerLink="medicine/billing"
           routerLinkActive="linkActive"> Medicine Billing </li>
 
-      <span *ngIf="role === 'ADMIN' || role === 'ORG_ADMIN'">
+      <span *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'">
         <li routerLink="patients" routerLinkActive="linkActive"> Patients </li>
         <li routerLink="users" routerLinkActive="linkActive"> Users </li>
       </span>

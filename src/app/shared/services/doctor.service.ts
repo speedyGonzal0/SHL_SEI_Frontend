@@ -4,6 +4,7 @@ import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {ApiPaths} from "@enums/api-paths";
 import {Doctor} from "@models/doctor"
 import {Params} from "@angular/router";
+import {AuthService} from "@authentication/auth.service";
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,7 @@ export class DoctorService {
   doctorRef! : DynamicDialogRef
   editMode : boolean = false;
   doctors! : Doctor[]
-  role = localStorage.getItem("isLoggedIn")
+  role = this.authService.getRole()
   totalDoctors!: number;
   doctor = {
     id: 0,
@@ -32,7 +33,7 @@ export class DoctorService {
     {gender: "Female", value: 1},
     {gender: "Other", value: 2}];
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private authService: AuthService) {}
 
   toggleEditMode(){
     this.editMode = !this.editMode;

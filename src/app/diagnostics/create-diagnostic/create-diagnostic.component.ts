@@ -37,7 +37,7 @@ export class CreateDiagnosticComponent implements OnInit{
 
     if(this.config.data){
       let item = this.diagService.diagnostics[this.config.data.index];
-      if(this.diagService.role === 'admin'){
+      if(this.diagService.role === 'ROLE_ADMIN'){
         this.createDiagForm.controls['serviceName'].setValue(item.serviceName);
       }
       else{

@@ -1,4 +1,4 @@
-<form *ngIf="medService.role ==='admin'; else orgAdminFunctions"
+<form *ngIf="medService.role ==='ROLE_ADMIN'; else orgAdminFunctions"
       class="container-fluid d-flex flex-column gap-4 p-0 m-0"
       [formGroup]="createMedForm"
       (ngSubmit)="onSubmit()">

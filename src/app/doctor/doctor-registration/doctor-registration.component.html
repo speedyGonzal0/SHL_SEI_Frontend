@@ -1,5 +1,5 @@
 <form
-  *ngIf="doctorService.role === 'admin'; else orgAdminFunctions"
+  *ngIf="doctorService.role === 'ROLE_ADMIN'; else orgAdminFunctions"
   class="container-fluid d-flex flex-column gap-3 p-0 m-0"
   [formGroup]="doctorForm"
   (ngSubmit)="onSubmit()">

@@ -90,7 +90,7 @@ export class DiagnosticBillingComponent implements OnInit{
   }
 
   resetPatientSearch(){
-    this.DBService.selectedPatient = {};
+    this.DBService.selectedPatient = {id: 0};
     this.patientSearch.reset()
   }
 

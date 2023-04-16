@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {HttpService} from "@shared/services/http.service";
+import {MedicineBillingService} from "@medicine/medicine-billing/medicine-billing.service";
 
 @Component({
   selector: 'app-checkout',
@@ -25,16 +26,7 @@ export class CheckoutComponent{
       quantity: 5,
       unit_price: 10,
       total_price: 50
-    },
-    {
-      id: 3,
-      name: "Advil",
-      generic: "xyz",
-      strength: "15mg",
-      quantity: 10,
-      unit_price: 3,
-      total_price: 30
-    },
+    }
   ]
 
   discountPercent! : number;
@@ -65,11 +57,11 @@ export class CheckoutComponent{
     { field: 'total_price', header: 'Total Price' }
   ];
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, public medBillService: MedicineBillingService) {
   }
 
   calculateTotal(){
-    return this.medicines.reduce((accumulator, object) => {
+    return this.medBillService.selectedMeds.reduce((accumulator, object:any) => {
       return accumulator + object.total_price;
     }, 0)
   }
@@ -124,7 +116,7 @@ export class CheckoutComponent{
   generateInvoice(){
     let medIDs : any = []
     let medQuantities : any = []
-    this.medicines.map(item => {
+    this.medBillService.selectedMeds.map((item:any) => {
       medIDs.push(item.id)
       medQuantities.push(item.quantity)
     })
@@ -135,15 +127,13 @@ export class CheckoutComponent{
       discount : this.discountAmount,
       finalBill: this.calculatePayable()
     }
-    console.log(medIDs)
-    console.log(medInvoice)
 
     this.httpService.createRequest(
       `/pharmacyBill/med/${medIDs}/patient/1/org/1/appUser/1/add`,{
         ...medInvoice
       })
       .subscribe((response: any) => {
-        console.log(response)
+        // console.log(response)
       })
 
     this.exportPdf()

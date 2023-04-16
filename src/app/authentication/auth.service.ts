@@ -7,22 +7,27 @@ import {Router} from "@angular/router";
 export class AuthService{
 
   isAdmin = true;
-  role  = 'ADMIN'
-  routeData = 'ADMIN'
+
+  // role  = 'ROLE_ADMIN'
+  // routeData = 'ROLE_ADMIN'
+  // role  = 'ROLE_ORG_ADMIN'
+  // routeData = 'ROLE_ORG_ADMIN'
+  role  = 'ROLE_PHARMACIST'
+  routeData = 'ROLE_PHARMACIST'
 
   constructor(private router: Router) {}
 
   isAuthenticated(){
-    console.log(localStorage.getItem('isLoggedIn'))
+    console.log(localStorage.getItem('userRole'))
     return this.getRole() && (this.getRole() === this.routeData);
   }
 
   getRole(){
-    return localStorage.getItem('isLoggedIn')
+    return localStorage.getItem('userRole')
   }
 
   login(){
-    localStorage.setItem('isLoggedIn', this.role)
+    localStorage.setItem('userRole', this.role)
     this.router.navigate([''])
   }
 

@@ -42,12 +42,12 @@
       <tr>
         <td style="text-align: center"> {{item.id}}</td>
         <td style="text-align: center"> {{item.name}} </td>
-        <td style="text-align: center" *ngIf="doctorService.role === 'admin'"> {{item.degrees}}</td>
-        <td style="text-align: center" *ngIf="doctorService.role === 'admin'"> {{item.specialities}}</td>
-        <td style="text-align: center" *ngIf="doctorService.role === 'admin'"> {{item.gender}}</td>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> {{item.consultationFee}} </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> {{item.followupFee}} </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'admin'"> {{item.reportFee}} </th>
+        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.degrees}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.specialities}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.gender}}</td>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.consultationFee}} </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.followupFee}} </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.reportFee}} </th>
         <td style="text-align: center">
           <span class="p-buttonset">
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
