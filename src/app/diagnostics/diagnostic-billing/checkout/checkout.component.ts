@@ -67,7 +67,7 @@ export class CheckoutComponent {
   // }
 
   cols = [
-    { field: 'name', header: 'Name' },
+    { field: 'serviceName', header: 'Name' },
     { field: 'price', header: 'Price (BDT)' },
     { field: 'discount', header: 'Discount (%)' },
     { field: 'final_price', header: 'Final Price (BDT)' },
@@ -76,13 +76,13 @@ export class CheckoutComponent {
   constructor(private httpService: HttpService, public diagBillService: DiagnosticBillingService) {}
 
   applyIndividualDiscount(index: number, finalPrice:number, discount:number){
-    let diagnostic = this.diagnostics[index]
+    let diagnostic : any = this.diagBillService.selectedDiagnostics[index]
     diagnostic.final_price = finalPrice - ((finalPrice * discount)/100)
     diagnostic.discountApplied = true;
   }
 
   cancelIndividualDiscount(index:number){
-    let diagnostic = this.diagnostics[index]
+    let diagnostic:any = this.diagBillService.selectedDiagnostics[index]
     diagnostic.discountApplied = false
     diagnostic.discount = 0
     diagnostic.final_price = diagnostic.price
@@ -90,7 +90,7 @@ export class CheckoutComponent {
   }
 
   calculateTotal(){
-    return this.diagnostics.reduce((accumulator, object) => {
+    return this.diagBillService.selectedDiagnostics.reduce((accumulator, object:any) => {
       return accumulator + object.final_price;
     }, 0)
   }
@@ -126,7 +126,7 @@ export class CheckoutComponent {
           `Issued: ${this.issued}`,
           `Issued By: #${this.user.id}`
         ],30,40);
-        (doc as any).autoTable(exportColumns, this.diagnostics, {theme: "grid", startY: 75});
+        (doc as any).autoTable(exportColumns, this.diagBillService.selectedDiagnostics, {theme: "grid", startY: 75});
 
         (doc as any).autoTable({
           columns: [
@@ -148,7 +148,7 @@ export class CheckoutComponent {
   }
 
   generateInvoice(){
-    this.diagnostics.map(item => {
+    this.diagBillService.selectedDiagnostics.map((item:any) => {
       this.diagInvoice
         .orgDiagnosticAndDiscounts
         .push({orgDiagnosticId: item.id, discount: item.discount})

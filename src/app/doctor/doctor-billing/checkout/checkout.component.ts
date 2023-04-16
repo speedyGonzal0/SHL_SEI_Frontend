@@ -52,7 +52,7 @@ export class CheckoutComponent {
   }
 
   calculatePayable(){
-    return this.appointment[0].fee - this.discountAmount
+    return this.appointment[0].fee - this.discountAmount;
   }
 
   cancelDiscount(){
@@ -114,5 +114,7 @@ export class CheckoutComponent {
       .subscribe((response: any) => {
         console.log(response)
       })
+
+    this.exportPdf()
   }
 }

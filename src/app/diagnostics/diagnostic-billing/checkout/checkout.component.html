@@ -1,6 +1,6 @@
 <div class="text-center">
 
-  <p-table [value]="diagnostics" [scrollable]="true" >
+  <p-table [value]="diagBillService.selectedDiagnostics" [scrollable]="true" >
     <ng-template pTemplate="caption">
       <h2 class="text-center my-2">{{org.name}}Diagnostics</h2>
       <div class="tableCaption mt-4 row" id="table">
@@ -29,7 +29,7 @@
 
     <ng-template pTemplate="body" let-diagnostic let-rowIndex="rowIndex">
       <tr>
-        <td style="text-align: center">{{diagnostic.name}}</td>
+        <td style="text-align: center">{{diagnostic.serviceName}}</td>
 
         <td style="text-align: center">{{diagnostic.price}}</td>
 
