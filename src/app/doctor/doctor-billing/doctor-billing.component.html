@@ -158,7 +158,19 @@
   </div>
 
   <div class="row p-0 m-0">
-    <div class="col-9 fields text-start">
+    <div class="col fields text-start">
+      <label for="appointment"> Select Appointment Type</label>
+      <p-dropdown
+        inputId="appointment"
+        [style]="{'width': '100%'}"
+        formControlName="aptType"
+        [options]="DBService.appointmentOptions"
+        optionLabel="name"
+        (onChange)="onAptSelect($event)"
+      ></p-dropdown>
+    </div>
+
+    <div class="col fields text-start">
       <label for="docTime"> Select Appointment Date </label>
       <p-calendar inputId="docTime"
                   formControlName="docTime"

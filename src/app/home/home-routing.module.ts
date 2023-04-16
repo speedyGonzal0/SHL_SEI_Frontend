@@ -8,23 +8,33 @@ const routes: Routes = [
   {path: "", component: HomeComponent, canActivateChild:[AuthGuard],
     children: [
       {path: "", redirectTo:"dashboard", pathMatch:"full"},
-      {path: "dashboard", component: DashboardComponent},
+      {path: "dashboard", component: DashboardComponent,
+        data:{
+          role:["ROLE_ADMIN", "ROLE_ORG_ADMIN"]
+        }
+        },
       {path: "diagnostics",
         loadChildren: () => import('../diagnostics/diagnostics.module')
           .then(m => m.DiagnosticsModule) },
       {path: "doctor",
         loadChildren: () => import('../doctor/doctor.module')
           .then(m => m.DoctorModule) },
-      {path: "org",
+      {path: "org", data:{
+          role:["ROLE_ADMIN"]
+        },
         loadChildren: () => import('../org/org.module')
           .then(m => m.OrgModule) },
-      {path: "patients",
+      {path: "patients", data:{
+          role:["ROLE_ADMIN", "ROLE_ORG_ADMIN"]
+        },
         loadChildren: () => import('../patient/patient.module')
           .then(m => m.PatientModule) },
       {path: "medicine",
         loadChildren: () => import('../medicine/medicine.module')
           .then(m => m.MedicineModule) },
-      {path: "users",
+      {path: "users", data:{
+          role:["ROLE_ADMIN", "ROLE_ORG_ADMIN"]
+        },
         loadChildren: () => import('../app-user/app-user.module')
           .then(m => m.AppUserModule) },
     ]

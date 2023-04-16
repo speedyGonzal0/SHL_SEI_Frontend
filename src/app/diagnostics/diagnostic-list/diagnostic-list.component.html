@@ -47,7 +47,7 @@
         <td style="text-align: center">
           <span class="p-buttonset">
             <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
-            <button (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
+            <button [disabled]="diagService.role === 'admin'" (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
           </span>
         </td>
 

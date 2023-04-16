@@ -5,9 +5,20 @@ import {DiagnosticBillingComponent} from "@diagnostics/diagnostic-billing/diagno
 import {CheckoutComponent} from "@diagnostics/diagnostic-billing/checkout/checkout.component";
 
 const routes: Routes = [
-  {path: "list", component: DiagnosticListComponent},
-  {path: "billing", component: DiagnosticBillingComponent},
-  {path: "checkout", component: CheckoutComponent}
+  {path: "list", component: DiagnosticListComponent, data:{
+      role:["ROLE_ADMIN", "ROLE_ORG_ADMIN"]
+    }
+  },
+
+  {path: "billing", component: DiagnosticBillingComponent, data:{
+      role:["ROLE_DIAGNOSTIC_RECEPTIONIST"]
+    }
+  },
+
+  {path: "checkout", component: CheckoutComponent, data:{
+      role:["ROLE_DIAGNOSTIC_RECEPTIONIST"]
+    }
+  }
 
 ];
 

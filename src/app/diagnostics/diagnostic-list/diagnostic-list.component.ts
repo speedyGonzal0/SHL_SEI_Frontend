@@ -77,7 +77,7 @@ export class DiagnosticListComponent implements OnInit{
   showCreateDialog(){
     this.diagService.ref = this.dialogService.open(CreateDiagnosticComponent, {
       header: "New Diagnostic",
-      style: {'min-width': '800px', 'max-height': '600px'}
+      style: this.diagService.role !== 'admin' ? {'min-width': '800px', 'max-height': '600px'} : {'width': '30%', "min-width": "300px"}
     });
   }
 
@@ -88,7 +88,7 @@ export class DiagnosticListComponent implements OnInit{
       data: {
         index: index
       },
-      style: {'min-width': '400px'}
+      style: {'width': '30%', "min-width": "300px"}
     });
 
     this.diagService.ref.onClose.subscribe(() => this.diagService.toggleEditMode());

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "@authentication/auth.service";
+import {HttpService} from "@shared/services/http.service";
+import {Router} from "@angular/router";
+import {ApiPaths} from "@enums/api-paths";
 
 @Component({
   selector: 'app-login',
@@ -9,8 +12,17 @@ import {AuthService} from "@authentication/auth.service";
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  authURL = ApiPaths.auth;
 
-  constructor(private authService: AuthService) {}
+  roles: any = {
+    'admin@gmail.com': "ROLE_ADMIN",
+    'orgAdmin@gmail.com': "ROLE_ORG_ADMIN",
+    'drUser@gmail.com': "ROLE_DOCTOR_RECEPTIONIST",
+    'diagUser@gmail.com': "ROLE_DIAGNOSTIC_RECEPTIONIST",
+    'pharmaUser@gmail.com': "ROLE_PHARMACIST"
+  }
+
+  constructor(private authService: AuthService, private httpService: HttpService, private router: Router) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -20,8 +32,17 @@ export class LoginComponent {
   }
 
   onLogin(){
-    console.log(this.loginForm.value)
-    this.authService.login()
+    this.httpService.createRequest(`${this.authURL}/login`, {email: this.loginForm.value.email , password: this.loginForm.value.password}).subscribe({
+        next: (response) => {
+          console.log(response)
+          localStorage.setItem('userRole', this.roles[this.loginForm.value.email]);
+          this.router.navigate(['/dashboard'])
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      }
+    )
   }
 
 }

@@ -6,10 +6,23 @@ import {CheckoutComponent} from "@doctor/doctor-billing/checkout/checkout.compon
 import {DoctorBillingComponent} from "@doctor/doctor-billing/doctor-billing.component";
 
 const routes: Routes = [
-  {path: "list", component: DoctorListComponent},
-  {path: "billing", component: DoctorBillingComponent},
-  {path: "checkout", component: CheckoutComponent},
-  {path: ":id", component: DoctorProfileComponent}
+  {path: "list", component: DoctorListComponent, data:{
+      role:["ROLE_ADMIN", "ROLE_ORG_ADMIN"]
+    }
+  },
+
+  {path: "billing", component: DoctorBillingComponent, data:{
+      role:["ROLE_DOCTOR_RECEPTIONIST"]
+    }
+  },
+  {path: "checkout", component: CheckoutComponent, data:{
+      role:["ROLE_DOCTOR_RECEPTIONIST"]
+    }
+  },
+  {path: ":id", component: DoctorProfileComponent,data:{
+      role:["ROLE_ADMIN", "ROLE_ORG_ADMIN"]
+    }
+  }
 ];
 
 @NgModule({

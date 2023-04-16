@@ -1,4 +1,6 @@
-import {Injectable, OnInit} from '@angular/core';
+import { Injectable } from '@angular/core';
+import {HttpService} from "@shared/services/http.service";
+import {ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
 import {Router} from "@angular/router";
 
 @Injectable({
@@ -15,7 +17,10 @@ export class AuthService{
   role  = 'ROLE_PHARMACIST'
   routeData = 'ROLE_PHARMACIST'
 
-  constructor(private router: Router) {}
+
+  constructor(private httpService: HttpService,
+              private router: Router) {
+  }
 
   isAuthenticated(){
     console.log(localStorage.getItem('userRole'))
@@ -26,9 +31,8 @@ export class AuthService{
     return localStorage.getItem('userRole')
   }
 
-  login(){
-    localStorage.setItem('userRole', this.role)
-    this.router.navigate([''])
+  login(value: any){
+
   }
 
   logout(){

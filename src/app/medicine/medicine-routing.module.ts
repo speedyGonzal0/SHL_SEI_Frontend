@@ -5,9 +5,18 @@ import {MedicineBillingComponent} from "@medicine/medicine-billing/medicine-bill
 import {CheckoutComponent} from "@medicine/medicine-billing/checkout/checkout.component";
 
 const routes: Routes = [
-  {path: "list", component: MedicineListComponent},
-  {path: "billing", component: MedicineBillingComponent},
-  {path: "checkout", component: CheckoutComponent},
+  {path: "list", component: MedicineListComponent, data:{
+      role:["ROLE_ADMIN", "ROLE_ORG_ADMIN"]
+    }
+  },
+  {path: "billing", component: MedicineBillingComponent, data:{
+      role:["ROLE_PHARMACIST"]
+    }
+  },
+  {path: "checkout", component: CheckoutComponent, data:{
+      role:["ROLE_PHARMACIST"]
+    }
+  },
 
 ];
 
