@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 
-import {Patient} from "@models/patient";
-import {Medicine} from "@models/medicine";
 import {FormControl, Validators} from "@angular/forms";
 import {ApiPaths} from "@enums/api-paths";
 import {HttpService} from "@shared/services/http.service";
 import {DialogService} from "primeng/dynamicdialog";
 import {PatientRegistrationComponent} from "@patient/patient-registration/patient-registration.component";
 import {PatientService} from "@shared/services/patient.service";
+import {MedicineBillingService} from "@medicine/medicine-billing/medicine-billing.service";
 
 @Component({
   selector: 'app-medicine-billing',
@@ -16,33 +15,37 @@ import {PatientService} from "@shared/services/patient.service";
   providers: [DialogService]
 })
 export class MedicineBillingComponent {
-  filteredPatients!: Patient[];
-  filteredMeds!: Medicine[];
+
   patientSearch!: FormControl;
   medicineSearch!: FormControl;
   patientUrl = ApiPaths.patient;
   medicineUrl = ApiPaths.orgMed;
 
-  selectedMeds!: Medicine[];
 
   constructor(private httpService: HttpService,
               private patientService: PatientService,
               private dialogService: DialogService,
-  ) {
-  }
+              public MBService: MedicineBillingService
+  ) {  }
 
   ngOnInit() {
-    this.filteredPatients = [];
-    this.selectedMeds = [];
+    if(!this.MBService.selectedMeds){
+      this.MBService.selectedMeds = [];
+    }
+    this.MBService.filteredPatients = [];
     this.patientSearch = new FormControl(null, Validators.required);
     this.medicineSearch = new FormControl(null, Validators.required);
+
+    if(this.MBService.selectedPatient){
+      this.patientSearch.setValue(this.MBService.selectedPatient);
+    }
   }
 
   filterPatient(e: any){
     let query = e.query;
 
     this.httpService.getRequestWithParams(`${this.patientUrl}/search`, {query: query}).subscribe(
-      (response:any) => this.filteredPatients = response.content
+      (response:any) => this.MBService.filteredPatients = response.content
     )
   }
 
@@ -50,19 +53,19 @@ export class MedicineBillingComponent {
     let query = e.query;
 
     this.httpService.getRequestWithParams(`${this.medicineUrl}/organization/1/search`, {query: query}).subscribe(
-      (response:any) => this.filteredMeds = response.content
+      (response:any) => this.MBService.filteredMeds = response.content
     )
   }
 
   onMedSelect(event:any){
-    let med = {quantity: 1, ...event};
-    this.selectedMeds.push(med);
+    let med = {quantity: 1, total_price: event.medicine.price, ...event};
+    this.MBService.selectedMeds.push(med);
     this.medicineSearch.reset();
   }
 
 
   onDelete(index:number){
-    this.selectedMeds.splice(index, 1);
+    this.MBService.selectedMeds.splice(index, 1);
   }
 
   showCreateDialog(){
@@ -72,8 +75,17 @@ export class MedicineBillingComponent {
     });
   }
 
+  handleQtyInput(event: any, medIndex: number){
+    let med: any = this.MBService.selectedMeds[medIndex];
+    med.total_price = med.quantity * med.medicine.price;
+  }
+
   resetPatientSearch(){
     this.patientSearch.reset()
+  }
+
+  onPatientSelect(){
+    this.MBService.selectedPatient = this.patientSearch.value;
   }
 
 

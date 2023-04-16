@@ -31,12 +31,18 @@ export class DiagnosticBillingComponent implements OnInit{
 
   ngOnInit() {
 
-    this.DBService.selectedDiagnostics = [];
+    if(!this.DBService.selectedDiagnostics){
+      this.DBService.selectedDiagnostics = [];
+    }
     this.DBService.filteredDiagnostics = [];
     this.DBService.filteredPatients = [];
 
     this.patientSearch = new FormControl(null, Validators.required);
     this.diagnosticSearch = new FormControl(null, Validators.required);
+
+    if(this.DBService.selectedPatient){
+      this.patientSearch.setValue(this.DBService.selectedPatient);
+    }
   }
 
   filterPatient(e: any){
@@ -68,7 +74,14 @@ export class DiagnosticBillingComponent implements OnInit{
   }
 
   onDiagSelect(event:any){
-    this.DBService.selectedDiagnostics.push({discount: null, discountApplied: false, ...event});
+    this.DBService.selectedDiagnostics.push(
+      {
+        final_price: event.price,
+        discount: 0,
+        discountApplied: false,
+        ...event
+      }
+    );
     this.diagnosticSearch.reset();
   }
 
@@ -80,6 +93,5 @@ export class DiagnosticBillingComponent implements OnInit{
     this.DBService.selectedPatient = {};
     this.patientSearch.reset()
   }
-
 
 }

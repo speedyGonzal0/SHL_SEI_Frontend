@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {DialogService} from "primeng/dynamicdialog";
 import {Patient} from "@models/patient";
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApiPaths} from "@enums/api-paths";
 import {HttpService} from "@shared/services/http.service";
 import {PatientRegistrationComponent} from "@patient/patient-registration/patient-registration.component";
 import {PatientService} from "@shared/services/patient.service";
+import {DoctorBillingService} from "@doctor/doctor-billing/doctor-billing.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-doctor-billing',
@@ -15,11 +17,10 @@ import {PatientService} from "@shared/services/patient.service";
 })
 export class DoctorBillingComponent {
 
-  filteredPatients!: Patient[];
-  filteredDocs!: any;
-  patientSearch!: FormControl;
-  docSearch!: FormControl;
-  docTime!: FormControl;
+  DBForm!: FormGroup;
+  // patientSearch!: FormControl;
+  // docSearch!: FormControl;
+  // docTime!: FormControl;
   patientUrl = ApiPaths.patient;
   doctorUrl = ApiPaths.doctor;
   minDate!: Date;
@@ -27,22 +28,42 @@ export class DoctorBillingComponent {
   constructor(private httpService: HttpService,
               private patientService: PatientService,
               private dialogService: DialogService,
+              public DBService: DoctorBillingService,
+              private router: Router
   ) {
   }
 
   ngOnInit() {
-    this.filteredPatients = [];
+    this.DBService.filteredPatients = [];
     this.minDate = new Date();
-    this.patientSearch = new FormControl(null, Validators.required);
-    this.docSearch = new FormControl(null, Validators.required);
-    this.docTime = new FormControl(null, Validators.required);
+    this.DBForm = new FormGroup<any>({
+      patientSearch: new FormControl(null, Validators.required),
+      docSearch: new FormControl(null, Validators.required),
+      docTime: new FormControl(null, Validators.required)
+    })
+
+    if(this.DBService.selectedPatient){
+      this.DBForm.controls['patientSearch'].setValue(this.DBService.selectedPatient);
+    }
+
+    if (this.DBService.selectedDoc){
+      this.DBForm.controls['docSearch'].setValue(this.DBService.selectedDoc);
+    }
+
+    if(this.DBService.selectedTime){
+      this.DBForm.controls['docTime'].setValue(this.DBService.selectedTime);
+    }
+
+    // this.patientSearch = new FormControl(null, Validators.required);
+    // this.docSearch = new FormControl(null, Validators.required);
+    // this.docTime = new FormControl(null, Validators.required);
   }
 
   filterPatient(e: any){
     let query = e.query;
 
     this.httpService.getRequestWithParams(`${this.patientUrl}/search`, {query: query}).subscribe(
-      (response:any) => this.filteredPatients = response.content
+      (response:any) => this.DBService.filteredPatients = response.content
     )
   }
 
@@ -50,7 +71,7 @@ export class DoctorBillingComponent {
     let query = e.query;
 
     this.httpService.getRequestWithParams(`${this.doctorUrl}/search`, {query: query}).subscribe(
-      (response:any) => this.filteredDocs = response.content
+      (response:any) => this.DBService.filteredDocs = response.content
     )
   }
 
@@ -64,11 +85,23 @@ export class DoctorBillingComponent {
   }
 
   resetPatientSearch(){
-    this.patientSearch.reset()
+    this.DBForm.controls['patientSearch'].reset();
   }
 
   resetDocSearch(){
-    this.docSearch.reset()
+    this.DBForm.controls['docSearch'].reset();
+  }
+
+  onPatientSelect(){
+    this.DBService.selectedPatient = this.DBForm.controls['patientSearch'].value;
+  }
+
+  onDocSelect(){
+    this.DBService.selectedDoc = this.DBForm.controls['docSearch'].value;
+  }
+
+  onSubmit(){
+    this.router.navigate(['/doctor/checkout']);
   }
 
 }

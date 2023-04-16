@@ -36,7 +36,8 @@
           [formControl]="patientSearch"
           placeholder="Enter name/phone"
           [showEmptyMessage] = "true"
-          [suggestions]="filteredPatients"
+          [suggestions]="MBService.filteredPatients"
+          (onSelect)="onPatientSelect()"
           [forceSelection]="true"
           (completeMethod)="filterPatient($event)"
           field="name">
@@ -70,7 +71,7 @@
       <div class="card text-start p-3 d-flex flex-column gap-3">
         <div class="row p-0 m-0">
           <div class="col-10 p-0 m-0">
-            <h4>Patient: {{patientSearch.value.name}}</h4>
+            <h4>Patient: {{MBService.selectedPatient.name}}</h4>
           </div>
           <div class="col-2 d-flex justify-content-end p-0 m-0">
             <button pButton
@@ -84,10 +85,10 @@
 
         <div class="row p-0 m-0">
           <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="Phone: {{patientSearch.value.phone}}"></p-chip>
-            <p-chip class="mx-2" label="Email: {{patientSearch.value.email}}"></p-chip>
-            <p-chip class="mx-2" label="Age: {{patientSearch.value.age}}"></p-chip>
-            <p-chip class="mx-2" label="Gender: {{patientSearch.value.gender}}"></p-chip>
+            <p-chip class="mx-2" label="Phone: {{MBService.selectedPatient.phone}}"></p-chip>
+            <p-chip class="mx-2" label="Email: {{MBService.selectedPatient.email}}"></p-chip>
+            <p-chip class="mx-2" label="Age: {{MBService.selectedPatient.age}}"></p-chip>
+            <p-chip class="mx-2" label="Gender: {{MBService.selectedPatient.gender}}"></p-chip>
           </div>
         </div>
       </div>
@@ -108,7 +109,7 @@
           [formControl]="medicineSearch"
           placeholder="Enter name"
           [showEmptyMessage] = "true"
-          [suggestions]="filteredMeds"
+          [suggestions]="MBService.filteredMeds"
           [forceSelection]="true"
           (onSelect)="onMedSelect($event)"
           (completeMethod)="filterMeds($event)"
@@ -124,7 +125,7 @@
     <div class="col">
       <p-table styleClass="p-datatable-sm p-datatable-gridlines" #dt
                [rowHover]="true"
-               [value]="selectedMeds"
+               [value]="MBService.selectedMeds"
                [style]="{'width': '100%', 'min-width': '800px'}"
                [scrollable]="true"
       >
@@ -150,6 +151,7 @@
                 [(ngModel)]="item.quantity"
                 [step]="1"
                 [min]="1"
+                (onInput)="handleQtyInput($event, index)"
                 incrementButtonClass="p-button-outlined p-button-secondary"
                 decrementButtonClass="p-button-outlined p-button-secondary"
                 incrementButtonIcon="pi pi-plus"
@@ -157,7 +159,7 @@
                 mode="decimal">
               </p-inputNumber>
             </td>
-            <td style="text-align: center"> {{item.medicine.price * item.quantity}}</td>
+            <td style="text-align: center"> {{item.total_price}}</td>
             <td style="text-align: center">
               <button (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
             </td>
@@ -175,7 +177,7 @@
               class="p-button-success"
               icon="pi pi-arrow-right"
               iconPos="right"
-              [disabled]="!patientSearch.valid || selectedMeds.length < 1"
+              [disabled]="!patientSearch.valid || MBService.selectedMeds.length < 1"
               label="Proceed to checkout"
               routerLink="/medicine/checkout"
       ></button>

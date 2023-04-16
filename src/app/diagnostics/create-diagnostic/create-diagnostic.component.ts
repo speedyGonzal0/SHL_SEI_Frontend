@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { FormControl, FormGroup, Validators} from "@angular/forms";
 import {DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 import {HttpService} from "@shared/services/http.service";
@@ -13,6 +13,7 @@ import {Diagnostic} from "@models/diagnostic";
 export class CreateDiagnosticComponent implements OnInit{
 
   createDiagForm !: FormGroup;
+  selectDiagForm!: FormGroup;
   selectedDiag: any;
   filteredDiags !: Diagnostic[];
 
@@ -24,9 +25,12 @@ export class CreateDiagnosticComponent implements OnInit{
 
   ngOnInit() {
     this.createDiagForm = new FormGroup({
-      "diag": new FormControl(null),
-      "diagName": new FormControl(null),
-      "diagPrice": new FormControl(null)
+      "serviceName": new FormControl(null, Validators.required),
+    })
+
+    this.selectDiagForm = new FormGroup({
+      "diag": new FormControl(null, Validators.required),
+      "price": new FormControl(null, Validators.required)
     })
 
     this.diagService.selectedDiags = [];
@@ -34,10 +38,10 @@ export class CreateDiagnosticComponent implements OnInit{
     if(this.config.data){
       let item = this.diagService.diagnostics[this.config.data.index];
       if(this.diagService.role === 'admin'){
-        this.createDiagForm.controls['diagName'].setValue(item.serviceName);
+        this.createDiagForm.controls['serviceName'].setValue(item.serviceName);
       }
       else{
-        this.createDiagForm.controls['diagPrice'].setValue(item.price);
+        this.selectDiagForm.controls['price'].setValue(item.price);
       }
     }
   }
@@ -55,21 +59,28 @@ export class CreateDiagnosticComponent implements OnInit{
       this.diagService.updateValue(this.config.data.index, this.createDiagForm.value)
     }
     else{
-      if(this.diagService.role === 'admin'){
-        this.diagService.selectedDiags.push({serviceName: this.createDiagForm.value.diagName})
-        this.diagService.appendValue();
-      }
-      else{
-        this.diagService.selectedDiags.push(
-          {
-            serviceName: this.createDiagForm.value.diag.serviceName,
-            diagnosticId: this.createDiagForm.value.diag.id,
-            price: this.createDiagForm.value.diagPrice,
-            organizationId: 1
-          })
-      }
+      this.diagService.selectedDiags.push(this.createDiagForm.value)
+      this.diagService.appendValue();
     }
     this.createDiagForm.reset();
+  }
+
+  onOrgAdminSubmit(){
+    if(!this.diagService.editMode){
+      this.diagService.selectedDiags.push(
+        {
+          organizationId: 1,
+          diagnosticId: this.selectDiagForm.value.diag.id,
+          price: this.selectDiagForm.value.price,
+          serviceName: this.selectDiagForm.value.diag.serviceName
+        }
+      )
+    }
+    else{
+      this.diagService.updateValue(this.config.data.index, this.selectDiagForm.value);
+    }
+
+    this.selectDiagForm.reset();
   }
 
   onDelete(index: number){
