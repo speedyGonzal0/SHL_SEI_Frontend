@@ -5,7 +5,7 @@ import {DashboardComponent} from "@home/dashboard/dashboard.component";
 import {AuthGuard} from "@authentication/auth.guard";
 
 const routes: Routes = [
-  {path: "", component: HomeComponent, canActivateChild:[AuthGuard],
+  {path: "", component: HomeComponent, canActivate:[AuthGuard],
     children: [
       {path: "", redirectTo:"dashboard", pathMatch:"full"},
       {path: "dashboard", component: DashboardComponent,

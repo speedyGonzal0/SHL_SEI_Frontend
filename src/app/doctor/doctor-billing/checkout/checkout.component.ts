@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {HttpService} from "@shared/services/http.service";
 import {DoctorBillingService} from "@doctor/doctor-billing/doctor-billing.service";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-checkout',
@@ -43,7 +44,9 @@ export class CheckoutComponent {
     { field: 'fee', header: 'Fee' },
   ];
 
-  constructor(private httpService: HttpService, public docBillService: DoctorBillingService) {
+  constructor(private httpService: HttpService,
+              public docBillService: DoctorBillingService,
+              private authService: AuthService) {
   }
 
   applyDiscount(){
@@ -52,7 +55,7 @@ export class CheckoutComponent {
   }
 
   calculatePayable(){
-    return this.appointment[0].fee - this.discountAmount
+    return this.appointment[0].fee - this.discountAmount;
   }
 
   cancelDiscount(){
@@ -108,11 +111,13 @@ export class CheckoutComponent {
     }
 
     this.httpService.createRequest(
-      `/appointmentBill/appuser/1/orgDoc/1/patient/1/org/1/add`,{
+      `/appointmentBill/appuser/${this.authService.appUserID}/orgDoc/${this.docBillService.selectedDoc.id}/patient/${this.docBillService.selectedPatient.id}/org/${this.authService.orgID}/add`,{
         ...doctorInvoice
       })
       .subscribe((response: any) => {
         console.log(response)
       })
+
+    this.exportPdf()
   }
 }

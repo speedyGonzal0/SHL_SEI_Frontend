@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {HttpService} from "@shared/services/http.service";
 import {MedicineBillingService} from "@medicine/medicine-billing/medicine-billing.service";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-checkout',
@@ -57,7 +58,9 @@ export class CheckoutComponent{
     { field: 'total_price', header: 'Total Price' }
   ];
 
-  constructor(private httpService: HttpService, public medBillService: MedicineBillingService) {
+  constructor(private httpService: HttpService,
+              public medBillService: MedicineBillingService,
+              private authService: AuthService) {
   }
 
   calculateTotal(){
@@ -129,7 +132,7 @@ export class CheckoutComponent{
     }
 
     this.httpService.createRequest(
-      `/pharmacyBill/med/${medIDs}/patient/1/org/1/appUser/1/add`,{
+      `/pharmacyBill/med/${medIDs}/patient/${this.medBillService.selectedPatient.id}/org/${this.authService.orgID}/appUser/${this.authService.appUserID}/add`,{
         ...medInvoice
       })
       .subscribe((response: any) => {

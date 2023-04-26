@@ -14,10 +14,15 @@ export class DiagnosticsService{
 
   diagnostics!: Diagnostic[];
   totalDiagnostics!: number;
+
+  diagBillHistory!: any;
+  totalDiagHistory!: number;
   selectedDiags!: Diagnostic[];
 
   adminUrl : string = ApiPaths.diagnostic;
   orgAdminUrl : string = ApiPaths.orgDiag;
+
+  diagBillURL : string = ApiPaths.diagBilling;
 
   ref!: DynamicDialogRef;
 
@@ -30,9 +35,20 @@ export class DiagnosticsService{
     this.editMode = !this.editMode;
   }
 
+  getDiagHistory(){
+    this.httpService.getRequest(`${this.diagBillURL}/view/${this.authService.orgID}/all`)
+      .subscribe(
+        (response:any) => {
+          this.diagBillHistory = response.content;
+          console.log(this.diagBillHistory)
+          this.totalDiagHistory = response.totalElements;
+        })
+  }
+
   getData(queryParams: Params){
     if (this.role === 'ROLE_ADMIN'){
-      this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams).subscribe(
+      this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams)
+        .subscribe(
         (response: any) => {
           this.diagnostics = response.content;
           this.totalDiagnostics = response.totalElements;
@@ -41,7 +57,7 @@ export class DiagnosticsService{
       )
     }
     else {
-      this.httpService.getRequestWithParams(`${this.orgAdminUrl}/organization/1/search`, queryParams).subscribe(
+      this.httpService.getRequestWithParams(`${this.orgAdminUrl}/organization/${this.authService.orgID}/search`, queryParams).subscribe(
         (response: any) => {
           this.diagnostics = response.content;
           this.totalDiagnostics = response.totalElements;

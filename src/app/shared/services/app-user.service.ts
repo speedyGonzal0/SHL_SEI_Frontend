@@ -10,7 +10,6 @@ import {AuthService} from "@authentication/auth.service";
   providedIn: 'root'
 })
 export class AppUserService {
-  orgId = 1
   role = this.authService.getRole()
   userURL = ApiPaths.users
   appUserRef! : DynamicDialogRef
@@ -53,7 +52,7 @@ export class AppUserService {
       )
     }
     else {
-      this.httpService.getRequestWithParams(`${this.userURL}/org/${this.orgId}/search`, queryParams).subscribe(
+      this.httpService.getRequestWithParams(`${this.userURL}/org/${this.authService.orgID}/search`, queryParams).subscribe(
         (response: any) => {
           this.appUsers = response.content;
           this.totalUsers = response.totalElements;
@@ -67,21 +66,22 @@ export class AppUserService {
   }
 
   createUser(appUserInfo: any){
+    console.log(appUserInfo)
 
-    const roles = appUserInfo.role.map((role: { value: any; }) => {
+    const roles = appUserInfo.role.map((role: { value: any }) => {
       return role.value;
     });
 
-    console.log(roles)
+    console.log("Roles: ",roles)
     this.httpService.createRequest(
-      `${this.userURL}/add`,{
+      `${this.userURL}/org/${appUserInfo.orgID}/add`,{
         name: appUserInfo.name,
         phone: appUserInfo.phone,
         email: appUserInfo.email,
         gender: appUserInfo.gender.value,
         address: appUserInfo.address,
         age: appUserInfo.age,
-        role: appUserInfo.role,
+        role: this.authService.role === "ROLE_ORG_ADMIN" ? roles : appUserInfo.role,
         password: appUserInfo.password,
       })
       .subscribe((response: any) => {

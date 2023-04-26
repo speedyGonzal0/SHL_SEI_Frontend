@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Patient} from "@models/patient";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
 import {HttpService} from "@shared/services/http.service";
 import {ApiPaths} from "@enums/api-paths";
-import {Diagnostic} from "@models/diagnostic";
 import {DialogService} from "primeng/dynamicdialog";
 import {PatientRegistrationComponent} from "@patient/patient-registration/patient-registration.component";
 import {PatientService} from "@shared/services/patient.service";
 import {DiagnosticBillingService} from "@diagnostics/diagnostic-billing/diagnostic-billing.service";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-diagnostic-billing',
@@ -26,6 +25,7 @@ export class DiagnosticBillingComponent implements OnInit{
               private patientService: PatientService,
               public DBService: DiagnosticBillingService,
               private dialogService: DialogService,
+              private authService: AuthService
               ) {
   }
 
@@ -56,7 +56,7 @@ export class DiagnosticBillingComponent implements OnInit{
   filterDiagnostic(e: any){
     let query = e.query;
 
-    this.httpService.getRequestWithParams(`${this.diagnosticUrl}/organization/1/search`, {query: query}).subscribe(
+    this.httpService.getRequestWithParams(`${this.diagnosticUrl}/organization/${this.authService.orgID}/search`, {query: query}).subscribe(
       (response:any) => this.DBService.filteredDiagnostics = response.content
     )
   }

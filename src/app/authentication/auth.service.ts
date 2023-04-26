@@ -10,12 +10,25 @@ export class AuthService{
 
   isAdmin = true;
 
-  // role  = 'ROLE_ADMIN'
-  // routeData = 'ROLE_ADMIN'
+  patientID = 1;
+  orgID = 1;
+  appUserID = 1;
+  adminID = 1;
+
+  role  = 'ROLE_ADMIN'
+  routeData = 'ROLE_ADMIN'
+
   // role  = 'ROLE_ORG_ADMIN'
   // routeData = 'ROLE_ORG_ADMIN'
-  role  = 'ROLE_PHARMACIST'
-  routeData = 'ROLE_PHARMACIST'
+
+  // role  = 'ROLE_PHARMACIST'
+  // routeData = 'ROLE_PHARMACIST'
+
+  // role  = 'ROLE_DIAGNOSTIC_RECEPTIONIST'
+  // routeData = 'ROLE_DIAGNOSTIC_RECEPTIONIST'
+
+  // role  = 'ROLE_DOCTOR_RECEPTIONIST'
+  // routeData = 'ROLE_DOCTOR_RECEPTIONIST'
 
 
   constructor(private httpService: HttpService,
