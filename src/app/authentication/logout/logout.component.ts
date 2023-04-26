@@ -15,14 +15,20 @@ export class LogoutComponent implements OnInit{
   }
 
   ngOnInit() {
+    let role = this.authService.getRole()!;
+    role = role.substring(role.indexOf("_") + 1);
+
+    let user = localStorage.getItem('token')!;
+    user = JSON.parse(atob(user.split('.')[1])).sub;
+
     this.menuItems = [
       {
-        label: 'Signed in as ADMIN',
+        label: `Signed in as ${role}`,
         escape: false,
         disabled: true
       },
       {
-        label: 'Admin name',
+        label: `${user}`,
         escape: false,
         disabled: true
       },
