@@ -16,37 +16,37 @@ export class AdminDashboardComponent{
     {
       title: "Diagnostics",
       icon: "ecg",
-      count: 500
+      count: null
     },
     {
       title: "Medicines",
       icon: "pill",
-      count: 88
+      count: null
     },
     {
       title: "Doctors",
       icon: "stethoscope",
-      count: 123
+      count: null
     },
     {
       title: "Organizations",
       icon: "home_health",
-      count: 300
+      count: null
     },
     {
       title: "Org Admins",
       icon: "admin_panel_settings",
-      count: 25
+      count: null
     },
     {
       title: "Employees",
       icon: "groups",
-      count: 33
+      count: null
     },
   ]
 
   adminURL = ApiPaths.admin
-
+  orgAdminURL = ApiPaths.orgAdmin
 
   constructor(private httpService: HttpService, private refreshService: RefreshService) {}
 
@@ -60,7 +60,7 @@ export class AdminDashboardComponent{
   }
 
   getAdminInfo(){
-    this.httpService.getRequest(`${this.adminURL}/dashboard`)
+    this.httpService.getRequest(`${this.orgAdminURL}/dashboard/1`)
       .subscribe((response: any) => {
         this.cardInfo[0].count = response.diagnostics
         this.cardInfo[1].count = response.medicines
