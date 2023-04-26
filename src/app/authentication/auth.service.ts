@@ -15,11 +15,11 @@ export class AuthService{
   appUserID = 1;
   adminID = 1;
 
-  role  = 'ROLE_ADMIN'
-  routeData = 'ROLE_ADMIN'
+  // role  = 'ROLE_ADMIN'
+  // routeData = 'ROLE_ADMIN'
 
-  // role  = 'ROLE_ORG_ADMIN'
-  // routeData = 'ROLE_ORG_ADMIN'
+  role  = 'ROLE_ORG_ADMIN'
+  routeData = 'ROLE_ORG_ADMIN'
 
   // role  = 'ROLE_PHARMACIST'
   // routeData = 'ROLE_PHARMACIST'

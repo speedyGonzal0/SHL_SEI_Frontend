@@ -78,7 +78,7 @@ export class DoctorService {
 
     else{
       this.httpService.createRequest(
-        `${this.orgDoctorURL}/appuser/${this.authService.appUserID}/org/${this.authService.orgID}/doctor/${doctorInfo.id}/add`,{
+        `${this.orgDoctorURL}/appuser/${this.authService.appUserID}/org/${this.authService.orgID}/doctor/${doctorInfo.doctor.id}/add`,{
           ...doctorInfo
         })
         .subscribe((response: any) => {
