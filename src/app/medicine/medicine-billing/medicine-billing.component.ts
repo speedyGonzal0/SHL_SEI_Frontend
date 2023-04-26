@@ -7,6 +7,7 @@ import {DialogService} from "primeng/dynamicdialog";
 import {PatientRegistrationComponent} from "@patient/patient-registration/patient-registration.component";
 import {PatientService} from "@shared/services/patient.service";
 import {MedicineBillingService} from "@medicine/medicine-billing/medicine-billing.service";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-medicine-billing',
@@ -25,7 +26,8 @@ export class MedicineBillingComponent {
   constructor(private httpService: HttpService,
               private patientService: PatientService,
               private dialogService: DialogService,
-              public MBService: MedicineBillingService
+              public MBService: MedicineBillingService,
+              private authService: AuthService
   ) {  }
 
   ngOnInit() {
@@ -52,7 +54,7 @@ export class MedicineBillingComponent {
   filterMeds(e: any){
     let query = e.query;
 
-    this.httpService.getRequestWithParams(`${this.medicineUrl}/organization/1/search`, {query: query}).subscribe(
+    this.httpService.getRequestWithParams(`${this.medicineUrl}/organization/${this.authService.orgID}/search`, {query: query}).subscribe(
       (response:any) => this.MBService.filteredMeds = response.content
     )
   }

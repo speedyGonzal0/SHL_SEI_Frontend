@@ -21,13 +21,15 @@ import {ChipModule} from "primeng/chip";
 
 
 import {TagModule} from "primeng/tag";
+import { HistoryComponent } from './medicine-billing/history/history.component';
 
 @NgModule({
   declarations: [
     CreateMedicineComponent,
     MedicineListComponent,
     MedicineBillingComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    HistoryComponent
   ],
   exports: [],
   imports: [

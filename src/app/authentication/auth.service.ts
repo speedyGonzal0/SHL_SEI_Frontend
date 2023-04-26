@@ -8,13 +8,18 @@ import {Router} from "@angular/router";
 })
 export class AuthService{
 
-  isAdmin = false;
+  isAdmin = true;
 
-  // role  = 'ROLE_ADMIN'
-  // routeData = 'ROLE_ADMIN'
+  patientID = 1;
+  orgID = 1;
+  appUserID = 1;
+  adminID = 1;
 
-  role  = 'ROLE_ORG_ADMIN'
-  routeData = 'ROLE_ORG_ADMIN'
+  role  = 'ROLE_ADMIN'
+  routeData = 'ROLE_ADMIN'
+
+  // role  = 'ROLE_ORG_ADMIN'
+  // routeData = 'ROLE_ORG_ADMIN'
 
   // role  = 'ROLE_PHARMACIST'
   // routeData = 'ROLE_PHARMACIST'

@@ -122,6 +122,20 @@
       </span>
 
 
+      <span
+        class="inputField">
+        <label for="orgID">Organization ID</label>
+        <input formControlName="orgID"
+               id="orgID"
+               type="number"
+               pInputText/>
+        <p
+          *ngIf="!appUserForm.controls['orgID'].valid && appUserForm.controls['orgID'].touched">
+          This field is required!
+        </p>
+      </span>
+
+
       <!------------------------------------------------------------------
       ------------------------ Edit Doctor Form --------------------------
       ------------------------------------------------ ------------------->

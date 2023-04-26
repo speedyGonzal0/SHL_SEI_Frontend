@@ -50,7 +50,7 @@ export class DoctorService {
       )
     }
     else {
-      this.httpService.getRequestWithParams(`${this.orgDoctorURL}/organization/1/search`, queryParams).subscribe(
+      this.httpService.getRequestWithParams(`${this.orgDoctorURL}/org/${this.authService.orgID}/search`, queryParams).subscribe(
         (response: any) => {
           this.doctors = response.content;
           this.totalDoctors = response.totalElements;
@@ -62,7 +62,7 @@ export class DoctorService {
   createDoctor(doctorInfo: any){
     if (this.role === 'ROLE_ADMIN'){
       this.httpService.createRequest(
-        `${this.doctorURL}/admin/1/add`,{
+        `${this.doctorURL}/admin/${this.authService.adminID}/add`,{
           name: doctorInfo.name,
           phone: doctorInfo.phone,
           email: doctorInfo.email,
@@ -78,7 +78,7 @@ export class DoctorService {
 
     else{
       this.httpService.createRequest(
-        `${this.orgDoctorURL}/appuser/1/org/1/doctor/${doctorInfo.id}/add`,{
+        `${this.orgDoctorURL}/appuser/${this.authService.appUserID}/org/${this.authService.orgID}/doctor/${doctorInfo.id}/add`,{
           ...doctorInfo
         })
         .subscribe((response: any) => {

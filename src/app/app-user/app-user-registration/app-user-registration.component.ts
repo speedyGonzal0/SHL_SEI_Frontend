@@ -26,8 +26,9 @@ export class AppUserRegistrationComponent implements OnInit{
       'gender' : new FormControl(null, [Validators.required]),
       'address' : new FormControl(null),
       'age' : new FormControl(null, [Validators.required, Validators.min(1)]),
-      'role' : new FormControl([{value: 1}], [Validators.required]),
+      'role' : new FormControl(this.authService.role === "ROLE_ADMIN" ? [2] : null, [Validators.required]),
       'password' : new FormControl(null, [Validators.required, Validators.minLength(8)]),
+      'orgID' : new FormControl(null, [Validators.required]),
     })
 
     if(this.config.data) {
@@ -42,8 +43,9 @@ export class AppUserRegistrationComponent implements OnInit{
         ),
         address: appUser.address,
         age: appUser.age,
-        role: appUser.role,
-        password: appUser.password
+        role: this.authService.role === 'ROLE_ORG_ADMIN' ? appUser.role : [2],
+        password: appUser.password,
+        orgID: appUser.organization_id
       })
       this.appUserEditID = appUser.id
     }

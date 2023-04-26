@@ -20,6 +20,7 @@ export class MedicineService{
   orgAdminUrl : string = ApiPaths.orgMed;
 
   ref!: DynamicDialogRef;
+  medBillURL : string = ApiPaths.medBilling
 
   editMode : boolean = false;
   role = this.authService.getRole();
@@ -30,18 +31,28 @@ export class MedicineService{
     this.editMode = !this.editMode;
   }
 
+  getMedHistory(){
+    this.httpService.getRequest(`${this.medBillURL}/get/org/${this.authService.orgID}/all`)
+      .subscribe(
+        (response:any) => {
+          this.medBillURL = response.content;
+          console.log(this.medBillURL)
+          this.medBillURL = response.totalElements;
+        })
+  }
+
   getData(queryParams: Params){
     if (this.role === 'ROLE_ADMIN'){
       this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams).subscribe(
         (response: any) => {
           this.medicines = response.content;
           this.totalMedicine = response.totalElements;
-          // console.log(response);
+          console.log(response);
         }
       )
     }
     else {
-      this.httpService.getRequestWithParams(`${this.orgAdminUrl}/organization/1/search`, queryParams).subscribe(
+      this.httpService.getRequestWithParams(`${this.orgAdminUrl}/organization/${this.authService.orgID}/search`, queryParams).subscribe(
         (response: any) => {
           this.medicines = response.content;
           this.totalMedicine = response.totalElements;
