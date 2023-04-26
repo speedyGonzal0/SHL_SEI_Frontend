@@ -18,6 +18,7 @@ export class CreateDiagnosticComponent implements OnInit{
   filteredDiags !: Diagnostic[];
 
 
+
   constructor(public config: DynamicDialogConfig,
               public diagService: DiagnosticsService,
               private httpService: HttpService) {

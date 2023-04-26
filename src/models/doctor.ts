@@ -10,5 +10,6 @@ export interface Doctor{
   consultationFee?: number,
   followupFee?: number,
   reportFee?: number,
-  availableTimes?: string[]
+  availableTimes?: string[],
+  doctor?: any;
 }

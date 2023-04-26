@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
+  ActivatedRoute,
   ActivatedRouteSnapshot,
   CanActivate,
-  CanActivateChild, CanLoad, Route,
+  CanActivateChild, Route,
   Router,
   RouterStateSnapshot,
   UrlTree
@@ -16,31 +17,34 @@ import {AuthService} from "./auth.service";
 export class AuthGuard implements CanActivate, CanActivateChild {
 
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute) {
   }
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot) {
+
+
+  canActivate(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
     if(this.authService.isAuthenticated()){
       return true;
     }
+    alert("You need to login");
     this.router.navigate(['login'])
     return false;
   }
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-    Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.canActivate(childRoute, state)
-  }
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot) {
 
-  // canLoad(): boolean {
-  //
-  //   if(this.authService.isAuthenticated()){
-  //     this.router.navigate([''])
-  //     return true;
-  //   }
-  //   this.router.navigate(['login'])
-  //   return false;
-  // }
+    if(route.data['role'].includes(this.authService.getRole())){
+      return true;
+    }
+    alert("Unauthorized")
+    this.router.navigate([''])
+    return false;
+  }
 
 }
