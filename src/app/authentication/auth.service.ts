@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 })
 export class AuthService{
 
-  isAdmin = true;
+  isAdmin = false;
 
   patientID = 1;
   orgID = 1;
