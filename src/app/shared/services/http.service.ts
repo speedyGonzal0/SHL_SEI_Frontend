@@ -50,4 +50,16 @@ export class HttpService {
         )
       )
   }
+
+  loginRequest(url: string, body: any){
+    return this.http
+      .post<any>(url, body, {responseType: 'text' as 'json'})
+      .pipe(
+        tap(() => {
+            this.refreshService._refreshNeeded$.next();
+          }
+        )
+      )
+  }
+
 }

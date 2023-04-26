@@ -90,8 +90,8 @@ export class DoctorService {
   }
 
   editDoctor(id:number, doctorInfo: any){
-    doctorInfo.gender = doctorInfo.gender.value
     if(this.role === 'ROLE_ADMIN'){
+      doctorInfo.gender = doctorInfo.gender.value
       this.httpService.updateRequest(`${this.doctorURL}/update/${id}`,doctorInfo)
         .subscribe(Response => {
           console.log(Response);

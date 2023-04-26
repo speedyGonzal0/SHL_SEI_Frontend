@@ -36,8 +36,7 @@ export class AuthService{
   }
 
   isAuthenticated(){
-    console.log(localStorage.getItem('userRole'))
-    return this.getRole() && (this.getRole() === this.routeData);
+    return localStorage.getItem('userRole');
   }
 
   getRole(){

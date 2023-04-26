@@ -32,11 +32,14 @@ export class LoginComponent {
   }
 
   onLogin(){
-    this.httpService.createRequest(`${this.authURL}/login`, {email: this.loginForm.value.email , password: this.loginForm.value.password}).subscribe({
+    this.httpService.loginRequest(`${this.authURL}/login`,
+      {email: this.loginForm.value.email , password: this.loginForm.value.password})
+      .subscribe({
         next: (response) => {
-          console.log(response)
-          localStorage.setItem('userRole', this.roles[this.loginForm.value.email]);
-          this.router.navigate(['/dashboard'])
+          localStorage.setItem("token", response);
+          let token = JSON.parse(atob(response.split('.')[1]))
+          localStorage.setItem('userRole', token.role.substring(1, token.role.length - 1));
+          this.router.navigate([''])
         },
         error: (err) => {
           console.log(err)

@@ -92,7 +92,7 @@ export class DoctorRegistrationComponent implements OnInit{
     let query = e.query;
 
     this.httpService.getRequestWithParams(`${this.doctorService.doctorURL}/search`, {query: query}).subscribe(
-      (response:any) => this.filteredDocs = response
+      (response:any) => this.filteredDocs = response.content
     )
   }
 

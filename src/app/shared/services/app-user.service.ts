@@ -66,13 +66,12 @@ export class AppUserService {
   }
 
   createUser(appUserInfo: any){
-    console.log(appUserInfo)
 
     const roles = appUserInfo.role.map((role: { value: any }) => {
       return role.value;
     });
 
-    console.log("Roles: ",roles)
+    console.log(roles)
     this.httpService.createRequest(
       `${this.userURL}/org/${appUserInfo.orgID}/add`,{
         name: appUserInfo.name,

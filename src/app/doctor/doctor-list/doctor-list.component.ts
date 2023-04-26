@@ -53,7 +53,7 @@ export class DoctorListComponent implements OnInit{
   showCreateDialog(){
     this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
       header: "New Doctor",
-      style: {'width':'50%', 'max-width': '800px'}
+      style: {'min-width':'50%', 'max-width': '800px'}
     });
   }
 
