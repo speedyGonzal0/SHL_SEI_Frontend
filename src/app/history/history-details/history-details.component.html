@@ -1,1 +1,29 @@
-<p>{{historyService.billingDetails}}</p>
+<h3>Diagnostic Billing History Details</h3>
+
+<p>Organization:</p>
+<ul>
+  <li>User ID: {{historyService.billingDetails.organization.id}}</li>
+  <li>Name: {{historyService.billingDetails.organization.name}}</li>
+  <li>Phone: {{historyService.billingDetails.organization.phone}}</li>
+  <li>Email: {{historyService.billingDetails.organization.email}}</li>
+  <li>Email: {{historyService.billingDetails.organization.website}}</li>
+</ul>
+
+<p>Issued By:</p>
+<ul>
+  <li>User ID: {{historyService.billingDetails.appUser.id}}</li>
+  <li>Name: {{historyService.billingDetails.appUser.name}}</li>
+  <li>Phone: {{historyService.billingDetails.appUser.phone}}</li>
+  <li>Email: {{historyService.billingDetails.appUser.email}}</li>
+</ul>
+
+
+<p>Patient Details:</p>
+<ul>
+  <li>Patient ID: {{historyService.billingDetails.patient.id}}</li>
+  <li>Name: {{historyService.billingDetails.patient.name}}</li>
+  <li>Phone: {{historyService.billingDetails.patient.phone}}</li>
+  <li>Email: {{historyService.billingDetails.patient.email}}</li>
+  <li>Gender: {{historyService.billingDetails.patient.gender}}</li>
+  <li>Age: {{historyService.billingDetails.patient.age}}</li>
+</ul>

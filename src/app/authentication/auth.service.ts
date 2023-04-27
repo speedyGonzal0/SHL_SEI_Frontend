@@ -8,7 +8,7 @@ import {ApiPaths} from "@enums/api-paths";
   providedIn: 'root'
 })
 export class AuthService{
-  orgID = 1;
+  orgID! : number;
   appUserID! : number;
   adminID = 1;
   role = this.getRole()
@@ -28,8 +28,10 @@ export class AuthService{
   login(email: string){
     this.httpService.getRequest(`${ApiPaths.users}/get/email/${email}`).subscribe(
       (response: any) => {
-        localStorage.setItem('orgID', JSON.stringify(response.organization.id))
-        localStorage.setItem('appUserID', JSON.stringify(response.id))
+        // localStorage.setItem('orgID', JSON.stringify(response.organization.id))
+        // localStorage.setItem('appUserID', JSON.stringify(response.id))
+        this.orgID = response.organization.id
+        this.appUserID = response.id
       }
     )
   }

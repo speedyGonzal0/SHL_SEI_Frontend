@@ -16,6 +16,7 @@ export class HistoryDetailsComponent {
     this.route.params.subscribe(
       (params: Params) => {
         this.historyService.getDiagHistoryByID(params['id'])
+
       }
     )
   }
