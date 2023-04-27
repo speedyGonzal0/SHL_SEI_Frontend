@@ -37,7 +37,7 @@ export class AppUserService {
   roles = [
     {role: "Doctor Receptionist", value: 3},
     {role: "Diagnostic Receptionist", value: 4},
-    {role: "ROLE_PHARMACIST", value: 5}];
+    {role: "Pharmacist", value: 5}];
 
   constructor(private httpService: HttpService, private authService: AuthService) {}
 

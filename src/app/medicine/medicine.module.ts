@@ -21,7 +21,6 @@ import {ChipModule} from "primeng/chip";
 
 
 import {TagModule} from "primeng/tag";
-import { HistoryComponent } from './medicine-billing/history/history.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,6 @@ import { HistoryComponent } from './medicine-billing/history/history.component';
     MedicineListComponent,
     MedicineBillingComponent,
     CheckoutComponent,
-    HistoryComponent
   ],
   exports: [],
   imports: [

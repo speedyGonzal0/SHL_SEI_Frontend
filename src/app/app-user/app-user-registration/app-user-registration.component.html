@@ -64,7 +64,7 @@
         </p>
       </span>
 
-      <span *ngIf="!authService.isAdmin"
+      <span *ngIf="authService.role === 'ROLE_ORG_ADMIN'"
             class="inputField">
         <label for="role">Role</label>
         <p-multiSelect formControlName="role"

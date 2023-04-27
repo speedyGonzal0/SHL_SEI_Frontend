@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -14,8 +14,12 @@ import {AuthService} from "./auth.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class AuthGuard implements CanActivate, CanActivateChild, OnInit {
 
+  roles : any;
+  ngOnInit(){
+    this.roles = this.authService.getRole()
+  }
 
   constructor(
     private authService: AuthService,
@@ -38,6 +42,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
+
+    // route.data['role'].some((role : any) => {
+      // return this.roles.includes(role);
+    // });
 
     if(route.data['role'].includes(this.authService.getRole())){
       return true;
