@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {OrgService} from "@shared/services/org.service";
-import {ActivatedRoute} from "@angular/router";
 import {HttpService} from "@shared/services/http.service";
 import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
@@ -34,19 +32,18 @@ export class AdminDashboardComponent{
       count: null
     },
     {
-      title: "Org Admins",
+      title: "Employees",
       icon: "admin_panel_settings",
       count: null
     },
     {
-      title: "Employees",
+      title: "Patients",
       icon: "groups",
       count: null
     },
   ]
 
   adminURL = ApiPaths.admin
-  orgAdminURL = ApiPaths.orgAdmin
 
   constructor(private httpService: HttpService, private refreshService: RefreshService) {}
 
@@ -60,15 +57,15 @@ export class AdminDashboardComponent{
   }
 
   getAdminInfo(){
-    this.httpService.getRequest(`${this.orgAdminURL}/dashboard/1`)
+    this.httpService.getRequest(`${this.adminURL}/dashboard`)
       .subscribe((response: any) => {
+        console.log(response)
         this.cardInfo[0].count = response.diagnostics
         this.cardInfo[1].count = response.medicines
         this.cardInfo[2].count = response.doctors
         this.cardInfo[3].count = response.organizations
-        this.cardInfo[4].count = response.diagnostics
-        this.cardInfo[5].count = response.employees
+        this.cardInfo[4].count = response.employees
+        this.cardInfo[5].count = response.patients
       })
   }
-
 }

@@ -13,7 +13,7 @@ import {LoginInterceptor} from "@shared/services/login.interceptor";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

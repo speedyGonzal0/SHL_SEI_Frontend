@@ -19,7 +19,6 @@ import { DiagnosticBillingComponent } from './diagnostic-billing/diagnostic-bill
 import { CheckoutComponent } from './diagnostic-billing/checkout/checkout.component';
 import {CardModule} from "primeng/card";
 import {ChipModule} from "primeng/chip";
-import { HistoryComponent } from './diagnostic-billing/history/history.component';
 
 
 
@@ -29,11 +28,7 @@ import { HistoryComponent } from './diagnostic-billing/history/history.component
     CreateDiagnosticComponent,
     DiagnosticBillingComponent,
     CheckoutComponent,
-    HistoryComponent
   ],
-    exports: [
-        HistoryComponent
-    ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

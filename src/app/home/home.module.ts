@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 
-
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from '@home/home/home.component';
 import { TopbarComponent } from '@home/topbar/topbar.component';
@@ -14,6 +13,7 @@ import {AuthenticationModule} from "@authentication/authentication.module";
 import {ButtonModule} from 'primeng/button';
 import {SidebarModule} from 'primeng/sidebar';
 import {CardModule} from "primeng/card";
+import { OrgAdminDashboardComponent } from './dashboard/org-admin-dashboard/org-admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import {CardModule} from "primeng/card";
     TopbarComponent,
     SidebarComponent,
     DashboardComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    OrgAdminDashboardComponent
   ],
   exports:[
     HomeComponent,
