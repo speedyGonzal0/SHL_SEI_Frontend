@@ -34,7 +34,6 @@ export class OrgService {
   }
 
   createOrg(orgInfo: any){
-    console.log(orgInfo)
     this.httpService.createRequest(
       `${this.orgURL}/add`,{
         name: orgInfo.name,
@@ -44,7 +43,6 @@ export class OrgService {
         website: orgInfo.website,
       })
       .subscribe((response: any) => {
-        console.log(response)
       })
     this.orgRef.close()
   }
@@ -54,9 +52,7 @@ export class OrgService {
       this.httpService.getRequestWithParams(`${this.orgURL}/search`, queryParams).subscribe(
         (response: any) => {
           this.orgs = response.content;
-          console.log(response)
           this.totalOrgs = response.totalElements;
-          console.log(response.totalElements)
         }
       )
   }
@@ -64,7 +60,6 @@ export class OrgService {
   editOrg(id:number, orgInfo: any){
     this.httpService.updateRequest(`${this.orgURL}/update/${id}`,orgInfo)
       .subscribe(Response => {
-        console.log(Response);
       })
     this.orgRef.close()
   }
@@ -80,7 +75,6 @@ export class OrgService {
     this.httpService.getRequest(`${this.orgURL}/${id}`)
       .subscribe((response: any) => {
         this.org = response
-        console.log(this.org)
       })
   }
 }

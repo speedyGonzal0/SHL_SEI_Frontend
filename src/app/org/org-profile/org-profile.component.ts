@@ -42,7 +42,6 @@ export class OrgProfileComponent implements OnInit{
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
-        console.log(params['id'])
         this.orgService.getOrgByID(params['id'])
       }
     )
@@ -58,7 +57,6 @@ export class OrgProfileComponent implements OnInit{
   getOrgInfo(){
     this.httpService.getRequest(`${this.orgAdminURL}/dashboard/${this.orgID}`)
       .subscribe((response: any) => {
-        console.log(response)
         this.cardInfo[0].count = response.orgDoctors
         this.cardInfo[1].count = response.orgMedicines
         this.cardInfo[2].count = response.orgDiagnostics

@@ -100,7 +100,7 @@
     <div class="container-fluid fields" *ngIf="!diagService.editMode">
       <p class="p-0 m-0">Selected Diagnostics</p>
 
-      <p-table [value]="diagService.selectedDiags" styleClass="p-datatable-sm p-datatable-gridlines">
+      <p-table [value]="diagService.selectedDiags" [scrollable]="true" scrollHeight="200px" styleClass="p-datatable-sm p-datatable-gridlines">
         <ng-template pTemplate="header">
           <tr>
             <th style="text-align: center">Name</th>

@@ -28,6 +28,7 @@ export class CreateMedicineComponent implements OnInit{
       "price": new FormControl(null, Validators.required),
       "genericName": new FormControl(null, Validators.required),
       "strength": new FormControl(null, Validators.required),
+      "formulation": new FormControl(null, Validators.required),
       "vendor": new FormControl(null, Validators.required)
     })
 
@@ -44,6 +45,7 @@ export class CreateMedicineComponent implements OnInit{
         price: item.price,
         genericName: item.genericName,
         strength: item.strength,
+        formulation: item.formulation,
         vendor: item.vendor
       })
     }

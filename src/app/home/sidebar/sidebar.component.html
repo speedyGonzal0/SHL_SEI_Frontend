@@ -8,20 +8,27 @@
         routerLink="dashboard" routerLinkActive="linkActive"> Dashboard </li>
 
       <li *ngIf="role === 'ROLE_ADMIN'"
-          routerLink="org" routerLinkActive="linkActive" > Organizations </li>
+          routerLink="org"
+          routerLinkActive="linkActive"
+          [routerLinkActiveOptions]="{exact: true}" > Organizations </li>
 
       <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
           routerLink="doctor"
-          routerLinkActive="linkActive">  Doctors </li>
+          routerLinkActive="linkActive"
+          [routerLinkActiveOptions]="{exact: true}"
+      >  Doctors </li>
 
       <li *ngIf="role.includes('ROLE_DOCTOR_RECEPTIONIST')"
           routerLink="doctor/billing"
-          routerLinkActive="linkActive">
+          routerLinkActive="linkActive"
+      >
         Doctor Billing </li>
 
       <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
           routerLink="diagnostics"
-          routerLinkActive="linkActive"> Diagnostics </li>
+          routerLinkActive="linkActive"
+          [routerLinkActiveOptions]="{exact: true}"
+      > Diagnostics </li>
 
       <li *ngIf="role.includes('ROLE_DIAGNOSTIC_RECEPTIONIST')"
           routerLink="diagnostics/billing"
@@ -30,7 +37,9 @@
 
       <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
           routerLink="medicine"
-          routerLinkActive="linkActive"> Medicines </li>
+          routerLinkActive="linkActive"
+          [routerLinkActiveOptions]="{exact: true}"
+      > Medicines </li>
 
       <li *ngIf="role.includes('ROLE_PHARMACIST')"
           routerLink="medicine/billing"
@@ -57,7 +66,6 @@
       </li>
 
     </ul>
-    <button *ngIf="!authService.getRole()" routerLink="/login" pButton label="Login" class="p-button-success"></button>
 
   </div>
 </nav>

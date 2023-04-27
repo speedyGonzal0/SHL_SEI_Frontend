@@ -47,8 +47,8 @@ export class OrgListComponent {
 
   showCreateDialog(){
     this.orgService.orgRef = this.dialogService.open(OrgRegistrationComponent, {
-      header: "Register New Organization",
-      width: '50%',
+      header: "New Organization",
+      style: { 'min-width': '500px' },
     });
   }
 
@@ -59,7 +59,7 @@ export class OrgListComponent {
       data: {
         index: index
       },
-      width: '50%'
+      style: { 'min-width': '500px' }
     });
 
     this.orgService.orgRef.onClose.subscribe(() => this.orgService.toggleEditMode());

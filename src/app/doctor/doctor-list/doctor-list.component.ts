@@ -53,7 +53,7 @@ export class DoctorListComponent implements OnInit{
   showCreateDialog(){
     this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
       header: "New Doctor",
-      style: {'min-width':'50%', 'max-width': '800px'}
+      style: {'min-width':'600px', 'max-width': '800px'}
     });
   }
 
@@ -64,7 +64,7 @@ export class DoctorListComponent implements OnInit{
       data: {
         index: index
       },
-      style: {'width':'50%', 'max-width': '800px'}
+      style: {'width':'600px', 'max-width': '800px'}
     });
 
     this.doctorService.doctorRef.onClose.subscribe(() => this.doctorService.toggleEditMode());

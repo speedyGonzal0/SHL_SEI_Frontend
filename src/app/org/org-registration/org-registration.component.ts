@@ -49,6 +49,5 @@ export class OrgRegistrationComponent {
       this.orgService.createOrg(this.orgForm.value)
 
     this.orgForm.reset()
-    console.log(this.orgForm)
   }
 }

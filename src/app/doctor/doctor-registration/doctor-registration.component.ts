@@ -31,6 +31,7 @@ export class DoctorRegistrationComponent implements OnInit{
       'email' : new FormControl(null, [Validators.required, Validators.email]),
       'bmdc' : new FormControl(null, [Validators.required]),
       'gender' : new FormControl(null, [Validators.required]),
+      'doctorType' : new FormControl(null, [Validators.required]),
       'degrees' : new FormControl(null),
       'specialities' : new FormControl(null),
     })
@@ -60,6 +61,9 @@ export class DoctorRegistrationComponent implements OnInit{
               genders.gender.toLowerCase() === doctor.gender?.toLowerCase()
           ),
           bmdc: doctor.bmdc,
+          doctorType: this.doctorService.doctorTypes.find(
+            (types) => types.type.toLowerCase() === doctor.doctorType.toLowerCase()
+          ),
           degrees: doctor.degrees,
           specialities: doctor.specialities
         })

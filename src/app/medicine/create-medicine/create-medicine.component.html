@@ -28,6 +28,12 @@
   <div class="row p-0">
 
     <div class="fields col">
+      <label for="medformulation" class="block"> Formulation </label>
+      <input type="text" pInputText id="medformulation" placeholder="E.g: Tablet" formControlName="formulation"/>
+      <small *ngIf="!createMedForm.controls['formulation'].valid && createMedForm.controls['formulation'].touched"> This field is required!</small>
+    </div>
+
+    <div class="fields col">
       <label for="medVendor" class="block"> Vendor </label>
       <input type="text" pInputText id="medVendor" placeholder="E.g: BEXIMCO" formControlName="vendor"/>
       <small *ngIf="!createMedForm.controls['vendor'].valid && createMedForm.controls['vendor'].touched"> This field is required!</small>

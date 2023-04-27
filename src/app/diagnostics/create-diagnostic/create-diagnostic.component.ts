@@ -4,6 +4,7 @@ import {DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 import {HttpService} from "@shared/services/http.service";
 import {Diagnostic} from "@models/diagnostic";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-create-diagnostic',
@@ -21,7 +22,9 @@ export class CreateDiagnosticComponent implements OnInit{
 
   constructor(public config: DynamicDialogConfig,
               public diagService: DiagnosticsService,
-              private httpService: HttpService) {
+              private httpService: HttpService,
+              private authService: AuthService
+              ) {
   }
 
   ngOnInit() {
@@ -42,6 +45,7 @@ export class CreateDiagnosticComponent implements OnInit{
         this.createDiagForm.controls['serviceName'].setValue(item.serviceName);
       }
       else{
+        this.selectDiagForm.controls['diag'].setValue(item);
         this.selectDiagForm.controls['price'].setValue(item.price);
       }
     }
@@ -50,7 +54,7 @@ export class CreateDiagnosticComponent implements OnInit{
   filterDiag(e : any){
     let query = e.query;
 
-    this.httpService.getRequestWithParams(`${this.diagService.adminUrl}/search`, {query: query}).subscribe(
+    this.httpService.getRequestWithParams(`${this.diagService.adminUrl}/get/all/${this.authService.orgID}`, {query: query}).subscribe(
       (response:any) => this.filteredDiags = response.content
     )
   }

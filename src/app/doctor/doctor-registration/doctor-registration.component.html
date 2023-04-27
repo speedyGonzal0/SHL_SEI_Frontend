@@ -90,6 +90,25 @@
     <div class="col p-0">
       <span
         class="fields">
+        <label for="drType"> License Type </label>
+        <p-dropdown formControlName="doctorType"
+                    class="p-inputtext-sm"
+                    [options]="doctorService.doctorTypes"
+                    placeholder="-"
+                    id="drType"
+                    [style]="{width: '100%'}"
+                    optionLabel="type">
+        </p-dropdown>
+        <small
+          *ngIf="!doctorForm.controls['doctorType'].valid && doctorForm.controls['doctorType'].touched">
+          This field is required!
+        </small>
+      </span>
+    </div>
+
+    <div class="col p-0">
+      <span
+        class="fields">
         <label for="bmdc">BMDC</label>
         <input formControlName="bmdc"
                id="bmdc"
@@ -168,7 +187,7 @@
                 [inputStyle]="{'width': '100%'}"
                 inputId="docOptions"
                 formControlName="doctor"
-                placeholder="Search by Name/BMDC"
+                placeholder="Search Name/BMDC"
                 [showEmptyMessage] = "true"
                 [suggestions]="filteredDocs"
                 [forceSelection]="true"
