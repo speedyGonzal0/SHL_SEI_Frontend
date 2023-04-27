@@ -19,6 +19,9 @@ export class AppUserRegistrationComponent implements OnInit{
   submitLabel = this.appUserService.editMode ? "Edit" : "Create";
 
   ngOnInit() {
+    if (this.authService.role === "ROLE_ADMIN"){
+
+    }
     this.appUserForm = new FormGroup({
       'name' : new FormControl(null, Validators.required),
       'phone' : new FormControl(null, [Validators.required, Validators.pattern(/(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$/)]),
@@ -29,10 +32,12 @@ export class AppUserRegistrationComponent implements OnInit{
       'role' : new FormControl(this.authService.role === "ROLE_ADMIN" ? [2] : null, [Validators.required]),
       'password' : new FormControl(null, [Validators.required, Validators.minLength(8)]),
       'orgID' : new FormControl(null, [Validators.required]),
-    })
+    }
+    )
 
     if(this.config.data) {
-      let appUser = this.appUserService.appUsers[this.config.data.index];
+      let appUser : any = this.appUserService.appUsers[this.config.data.index];
+      console.log(appUser)
       this.appUserForm.setValue({
         name: appUser.name,
         phone: appUser.phone,
@@ -45,7 +50,7 @@ export class AppUserRegistrationComponent implements OnInit{
         age: appUser.age,
         role: this.authService.role === 'ROLE_ORG_ADMIN' ? appUser.role : [2],
         password: appUser.password,
-        orgID: appUser.organization_id
+        orgID: appUser.organization.id
       })
       this.appUserEditID = appUser.id
     }

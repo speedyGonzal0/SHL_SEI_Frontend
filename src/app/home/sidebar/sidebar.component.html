@@ -14,7 +14,7 @@
           routerLink="doctor"
           routerLinkActive="linkActive">  Doctors </li>
 
-      <li *ngIf="role === 'ROLE_DOCTOR_RECEPTIONIST'"
+      <li *ngIf="role.includes('ROLE_DOCTOR_RECEPTIONIST')"
           routerLink="doctor/billing"
           routerLinkActive="linkActive">
         Doctor Billing </li>
@@ -23,7 +23,7 @@
           routerLink="diagnostics"
           routerLinkActive="linkActive"> Diagnostics </li>
 
-      <li *ngIf="role === 'ROLE_DIAGNOSTIC_RECEPTIONIST'"
+      <li *ngIf="role.includes('ROLE_DIAGNOSTIC_RECEPTIONIST')"
           routerLink="diagnostics/billing"
           routerLinkActive="linkActive">
         Diagnostic Billing </li>
@@ -32,7 +32,7 @@
           routerLink="medicine"
           routerLinkActive="linkActive"> Medicines </li>
 
-      <li *ngIf="role === 'ROLE_PHARMACIST'"
+      <li *ngIf="role.includes('ROLE_PHARMACIST')"
           routerLink="medicine/billing"
           routerLinkActive="linkActive"> Medicine Billing </li>
 
@@ -48,6 +48,12 @@
         routerLink="users"
         routerLinkActive="linkActive">
         Users
+      </li>
+
+      <li
+        routerLink="history"
+        routerLinkActive="linkActive">
+        History
       </li>
 
     </ul>

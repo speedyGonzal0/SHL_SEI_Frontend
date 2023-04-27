@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 import {Router} from "@angular/router";
-import {MedicineService} from "@medicine/medicine.service";
+import {HistoryService} from "./history.service";
 
 @Component({
   selector: 'app-history',
@@ -9,11 +10,11 @@ import {MedicineService} from "@medicine/medicine.service";
 })
 
 export class HistoryComponent implements OnInit{
-  constructor(public medService: MedicineService,
+  constructor(public historyService: HistoryService,
               private router: Router) {}
 
   ngOnInit() {
-    this.medService.getMedHistory()
+    this.historyService.getDiagHistory()
   }
 
   onPagination(firstIndex: number){

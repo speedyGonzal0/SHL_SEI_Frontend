@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
 import {ApiPaths} from "@enums/api-paths";
@@ -33,16 +33,6 @@ export class DiagnosticsService{
 
   toggleEditMode(){
     this.editMode = !this.editMode;
-  }
-
-  getDiagHistory(){
-    this.httpService.getRequest(`${this.diagBillURL}/view/${this.authService.orgID}/all`)
-      .subscribe(
-        (response:any) => {
-          this.diagBillHistory = response.content;
-          console.log(this.diagBillHistory)
-          this.totalDiagHistory = response.totalElements;
-        })
   }
 
   getData(queryParams: Params){

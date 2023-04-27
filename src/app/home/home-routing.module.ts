@@ -59,6 +59,14 @@ const routes: Routes = [
         },
         loadChildren: () => import('../app-user/app-user.module')
           .then(m => m.AppUserModule) },
+
+      {path: "history", data: {
+          role: [
+            "ROLE_ADMIN",
+            "ROLE_ORG_ADMIN",
+          ]},
+        loadChildren: () => import('../history/history.module')
+          .then(m => m.HistoryModule) }
     ]
   }
 ];

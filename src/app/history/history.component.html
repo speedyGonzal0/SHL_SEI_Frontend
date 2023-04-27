@@ -3,10 +3,10 @@
            [rowHover]="true"
            [lazy]="true"
            (onLazyLoad)="onPagination($event.first)"
-           [value]="diagService.diagBillHistory"
+           [value]="historyService.diagBillHistory"
            [paginator]="true"
            [rows]="10"
-           [totalRecords]="diagService.totalDiagHistory"
+           [totalRecords]="historyService.totalDiagHistory"
            [scrollable]="true"
   >
     <ng-template pTemplate="caption" class="container">
@@ -44,7 +44,7 @@
         <td style="text-align: center"> {{item.finalFeeAfterAllDiscount}} </td>
         <td style="text-align: center"> {{item.appUser.name}} </td>
         <td style="text-align: center">
-          <button [routerLink]="['/doctor', item.id]" pButton icon="pi pi-eye"
+          <button [routerLink]="['/history', item.id]" pButton icon="pi pi-eye"
                   class="p-button-outlined p-button-secondary"></button>
         </td>
       </tr>
