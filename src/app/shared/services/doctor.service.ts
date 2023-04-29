@@ -78,7 +78,6 @@ export class DoctorService {
           doctorType: doctorInfo.doctorType.value
         })
         .subscribe((response: any) => {
-          console.log(response)
         })
     }
 

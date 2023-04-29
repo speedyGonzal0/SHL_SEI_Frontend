@@ -193,6 +193,10 @@
                 [forceSelection]="true"
                 (completeMethod)="filterDocs($event)"
                 field="name">
+
+                <ng-template let-doctor pTemplate="item">
+                  <p>{{ doctor.name }} (BMDC: {{ doctor.bmdc }})</p>
+                </ng-template>
               </p-autoComplete>
             </div>
             <small *ngIf="!doctorSelectForm.controls['doctor'].valid
@@ -206,17 +210,31 @@
 
           <label> Selected doctor </label>
 
-          <p-card
+          <p-card *ngIf="!doctorService.editMode; else orgAdminEditMode"
             header="Dr {{doctorSelectForm.value.doctor.name}}"
             subheader="{{doctorSelectForm.value.doctor.degrees}}"
           >
             <p class="m-0">
-              BMDC: {{doctorSelectForm.value.doctor.id}}
+              BMDC: {{doctorSelectForm.value.doctor.bmdc}}
             </p>
             <p class="m-0">
               Specialities: {{doctorSelectForm.value.doctor.specialities}}
             </p>
           </p-card>
+
+          <ng-template #orgAdminEditMode>
+            <p-card
+                    header="Dr {{doctorSelectForm.value.doctor.doctor.name}}"
+                    subheader="{{doctorSelectForm.value.doctor.doctor.degrees}}"
+            >
+              <p class="m-0">
+                BMDC: {{doctorSelectForm.value.doctor.doctor.bmdc}}
+              </p>
+              <p class="m-0">
+                Specialities: {{doctorSelectForm.value.doctor.doctor.specialities}}
+              </p>
+            </p-card>
+          </ng-template>
 
         </div>
       </div>

@@ -62,7 +62,7 @@ export class DoctorRegistrationComponent implements OnInit{
           ),
           bmdc: doctor.bmdc,
           doctorType: this.doctorService.doctorTypes.find(
-            (types) => types.type.toLowerCase() === doctor.doctorType.toLowerCase()
+            (types) => types.type.toLowerCase() === doctor.doctorType?.toLowerCase()
           ),
           degrees: doctor.degrees,
           specialities: doctor.specialities
@@ -95,7 +95,7 @@ export class DoctorRegistrationComponent implements OnInit{
   filterDocs(e : any){
     let query = e.query;
 
-    this.httpService.getRequestWithParams(`${this.doctorService.doctorURL}/search`, {query: query}).subscribe(
+    this.httpService.getRequestWithParams(`${this.doctorService.doctorURL}/org/2/search`, {query: query}).subscribe(
       (response:any) => this.filteredDocs = response.content
     )
   }

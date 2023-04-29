@@ -14,18 +14,18 @@
     <ng-template pTemplate="caption">
       <div class="tableToolbar">
         <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
-                class="p-button-success p-button-outlined" label="Add"></button>
+                class="p-button-success p-button-outlined" label="New Patient"></button>
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input pInputText type="text"
                    (input)="onSearch($any($event.target).value)"
-                   placeholder="Search....." />
+                   placeholder="Search name/phone/email" />
           </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center"> ID </th>
+        <th style="text-align: center"> # </th>
         <th style="text-align: center"> Name </th>
         <th style="text-align: center"> Phone </th>
         <th style="text-align: center"> Email </th>
@@ -35,7 +35,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
-        <td style="text-align: center"> {{item.id}}</td>
+        <td style="text-align: center"> {{index + 1}}</td>
         <td style="text-align: center"> {{item.name}} </td>
         <td style="text-align: center"> {{item.phone}}</td>
         <td style="text-align: center"> {{item.email}}</td>

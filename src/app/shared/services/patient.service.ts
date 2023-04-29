@@ -32,7 +32,6 @@ export class PatientService {
         age: patientInfo.age,
       })
       .subscribe((response: any) => {
-        console.log(response)
       })
     this.patientRef.close()
   }
@@ -42,7 +41,6 @@ export class PatientService {
       (response: any) => {
         this.patients = response.content;
         this.totalPatients = response.totalElements;
-        console.log(response.totalElements)
       }
     )
   }
