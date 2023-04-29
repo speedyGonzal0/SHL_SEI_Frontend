@@ -48,8 +48,8 @@ export class AppUserListComponent implements OnInit{
 
   showCreateDialog(){
     this.appUserService.appUserRef = this.dialogService.open(AppUserRegistrationComponent, {
-      header: "Register New User",
-      width: '50%',
+      header: "New User",
+      width: '40%',
     });
   }
 
@@ -60,7 +60,7 @@ export class AppUserListComponent implements OnInit{
       data: {
         index: index
       },
-      width: '50%'
+      width: '40%'
     });
 
     this.appUserService.appUserRef.onClose.subscribe(() => this.appUserService.toggleEditMode());

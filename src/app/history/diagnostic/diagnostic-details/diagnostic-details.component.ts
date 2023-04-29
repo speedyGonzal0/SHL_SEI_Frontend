@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {HistoryService} from "../../history.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import { ToWords } from 'to-words';
@@ -7,7 +7,7 @@ import { ToWords } from 'to-words';
   templateUrl: './diagnostic-details.component.html',
   styleUrls: ['./diagnostic-details.component.scss']
 })
-export class DiagnosticDetailsComponent {
+export class DiagnosticDetailsComponent implements OnInit{
   @ViewChild('t', {static: false}) elem!:ElementRef
   id! : number;
   constructor(public historyService: HistoryService, private route: ActivatedRoute) {}

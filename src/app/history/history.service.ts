@@ -48,7 +48,7 @@ export class HistoryService {
   }
 
   getMedHistoryByID(id: number){
-    this.httpService.getRequest(`${this.medBillURL}/${id}`)
+    this.httpService.getRequest(`${this.medBillURL}/get/${id}`)
       .subscribe((response: any) => {
         this.billingDetails = response
         console.log(this.billingDetails)
@@ -59,13 +59,14 @@ export class HistoryService {
     this.httpService.getRequest(`${this.docBillURL}/get/org/${this.authService.orgID}/all`)
       .subscribe(
         (response:any) => {
+          console.log(response.content)
           this.docBillHistory = response.content;
           this.totalDocHistory = response.totalElements;
         })
   }
 
   getDocHistoryByID(id: number){
-    this.httpService.getRequest(`${this.medBillURL}/${id}`)
+    this.httpService.getRequest(`${this.docBillURL}/get/${id}`)
       .subscribe((response: any) => {
         this.billingDetails = response
         console.log(this.billingDetails)

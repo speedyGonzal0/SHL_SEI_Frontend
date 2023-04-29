@@ -32,9 +32,10 @@
         <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Degrees </th>
         <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Specialities </th>
         <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Gender </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Consultation Fee </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Follow-up Fee </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Report Fee </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Availability </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Consultation (BDT) </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Follow-up (BDT) </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Report (BDT) </th>
         <th style="text-align: center">Actions</th>
       </tr>
     </ng-template>
@@ -49,6 +50,7 @@
         <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.degrees}}</td>
         <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.specialities}}</td>
         <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.gender}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.availableTimes}} </td>
         <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.consultationFee}} </td>
         <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.followupFee}} </td>
         <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.reportFee}} </td>

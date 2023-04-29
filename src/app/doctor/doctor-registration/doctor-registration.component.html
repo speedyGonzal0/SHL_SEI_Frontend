@@ -158,7 +158,7 @@
     </div>
   </div>
 
-  <div class="row p-0 m-0">
+  <div class="row p-0 m-0 bg-light position-sticky bottom-0">
     <div class="col p-0">
       <button [style]="{'width': '100%'}" pButton class="p-button-success" type="submit" label={{submitLabel}}
               [disabled]="!doctorForm.valid">
@@ -314,7 +314,7 @@
         </div>
       </div>
 
-      <div class="row p-0 m-0">
+      <div class="row p-0 m-0 bg-white position-sticky bottom-0">
         <div class="col p-0">
           <button *ngIf="!doctorService.editMode; else updateDiag"
                   [style]="{'width': '100%'}"

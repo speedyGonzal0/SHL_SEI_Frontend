@@ -119,7 +119,12 @@ export class DoctorBillingComponent {
     this.DBService.selectedDoc = this.DBForm.controls['docSearch'].value;
   }
 
+  onTimeSelect(event: any){
+    this.DBService.selectedTime = this.DBForm.controls['docTime'].value;
+  }
+
   onSubmit(){
+    console.log(this.DBForm.value)
     this.router.navigate(['/doctor/checkout']);
   }
 

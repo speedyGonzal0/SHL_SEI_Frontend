@@ -12,6 +12,7 @@ import { DoctorListComponent } from './doctor/doctor-list/doctor-list.component'
 import { DoctorDetailsComponent } from './doctor/doctor-details/doctor-details.component';
 import { MedicineDetailsComponent } from './medicine/medicine-details/medicine-details.component';
 import { MedicineListComponent } from './medicine/medicine-list/medicine-list.component';
+import {CardModule} from "primeng/card";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MedicineListComponent } from './medicine/medicine-list/medicine-list.co
     RouterLink,
     HistoryRoutingModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    CardModule
   ]
 })
 export class HistoryModule { }

@@ -2,6 +2,7 @@
 
   <h2 class="text-center mb-4">Registered Organizations</h2>
   <p-table [value]="orgService.orgs"
+           styleClass="p-datatable-gridlines p-datatable-sm"
            [rowHover]="true"
            [lazy]="true"
            (onLazyLoad)="onPagination($event.first)"

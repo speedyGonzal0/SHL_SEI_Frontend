@@ -1,3 +1,5 @@
-<p-button label="Diagnostic History" [routerLink]="['/history/diagnostic']"></p-button>
-<p-button label="Medicine History" [routerLink]="['/history/medicine']"></p-button>
-<p-button label="Doctor History" [routerLink]="['/history/doctor-appointment']"></p-button>
+<div class="row">
+  <p-card class="col" [routerLink]="['/history/diagnostic']">Diagnostic History</p-card>
+  <p-card class="col" [routerLink]="['/history/medicine']">Medicine History</p-card>
+  <p-card class="col" [routerLink]="['/history/doctor-appointment']">Doctor History</p-card>
+</div>

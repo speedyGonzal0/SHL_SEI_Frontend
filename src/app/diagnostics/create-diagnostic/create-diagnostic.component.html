@@ -98,36 +98,50 @@
     </form>
 
     <div class="container-fluid fields" *ngIf="!diagService.editMode">
-      <p class="p-0 m-0">Selected Diagnostics</p>
 
-      <p-table [value]="diagService.selectedDiags" [scrollable]="true" scrollHeight="200px" styleClass="p-datatable-sm p-datatable-gridlines">
-        <ng-template pTemplate="header">
-          <tr>
-            <th style="text-align: center">Name</th>
-            <th style="text-align: center">Price</th>
-            <th style="text-align: center">Action</th>
+      <div class="row p-0">
+        <div class="col fields">
+          <label>Selected Diagnostics</label>
 
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-diag let-index='rowIndex'>
-          <tr>
-            <td style="text-align: center">{{ diag.serviceName }}</td>
-            <td style="text-align: center">{{ diag.price }}</td>
-            <td style="text-align: center">
-              <button (click)="onDelete(index)"
-                      pButton
-                      class="p-button-outlined p-button-danger p-button-sm"
-                      icon="pi pi-trash">
-              </button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+          <p-table [value]="diagService.selectedDiags" [scrollable]="true" scrollHeight="200px" styleClass="p-datatable-sm p-datatable-gridlines">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="text-align: center">Name</th>
+                <th style="text-align: center">Price</th>
+                <th style="text-align: center">Action</th>
 
-      <button (click)="onConfirm()" [disabled]="diagService.selectedDiags.length < 1" pButton
-              label="Confirm selection"
-              class="p-button-success">
-      </button>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-diag let-index='rowIndex'>
+              <tr>
+                <td style="text-align: center">{{ diag.serviceName }}</td>
+                <td style="text-align: center">{{ diag.price }}</td>
+                <td style="text-align: center">
+                  <button (click)="onDelete(index)"
+                          pButton
+                          class="p-button-outlined p-button-danger p-button-sm"
+                          icon="pi pi-trash">
+                  </button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
+
+      <div class="row p-0 m-0 bg-white position-sticky bottom-0">
+        <div class="col p-0">
+          <button (click)="onConfirm()" [disabled]="diagService.selectedDiags.length < 1"
+                  pButton
+                  [style]="{'width': '100%'}"
+                  label="Confirm selection"
+                  class="p-button-success">
+          </button>
+        </div>
+      </div>
+
+
 
     </div>
   </div>

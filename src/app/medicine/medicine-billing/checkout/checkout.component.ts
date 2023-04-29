@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {HttpService} from "@shared/services/http.service";
 import {MedicineBillingService} from "@medicine/medicine-billing/medicine-billing.service";
 import {AuthService} from "@authentication/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-checkout',
@@ -54,13 +55,14 @@ export class CheckoutComponent{
     { field: 'generic', header: 'Generic' },
     { field: 'strength', header: 'Strength' },
     { field: 'quantity', header: 'Qty' },
-    { field: 'unit_price', header: 'Unit Price' },
-    { field: 'total_price', header: 'Total Price' }
+    { field: 'unit_price', header: 'Unit Price (BDT)' },
+    { field: 'total_price', header: 'Total Price (BDT)' }
   ];
 
   constructor(private httpService: HttpService,
               public medBillService: MedicineBillingService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private router: Router) {
   }
 
   calculateTotal(){
@@ -84,38 +86,38 @@ export class CheckoutComponent{
     this.discountAmount = 0
   }
 
-  exportPdf(){
-    let exportColumns = this.cols.map((col) => ({title: col.header, dataKey: col.field}));
-    import('jspdf').then((jsPDF) => {
-      import('jspdf-autotable').then((x) => {
-        const doc = new jsPDF.default('p', 'px', 'a4');
-        doc.setFontSize(10);
-        doc.text([
-          `Patient Name: ${this.patient.name}`,
-          `Patient Phone: ${this.patient.phone}`,
-          `Issued: ${this.issued}`,
-          `Issued By: #${this.user.id}`
-        ],30,40);
-        (doc as any).autoTable(exportColumns, this.medicines, {theme: "grid", startY: 75});
-
-        (doc as any).autoTable({
-          columns: [
-            { dataKey: 'name', header: '' },
-            { dataKey: 'value', header: '' },
-          ],
-          body: [
-            {name: "Total", value: `${this.calculateTotal()} BDT`},
-            {name: "Discount", value: `-${this.discountAmount} BDT`},
-            {name: "Payable", value: `${this.calculatePayable()} BDT`}
-          ],
-          theme: "plain",
-          startY: 150
-        })
-
-        doc.save(`${this.patient.ID}_pharmacy_bill.pdf`);
-      });
-    });
-  }
+  // exportPdf(){
+  //   let exportColumns = this.cols.map((col) => ({title: col.header, dataKey: col.field}));
+  //   import('jspdf').then((jsPDF) => {
+  //     import('jspdf-autotable').then((x) => {
+  //       const doc = new jsPDF.default('p', 'px', 'a4');
+  //       doc.setFontSize(10);
+  //       doc.text([
+  //         `Patient Name: ${this.patient.name}`,
+  //         `Patient Phone: ${this.patient.phone}`,
+  //         `Issued: ${this.issued}`,
+  //         `Issued By: #${this.user.id}`
+  //       ],30,40);
+  //       (doc as any).autoTable(exportColumns, this.medicines, {theme: "grid", startY: 75});
+  //
+  //       (doc as any).autoTable({
+  //         columns: [
+  //           { dataKey: 'name', header: '' },
+  //           { dataKey: 'value', header: '' },
+  //         ],
+  //         body: [
+  //           {name: "Total", value: `${this.calculateTotal()} BDT`},
+  //           {name: "Discount", value: `-${this.discountAmount} BDT`},
+  //           {name: "Payable", value: `${this.calculatePayable()} BDT`}
+  //         ],
+  //         theme: "plain",
+  //         startY: 150
+  //       })
+  //
+  //       doc.save(`${this.patient.ID}_pharmacy_bill.pdf`);
+  //     });
+  //   });
+  //}
   generateInvoice(){
     let medIDs : any = []
     let medQuantities : any = []
@@ -136,9 +138,9 @@ export class CheckoutComponent{
         ...medInvoice
       })
       .subscribe((response: any) => {
-        // console.log(response)
+        this.router.navigate(['history/medicine', response.id])
       })
 
-    this.exportPdf()
+    // this.exportPdf()
   }
 }

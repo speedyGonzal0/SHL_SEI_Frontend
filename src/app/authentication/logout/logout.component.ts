@@ -23,7 +23,7 @@ export class LogoutComponent implements OnInit{
 
     this.menuItems = [
       {
-        label: `Signed in as ${role}`,
+        label: `Signed in as ${role.replace('_',' ')}`,
         escape: false,
         disabled: true
       },

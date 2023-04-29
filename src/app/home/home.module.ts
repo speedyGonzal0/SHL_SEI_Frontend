@@ -22,7 +22,7 @@ import { OrgAdminDashboardComponent } from './dashboard/org-admin-dashboard/org-
     SidebarComponent,
     DashboardComponent,
     AdminDashboardComponent,
-    OrgAdminDashboardComponent
+    OrgAdminDashboardComponent,
   ],
   exports:[
     HomeComponent,

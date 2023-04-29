@@ -29,13 +29,14 @@
 
     <ng-template pTemplate="body" let-app>
       <tr>
-        <td style="text-align: center">{{app.doctor}}</td>
+        <td style="text-align: center">{{docBillService.selectedDoc.doctor.name}}</td>
 
-        <td style="text-align: center">{{app.type}}</td>
+        <td style="text-align: center">{{docBillService.selectedAppointment}}</td>
 
-        <td style="text-align: center">{{app.time}}</td>
+        <td style="text-align: center">{{docBillService.selectedTime.toString().split('G')[0]}}</td>
 
-        <td style="text-align: center">{{app.fee}}</td>
+        <td style="text-align: center">{{docBillService.selectedDoc.consultationFee}}</td>
+
 
       </tr>
     </ng-template>

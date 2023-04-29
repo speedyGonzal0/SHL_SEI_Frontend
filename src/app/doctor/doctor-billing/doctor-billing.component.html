@@ -53,7 +53,7 @@
     <div class="col-3 d-flex flex-column justify-content-end">
       <button pButton
               class="p-button-success p-button-outlined d-none d-lg-block"
-              label="Add new patient"
+              label="New patient"
               icon="pi pi-plus"
               (click)="showCreateDialog()"
 
@@ -179,6 +179,7 @@
                   placeholder="Enter date"
                   [showIcon]="true"
                   hourFormat="12"
+                  (onSelect)="onTimeSelect($event)"
                   [showTime]="true">
       </p-calendar>
 
