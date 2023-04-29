@@ -9,7 +9,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
-  selector: 'app-app-user-list',
+  selector: 'app-app-user-diagnostic-list',
   templateUrl: './app-user-list.component.html',
   styleUrls: ['./app-user-list.component.scss'],
   providers: [MessageService, DialogService, ConfirmationService]

@@ -64,6 +64,7 @@ const routes: Routes = [
           role: [
             "ROLE_ADMIN",
             "ROLE_ORG_ADMIN",
+            "ROLE_DIAGNOSTIC_RECEPTIONIST"
           ]},
         loadChildren: () => import('../history/history.module')
           .then(m => m.HistoryModule) }

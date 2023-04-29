@@ -8,7 +8,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
-  selector: 'app-diagnostic-list',
+  selector: 'app-diagnostic-diagnostic-list',
   templateUrl: './diagnostic-list.component.html',
   styleUrls: ['./diagnostic-list.component.scss'],
   providers: [MessageService, DialogService, ConfirmationService]

@@ -1,0 +1,84 @@
+<div class="historyContainer" #t>
+
+  <div class="row">
+    <h1 class="col">Invoice #{{historyService.billingDetails.id}}</h1>
+    <div class="date col">
+      <p>Issued</p>
+      <p>{{historyService.billingDetails.timestamp.split('T')[1].split('.')[0]}}, {{historyService.billingDetails.timestamp.split('T')[0]}}</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <span class="row">
+    <div class="orgDetails col">
+      <p>{{historyService.billingDetails.organization.name}}</p>
+      <ul>
+        <li>Address: {{historyService.billingDetails.organization.address | titlecase}}</li>
+        <li>Phone: {{historyService.billingDetails.organization.phone}}</li>
+        <li>Email: {{historyService.billingDetails.organization.email}}</li>
+        <li>Website: {{historyService.billingDetails.organization.website}}</li>
+      </ul>
+    </div>
+
+    <div class="userDetails col text-end">
+      <p>Service: Diagnostic</p>
+      <ul>
+        <li><b>Receptionist Details</b></li>
+        <li>ID: {{historyService.billingDetails.appUser.id}}</li>
+        <li>Name: {{historyService.billingDetails.appUser.name}}</li>
+        <li>Phone: {{historyService.billingDetails.appUser.phone}}</li>
+      </ul>
+    </div>
+  </span>
+
+  <hr>
+
+  <span class="patinetnInfo">
+    <p class="sectionHeader mb-2">Patient Details#{{historyService.billingDetails.patient.id}}</p>
+    <ul class="row">
+      <li class="col">{{historyService.billingDetails.patient.name}}</li>
+      <li class="col-2">{{historyService.billingDetails.patient.age}}y/o</li>
+      <li class="col-2">{{historyService.billingDetails.patient.gender | titlecase}}</li>
+      <li class="col">{{historyService.billingDetails.patient.phone}}</li>
+      <li class="col">{{historyService.billingDetails.patient.email}}</li>
+    </ul>
+  </span>
+
+  <hr>
+
+  <span class="billItems">
+      <p class="sectionHeader">Diagnostics</p>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Price (BDT)</th>
+          <th>Discount</th>
+          <th>Final Price (BDT)</th>
+        </tr>
+        <tr *ngFor="let item of historyService.billingDetails.orgDiagnosticAndDiscounts">
+          <td>{{item.orgDiagnostic.diagnostic.serviceName}}</td>
+          <td>{{item.orgDiagnostic.price}}</td>
+          <td>{{item.discount}}%</td>
+          <td>{{item.invoicePrice}}</td>
+        </tr>
+      </table>
+  </span>
+
+  <hr>
+
+  <p class="sectionHeader">Payment Details</p>
+  <p>Subtotal: BDT {{historyService.billingDetails.totalFeeWithoutAnyDiscount}}/=</p>
+  <p>Total w. Individual Discount: BDT {{historyService.billingDetails.totalFeeAfterIndividualDiscount}}/=</p>
+  <p>Overall Discount: {{historyService.billingDetails.overallDiscount}}%</p>
+
+  <span class="finalBill">
+    <p>Final Bill: BDT {{historyService.billingDetails.finalFeeAfterAllDiscount}}/=</p>
+    <p>In words: {{toWords(historyService.billingDetails.finalFeeAfterAllDiscount)}} Taka Only</p>
+  </span>
+</div>
+
+<div class="pdfAction text-center">
+  <p-button (click)="createPDF('download')" label="Download"></p-button>
+  <p-button (click)="createPDF('print')" label="Print"></p-button>
+</div>

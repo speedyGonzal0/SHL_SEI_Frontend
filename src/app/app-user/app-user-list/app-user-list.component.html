@@ -36,8 +36,8 @@
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
         <td style="text-align: center"> {{item.id}}</td>
-        <td style="text-align: center"> {{item.name}} </td>
-        <td style="text-align: center"> {{item.role}}</td>
+        <td style="text-align: center"> {{item.name | titlecase}} </td>
+        <td style="text-align: center"> {{item.role.toString().split("ROLE_")[1].replace('_', ' ') | titlecase}}</td>
         <td style="text-align: center">
           <span class="p-buttonset">
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"

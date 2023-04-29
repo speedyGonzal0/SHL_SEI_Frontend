@@ -9,7 +9,7 @@ import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-org-list',
+  selector: 'app-org-diagnostic-list',
   templateUrl: './org-list.component.html',
   styleUrls: ['./org-list.component.scss'],
   providers: [MessageService, DialogService, ConfirmationService]

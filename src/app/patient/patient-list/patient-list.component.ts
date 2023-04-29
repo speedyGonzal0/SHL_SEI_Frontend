@@ -9,7 +9,7 @@ import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-patient-list',
+  selector: 'app-patient-diagnostic-list',
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.scss'],
   providers: [MessageService, DialogService, ConfirmationService]
