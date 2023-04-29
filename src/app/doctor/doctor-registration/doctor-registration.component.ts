@@ -5,6 +5,7 @@ import {DoctorService} from "@shared/services/doctor.service";
 import {Doctor} from "@models/doctor";
 import {HttpService} from "@shared/services/http.service";
 import {ApiPaths} from "@enums/api-paths";
+import {AuthService} from "@authentication/auth.service";
 @Component({
   selector: 'app-doctor-registration',
   templateUrl: './doctor-registration.component.html',
@@ -14,7 +15,8 @@ export class DoctorRegistrationComponent implements OnInit{
 
   constructor(public doctorService: DoctorService,
               private config: DynamicDialogConfig,
-              private httpService: HttpService
+              private httpService: HttpService,
+              private authService: AuthService
               ) {}
 
   doctorForm!: FormGroup;
@@ -27,13 +29,13 @@ export class DoctorRegistrationComponent implements OnInit{
   ngOnInit() {
     this.doctorForm = new FormGroup({
       'name' : new FormControl(null, Validators.required),
-      'phone' : new FormControl(null, [Validators.required]),
+      'phone' : new FormControl(null, [Validators.required, Validators.pattern(/(^([+]{1}[8]{2}|0088)?(01){1}[3-9]{1}\d{8})$/)]),
       'email' : new FormControl(null, [Validators.required, Validators.email]),
       'bmdc' : new FormControl(null, [Validators.required]),
       'gender' : new FormControl(null, [Validators.required]),
       'doctorType' : new FormControl(null, [Validators.required]),
-      'degrees' : new FormControl(null),
-      'specialities' : new FormControl(null),
+      'degrees' : new FormControl(null, [Validators.required]),
+      'specialities' : new FormControl(null, [Validators.required]),
     })
 
     this.doctorSelectForm = new FormGroup({
@@ -95,7 +97,7 @@ export class DoctorRegistrationComponent implements OnInit{
   filterDocs(e : any){
     let query = e.query;
 
-    this.httpService.getRequestWithParams(`${this.doctorService.doctorURL}/org/2/search`, {query: query}).subscribe(
+    this.httpService.getRequestWithParams(`${this.doctorService.doctorURL}/org/${this.authService.orgID}/search`, {query: query}).subscribe(
       (response:any) => this.filteredDocs = response.content
     )
   }

@@ -64,8 +64,7 @@ export class CreateDiagnosticComponent implements OnInit{
       this.diagService.updateValue(this.config.data.index, this.createDiagForm.value)
     }
     else{
-      this.diagService.selectedDiags.push(this.createDiagForm.value)
-      this.diagService.appendValue();
+      this.diagService.appendValue(this.createDiagForm.value);
     }
     this.createDiagForm.reset();
   }
@@ -74,7 +73,7 @@ export class CreateDiagnosticComponent implements OnInit{
     if(!this.diagService.editMode){
       this.diagService.selectedDiags.push(
         {
-          organizationId: 1,
+          organizationId: this.authService.orgID,
           diagnosticId: this.selectDiagForm.value.diag.id,
           price: this.selectDiagForm.value.price,
           serviceName: this.selectDiagForm.value.diag.serviceName
@@ -93,7 +92,7 @@ export class CreateDiagnosticComponent implements OnInit{
   }
 
   onConfirm(){
-    this.diagService.appendValue();
+    this.diagService.appendValue({});
     this.diagService.selectedDiags = [];
   }
 }

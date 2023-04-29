@@ -107,7 +107,7 @@
         <p-autoComplete
           [style]="{'width': '100%'}"
           [inputStyle]="{'width': '100%'}"
-          inputId="searchDiagnostic"
+          inputId="searchMeds"
           [formControl]="medicineSearch"
           placeholder="Enter name"
           [showEmptyMessage] = "true"
@@ -116,6 +116,9 @@
           (onSelect)="onMedSelect($event)"
           (completeMethod)="filterMeds($event)"
           field="medicine.name">
+          <ng-template let-med pTemplate="item">
+            <p>{{ med.medicine.name }} ({{ med.medicine.strength }} {{med.medicine.formulation}} | Vendor: {{med.medicine.vendor}})</p>
+          </ng-template>
 
         </p-autoComplete>
       </div>

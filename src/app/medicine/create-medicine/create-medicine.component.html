@@ -17,12 +17,6 @@
       <small *ngIf="!createMedForm.controls['genericName'].valid && createMedForm.controls['genericName'].touched"> This field is required!</small>
     </div>
 
-    <div class="fields col">
-      <label for="medStrength" class="block"> Strength </label>
-      <input type="text" pInputText id="medStrength" placeholder="E.g: 20mg" formControlName="strength"/>
-      <small *ngIf="!createMedForm.controls['strength'].valid && createMedForm.controls['strength'].touched"> This field is required!</small>
-    </div>
-
   </div>
 
   <div class="row p-0">
@@ -32,6 +26,16 @@
       <input type="text" pInputText id="medformulation" placeholder="E.g: Tablet" formControlName="formulation"/>
       <small *ngIf="!createMedForm.controls['formulation'].valid && createMedForm.controls['formulation'].touched"> This field is required!</small>
     </div>
+
+    <div class="fields col">
+      <label for="medStrength" class="block"> Strength </label>
+      <input type="text" pInputText id="medStrength" placeholder="E.g: 20mg" formControlName="strength"/>
+      <small *ngIf="!createMedForm.controls['strength'].valid && createMedForm.controls['strength'].touched"> This field is required!</small>
+    </div>
+
+  </div>
+
+  <div class="row p-0">
 
     <div class="fields col">
       <label for="medVendor" class="block"> Vendor </label>
@@ -82,6 +86,10 @@
               [forceSelection]="true"
               (completeMethod)="filterMeds($event)"
               field="name">
+
+              <ng-template let-med pTemplate="item">
+                <p>{{ med.name }} ({{ med.strength }} {{med.formulation}} | Vendor: {{med.vendor}})</p>
+              </ng-template>
             </p-autoComplete>
           </div>
           <small *ngIf="!selectedMedForm.controls['med'].valid && selectedMedForm.controls['med'].touched"> This field is required!</small>

@@ -4,6 +4,7 @@ import {OrgService} from "@shared/services/org.service";
 import {HttpService} from "@shared/services/http.service";
 import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-org-profile',
@@ -11,7 +12,7 @@ import {ApiPaths} from "@enums/api-paths";
   styleUrls: ['./org-profile.component.scss']
 })
 export class OrgProfileComponent implements OnInit{
-  orgID = 1
+  orgID!: number;
   orgAdminURL = ApiPaths.orgAdmin
   cardInfo = [
     {
@@ -37,25 +38,33 @@ export class OrgProfileComponent implements OnInit{
   ]
 
   constructor(public orgService: OrgService, private route: ActivatedRoute,
-              private httpService: HttpService, private refreshService: RefreshService) {}
+              private httpService: HttpService,
+              private refreshService: RefreshService,
+              private authService: AuthService
+              ) {}
 
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
         this.orgService.getOrgByID(params['id'])
+        this.getOrgInfo(params['id']);
       }
     )
 
     this.refreshService.refreshNeeded$
       .subscribe(() => {
-          this.getOrgInfo()
+        this.route.params.subscribe(
+          (params: Params) => {
+            this.orgService.getOrgByID(params['id'])
+            this.getOrgInfo(params['id']);
+          }
+        )
         }
       )
-    this.getOrgInfo()
   }
 
-  getOrgInfo(){
-    this.httpService.getRequest(`${this.orgAdminURL}/dashboard/${this.orgID}`)
+  getOrgInfo(orgID: number){
+    this.httpService.getRequest(`${this.orgAdminURL}/dashboard/${orgID}`)
       .subscribe((response: any) => {
         this.cardInfo[0].count = response.orgDoctors
         this.cardInfo[1].count = response.orgMedicines

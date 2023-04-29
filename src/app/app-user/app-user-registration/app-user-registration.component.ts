@@ -37,7 +37,6 @@ export class AppUserRegistrationComponent implements OnInit{
 
     if(this.config.data) {
       let appUser : any = this.appUserService.appUsers[this.config.data.index];
-      console.log(appUser)
       this.appUserForm.setValue({
         name: appUser.name,
         phone: appUser.phone,

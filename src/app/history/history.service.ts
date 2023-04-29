@@ -16,7 +16,6 @@ export class HistoryService {
               private httpService: HttpService) { }
 
   getDiagHistory(){
-    console.log(this.authService.orgID)
     this.httpService.getRequest(`${this.diagBillURL}/view/${this.authService.orgID}/all`)
       .subscribe(
         (response:any) => {
@@ -29,7 +28,6 @@ export class HistoryService {
     this.httpService.getRequest(`${this.diagBillURL}/view/${id}`)
       .subscribe((response: any) => {
         this.billingDetails = response
-        console.log(this.billingDetails)
       })
   }
 }

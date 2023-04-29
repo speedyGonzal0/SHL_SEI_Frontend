@@ -33,7 +33,7 @@ export class LoginComponent {
 
   onLogin(){
     this.httpService.loginRequest(`${this.authURL}/login`,
-      {email: this.loginForm.value.email , password: this.loginForm.value.password})
+      this.loginForm.value)
       .subscribe({
         next: (response) => {
           localStorage.setItem("token", response);

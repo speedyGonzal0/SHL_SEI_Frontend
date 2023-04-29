@@ -1,7 +1,8 @@
 <div class="doctorListContainer">
 
   <h2 class="text-center mb-4">Registered Patients</h2>
-  <p-table [value]="patientService.patients"
+  <p-table styleClass="p-datatable-sm p-datatable-gridlines"
+          [value]="patientService.patients"
            [rowHover]="true"
            [lazy]="true"
            (onLazyLoad)="onPagination($event.first)"

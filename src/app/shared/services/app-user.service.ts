@@ -82,7 +82,6 @@ export class AppUserService {
         password: appUserInfo.password,
       })
       .subscribe((response: any) => {
-        console.log(response)
       })
     this.appUserRef.close()
   }

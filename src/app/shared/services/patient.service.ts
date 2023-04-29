@@ -22,14 +22,10 @@ export class PatientService {
   constructor(private httpService: HttpService) {}
 
   createPatient(patientInfo: any){
-    console.log(patientInfo)
     this.httpService.createRequest(
       `${this.patientURL}/add`,{
-        name: patientInfo.name,
-        phone: patientInfo.phone,
-        email: patientInfo.email,
-        gender: patientInfo.gender.value,
-        age: patientInfo.age,
+        ...patientInfo,
+        gender: patientInfo.gender.value
       })
       .subscribe((response: any) => {
       })

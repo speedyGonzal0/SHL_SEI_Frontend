@@ -56,7 +56,6 @@ export class DoctorService {
     else {
       this.httpService.getRequestWithParams(`${this.orgDoctorURL}/org/${this.authService.orgID}/search`, queryParams).subscribe(
         (response: any) => {
-          console.log(response)
           this.doctors = response.content;
           this.totalDoctors = response.totalElements;
         }
@@ -87,7 +86,6 @@ export class DoctorService {
           ...doctorInfo
         })
         .subscribe((response: any) => {
-          console.log(response)
         })
 
     }
