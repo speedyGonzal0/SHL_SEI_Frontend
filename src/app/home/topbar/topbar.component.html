@@ -4,14 +4,66 @@
     <p-sidebar [(visible)]="sidebarVisible" [baseZIndex]=10000>
       <div class="sidebarBody">
         <ul>
-          <li routerLink="dashboard" routerLinkActive="linkActive"> Dashboard </li>
-          <li routerLink="doctor/list" routerLinkActive="linkActive">  Doctors </li>
-          <li routerLink="org/list" routerLinkActive="linkActive" > Organizations </li>
-          <li routerLink="diagnostics" routerLinkActive="linkActive"> Diagnostics </li>
-          <li routerLink="medicine" routerLinkActive="linkActive"> Medicines </li>
-          <li routerLink="patients" routerLinkActive="linkActive"> Patients </li>
+
+          <li
+            *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
+            routerLink="dashboard" routerLinkActive="linkActive"> Dashboard </li>
+
+          <li *ngIf="role === 'ROLE_ADMIN'"
+              routerLink="org"
+              routerLinkActive="linkActive"
+              [routerLinkActiveOptions]="{exact: true}" > Organizations </li>
+
+          <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
+              routerLink="doctor"
+              routerLinkActive="linkActive"
+          >  Doctors </li>
+
+          <li *ngIf="role === 'ROLE_DOCTOR_RECEPTIONIST'"
+              routerLink="doctor/billing"
+              routerLinkActive="linkActive"
+              [routerLinkActiveOptions]="{exact: true}"
+          >
+            Doctor Billing </li>
+
+          <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
+              routerLink="diagnostics"
+              routerLinkActive="linkActive"
+          > Diagnostics </li>
+
+          <li *ngIf="role === 'ROLE_DIAGNOSTIC_RECEPTIONIST'"
+              routerLink="diagnostics/billing"
+              routerLinkActive="linkActive"
+              [routerLinkActiveOptions]="{exact: true}"
+          >
+            Diagnostic Billing </li>
+
+          <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
+              routerLink="medicine"
+              routerLinkActive="linkActive"
+          > Medicines </li>
+
+          <li *ngIf="role === 'ROLE_PHARMACIST'"
+              routerLink="medicine/billing"
+              routerLinkActive="linkActive"
+              [routerLinkActiveOptions]="{exact: true}"
+          > Medicine Billing </li>
+
+          <li
+            *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
+            routerLink="patients"
+            routerLinkActive="linkActive">
+            Patients
+          </li>
+
+          <li
+            *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
+            routerLink="users"
+            routerLinkActive="linkActive">
+            Users
+          </li>
+
         </ul>
-        <button routerLink="/login" pButton label="Login" class="p-button-success"></button>
 
       </div>
 

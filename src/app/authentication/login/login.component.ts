@@ -33,13 +33,12 @@ export class LoginComponent {
 
   onLogin(){
     this.httpService.loginRequest(`${this.authURL}/login`,
-      {email: this.loginForm.value.email , password: this.loginForm.value.password})
+      this.loginForm.value)
       .subscribe({
         next: (response) => {
           localStorage.setItem("token", response);
           let token = JSON.parse(atob(response.split('.')[1]))
           localStorage.setItem('userRole', token.roles);
-          this.authService.login(this.loginForm.value.email)
           this.router.navigate([''])
         },
         error: (err) => {

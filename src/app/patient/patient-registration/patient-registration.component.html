@@ -11,6 +11,7 @@
                type="text"
                pInputText
                class="p-inputtext-sm"
+               placeholder="E.g: Md Rahim"
         />
         <p
           *ngIf="!patientRegForm.controls['name'].valid && patientRegForm.controls['name'].touched">
@@ -60,6 +61,7 @@
                id="age"
                type="number"
                pInputText
+               placeholder="E.g: 35"
                class="p-inputtext-sm"/>
         <small
           *ngIf="!patientRegForm.controls['age'].valid && patientRegForm.controls['age'].touched">

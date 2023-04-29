@@ -7,6 +7,7 @@ export interface Doctor{
   bmdc?: number,
   specialities?: string[],
   degrees?: string[],
+  doctorType?: any,
   consultationFee?: number,
   followupFee?: number,
   reportFee?: number,

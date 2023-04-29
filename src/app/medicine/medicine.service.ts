@@ -47,7 +47,6 @@ export class MedicineService{
         (response: any) => {
           this.medicines = response.content;
           this.totalMedicine = response.totalElements;
-          console.log(response);
         }
       )
     }

@@ -90,6 +90,25 @@
     <div class="col p-0">
       <span
         class="fields">
+        <label for="drType"> License Type </label>
+        <p-dropdown formControlName="doctorType"
+                    class="p-inputtext-sm"
+                    [options]="doctorService.doctorTypes"
+                    placeholder="-"
+                    id="drType"
+                    [style]="{width: '100%'}"
+                    optionLabel="type">
+        </p-dropdown>
+        <small
+          *ngIf="!doctorForm.controls['doctorType'].valid && doctorForm.controls['doctorType'].touched">
+          This field is required!
+        </small>
+      </span>
+    </div>
+
+    <div class="col p-0">
+      <span
+        class="fields">
         <label for="bmdc">BMDC</label>
         <input formControlName="bmdc"
                id="bmdc"
@@ -168,12 +187,16 @@
                 [inputStyle]="{'width': '100%'}"
                 inputId="docOptions"
                 formControlName="doctor"
-                placeholder="Search by Name/BMDC"
+                placeholder="Search Name/BMDC"
                 [showEmptyMessage] = "true"
                 [suggestions]="filteredDocs"
                 [forceSelection]="true"
                 (completeMethod)="filterDocs($event)"
                 field="name">
+
+                <ng-template let-doctor pTemplate="item">
+                  <p>{{ doctor.name }} (BMDC: {{ doctor.bmdc }})</p>
+                </ng-template>
               </p-autoComplete>
             </div>
             <small *ngIf="!doctorSelectForm.controls['doctor'].valid
@@ -187,17 +210,31 @@
 
           <label> Selected doctor </label>
 
-          <p-card
+          <p-card *ngIf="!doctorService.editMode; else orgAdminEditMode"
             header="Dr {{doctorSelectForm.value.doctor.name}}"
             subheader="{{doctorSelectForm.value.doctor.degrees}}"
           >
             <p class="m-0">
-              BMDC: {{doctorSelectForm.value.doctor.id}}
+              BMDC: {{doctorSelectForm.value.doctor.bmdc}}
             </p>
             <p class="m-0">
               Specialities: {{doctorSelectForm.value.doctor.specialities}}
             </p>
           </p-card>
+
+          <ng-template #orgAdminEditMode>
+            <p-card
+                    header="Dr {{doctorSelectForm.value.doctor.doctor.name}}"
+                    subheader="{{doctorSelectForm.value.doctor.doctor.degrees}}"
+            >
+              <p class="m-0">
+                BMDC: {{doctorSelectForm.value.doctor.doctor.bmdc}}
+              </p>
+              <p class="m-0">
+                Specialities: {{doctorSelectForm.value.doctor.doctor.specialities}}
+              </p>
+            </p-card>
+          </ng-template>
 
         </div>
       </div>

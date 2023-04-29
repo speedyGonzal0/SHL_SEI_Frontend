@@ -15,18 +15,18 @@
     <ng-template pTemplate="caption">
       <div class="tableToolbar">
         <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
-                class="p-button-success p-button-outlined" label="Add"></button>
+                class="p-button-success p-button-outlined" label="New Organization"></button>
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
             <input pInputText type="text"
                    (input)="onSearch($any($event.target).value)"
-                   placeholder="ID or Name" />
+                   placeholder="Search name" />
           </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center"> ID </th>
+        <th style="text-align: center"> # </th>
         <th style="text-align: center"> Name </th>
         <th style="text-align: center"> Phone </th>
         <th style="text-align: center">Actions</th>
@@ -41,8 +41,8 @@
           <span class="p-buttonset">
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
                     class="p-button-outlined p-button-secondary"></button>
-            <button (click)="onDelete(index)" pButton icon="pi pi-trash"
-                    class="p-button-outlined p-button-secondary"></button>
+<!--            <button (click)="onDelete(index)" pButton icon="pi pi-trash"-->
+<!--                    class="p-button-outlined p-button-secondary"></button>-->
             <button [routerLink]="['/org', item.id]" pButton icon="pi pi-eye"
                     class="p-button-outlined p-button-secondary"></button>
           </span>

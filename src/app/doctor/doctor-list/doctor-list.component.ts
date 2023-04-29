@@ -53,18 +53,22 @@ export class DoctorListComponent implements OnInit{
   showCreateDialog(){
     this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
       header: "New Doctor",
-      style: {'min-width':'50%', 'max-width': '800px'}
+      style: {'min-width':'600px', 'max-width': '800px'}
     });
   }
 
   showEditDialog(index: number){
     this.doctorService.toggleEditMode();
     this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
-      header: `Editing ${this.doctorService.doctors[index].name}`,
+      header: this.doctorService.role === "ROLE_ADMIN" ?
+        `Editing ${this.doctorService.doctors[index].name}`
+        :
+        `Editing ${this.doctorService.doctors[index].doctor.name}`
+      ,
       data: {
         index: index
       },
-      style: {'width':'50%', 'max-width': '800px'}
+      style: {'width':'600px', 'max-width': '800px'}
     });
 
     this.doctorService.doctorRef.onClose.subscribe(() => this.doctorService.toggleEditMode());

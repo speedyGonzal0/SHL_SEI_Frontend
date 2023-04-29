@@ -33,6 +33,11 @@ export class DoctorService {
     {gender: "Female", value: 1},
     {gender: "Other", value: 2}];
 
+  doctorTypes = [
+    {type: "Medical", value: 0},
+    {type: "Dental", value: 1}
+  ]
+
   constructor(private httpService: HttpService, private authService: AuthService) {}
 
   toggleEditMode(){
@@ -45,7 +50,6 @@ export class DoctorService {
         (response: any) => {
           this.doctors = response.content;
           this.totalDoctors = response.totalElements;
-          console.log(response);
         }
       )
     }
@@ -69,10 +73,10 @@ export class DoctorService {
           gender: doctorInfo.gender.value,
           bmdc: doctorInfo.bmdc,
           specialities: doctorInfo.specialities,
-          degrees: doctorInfo.degrees
+          degrees: doctorInfo.degrees,
+          doctorType: doctorInfo.doctorType.value
         })
         .subscribe((response: any) => {
-          console.log(response)
         })
     }
 
@@ -82,7 +86,6 @@ export class DoctorService {
           ...doctorInfo
         })
         .subscribe((response: any) => {
-          console.log(response)
         })
 
     }

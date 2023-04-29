@@ -47,7 +47,6 @@ export class AppUserService {
         (response: any) => {
           this.appUsers = response.content;
           this.totalUsers = response.totalElements;
-          console.log(response);
         }
       )
     }
@@ -71,7 +70,6 @@ export class AppUserService {
       return role.value;
     });
 
-    console.log(roles)
     this.httpService.createRequest(
       `${this.userURL}/org/${appUserInfo.orgID}/add`,{
         name: appUserInfo.name,
@@ -84,7 +82,6 @@ export class AppUserService {
         password: appUserInfo.password,
       })
       .subscribe((response: any) => {
-        console.log(response)
       })
     this.appUserRef.close()
   }

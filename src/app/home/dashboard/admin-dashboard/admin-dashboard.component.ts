@@ -59,7 +59,6 @@ export class AdminDashboardComponent{
   getAdminInfo(){
     this.httpService.getRequest(`${this.adminURL}/dashboard`)
       .subscribe((response: any) => {
-        console.log(response)
         this.cardInfo[0].count = response.diagnostics
         this.cardInfo[1].count = response.medicines
         this.cardInfo[2].count = response.doctors

@@ -34,7 +34,6 @@ export class HistoryService {
     this.httpService.getRequest(`${this.diagBillURL}/view/${id}`)
       .subscribe((response: any) => {
         this.billingDetails = response
-        console.log(this.billingDetails)
       })
   }
 

@@ -21,7 +21,7 @@
             <i class="pi pi-search"></i>
             <input pInputText type="text"
                    (input)="onSearch($any($event.target).value)"
-                   placeholder="Search Name/Speciality" />
+                   placeholder="Search Name/BMDC" />
           </span>
       </div>
     </ng-template>
@@ -40,8 +40,12 @@
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
-        <td style="text-align: center"> {{item.name}} </td>
-        <td style="text-align: center"> {{item.bmdc}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.name}} </td>
+        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.doctor.name}} </td>
+
+        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.bmdc}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.doctor.bmdc}}</td>
+
         <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.degrees}}</td>
         <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.specialities}}</td>
         <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.gender}}</td>

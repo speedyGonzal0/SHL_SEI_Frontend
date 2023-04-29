@@ -115,7 +115,7 @@
           (completeMethod)="filterDocs($event)"
           field="doctor.name">
           <ng-template let-doc pTemplate="item">
-            <p>{{ doc.name }} ({{ doc.id }})</p>
+            <p>{{ doc.doctor.name }} (BMDC: {{ doc.doctor.bmdc }})</p>
           </ng-template>
 
         </p-autoComplete>
@@ -133,7 +133,7 @@
       <div class="card text-start p-3 d-flex flex-column gap-3">
         <div class="row p-0 m-0">
           <div class="col-10 p-0 m-0">
-            <h4>Doctor: {{DBService.selectedDoc.name}}</h4>
+            <h4>Doctor: {{DBService.selectedDoc.doctor.name}}</h4>
           </div>
           <div class="col-2 d-flex justify-content-end p-0 m-0">
             <button pButton
@@ -147,10 +147,11 @@
 
         <div class="row p-0 m-0">
           <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="Phone: {{DBService.selectedDoc.phone}}"></p-chip>
-            <p-chip class="mx-2" label="Email: {{DBService.selectedDoc.email}}"></p-chip>
-            <p-chip class="mx-2" label="Specialities: {{DBService.selectedDoc.specialities}}"></p-chip>
-            <p-chip class="mx-2" label="Degrees: {{DBService.selectedDoc.degrees}}"></p-chip>
+            <p-chip class="mx-2" label="BMDC: {{DBService.selectedDoc.doctor.bmdc}}"></p-chip>
+            <p-chip class="mx-2" label="Phone: {{DBService.selectedDoc.doctor.phone}}"></p-chip>
+            <p-chip class="mx-2" label="Email: {{DBService.selectedDoc.doctor.email}}"></p-chip>
+            <p-chip class="mx-2" label="Specialities: {{DBService.selectedDoc.doctor.specialities}}"></p-chip>
+            <p-chip class="mx-2" label="Degrees: {{DBService.selectedDoc.doctor.degrees}}"></p-chip>
           </div>
         </div>
       </div>

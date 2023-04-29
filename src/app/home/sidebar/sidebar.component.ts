@@ -8,11 +8,11 @@ import {AuthService} from "@authentication/auth.service";
 })
 export class SidebarComponent implements OnInit{
 
-  role : any
+  role !: any;
+  constructor(public authService: AuthService) {
+  }
 
   ngOnInit(){
-    this.role = this.authService.getRole()
-  }
-  constructor(public authService: AuthService) {
+    this.role = this.authService.getRole();
   }
 }
