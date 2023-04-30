@@ -18,6 +18,7 @@ import { DividerModule } from 'primeng/divider';
 import { OrgListComponent } from './org-list/org-list.component';
 import {RouterLink} from "@angular/router";
 import {OrgRoutingModule} from "@org/org-routing.module";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -29,21 +30,22 @@ import {OrgRoutingModule} from "@org/org-routing.module";
     OrgProfileComponent,
     OrgRegistrationComponent
   ],
-  imports: [
-    CommonModule,
-    CardModule,
-    ChipsModule,
-    ChipModule,
-    TagModule,
-    ButtonModule,
-    DropdownModule,
-    TableModule,
-    DynamicDialogModule,
-    ReactiveFormsModule,
-    ConfirmDialogModule,
-    DividerModule,
-    RouterLink,
-    OrgRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        CardModule,
+        ChipsModule,
+        ChipModule,
+        TagModule,
+        ButtonModule,
+        DropdownModule,
+        TableModule,
+        DynamicDialogModule,
+        ReactiveFormsModule,
+        ConfirmDialogModule,
+        DividerModule,
+        RouterLink,
+        OrgRoutingModule,
+        ToastModule
+    ]
 })
 export class OrgModule { }

@@ -75,7 +75,7 @@
           </div>
           <div class="col-2 d-flex justify-content-end p-0 m-0">
             <button pButton
-                    icon="pi pi-pencil"
+                    icon="pi pi-times"
                     class="p-button-sm p-button-outlined p-button-danger"
                     (click)="resetPatientSearch()"
             >
@@ -137,7 +137,7 @@
           </div>
           <div class="col-2 d-flex justify-content-end p-0 m-0">
             <button pButton
-                    icon="pi pi-pencil"
+                    icon="pi pi-times"
                     class="p-button-sm p-button-outlined p-button-danger"
                     (click)="resetDocSearch()"
             >
@@ -167,6 +167,7 @@
         formControlName="aptType"
         [options]="DBService.appointmentOptions"
         optionLabel="name"
+        placeholder="Consultation"
         (onChange)="onAptSelect($event)"
       ></p-dropdown>
     </div>
@@ -196,6 +197,7 @@
               icon="pi pi-arrow-right"
               iconPos="right"
               label="Proceed to checkout"
+              [disabled]="!DBForm.valid"
       ></button>
     </div>
   </div>

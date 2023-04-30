@@ -58,10 +58,7 @@ export class OrgService {
   }
 
   editOrg(id:number, orgInfo: any){
-    this.httpService.updateRequest(`${this.orgURL}/update/${id}`,orgInfo)
-      .subscribe(Response => {
-      })
-    this.orgRef.close()
+    return this.httpService.updateRequest(`${this.orgURL}/update/${id}`,orgInfo)
   }
 
   deleteOrg(id: number){

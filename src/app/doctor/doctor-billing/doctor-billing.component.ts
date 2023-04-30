@@ -39,9 +39,9 @@ export class DoctorBillingComponent {
     this.DBService.filteredPatients = [];
     this.minDate = new Date();
     this.DBService.appointmentOptions = [
-      {name: "Consultation", value: 0},
-      {name: "Follow-up", value: 1},
-      {name: "Report", value: 2}
+      {name: "Consultation", value: 0, fee: "consultationFee"},
+      {name: "Follow-up", value: 1, fee: "followupFee"},
+      {name: "Report", value: 2, fee: "reportFee"}
     ];
 
     this.DBForm = new FormGroup<any>({
@@ -111,7 +111,7 @@ export class DoctorBillingComponent {
 
   onAptSelect(event: any){
     // console.log(event)
-    this.DBService.selectedAppointment = event.value.value;
+    this.DBService.selectedAppointment = event.value;
     // console.log(this.DBService.selectedAppointment)
   }
 
@@ -124,7 +124,6 @@ export class DoctorBillingComponent {
   }
 
   onSubmit(){
-    console.log(this.DBForm.value)
     this.router.navigate(['/doctor/checkout']);
   }
 
