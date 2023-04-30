@@ -1,159 +1,104 @@
-<div class="orgRegContainer">
 
-  <div class="orgRegCardContainer">
-
-    <form [formGroup]="orgForm" (ngSubmit)="onSubmit()">
+    <form class="container-fluid d-flex flex-column gap-3 p-0 m-0" [formGroup]="orgForm" (ngSubmit)="onSubmit()">
 
       <!------------------------------------------------------------------
       ------------------------ Create Doctor Form ------------------------
       ------------------------------------------------ ------------------->
 
-      <span
-            class="inputField">
-        <label for="name">Name</label>
-        <input formControlName="name"
-               id="name"
-               type="text"
-               pInputText
-               class="p-inputtext-sm"
-        />
-        <p class="errorMsg m-0"
-          *ngIf="orgForm.controls['name'].invalid && orgForm.controls['name'].touched">
-           This field is required!
-        </p>
-      </span>
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <label for="name">Name</label>
+          <input formControlName="name"
+                 id="name"
+                 type="text"
+                 pInputText
+                 placeholder="E.g: Square Hospital Ltd."
+                 class="p-inputtext-sm"
+          />
+          <small class="errorMsg m-0"
+             *ngIf="orgForm.controls['name'].invalid && orgForm.controls['name'].touched">
+            This field is required!
+          </small>
+        </div>
 
-      <span
-            class="inputField">
-        <label for="address">Address</label>
-        <input formControlName="address"
-               id="address"
-               type="text"
-               pInputText
-               class="p-inputtext-sm"
-        />
-        <p class="errorMsg m-0"
-          *ngIf="orgForm.controls['address'].invalid && orgForm.controls['address'].touched">
-           This field is required!
-        </p>
-      </span>
+      </div>
 
-      <span
-            class="inputField">
-        <label for="phone">Phone</label>
-        <input formControlName="phone"
-               id="phone"
-               type="text"
-               pInputText
-               class="p-inputtext-sm"
-        />
-        <p class="errorMsg m-0"
-          *ngIf="orgForm.controls['phone'].invalid && orgForm.controls['phone'].touched">
-          This field is required!
-        </p>
-      </span>
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <label for="address">Address</label>
+          <input formControlName="address"
+                 id="address"
+                 type="text"
+                 pInputText
+                 placeholder="E.g: Panthapath, Dhaka"
+                 class="p-inputtext-sm"
+          />
+          <small class="errorMsg m-0"
+             *ngIf="orgForm.controls['address'].invalid && orgForm.controls['address'].touched">
+            This field is required!
+          </small>
+        </div>
 
-      <span
-            class="inputField">
-        <label for="email">Email</label>
-        <input formControlName="email"
-               id="email"
-               type="email"
-               pInputText
-               class="p-inputtext-sm"
-        />
-        <p class="errorMsg m-0"
-          *ngIf="orgForm.controls['email'].invalid && orgForm.controls['email'].touched">
-          This field is required!
-        </p>
-      </span>
+      </div>
 
-      <span
-            class="inputField">
-        <label for="website">Website</label>
-        <input formControlName="website"
-               id="website"
-               type="text"
-               pInputText
-               class="p-inputtext-sm"
-        />
-      </span>
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <label for="phone">Phone</label>
+          <input formControlName="phone"
+                 id="phone"
+                 type="text"
+                 pInputText
+                 placeholder="E.g: 017xxxxxxxxxxx"
+                 class="p-inputtext-sm"
+          />
+          <small class="errorMsg m-0"
+             *ngIf="orgForm.controls['phone'].invalid && orgForm.controls['phone'].touched">
+            This field is required!
+          </small>
+        </div>
+
+        <div class="col fields">
+          <label for="email">Email</label>
+          <input formControlName="email"
+                 id="email"
+                 type="email"
+                 pInputText
+                 placeholder="E.g: info@square.net"
+                 class="p-inputtext-sm"
+          />
+          <small class="errorMsg m-0"
+             *ngIf="orgForm.controls['email'].invalid && orgForm.controls['email'].touched">
+            This field is required!
+          </small>
+        </div>
+
+      </div>
+
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <label for="website">Website</label>
+          <input formControlName="website"
+                 id="website"
+                 type="text"
+                 pInputText
+                 placeholder="E.g: www.square.com"
+                 class="p-inputtext-sm"
+          />
+          <small class="errorMsg m-0"
+             *ngIf="orgForm.controls['website'].invalid && orgForm.controls['website'].touched">
+            This field is required!
+          </small>
+        </div>
+
+      </div>
+
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <button pButton type="submit" label={{submitLabel}}
+                  class="p-button-success" [disabled]="!orgForm.valid"></button>
+        </div>
+      </div>
 
 
-     <!------------------------------------------------------------------
-     ------------------------ Edit Doctor Form --------------------------
-     ------------------------------------------------ ------------------->
-
-
-<!--      <span *ngIf="orgService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="name">Name</label>-->
-<!--        <input formControlName="name"-->
-<!--               inputId="name"-->
-<!--               type="text"-->
-<!--               pInputText-->
-<!--        />-->
-<!--        <p-->
-<!--          *ngIf="!orgForm.controls['name'].valid && orgForm.controls['name'].touched">-->
-<!--           This field is required!-->
-<!--        </p>-->
-<!--      </span>-->
-
-<!--      <span *ngIf="orgService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="address">Address</label>-->
-<!--        <input formControlName="address"-->
-<!--               inputId="address"-->
-<!--               type="text"-->
-<!--               pInputText-->
-<!--        />-->
-<!--        <p-->
-<!--          *ngIf="!orgForm.controls['address'].valid && orgForm.controls['address'].touched">-->
-<!--           This field is required!-->
-<!--        </p>-->
-<!--      </span>-->
-
-<!--      <span *ngIf="orgService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="phone">Phone</label>-->
-<!--        <input formControlName="phone"-->
-<!--               inputId="phone"-->
-<!--               type="text"-->
-<!--               pInputText-->
-<!--        />-->
-<!--        <p-->
-<!--          *ngIf="!orgForm.controls['phone'].valid && orgForm.controls['phone'].touched">-->
-<!--          This field is required!-->
-<!--        </p>-->
-<!--      </span>-->
-
-<!--      <span *ngIf="orgService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="email">Email</label>-->
-<!--        <input formControlName="email"-->
-<!--               inputId="email"-->
-<!--               type="email"-->
-<!--               pInputText/>-->
-<!--        <p-->
-<!--          *ngIf="!orgForm.controls['email'].valid && orgForm.controls['email'].touched">-->
-<!--          This field is required!-->
-<!--        </p>-->
-<!--      </span>-->
-
-<!--      <span *ngIf="orgService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="website">Website</label>-->
-<!--        <input formControlName="website"-->
-<!--               inputId="website"-->
-<!--               type="text"-->
-<!--               pInputText/>-->
-<!--      </span>-->
-
-      <button pButton type="submit" label={{submitLabel}}
-              class="p-button-success" [disabled]="!orgForm.valid"></button>
 
     </form>
-
-  </div>
-
-</div>

@@ -23,7 +23,7 @@
 
           <span class="p-input-icon-left ml-auto">
                   <i class="pi pi-search"></i>
-                  <input pInputText (input)="onSearch($any($event.target).value)" type="text" placeholder="Search by name" />
+                  <input pInputText (input)="onSearch($any($event.target).value)" type="text" placeholder="Search name" />
           </span>
 
         </div>
@@ -35,7 +35,7 @@
       <tr>
         <th style="text-align: center"> # </th>
         <th style="text-align: center"> Name </th>
-        <th style="text-align: center" *ngIf="diagService.role !== 'ROLE_ADMIN'"> Price </th>
+        <th style="text-align: center" *ngIf="diagService.role !== 'ROLE_ADMIN'"> Price (BDT) </th>
         <th style="text-align: center">Actions</th>
       </tr>
     </ng-template>

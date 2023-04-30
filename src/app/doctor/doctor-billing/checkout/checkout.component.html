@@ -29,13 +29,14 @@
 
     <ng-template pTemplate="body" let-app>
       <tr>
-        <td style="text-align: center">{{app.doctor}}</td>
+        <td style="text-align: center">{{docBillService.selectedDoc.doctor.name}}</td>
 
-        <td style="text-align: center">{{app.type}}</td>
+        <td style="text-align: center">{{docBillService.selectedAppointment}}</td>
 
-        <td style="text-align: center">{{app.time}}</td>
+        <td style="text-align: center">{{docBillService.selectedTime.toString().split('G')[0]}}</td>
 
-        <td style="text-align: center">{{app.fee}}</td>
+        <td style="text-align: center">{{docBillService.selectedDoc.consultationFee}}</td>
+
 
       </tr>
     </ng-template>
@@ -50,7 +51,7 @@
           </div>
           <div *ngIf="!showDiscountInput" class="discount">
             <p class="mx-2 my-0">{{discountPercent}}% discount has been applied</p>
-            <i class="pi pi-times" (click)="cancelDiscount()"></i>
+            <i class="pi pi-pencil" (click)="cancelDiscount()"></i>
           </div>
         </td>
         <td style="text-align: center">Total</td>

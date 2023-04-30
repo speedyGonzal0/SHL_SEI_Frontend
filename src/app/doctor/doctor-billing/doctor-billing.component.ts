@@ -8,6 +8,7 @@ import {PatientRegistrationComponent} from "@patient/patient-registration/patien
 import {PatientService} from "@shared/services/patient.service";
 import {DoctorBillingService} from "@doctor/doctor-billing/doctor-billing.service";
 import {Router} from "@angular/router";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-doctor-billing',
@@ -22,14 +23,15 @@ export class DoctorBillingComponent {
   // docSearch!: FormControl;
   // docTime!: FormControl;
   patientUrl = ApiPaths.patient;
-  doctorUrl = ApiPaths.doctor;
+  orgDoctorUrl = ApiPaths.orgDoc;
   minDate!: Date;
 
   constructor(private httpService: HttpService,
               private patientService: PatientService,
               private dialogService: DialogService,
               public DBService: DoctorBillingService,
-              private router: Router
+              private router: Router,
+              private authService: AuthService
   ) {
   }
 
@@ -81,7 +83,7 @@ export class DoctorBillingComponent {
   filterDocs(e: any){
     let query = e.query;
 
-    this.httpService.getRequestWithParams(`${this.doctorUrl}/search`, {query: query}).subscribe(
+    this.httpService.getRequestWithParams(`${this.orgDoctorUrl}/org/${this.authService.orgID}/search`, {query: query}).subscribe(
       (response:any) => this.DBService.filteredDocs = response.content
     )
   }
@@ -117,7 +119,12 @@ export class DoctorBillingComponent {
     this.DBService.selectedDoc = this.DBForm.controls['docSearch'].value;
   }
 
+  onTimeSelect(event: any){
+    this.DBService.selectedTime = this.DBForm.controls['docTime'].value;
+  }
+
   onSubmit(){
+    console.log(this.DBForm.value)
     this.router.navigate(['/doctor/checkout']);
   }
 

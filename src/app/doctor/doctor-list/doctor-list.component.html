@@ -21,7 +21,7 @@
             <i class="pi pi-search"></i>
             <input pInputText type="text"
                    (input)="onSearch($any($event.target).value)"
-                   placeholder="Search Name/Speciality" />
+                   placeholder="Search Name/BMDC" />
           </span>
       </div>
     </ng-template>
@@ -32,19 +32,25 @@
         <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Degrees </th>
         <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Specialities </th>
         <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Gender </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Consultation Fee </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Follow-up Fee </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Report Fee </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Availability </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Consultation (BDT) </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Follow-up (BDT) </th>
+        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Report (BDT) </th>
         <th style="text-align: center">Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
-        <td style="text-align: center"> {{item.name}} </td>
-        <td style="text-align: center"> {{item.bmdc}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.name}} </td>
+        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.doctor.name}} </td>
+
+        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.bmdc}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.doctor.bmdc}}</td>
+
         <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.degrees}}</td>
         <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.specialities}}</td>
         <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.gender}}</td>
+        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.availableTimes}} </td>
         <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.consultationFee}} </td>
         <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.followupFee}} </td>
         <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.reportFee}} </td>

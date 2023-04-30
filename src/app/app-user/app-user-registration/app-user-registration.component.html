@@ -1,211 +1,173 @@
-<div class="appUserContainer">
-
-  <div class="appUserCardContainer">
-
-    <form [formGroup]="appUserForm" (ngSubmit)="onSubmit()">
+    <form class="container-fluid p-0 m-0 d-flex flex-column gap-3" [formGroup]="appUserForm" (ngSubmit)="onSubmit()">
 
       <!------------------------------------------------------------------
       ------------------------ Create Doctor Form ------------------------
       ------------------------------------------------ ------------------->
-      <span
-            class="inputField">
-        <label for="name">Name</label>
-        <input formControlName="name"
-               id="name"
-               type="text"
-               pInputText
-        />
-        <p
-          *ngIf="!appUserForm.controls['name'].valid && appUserForm.controls['name'].touched">
-          This field is required!
-        </p>
-      </span>
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <label for="name">Name</label>
+          <input formControlName="name"
+                 id="name"
+                 type="text"
+                 class="p-inputtext-sm"
+                 placeholder="E.g: Md Rahim"
+                 pInputText
+          />
+          <small
+            *ngIf="!appUserForm.controls['name'].valid && appUserForm.controls['name'].touched">
+            This field is required!
+          </small>
+        </div>
 
-      <span
-            class="inputField">
-        <label for="phone">Phone</label>
-        <input formControlName="phone"
-               id="phone"
-               type="text"
-               pInputText
-        />
-        <p
-          *ngIf="!appUserForm.controls['phone'].valid && appUserForm.controls['phone'].touched">
-          This field is required!
-        </p>
-      </span>
+      </div>
 
-      <span
-            class="inputField">
-        <label for="email">Email</label>
-        <input formControlName="email"
-               id="email"
-               type="email"
-               pInputText/>
-        <p
-          *ngIf="!appUserForm.controls['email'].valid && appUserForm.controls['email'].touched">
-          This field is required!
-        </p>
-      </span>
+      <div class="row p-0 m-0">
 
-      <span
-            class="inputField">
-        <label for="gender">Gender</label>
-        <p-dropdown formControlName="gender"
-                    [options]="appUserService.genders"
-                    placeholder="-"
-                    id="gender"
-                    [style]="{width: '100%'}"
-                    optionLabel="gender">
-        </p-dropdown>
-        <p
-          *ngIf="!appUserForm.controls['gender'].valid && appUserForm.controls['gender'].touched">
-          This field is required!
-        </p>
-      </span>
+        <div class="col fields">
+          <label for="phone">Phone</label>
+          <input formControlName="phone"
+                 id="phone"
+                 type="text"
+                 class="p-inputtext-sm"
+                 placeholder="E.g: 017xxxxxxxx"
+                 pInputText
+          />
+          <small
+            *ngIf="!appUserForm.controls['phone'].valid && appUserForm.controls['phone'].touched">
+            This field is required!
+          </small>
+        </div>
 
-      <span *ngIf="authService.role === 'ROLE_ORG_ADMIN'"
-            class="inputField">
-        <label for="role">Role</label>
-        <p-multiSelect formControlName="role"
-                    [options]="appUserService.roles"
-                    placeholder="-"
-                    id="role"
-                    [style]="{width: '100%'}"
-                    optionLabel="role">
-        </p-multiSelect>
-        <p
-          *ngIf="!appUserForm.controls['role'].valid && appUserForm.controls['role'].touched">
-          This field is required!
-        </p>
-      </span>
+        <div class="col fields">
+          <label for="email">Email</label>
+          <input formControlName="email"
+                 id="email"
+                 type="email"
+                 class="p-inputtext-sm"
+                 placeholder="E.g: sth@gmail.com"
+                 pInputText/>
+          <small
+            *ngIf="!appUserForm.controls['email'].valid && appUserForm.controls['email'].touched">
+            This field is required!
+          </small>
+        </div>
 
-      <span
-            class="inputField">
-        <label for="age">Age</label>
-        <input formControlName="age"
-               id="age"
-               type="number"
-               pInputText/>
-        <p
-          *ngIf="!appUserForm.controls['age'].valid && appUserForm.controls['age'].touched">
-          This field is required!
-        </p>
-      </span>
-
-      <span
-            class="inputField">
-        <label for="address">Address</label>
-        <input formControlName="address"
-               id="address"
-               type="text"
-               pInputText
-        />
-        <p
-          *ngIf="!appUserForm.controls['address'].valid && appUserForm.controls['address'].touched">
-          This field is required!
-        </p>
-      </span>
+      </div>
 
 
-      <span
-            class="inputField">
-        <label for="password">Password</label>
-        <input formControlName="password"
-               id="password"
-               type="password"
-               pInputText/>
-        <p
-          *ngIf="!appUserForm.controls['password'].valid && appUserForm.controls['password'].touched">
-          This field is required!
-        </p>
-      </span>
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <label for="gender">Gender</label>
+          <p-dropdown formControlName="gender"
+                      [options]="appUserService.genders"
+                      placeholder="-"
+                      id="gender"
+                      class="p-inputtext-sm"
+                      [style]="{width: '100%'}"
+                      optionLabel="gender">
+          </p-dropdown>
+          <small
+            *ngIf="!appUserForm.controls['gender'].valid && appUserForm.controls['gender'].touched">
+            This field is required!
+          </small>
+        </div>
+
+        <div class="col fields">
+          <label for="age">Age</label>
+          <input formControlName="age"
+                 id="age"
+                 type="number"
+                 class="p-inputtext-sm"
+                 placeholder="E.g: 40"
+                 pInputText/>
+          <small
+            *ngIf="!appUserForm.controls['age'].valid && appUserForm.controls['age'].touched">
+            This field is required!
+          </small>
+        </div>
+
+      </div>
+
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <label for="address">Address</label>
+          <input formControlName="address"
+                 id="address"
+                 type="text"
+                 class="p-inputtext-sm"
+                 placeholder="E.g: Mirpur, Dhaka"
+                 pInputText
+          />
+          <small
+            *ngIf="!appUserForm.controls['address'].valid && appUserForm.controls['address'].touched">
+            This field is required!
+          </small>
+        </div>
+
+      </div>
 
 
-      <span
-        class="inputField">
-        <label for="orgID">Organization ID</label>
-        <input formControlName="orgID"
-               id="orgID"
-               type="number"
-               pInputText/>
-        <p
-          *ngIf="!appUserForm.controls['orgID'].valid && appUserForm.controls['orgID'].touched">
-          This field is required!
-        </p>
-      </span>
+      <div class="row p-0 m-0" *ngIf="authService.role === 'ROLE_ORG_ADMIN'">
+        <div class="col fields">
+          <label for="role">Role</label>
+          <p-multiSelect formControlName="role"
+                         [options]="appUserService.roles"
+                         placeholder="-"
+                         id="role"
+                         [style]="{width: '100%'}"
+                         optionLabel="role">
+          </p-multiSelect>
+          <small
+            *ngIf="!appUserForm.controls['role'].valid && appUserForm.controls['role'].touched">
+            This field is required!
+          </small>
+        </div>
+
+      </div>
 
 
-      <!------------------------------------------------------------------
-      ------------------------ Edit Doctor Form --------------------------
-      ------------------------------------------------ ------------------->
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <label for="password">Password</label>
+          <input formControlName="password"
+                 id="password"
+                 type="password"
+                 class="p-inputtext-sm"
+                 placeholder="E.g: A Strong Password"
+                 pInputText/>
+          <small
+            *ngIf="!appUserForm.controls['password'].valid && appUserForm.controls['password'].touched">
+            This field is required!
+          </small>
+        </div>
 
-<!--      <span *ngIf="appUserService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="name">Name</label>-->
-<!--        <input formControlName="name"-->
-<!--               inputId="name"-->
-<!--               type="text"-->
-<!--               pInputText-->
-<!--        />-->
-<!--      </span>-->
-
-<!--      <span *ngIf="appUserService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="phone">Phone</label>-->
-<!--        <input formControlName="phone"-->
-<!--               inputId="phone"-->
-<!--               type="text"-->
-<!--               pInputText-->
-<!--        />-->
-<!--      </span>-->
-
-<!--      <span *ngIf="appUserService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="email">Email</label>-->
-<!--        <input formControlName="email"-->
-<!--               inputId="email"-->
-<!--               type="email"-->
-<!--               pInputText/>-->
-<!--      </span>-->
-
-<!--      <span *ngIf="appUserService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="gender">Gender</label>-->
-<!--        <p-dropdown formControlName="gender"-->
-<!--                    [options]="appUserService.genders"-->
-<!--                    placeholder="-"-->
-<!--                    inputId="gender"-->
-<!--                    [style]="{width: '100%'}"-->
-<!--                    optionLabel="gender">-->
-<!--        </p-dropdown>-->
-<!--      </span>-->
-
-<!--      <span *ngIf="appUserService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="age">Age</label>-->
-<!--        <input formControlName="age"-->
-<!--               inputId="age"-->
-<!--               type="number"-->
-<!--               pInputText/>-->
-<!--      </span>-->
-
-<!--      <span *ngIf="appUserService.editMode"-->
-<!--            class="inputField">-->
-<!--        <label for="address">Address</label>-->
-<!--        <input formControlName="address"-->
-<!--               inputId="address"-->
-<!--               type="text"-->
-<!--               pInputText-->
-<!--        />-->
-<!--      </span>-->
+      </div>
 
 
-      <button pButton type="submit" label={{submitLabel}}
-              [disabled]="!appUserForm.valid && !appUserService.editMode"></button>
+      <div class="row p-0 m-0">
+        <div class="col fields">
+          <label for="orgID">Organization ID</label>
+          <input formControlName="orgID"
+                 id="orgID"
+                 type="number"
+                 class="p-inputtext-sm"
+                 placeholder="E.g: 2"
+                 pInputText/>
+          <small
+            *ngIf="!appUserForm.controls['orgID'].valid && appUserForm.controls['orgID'].touched">
+            This field is required!
+          </small>
+        </div>
+
+      </div>
+
+
+      <div class="row p-0 m-0 bg-white position-sticky bottom-0">
+        <div class="col fields">
+          <button pButton class="p-button-success" type="submit" label={{submitLabel}}
+                  [disabled]="!appUserForm.valid && !appUserService.editMode"></button>
+        </div>
+      </div>
+
 
     </form>
-
-  </div>
-
-</div>

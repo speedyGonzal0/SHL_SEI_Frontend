@@ -1,0 +1,88 @@
+<div class="historyContainer" #t *ngIf="historyService.billingDetails">
+
+  <div class="row">
+    <h1 class="col">Invoice #{{historyService.billingDetails.id}}</h1>
+    <div class="date col">
+      <p>Issued</p>
+      <p *ngIf="historyService.billingDetails.createdAt as time">
+        {{time[3]+":"+time[4]+":"+time[5]+", "+time[1]+"/"+time[2]+"/"+time[0]}}
+      </p>
+      <!--      <p>{{historyService.billingDetails.createdAt.split('T')[1].split('.')[0]}}, {{historyService.billingDetails.createdAt.split('T')[0]}}</p>-->
+    </div>
+  </div>
+
+  <hr>
+
+  <span class="row">
+    <div class="orgDetails col">
+      <p>{{historyService.billingDetails.organization.name}}</p>
+      <ul>
+        <li>Address: {{historyService.billingDetails.organization.address | titlecase}}</li>
+        <li>Phone: {{historyService.billingDetails.organization.phone}}</li>
+        <li>Email: {{historyService.billingDetails.organization.email}}</li>
+        <li>Website: {{historyService.billingDetails.organization.website}}</li>
+      </ul>
+    </div>
+
+    <div class="userDetails col text-end">
+      <p>Service: Diagnostic</p>
+      <ul>
+        <li><b>Receptionist Details</b></li>
+        <li>ID: {{historyService.billingDetails.createdBy.id}}</li>
+        <li>Name: {{historyService.billingDetails.createdBy.name}}</li>
+        <li>Phone: {{historyService.billingDetails.createdBy.phone}}</li>
+      </ul>
+    </div>
+  </span>
+
+  <hr>
+
+  <span class="patinetnInfo">
+    <p class="sectionHeader mb-2">Patient Details#{{historyService.billingDetails.patient.id}}</p>
+    <ul class="row">
+      <li class="col">{{historyService.billingDetails.patient.name}}</li>
+      <li class="col-2">{{historyService.billingDetails.patient.age}}y/o</li>
+      <li class="col-2">{{historyService.billingDetails.patient.gender | titlecase}}</li>
+      <li class="col">{{historyService.billingDetails.patient.phone}}</li>
+      <li class="col">{{historyService.billingDetails.patient.email}}</li>
+    </ul>
+  </span>
+
+  <hr>
+
+  <span class="billItems">
+      <p class="sectionHeader">Diagnostics</p>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Time</th>
+          <th>Service</th>
+          <th>BMDC</th>
+          <th>Email</th>
+        </tr>
+        <tr *ngIf="historyService.billingDetails as item">
+          <td>{{item.doctor.name}}</td>
+          <td>{{item.drTime}}</td>
+          <td>{{item.type}}</td>
+          <td>{{item.doctor.bmdc}}</td>
+          <td>{{item.doctor.email}}</td>
+        </tr>
+      </table>
+  </span>
+
+  <hr>
+
+  <p class="sectionHeader">Payment Details</p>
+  <p>Subtotal: BDT {{historyService.billingDetails.fee}}</p>
+  <p>Overall Discount: {{historyService.billingDetails.discount}}%</p>
+
+  <span class="finalBill">
+    <p>Final Bill: BDT {{historyService.billingDetails.finalFee}}</p>
+    <p>In words: {{toWords(historyService.billingDetails.finalFee)}} Taka Only</p>
+  </span>
+</div>
+
+<div class="pdfAction text-center">
+  <p-button (click)="createPDF('download')" label="Download"></p-button>
+  <p-button (click)="createPDF('print')" label="Print"></p-button>
+</div>

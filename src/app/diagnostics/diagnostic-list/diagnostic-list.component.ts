@@ -8,7 +8,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
-  selector: 'app-diagnostic-list',
+  selector: 'app-diagnostic-diagnostic-list',
   templateUrl: './diagnostic-list.component.html',
   styleUrls: ['./diagnostic-list.component.scss'],
   providers: [MessageService, DialogService, ConfirmationService]
@@ -77,7 +77,7 @@ export class DiagnosticListComponent implements OnInit{
   showCreateDialog(){
     this.diagService.ref = this.dialogService.open(CreateDiagnosticComponent, {
       header: "New Diagnostic",
-      style: this.diagService.role !== 'admin' ? {'min-width': '800px', 'max-height': '600px'} : {'width': '30%', "min-width": "300px"}
+      style: this.diagService.role !== 'ROLE_ADMIN' ? {'min-width': '800px', 'max-height': '600px'} : {'width': '30%', "min-width": "300px"}
     });
   }
 

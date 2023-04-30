@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {HttpService} from "@shared/services/http.service";
 import {DoctorBillingService} from "@doctor/doctor-billing/doctor-billing.service";
 import {AuthService} from "@authentication/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-checkout',
@@ -18,7 +19,7 @@ export class CheckoutComponent {
     }
   ]
 
-  discountPercent! : number;
+  discountPercent = 0;
   discountAmount : number = 0;
   showDiscountInput = true;
   issued = new Date()
@@ -41,12 +42,13 @@ export class CheckoutComponent {
     { field: 'doctor', header: 'Doctor ' },
     { field: 'type', header: 'Type' },
     { field: 'time', header: 'Time' },
-    { field: 'fee', header: 'Fee' },
+    { field: 'fee', header: 'Fee (BDT)' },
   ];
 
   constructor(private httpService: HttpService,
               public docBillService: DoctorBillingService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private router: Router) {
   }
 
   applyDiscount(){
@@ -68,56 +70,57 @@ export class CheckoutComponent {
     return value == null || value<1 || value>100
   }
 
-  exportPdf(){
-    let exportColumns = this.cols.map((col) => ({title: col.header, dataKey: col.field}));
-    import('jspdf').then((jsPDF) => {
-      import('jspdf-autotable').then((x) => {
-        const doc = new jsPDF.default('p', 'px', 'a4');
-        doc.setFontSize(10);
-        doc.text([
-          `Patient Name: ${this.patient.name}`,
-          `Patient Phone: ${this.patient.phone}`,
-          `Issued: ${this.issued}`,
-          `Issued By: #${this.user.id}`
-        ],30,40);
-        (doc as any).autoTable(exportColumns, this.appointment, {theme: "grid", startY: 75});
-
-        (doc as any).autoTable({
-          columns: [
-            { dataKey: 'name', header: '' },
-            { dataKey: 'value', header: '' },
-          ],
-          body: [
-            {name: "Total", value: `${this.appointment[0].fee} BDT`},
-            {name: "Discount", value: `-${this.discountAmount} BDT`},
-            {name: "Payable", value: `${this.calculatePayable()} BDT`}
-          ],
-          theme: "plain",
-          startY: 120
-        })
-
-        doc.save(`${this.patient.ID}_DOCTOR_APPOINTMENT.pdf`);
-      });
-    });
-  }
+  // exportPdf(){
+  //   let exportColumns = this.cols.map((col) => ({title: col.header, dataKey: col.field}));
+  //   import('jspdf').then((jsPDF) => {
+  //     import('jspdf-autotable').then((x) => {
+  //       const doc = new jsPDF.default('p', 'px', 'a4');
+  //       doc.setFontSize(10);
+  //       doc.text([
+  //         `Patient Name: ${this.patient.name}`,
+  //         `Patient Phone: ${this.patient.phone}`,
+  //         `Issued: ${this.issued}`,
+  //         `Issued By: #${this.user.id}`
+  //       ],30,40);
+  //       (doc as any).autoTable(exportColumns, this.appointment, {theme: "grid", startY: 75});
+  //
+  //       (doc as any).autoTable({
+  //         columns: [
+  //           { dataKey: 'name', header: '' },
+  //           { dataKey: 'value', header: '' },
+  //         ],
+  //         body: [
+  //           {name: "Total", value: `${this.appointment[0].fee} BDT`},
+  //           {name: "Discount", value: `-${this.discountAmount} BDT`},
+  //           {name: "Payable", value: `${this.calculatePayable()} BDT`}
+  //         ],
+  //         theme: "plain",
+  //         startY: 120
+  //       })
+  //
+  //       doc.save(`${this.patient.ID}_DOCTOR_APPOINTMENT.pdf`);
+  //     });
+  //   });
+  // }
 
   generateInvoice(){
     let doctorInvoice = {
-      drTime: this.docBillService.selectedTime,
+      drTime: new Date(this.docBillService.selectedTime).getTime(),
       fee : this.docBillService.selectedDoc.consultationFee,
-      type : 0,
+      type : this.docBillService.selectedAppointment,
       discount : this.discountPercent,
       finalFee : this.calculatePayable()
     }
 
+    console.log(doctorInvoice)
     this.httpService.createRequest(
       `/appointmentBill/appuser/${this.authService.appUserID}/orgDoc/${this.docBillService.selectedDoc.id}/patient/${this.docBillService.selectedPatient.id}/org/${this.authService.orgID}/add`,{
         ...doctorInvoice
       })
       .subscribe((response: any) => {
-        console.log(response)
+        this.router.navigate(['/history/doctor-appointment',response.id])
       })
 
-    this.exportPdf()
+    // this.exportPdf()
   }
 }

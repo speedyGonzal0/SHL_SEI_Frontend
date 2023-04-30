@@ -12,5 +12,6 @@ export enum ApiPaths {
   admin = '/admin',
   orgAdmin = '/org-admin',
   diagBilling = '/diagnostic-bill',
-  medBilling = '/pharmacyBill'
+  medBilling = '/pharmacyBill',
+  docBilling = '/appointmentBill'
 }

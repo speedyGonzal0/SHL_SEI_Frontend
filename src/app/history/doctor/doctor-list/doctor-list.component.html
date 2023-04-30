@@ -1,0 +1,54 @@
+<div class="container-fluid h-100 text-center d-flex flex-column gap-5">
+  <p-table styleClass="p-datatable-sm p-datatable-gridlines"
+           [rowHover]="true"
+           [lazy]="true"
+           (onLazyLoad)="onPagination($event.first)"
+           [value]="historyService.docBillHistory"
+           [paginator]="true"
+           [rows]="10"
+           [totalRecords]="historyService.totalDocHistory"
+           [scrollable]="true"
+  >
+    <ng-template pTemplate="caption" class="container">
+      <div class="row">
+
+        <div class="col d-flex justify-content-end gap-3 px-3">
+
+          <span class="p-input-icon-left ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText (input)="onSearch($any($event.target).value)" type="text" placeholder="Search by name" />
+          </span>
+
+        </div>
+
+      </div>
+
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="text-align: center">#</th>
+        <th style="text-align: center">Date</th>
+        <th style="text-align: center">Time</th>
+        <th style="text-align: center">Patient Phone</th>
+        <th style="text-align: center">Bill (BDT)</th>
+        <th style="text-align: center">Issued By</th>
+        <th style="text-align: center">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td style="text-align: center"> {{item.id}} </td>
+        <td style="text-align: center"> {{item.createdAt[1]+"/"+item.createdAt[2]+"/"+item.createdAt[0]}} </td>
+        <td style="text-align: center"> {{item.createdAt[3]+":"+item.createdAt[4]+":"+item.createdAt[5]}} </td>
+        <td style="text-align: center"> {{item.patient.phone}} </td>
+        <td style="text-align: center"> {{item.finalFee}} </td>
+        <td style="text-align: center"> {{item.createdBy.name}} </td>
+        <td style="text-align: center">
+          <button [routerLink]="['/history/doctor-appointment', item.id]" pButton icon="pi pi-eye"
+                  class="p-button-outlined p-button-secondary"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>

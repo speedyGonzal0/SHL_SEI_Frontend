@@ -8,7 +8,7 @@ import {CreateMedicineComponent} from "@medicine/create-medicine/create-medicine
 import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
-  selector: 'app-medicine-list',
+  selector: 'app-medicine-diagnostic-list',
   templateUrl: './medicine-list.component.html',
   styleUrls: ['./medicine-list.component.scss'],
   providers: [MessageService, DialogService, ConfirmationService]

@@ -48,7 +48,7 @@
           </div>
           <div *ngIf="diagnostic.discountApplied" class="d-flex justify-content-center align-items-center">
             <p class="mb-0 mx-2">{{diagnostic.discount}}%</p>
-            <i class="pi pi-times" (click)="cancelIndividualDiscount(rowIndex)"></i>
+            <i class="pi pi-pencil" (click)="cancelIndividualDiscount(rowIndex)"></i>
           </div>
         </td>
 
@@ -68,11 +68,11 @@
           </div>
           <div *ngIf="!showDiscountInput" class="discount">
             <p class="mx-2 my-0">{{discountPercent}}% discount has been applied</p>
-            <i class="pi pi-times" (click)="cancelDiscount()"></i>
+            <i class="pi pi-pencil" (click)="cancelDiscount()"></i>
           </div>
         </td>
         <td style="text-align: center">Total</td>
-        <td style="text-align: center">{{calculateTotal()}} BDT</td>
+        <td style="text-align: center">{{calculateAfterTotalIndividualDiscount()}} BDT</td>
       </tr>
       <tr>
         <td style="text-align: center">Discount</td>

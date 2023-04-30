@@ -6,7 +6,7 @@ import {environment} from "@environments/environment.development";
 @Injectable({
   providedIn: 'root'
 })
-export class HttpInterceptorService implements HttpInterceptor{
+export class HttpRequestInterceptor implements HttpInterceptor{
 
   baseUrl = environment.baseUrl;
 

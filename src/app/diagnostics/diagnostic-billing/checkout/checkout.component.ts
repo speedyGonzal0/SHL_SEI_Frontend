@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {HttpService} from "@shared/services/http.service";
 import {MedicineBillingService} from "@medicine/medicine-billing/medicine-billing.service";
 import {DiagnosticBillingService} from "@diagnostics/diagnostic-billing/diagnostic-billing.service";
+import {AuthService} from "@authentication/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-checkout',
@@ -73,7 +75,10 @@ export class CheckoutComponent {
     { field: 'final_price', header: 'Final Price (BDT)' },
   ];
 
-  constructor(private httpService: HttpService, public diagBillService: DiagnosticBillingService) {}
+  constructor(private httpService: HttpService,
+              public diagBillService: DiagnosticBillingService,
+              private authService: AuthService,
+              private router: Router) {}
 
   applyIndividualDiscount(index: number, finalPrice:number, discount:number){
     let diagnostic : any = this.diagBillService.selectedDiagnostics[index]
@@ -91,17 +96,23 @@ export class CheckoutComponent {
 
   calculateTotal(){
     return this.diagBillService.selectedDiagnostics.reduce((accumulator, object:any) => {
+      return accumulator + object.price;
+    }, 0)
+  }
+
+  calculateAfterTotalIndividualDiscount(){
+    return this.diagBillService.selectedDiagnostics.reduce((accumulator, object:any) => {
       return accumulator + object.final_price;
     }, 0)
   }
 
   applyDiscount(){
-    this.discountAmount = Number(((this.discountPercent / 100) * this.calculateTotal()).toFixed(2))
+    this.discountAmount = Number(((this.discountPercent / 100) * this.calculateAfterTotalIndividualDiscount()).toFixed(2))
     this.showDiscountInput = false
   }
 
   calculatePayable(){
-    return this.calculateTotal() - this.discountAmount
+    return this.calculateAfterTotalIndividualDiscount() - this.discountAmount
   }
 
   cancelDiscount(){
@@ -114,38 +125,38 @@ export class CheckoutComponent {
     return value == null || value < 1 || value>100
   }
 
-  exportPdf(){
-    let exportColumns = this.cols.map((col) => ({title: col.header, dataKey: col.field}));
-    import('jspdf').then((jsPDF) => {
-      import('jspdf-autotable').then((x) => {
-        const doc = new jsPDF.default('p', 'px', 'a4');
-        doc.setFontSize(10);
-        doc.text([
-          `Patient Name: ${this.diagBillService.selectedPatient.name}`,
-          `Patient Phone: ${this.diagBillService.selectedPatient.phone}`,
-          `Issued: ${this.issued}`,
-          `Issued By: #${this.user.id}`
-        ],30,40);
-        (doc as any).autoTable(exportColumns, this.diagBillService.selectedDiagnostics, {theme: "grid", startY: 75});
-
-        (doc as any).autoTable({
-          columns: [
-            { dataKey: 'name', header: '' },
-            { dataKey: 'value', header: '' },
-          ],
-          body: [
-            {name: "Total", value: `${this.calculateTotal()} BDT`},
-            {name: "Discount", value: `-${this.discountAmount} BDT`},
-            {name: "Payable", value: `${this.calculatePayable()} BDT`}
-          ],
-          theme: "plain",
-          startY: 150
-        })
-
-        doc.save(`${this.diagBillService.selectedPatient.id}_diagnostic_bill.pdf`);
-      });
-    });
-  }
+  // exportPdf(){
+  //   let exportColumns = this.cols.map((col) => ({title: col.header, dataKey: col.field}));
+  //   import('jspdf').then((jsPDF) => {
+  //     import('jspdf-autotable').then((x) => {
+  //       const doc = new jsPDF.default('p', 'px', 'a4');
+  //       doc.setFontSize(10);
+  //       doc.text([
+  //         `Patient Name: ${this.diagBillService.selectedPatient.name}`,
+  //         `Patient Phone: ${this.diagBillService.selectedPatient.phone}`,
+  //         `Issued: ${this.issued}`,
+  //         `Issued By: #${this.user.id}`
+  //       ],30,40);
+  //       (doc as any).autoTable(exportColumns, this.diagBillService.selectedDiagnostics, {theme: "grid", startY: 75});
+  //
+  //       (doc as any).autoTable({
+  //         columns: [
+  //           { dataKey: 'name', header: '' },
+  //           { dataKey: 'value', header: '' },
+  //         ],
+  //         body: [
+  //           {name: "Total", value: `${this.calculateAfterTotalIndividualDiscount()} BDT`},
+  //           {name: "Discount", value: `-${this.discountAmount} BDT`},
+  //           {name: "Payable", value: `${this.calculatePayable()} BDT`}
+  //         ],
+  //         theme: "plain",
+  //         startY: 150
+  //       })
+  //
+  //       doc.save(`${this.diagBillService.selectedPatient.id}_diagnostic_bill.pdf`);
+  //     });
+  //   });
+  // }
 
   generateInvoice(){
     this.diagBillService.selectedDiagnostics.map((item:any) => {
@@ -156,25 +167,23 @@ export class CheckoutComponent {
 
     console.log("discount", this.discountAmount)
 
-    this.diagInvoice.totalFeeWithoutAnyDiscount = 10
-    this.diagInvoice.totalFeeAfterIndividualDiscount = this.calculateTotal()
+    this.diagInvoice.totalFeeWithoutAnyDiscount = this.calculateTotal()
+    this.diagInvoice.totalFeeAfterIndividualDiscount = this.calculateAfterTotalIndividualDiscount()
     this.diagInvoice.overallDiscount = this.discountPercent
     this.diagInvoice.finalFeeAfterAllDiscount = this.calculatePayable()
-    this.diagInvoice.appUserId = 1
+    this.diagInvoice.appUserId = this.authService.appUserID
     this.diagInvoice.patientId = this.diagBillService.selectedPatient.id
-    this.diagInvoice.organizationId = 1
-
+    this.diagInvoice.organizationId = this.authService.orgID
     this.diagInvoice.orgDiagnosticAndDiscounts = this.diagInvoice.orgDiagnosticAndDiscounts.slice(1)
-    console.log(this.diagInvoice)
 
     this.httpService.createRequest(
       `/diagnostic-bill/add`,{
         ...this.diagInvoice
       })
       .subscribe((response: any) => {
-        console.log(response)
+        this.router.navigate(['/history/diagnostic', response.id])
       })
 
-    this.exportPdf()
+    // this.exportPdf()
   }
 }

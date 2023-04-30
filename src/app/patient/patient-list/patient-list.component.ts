@@ -9,7 +9,7 @@ import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-patient-list',
+  selector: 'app-patient-diagnostic-list',
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.scss'],
   providers: [MessageService, DialogService, ConfirmationService]
@@ -46,7 +46,7 @@ export class PatientListComponent {
 
   showCreateDialog(){
     this.patientService.patientRef = this.dialogService.open(PatientRegistrationComponent, {
-      header: "Register New Patient",
+      header: "New Patient",
       style: {'width':'50%', 'max-width': '800px'}
     });
   }

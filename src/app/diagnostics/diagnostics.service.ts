@@ -56,9 +56,9 @@ export class DiagnosticsService{
     }
   }
 
-  appendValue(){
+  appendValue(diagInfo: Diagnostic){
     if(this.role === 'ROLE_ADMIN'){
-      this.httpService.createRequest(`${this.adminUrl}/add/all`, this.selectedDiags).subscribe();
+      this.httpService.createRequest(`${this.adminUrl}/add`, diagInfo).subscribe();
     }
     else{
       this.httpService.createRequest(`${this.orgAdminUrl}/add`, this.selectedDiags).subscribe();

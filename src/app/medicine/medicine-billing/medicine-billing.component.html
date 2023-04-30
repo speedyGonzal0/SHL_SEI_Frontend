@@ -55,7 +55,7 @@
     <div class="col-3 d-flex flex-column justify-content-end">
       <button pButton
               class="p-button-success p-button-outlined d-none d-lg-block"
-              label="Add new patient"
+              label="New patient"
               icon="pi pi-plus"
               (click)="showCreateDialog()"
 
@@ -77,7 +77,7 @@
           </div>
           <div class="col-2 d-flex justify-content-end p-0 m-0">
             <button pButton
-                    icon="pi pi-times"
+                    icon="pi pi-pencil"
                     class="p-button-sm p-button-outlined p-button-danger"
                     (click)="resetPatientSearch()"
             >
@@ -107,7 +107,7 @@
         <p-autoComplete
           [style]="{'width': '100%'}"
           [inputStyle]="{'width': '100%'}"
-          inputId="searchDiagnostic"
+          inputId="searchMeds"
           [formControl]="medicineSearch"
           placeholder="Enter name"
           [showEmptyMessage] = "true"
@@ -116,6 +116,9 @@
           (onSelect)="onMedSelect($event)"
           (completeMethod)="filterMeds($event)"
           field="medicine.name">
+          <ng-template let-med pTemplate="item">
+            <p>{{ med.medicine.name }} ({{ med.medicine.strength }} {{med.medicine.formulation}} | Vendor: {{med.medicine.vendor}})</p>
+          </ng-template>
 
         </p-autoComplete>
       </div>
@@ -135,9 +138,9 @@
           <tr>
             <th style="text-align: center"> # </th>
             <th style="text-align: center"> Name </th>
-            <th style="text-align: center"> Unit Price </th>
+            <th style="text-align: center"> Unit Price (BDT) </th>
             <th style="text-align: center"> Quantity </th>
-            <th style="text-align: center"> Final Price </th>
+            <th style="text-align: center"> Final Price (BDT) </th>
             <th style="text-align: center"> Actions </th>
           </tr>
         </ng-template>
