@@ -21,6 +21,7 @@ import {ChipModule} from "primeng/chip";
 
 
 import {TagModule} from "primeng/tag";
+import {PaginatorModule} from "primeng/paginator";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {TagModule} from "primeng/tag";
     AutoCompleteModule,
     MedicineRoutingModule,
     ChipModule,
-    FormsModule
+    FormsModule,
+    PaginatorModule
   ]
 })
 export class MedicineModule { }
