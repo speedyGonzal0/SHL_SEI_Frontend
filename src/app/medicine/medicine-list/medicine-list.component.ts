@@ -25,7 +25,7 @@ export class MedicineListComponent implements OnInit{
   }
 
   ngOnInit(){
-
+    this.medService.vendors = [];
     this.refreshService.refreshNeeded$
       .subscribe(() => {
         this.route.queryParams.subscribe(

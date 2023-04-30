@@ -17,16 +17,7 @@ export class DoctorService {
   doctors! : Doctor[]
   role = this.authService.getRole()
   totalDoctors!: number;
-  doctor = {
-    id: 0,
-    name: '',
-    email: '',
-    phone: '',
-    gender: '',
-    bmdc: 0,
-    specialities: [],
-    degrees: []
-  }
+  doctor!: Doctor;
 
   genders = [
     {gender: "Male", value: 0},
@@ -110,10 +101,19 @@ export class DoctorService {
   }
 
   getDoctorByID(id: number){
-    this.httpService.getRequest(`${this.doctorURL}/${id}`)
-      .subscribe((response: any) => {
-        this.doctor = response
-        console.log(this.doctor)
-      })
+    if(this.role === 'ROLE_ADMIN'){
+      this.httpService.getRequest(`${this.doctorURL}/${id}`)
+        .subscribe((response: any) => {
+          this.doctor = response
+        })
+    }
+    else{
+      this.httpService.getRequest(`${this.orgDoctorURL}/get/${id}`)
+        .subscribe((response: any) => {
+          this.doctor = response
+        })
+    }
+
+
   }
 }

@@ -1,4 +1,4 @@
-<div class="container-md">
+<div class="container-md" *ngIf="doctorService.role === 'ROLE_ADMIN' && doctorService.doctor; else orgAdminView">
   <div class="text-center">
     <h2>Dr. {{doctorService.doctor.name}}</h2>
     <div class="chipContainer justify-content-center">
@@ -43,25 +43,17 @@
     </div>
   </div>
 
-  <div class="orgContainer" *ngFor="let org of orgs">
+  <div class="orgContainer d-flex flex-column gap-3" *ngFor="let org of orgs">
     <h3 class="mt-4">{{org.name}}</h3>
+    <div class="row p-0 m-0">
+      <div class="col p-0">
+        <p-chip class="mr-2" label="Consultation Fee: {{org.fees[0]}}"></p-chip>
+        <p-chip class="mx-2" label="Follow-up Fee: {{org.fees[1]}}"></p-chip>
+        <p-chip class="mx-2" label="Report Fee: {{org.fees[2]}}"></p-chip>
+
+      </div>
+    </div>
     <div class="docOrgInfoTables row">
-      <p-table [value]=[1] styleClass="p-datatable-gridlines"
-               class="col" [tableStyle]="{'min-width': '25rem'}">
-        <ng-template pTemplate="caption">Fees (BDT)</ng-template>
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Consultation</th>
-            <th>Report</th>
-            <th>Follow up</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body">
-          <tr>
-            <td *ngFor="let fee of org.fees">{{fee}}</td>
-          </tr>
-        </ng-template>
-      </p-table>
 
       <p-table [value]=[1] styleClass="p-datatable-gridlines"
                class="col" [tableStyle]="{'min-width': '20rem'}">
@@ -83,3 +75,76 @@
   </div>
 
 </div>
+
+<ng-template #orgAdminView>
+  <div class="container-md" *ngIf="doctorService.doctor">
+    <div class="text-center">
+      <h2>Dr. {{doctorService.doctor.doctor.name}}</h2>
+      <div class="chipContainer justify-content-center">
+        <p-tag *ngFor="let speciality of doctorService.doctor.doctor.specialities"
+               [style]="{
+                borderRadius: '5px',
+                padding: '10px',
+                width: '120px',
+                display: 'flex',
+                justifyContent: 'center',
+                background: '#2D3649',
+                color: 'white'}">
+          {{speciality}}</p-tag >
+      </div>
+      <p-divider></p-divider>
+    </div>
+
+    <div class="row">
+      <div class="col personalDetails">
+        <h3 class="text-md-start text-center">Personal Details</h3>
+        <div class="chipContainer justify-content-md-start justify-content-center">
+          <p-tag>{{doctorService.doctor.doctor.email}}</p-tag>
+          <p-tag>{{doctorService.doctor.doctor.phone}}</p-tag>
+          <p-tag>{{doctorService.doctor.doctor.gender}}</p-tag>
+        </div>
+      </div>
+
+      <div class="col degrees">
+        <h3 class="text-md-end text-center">Degrees</h3>
+        <div class="chipContainer justify-content-md-end justify-content-center">
+          <p-tag *ngFor="let degree of doctorService.doctor.doctor.degrees"
+                 [style]="{
+                borderRadius: '5px',
+                padding: '6px 10px',
+                display: 'flex',
+                justifyContent: 'center',
+                background: '#cbd2e0',
+                color: '#2D3649',
+                border: 'none'}">
+            {{degree}}</p-tag>
+        </div>
+      </div>
+    </div>
+
+    <div class="orgContainer d-flex flex-column gap-3">
+      <h3 class="mt-4">{{doctorService.doctor.doctor.name}}</h3>
+      <div class="row p-0 m-0">
+        <div class="col p-0">
+          <p-chip class="mr-2" label="Consultation Fee: {{doctorService.doctor.consultationFee}}"></p-chip>
+          <p-chip class="mx-2" label="Follow-up Fee: {{doctorService.doctor.followupFee}}"></p-chip>
+          <p-chip class="mx-2" label="Report Fee: {{doctorService.doctor.reportFee}}"></p-chip>
+
+        </div>
+      </div>
+      <div class="docOrgInfoTables row">
+
+        <p-table [value]=[1] styleClass="p-datatable-gridlines"
+                 class="col" [tableStyle]="{'min-width': '20rem'}">
+          <ng-template pTemplate="caption">Availability</ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let header of doctorService.doctor.availableTimes">{{header}}</th>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+  </div>
+</ng-template>

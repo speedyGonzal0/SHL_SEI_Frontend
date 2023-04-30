@@ -3,11 +3,13 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OrgService} from "@shared/services/org.service";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {RegEx} from "@enums/regex";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-org-registration',
   templateUrl: './org-registration.component.html',
-  styleUrls: ['./org-registration.component.scss']
+  styleUrls: ['./org-registration.component.scss'],
+  providers: [MessageService]
 })
 export class OrgRegistrationComponent {
 
@@ -16,7 +18,10 @@ export class OrgRegistrationComponent {
   orgEditID! : number;
 
   submitLabel = this.orgService.editMode ? "Edit" : "Create";
-  constructor(public orgService: OrgService, private config: DynamicDialogConfig) {
+  constructor(public orgService: OrgService,
+              private config: DynamicDialogConfig,
+              private messageService: MessageService
+              ) {
   }
 
   ngOnInit() {
@@ -44,10 +49,22 @@ export class OrgRegistrationComponent {
   onSubmit(){
     this.orgService.editMode
       ?
-      this.orgService.editOrg(this.orgEditID, this.orgForm.value)
+      this.editOrg(this.orgEditID, this.orgForm.value)
       :
       this.orgService.createOrg(this.orgForm.value)
 
-    this.orgForm.reset()
+  }
+
+  editOrg(id:number, orgInfo: any){
+    this.orgService.editOrg(id, orgInfo)
+      .subscribe({
+        next: response => {
+          this.messageService.add({ key: 'tl', severity: 'info', summary: 'Success', detail: 'Org Info Edited' });
+          this.orgForm.reset()
+          this.orgService.orgRef.close()
+        },
+        error: err => {console.log(err)}
+      })
+
   }
 }

@@ -13,6 +13,6 @@ export class DoctorBillingService {
   selectedDoc!: Doctor;
   selectedTime!: Date;
   appointmentOptions!: any[];
-  selectedAppointment!: string;
+  selectedAppointment!: { name: string, value: number, fee: string };
   constructor() { }
 }

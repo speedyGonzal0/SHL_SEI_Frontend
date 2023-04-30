@@ -24,6 +24,7 @@ export class MedicineService{
 
   editMode : boolean = false;
   role = this.authService.getRole();
+  vendors!: any[];
 
   constructor(public httpService: HttpService, private authService: AuthService) { }
 
@@ -47,6 +48,12 @@ export class MedicineService{
         (response: any) => {
           this.medicines = response.content;
           this.totalMedicine = response.totalElements;
+
+          this.medicines.map((med) => {
+            if(!this.vendors.includes(med.vendor?.toLowerCase())){
+              this.vendors.push(med.vendor);
+            }
+          })
         }
       )
     }
@@ -55,6 +62,12 @@ export class MedicineService{
         (response: any) => {
           this.medicines = response.content;
           this.totalMedicine = response.totalElements;
+
+          this.medicines.map((med) => {
+            if(!this.vendors.includes(med.vendor?.toLowerCase())){
+              this.vendors.push(med.vendor);
+            }
+          })
         }
       )
     }
@@ -84,5 +97,9 @@ export class MedicineService{
 
   deleteValue(index: number){
     this.httpService.deleteRequest(`${this.orgAdminUrl}/delete/${this.medicines[index].id}`).subscribe();
+  }
+
+  onFilter(event: any){
+    this.medicines = this.medicines.filter( (med) => med.vendor?.toLowerCase() === event.value.toLowerCase())
   }
 }
