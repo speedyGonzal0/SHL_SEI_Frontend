@@ -9,8 +9,11 @@ import {ApiPaths} from "@enums/api-paths";
 })
 export class AuthService{
   orgID! : number;
+  orgName! : string;
   appUserID! : number;
   adminID = 1;
+  appUserName! : string;
+  appUserEmail! : string;
   role = this.getRole()
 
   constructor(private httpService: HttpService,
@@ -28,10 +31,11 @@ export class AuthService{
   login(email: string){
     this.httpService.getRequest(`${ApiPaths.users}/get/email/${email}`).subscribe(
       (response: any) => {
-        // localStorage.setItem('orgID', JSON.stringify(response.organization.id))
-        // localStorage.setItem('appUserID', JSON.stringify(response.id))
         this.orgID = response.organization.id
+        this.orgName = response.organization.name
         this.appUserID = response.id
+        this.appUserName = response.name
+        this.appUserEmail = response.email
       }
     )
   }

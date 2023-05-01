@@ -1,9 +1,5 @@
 <form class="container-fluid d-flex flex-column gap-3 p-0 m-0" [formGroup]="orgForm" (ngSubmit)="onSubmit()">
 
-      <!------------------------------------------------------------------
-      ------------------------ Create Doctor Form ------------------------
-      ------------------------------------------------ ------------------->
-
       <div class="row p-0 m-0">
         <div class="col fields">
           <label for="name">Name</label>
@@ -28,6 +24,8 @@
           <input formControlName="address"
                  id="address"
                  type="text"
+                 [ngModel]="addressValue | titlecase"
+                 (ngModelChange) = "addressValue = $event"
                  pInputText
                  placeholder="E.g: Panthapath, Dhaka"
                  class="p-inputtext-sm"

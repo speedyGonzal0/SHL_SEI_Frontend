@@ -130,7 +130,7 @@ export class CheckoutComponent{
       medQuantities: medQuantities,
       totalBill : this.calculateTotal(),
       discount : this.discountAmount,
-      finalBill: this.calculatePayable()
+      finalBill: this.calculatePayable() + (this.calculatePayable()*5)/100
     }
 
     this.httpService.createRequest(

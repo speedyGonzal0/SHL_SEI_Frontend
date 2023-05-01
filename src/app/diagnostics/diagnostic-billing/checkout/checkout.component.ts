@@ -62,11 +62,6 @@ export class CheckoutComponent {
     name: "Labaid Hospital ",
     id: 123
   }
-  // patient = {
-  //   ID: 12345,
-  //   name: "Ranu Akter",
-  //   phone: "01715998810"
-  // }
 
   cols = [
     { field: 'serviceName', header: 'Name' },
@@ -170,7 +165,7 @@ export class CheckoutComponent {
     this.diagInvoice.totalFeeWithoutAnyDiscount = this.calculateTotal()
     this.diagInvoice.totalFeeAfterIndividualDiscount = this.calculateAfterTotalIndividualDiscount()
     this.diagInvoice.overallDiscount = this.discountPercent
-    this.diagInvoice.finalFeeAfterAllDiscount = this.calculatePayable()
+    this.diagInvoice.finalFeeAfterAllDiscount = this.calculatePayable() + (this.calculatePayable()*5)/100
     this.diagInvoice.appUserId = this.authService.appUserID
     this.diagInvoice.patientId = this.diagBillService.selectedPatient.id
     this.diagInvoice.organizationId = this.authService.orgID

@@ -14,7 +14,7 @@ import {MessageService} from "primeng/api";
 export class OrgRegistrationComponent {
 
   orgForm!: FormGroup;
-
+  addressValue!: string;
   orgEditID! : number;
 
   submitLabel = this.orgService.editMode ? "Edit" : "Create";

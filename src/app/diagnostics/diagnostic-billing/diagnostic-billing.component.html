@@ -2,20 +2,20 @@
 
   <div class="row p-0 m-0">
     <div class="col">
-      <h1> Hospital Diagnostic billing </h1>
+      <h1>{{authService.orgName}} Diagnostic </h1>
     </div>
   </div>
 
   <div class="card p-3 m-0">
     <div class="row p-0 m-0">
       <div class="col text-start">
-        <p>Receptionist ID: 12123</p>
+        <p>Diagnostic Receptionist #{{authService.appUserID}}</p>
       </div>
       <div class="col">
-        <p>Receptionist Name: XYZ</p>
+        <p>{{authService.appUserName}}</p>
       </div>
       <div class="col text-end">
-        <p>Date: 12/04/23</p>
+        <p>{{authService.appUserEmail}}</p>
       </div>
     </div>
   </div>
@@ -85,10 +85,10 @@
 
         <div class="row p-0 m-0">
           <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="Phone: {{DBService.selectedPatient.phone}}"></p-chip>
-            <p-chip class="mx-2" label="Email: {{DBService.selectedPatient.email}}"></p-chip>
-            <p-chip class="mx-2" label="Age: {{DBService.selectedPatient.age}}"></p-chip>
-            <p-chip class="mx-2" label="Gender: {{DBService.selectedPatient.gender}}"></p-chip>
+            <p-chip class="mx-2" label="{{DBService.selectedPatient.phone}}"></p-chip>
+            <p-chip class="mx-2" label="{{DBService.selectedPatient.email}}"></p-chip>
+            <p-chip class="mx-2" label="{{DBService.selectedPatient.age}}y/o"></p-chip>
+            <p-chip class="mx-2" label="{{DBService.selectedPatient.gender | titlecase}}"></p-chip>
           </div>
         </div>
       </div>

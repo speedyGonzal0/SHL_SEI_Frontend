@@ -25,7 +25,7 @@ export class DiagnosticBillingComponent implements OnInit{
               private patientService: PatientService,
               public DBService: DiagnosticBillingService,
               private dialogService: DialogService,
-              private authService: AuthService
+              public authService: AuthService
               ) {
   }
 

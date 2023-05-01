@@ -13,6 +13,8 @@ import {MessageService} from "primeng/api";
 
 })
 export class AppUserRegistrationComponent implements OnInit{
+
+  addressValue!: string
   constructor(public appUserService: AppUserService,
               private config: DynamicDialogConfig,
               public authService: AuthService,

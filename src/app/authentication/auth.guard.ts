@@ -43,10 +43,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, OnInit {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
 
-    // route.data['role'].some((role : any) => {
-      // return this.roles.includes(role);
-    // });
-
     if(route.data['role'].includes(this.authService.getRole())){
       return true;
     }

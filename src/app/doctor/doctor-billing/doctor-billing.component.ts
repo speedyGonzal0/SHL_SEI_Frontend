@@ -31,7 +31,7 @@ export class DoctorBillingComponent {
               private dialogService: DialogService,
               public DBService: DoctorBillingService,
               private router: Router,
-              private authService: AuthService
+              public authService: AuthService
   ) {
   }
 

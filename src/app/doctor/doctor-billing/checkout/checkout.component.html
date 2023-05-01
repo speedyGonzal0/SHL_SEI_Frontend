@@ -62,8 +62,12 @@
         <td style="text-align: center">-{{discountAmount}} BDT</td>
       </tr>
       <tr>
+        <td style="text-align: center">VAT</td>
+        <td style="text-align: center">+{{(calculatePayable()*5)/100}} BDT</td>
+      </tr>
+      <tr>
         <td style="text-align: center">Payable</td>
-        <td style="text-align: center">{{calculatePayable()}} BDT</td>
+        <td style="text-align: center">{{calculatePayable() + (calculatePayable()*5)/100}} BDT</td>
       </tr>
     </ng-template>
   </p-table>

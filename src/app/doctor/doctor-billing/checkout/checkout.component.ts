@@ -109,7 +109,7 @@ export class CheckoutComponent {
       fee : this.docBillService.selectedDoc.consultationFee,
       type : this.docBillService.selectedAppointment.value,
       discount : this.discountPercent,
-      finalFee : this.calculatePayable()
+      finalFee : this.calculatePayable() + (this.calculatePayable()*5)/100
     }
 
     console.log(doctorInvoice)

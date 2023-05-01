@@ -2,9 +2,8 @@
 
 <form class="container-fluid p-0 m-0 d-flex flex-column gap-3" [formGroup]="appUserForm" (ngSubmit)="onSubmit()">
 
-      <!------------------------------------------------------------------
-      ------------------------ Create Doctor Form ------------------------
-      ------------------------------------------------ ------------------->
+  <small><i>All fields are required *</i></small>
+
       <div class="row p-0 m-0">
         <div class="col fields">
           <label for="name">Name</label>
@@ -94,6 +93,8 @@
         <div class="col fields">
           <label for="address">Address</label>
           <input formControlName="address"
+                 [ngModel]="addressValue | titlecase"
+                 (ngModelChange) = "addressValue = $event"
                  id="address"
                  type="text"
                  class="p-inputtext-sm"

@@ -2,20 +2,20 @@
 
   <div class="row p-0 m-0">
     <div class="col">
-      <h1> Hospital Dr Appointment billing </h1>
+      <h1> {{authService.orgName}} Dr Appointment </h1>
     </div>
   </div>
 
   <div class="card p-3 m-0">
     <div class="row p-0 m-0">
       <div class="col text-start">
-        <p>Receptionist ID: 12123</p>
+        <p>Dr Receptionist #{{authService.appUserID}}</p>
       </div>
       <div class="col">
-        <p>Receptionist Name: XYZ</p>
+        <p>{{authService.appUserName}}</p>
       </div>
       <div class="col text-end">
-        <p>Date: 12/04/23</p>
+        <p>{{authService.appUserEmail}}</p>
       </div>
     </div>
   </div>
