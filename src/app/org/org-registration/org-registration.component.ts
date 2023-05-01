@@ -51,19 +51,34 @@ export class OrgRegistrationComponent {
       ?
       this.editOrg(this.orgEditID, this.orgForm.value)
       :
-      this.orgService.createOrg(this.orgForm.value)
+      this.createOrg()
 
+  }
+
+  createOrg(){
+    this.orgService.createOrg(this.orgForm.value).subscribe({
+      next: response => {
+        this.orgService.orgHTTPResponse = response;
+        this.orgForm.reset();
+        this.orgService.orgRef.close();
+      },
+      error: err => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+      }
+    })
   }
 
   editOrg(id:number, orgInfo: any){
     this.orgService.editOrg(id, orgInfo)
       .subscribe({
         next: response => {
-          this.messageService.add({ key: 'tl', severity: 'info', summary: 'Success', detail: 'Org Info Edited' });
+          this.orgService.orgHTTPResponse = response;
           this.orgForm.reset()
           this.orgService.orgRef.close()
         },
-        error: err => {console.log(err)}
+        error: err => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        }
       })
 
   }

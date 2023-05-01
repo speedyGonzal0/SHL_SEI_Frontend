@@ -6,6 +6,7 @@ import {HttpService} from "@shared/services/http.service";
 import {Params} from "@angular/router";
 import {Medicine} from "@models/medicine";
 import {AuthService} from "@authentication/auth.service";
+import {HttpResponse} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,9 @@ export class MedicineService{
   adminUrl : string = ApiPaths.medicine;
   orgAdminUrl : string = ApiPaths.orgMed;
 
-  ref!: DynamicDialogRef;
+  medRef!: DynamicDialogRef;
   medBillURL : string = ApiPaths.medBilling
+  medHTTPResponse!: HttpResponse<any> | null;
 
   editMode : boolean = false;
   role = this.authService.getRole();
@@ -75,24 +77,15 @@ export class MedicineService{
 
   appendValue(body: Medicine){
     if(this.role === 'ROLE_ADMIN'){
-      this.httpService.createRequest(`${this.adminUrl}/add`, body).subscribe();
+     return this.httpService.createRequest(`${this.adminUrl}/add`, body);
     }
     else{
-      this.httpService.createRequest(`${this.orgAdminUrl}/add`, this.selectedMeds).subscribe();
+     return this.httpService.createRequest(`${this.orgAdminUrl}/add`, this.selectedMeds);
     }
-
-    this.ref.close();
   }
 
-  updateValue(index: number, value: ɵTypedOrUntyped<any, ɵFormGroupValue<any>, any>){
-    // this.diagnostics[index].price = value.diagPrice;
-    let item = this.medicines[index];
-    let body = {
-      "id": item.id,
-      ...value
-    };
-    this.httpService.updateRequest(`${this.adminUrl}/update`, body).subscribe();
-    this.ref.close();
+  updateValue(body: Medicine){
+    return this.httpService.updateRequest(`${this.adminUrl}/update`, body);
   }
 
   deleteValue(index: number){

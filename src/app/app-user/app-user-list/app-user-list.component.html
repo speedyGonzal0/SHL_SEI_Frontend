@@ -39,16 +39,17 @@
         <td style="text-align: center"> {{item.name | titlecase}} </td>
         <td style="text-align: center"> {{item.role.toString().split("ROLE_")[1].replace('_', ' ') | titlecase}}</td>
         <td style="text-align: center">
-          <span class="p-buttonset">
+<!--          <span class="p-buttonset">-->
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
                     class="p-button-outlined p-button-secondary"></button>
-            <button (click)="onDelete(index)" pButton icon="pi pi-trash"
-                    class="p-button-outlined p-button-secondary"></button>
-          </span>
+<!--            <button (click)="onDelete(index)" pButton icon="pi pi-trash"-->
+<!--                    class="p-button-outlined p-button-secondary"></button>-->
+<!--          </span>-->
         </td>
 
       </tr>
     </ng-template>
   </p-table>
   <p-confirmDialog icon="pi pi-exclamation-triangle" [baseZIndex]="10000"></p-confirmDialog>
+  <p-toast position="bottom-left"></p-toast>
 </div>

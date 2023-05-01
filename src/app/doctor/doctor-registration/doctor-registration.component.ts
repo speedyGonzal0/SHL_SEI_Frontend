@@ -6,17 +6,20 @@ import {Doctor} from "@models/doctor";
 import {HttpService} from "@shared/services/http.service";
 import {ApiPaths} from "@enums/api-paths";
 import {AuthService} from "@authentication/auth.service";
+import {MessageService} from "primeng/api";
 @Component({
   selector: 'app-doctor-registration',
   templateUrl: './doctor-registration.component.html',
-  styleUrls: ['./doctor-registration.component.scss']
+  styleUrls: ['./doctor-registration.component.scss'],
+  providers: [MessageService]
 })
 export class DoctorRegistrationComponent implements OnInit{
 
   constructor(public doctorService: DoctorService,
               private config: DynamicDialogConfig,
               private httpService: HttpService,
-              private authService: AuthService
+              private authService: AuthService,
+              private messageService: MessageService
               ) {}
 
   doctorForm!: FormGroup;
@@ -87,11 +90,47 @@ export class DoctorRegistrationComponent implements OnInit{
   onSubmit(){
     this.doctorService.editMode
       ?
-      this.doctorService.editDoctor(this.doctorEditID, this.doctorForm.value)
+      this.editDoctor()
       :
-      this.doctorService.createDoctor(this.doctorForm.value)
+      this.createDoctor()
+  }
 
-    this.doctorForm.reset()
+  editDoctor(){
+      this.doctorService.editDoctor(this.doctorEditID, {
+        ...this.doctorForm.value,
+        gender: this.doctorForm.value.gender.value,
+        doctorType: this.doctorForm.value.doctorType.value
+      })
+        .subscribe({
+          next: response => {
+            this.doctorService.docHTTPResponse = response;
+            this.doctorForm.reset();
+            this.doctorService.doctorRef.close();
+          },
+          error: err => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+          }
+        })
+  }
+
+  createDoctor(){
+    this.doctorService.createDoctor(
+{
+        ...this.doctorForm.value,
+        gender: this.doctorForm.value.gender.value,
+        doctorType: this.doctorForm.value.doctorType.value
+      })
+      .subscribe({
+        next: response => {
+          this.doctorService.docHTTPResponse = response;
+          this.doctorForm.reset();
+          this.doctorService.doctorRef.close();
+        },
+        error: err => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        }
+      })
+
   }
 
   filterDocs(e : any){
@@ -103,12 +142,40 @@ export class DoctorRegistrationComponent implements OnInit{
   }
 
   onOrgAdminSubmit(){
-    if (this.doctorService.editMode){
-      this.doctorService.editDoctor(this.doctorEditID, this.doctorSelectForm.value)
-    }
-    else{
-      // console.log(this.doctorSelectForm.value)
-      this.doctorService.createDoctor(this.doctorSelectForm.value)
-    }
+    this.doctorService.editMode
+    ?
+    this.orgAdminEditDoctor()
+    :
+    this.orgAdminCreateDoctor()
+  }
+
+  orgAdminCreateDoctor(){
+    this.doctorService.createDoctor(this.doctorSelectForm.value)
+      .subscribe({
+        next: response => {
+          this.doctorService.docHTTPResponse = response;
+          this.doctorForm.reset();
+          this.doctorService.doctorRef.close();
+        },
+        error: err => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        }
+      })
+  }
+
+  orgAdminEditDoctor(){
+    this.doctorService.editDoctor(this.doctorEditID, this.doctorSelectForm.value)
+
+    this.doctorService.editDoctor(this.doctorEditID, this.doctorSelectForm.value)
+      .subscribe({
+        next: response => {
+          this.doctorService.docHTTPResponse = response;
+          this.doctorSelectForm.reset();
+          this.doctorService.doctorRef.close();
+        },
+        error: err => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        }
+      })
   }
 }

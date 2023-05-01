@@ -1,5 +1,4 @@
 <div class="doctorListContainer">
-  <p-toast></p-toast>
   <h2 class="text-center mb-4">Registered Organizations</h2>
   <p-table [value]="orgService.orgs"
            styleClass="p-datatable-gridlines p-datatable-sm"
@@ -30,6 +29,8 @@
         <th style="text-align: center"> # </th>
         <th style="text-align: center"> Name </th>
         <th style="text-align: center"> Phone </th>
+        <th style="text-align: center"> Email </th>
+        <th style="text-align: center"> Website </th>
         <th style="text-align: center">Actions</th>
       </tr>
     </ng-template>
@@ -38,6 +39,8 @@
         <td style="text-align: center"> {{item.id}}</td>
         <td style="text-align: center"> {{item.name}} </td>
         <td style="text-align: center"> {{item.phone}}</td>
+        <td style="text-align: center"> {{item.email}}</td>
+        <td style="text-align: center"> {{item.website}}</td>
         <td style="text-align: center">
           <span class="p-buttonset">
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
@@ -53,4 +56,5 @@
     </ng-template>
   </p-table>
   <p-confirmDialog icon="pi pi-exclamation-triangle" [baseZIndex]="10000"></p-confirmDialog>
+  <p-toast position="bottom-left"></p-toast>
 </div>

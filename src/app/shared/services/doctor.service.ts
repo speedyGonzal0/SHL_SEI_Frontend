@@ -5,6 +5,7 @@ import {ApiPaths} from "@enums/api-paths";
 import {Doctor} from "@models/doctor"
 import {Params} from "@angular/router";
 import {AuthService} from "@authentication/auth.service";
+import {HttpResponse} from "@angular/common/http";
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,7 @@ export class DoctorService {
   editMode : boolean = false;
   doctors! : Doctor[]
   role = this.authService.getRole()
+  docHTTPResponse!: HttpResponse<any> | null;
   totalDoctors!: number;
   doctor!: Doctor;
 
@@ -26,7 +28,7 @@ export class DoctorService {
 
   doctorTypes = [
     {type: "Medical", value: 0},
-    {type: "Dental", value: 1}
+    {type: "Dentist", value: 1}
   ]
 
   constructor(private httpService: HttpService, private authService: AuthService) {}
@@ -56,48 +58,26 @@ export class DoctorService {
 
   createDoctor(doctorInfo: any){
     if (this.role === 'ROLE_ADMIN'){
-      this.httpService.createRequest(
-        `${this.doctorURL}/admin/${this.authService.adminID}/add`,{
-          name: doctorInfo.name,
-          phone: doctorInfo.phone,
-          email: doctorInfo.email,
-          gender: doctorInfo.gender.value,
-          bmdc: doctorInfo.bmdc,
-          specialities: doctorInfo.specialities,
-          degrees: doctorInfo.degrees,
-          doctorType: doctorInfo.doctorType.value
-        })
-        .subscribe((response: any) => {
-        })
+     return this.httpService.createRequest(`${this.doctorURL}/admin/${this.authService.adminID}/add`, doctorInfo)
     }
 
     else{
-      this.httpService.createRequest(
-        `${this.orgDoctorURL}/appuser/${this.authService.appUserID}/org/${this.authService.orgID}/doctor/${doctorInfo.doctor.id}/add`,{
-          ...doctorInfo
-        })
-        .subscribe((response: any) => {
-        })
+     return this.httpService.createRequest(
+       `${this.orgDoctorURL}/appuser/${this.authService.appUserID}/org/${this.authService.orgID}/doctor/${doctorInfo.doctor.id}/add`,
+       doctorInfo
+     )
 
     }
-    this.doctorRef.close()
   }
 
   editDoctor(id:number, doctorInfo: any){
     if(this.role === 'ROLE_ADMIN'){
-      doctorInfo.gender = doctorInfo.gender.value
-      this.httpService.updateRequest(`${this.doctorURL}/update/${id}`,doctorInfo)
-        .subscribe(Response => {
-          console.log(Response);
-        })
+     return this.httpService.updateRequest(`${this.doctorURL}/update/${id}`, doctorInfo)
     }
+
     else{
-      this.httpService.updateRequest(`${this.orgDoctorURL}/update/${id}`,doctorInfo)
-        .subscribe(Response => {
-          console.log(Response);
-        })
+     return  this.httpService.updateRequest(`${this.orgDoctorURL}/update/${id}`, doctorInfo)
     }
-    this.doctorRef.close()
   }
 
   getDoctorByID(id: number){

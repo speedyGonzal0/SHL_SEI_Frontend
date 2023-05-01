@@ -5,11 +5,14 @@ import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 import {HttpService} from "@shared/services/http.service";
 import {Diagnostic} from "@models/diagnostic";
 import {AuthService} from "@authentication/auth.service";
+import {MessageService} from "primeng/api";
+import {config} from "rxjs";
 
 @Component({
   selector: 'app-create-diagnostic',
   templateUrl: './create-diagnostic.component.html',
-  styleUrls: ['./create-diagnostic.component.scss']
+  styleUrls: ['./create-diagnostic.component.scss'],
+  providers: [MessageService]
 })
 export class CreateDiagnosticComponent implements OnInit{
 
@@ -23,7 +26,8 @@ export class CreateDiagnosticComponent implements OnInit{
   constructor(public config: DynamicDialogConfig,
               public diagService: DiagnosticsService,
               private httpService: HttpService,
-              private authService: AuthService
+              private authService: AuthService,
+              private messageService: MessageService
               ) {
   }
 
@@ -61,12 +65,54 @@ export class CreateDiagnosticComponent implements OnInit{
 
   onSubmit(){
     if(this.diagService.editMode){
-      this.diagService.updateValue(this.config.data.index, this.createDiagForm.value)
+      this.updateDiagnostic()
     }
     else{
-      this.diagService.appendValue(this.createDiagForm.value);
+      this.createDiagnostic();
     }
-    this.createDiagForm.reset();
+  }
+
+  createDiagnostic(){
+      this.diagService.appendValue(this.createDiagForm.value).subscribe({
+        next: response => {
+          this.diagService.diagHTTPResponse = response;
+          this.createDiagForm.reset();
+          this.diagService.diagRef.close();
+        },
+        error: err => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        }
+      });
+  }
+
+  updateDiagnostic(){
+    let item = this.diagService.diagnostics[this.config.data.index];
+    let body = {"id": item.id, ...this.createDiagForm.value};
+    this.diagService.updateValue(body).subscribe({
+      next: response => {
+        this.diagService.diagHTTPResponse = response;
+        this.createDiagForm.reset();
+        this.diagService.diagRef.close();
+      },
+      error: err => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+      }
+    });
+  }
+
+  orgAdminUpdateDiagnostic(){
+    let item = this.diagService.diagnostics[this.config.data.index];
+    let body = {"id": item.id, "price": this.selectDiagForm.value.price, "organizationId": item.organizationId};
+    this.diagService.updateValue(body).subscribe({
+      next: response => {
+        this.diagService.diagHTTPResponse = response;
+        this.selectDiagForm.reset();
+        this.diagService.diagRef.close();
+      },
+      error: err => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+      }
+    });
   }
 
   onOrgAdminSubmit(){
@@ -79,12 +125,12 @@ export class CreateDiagnosticComponent implements OnInit{
           serviceName: this.selectDiagForm.value.diag.serviceName
         }
       )
-    }
-    else{
-      this.diagService.updateValue(this.config.data.index, this.selectDiagForm.value);
+      this.selectDiagForm.reset();
     }
 
-    this.selectDiagForm.reset();
+    else{
+      this.orgAdminUpdateDiagnostic()
+    }
   }
 
   onDelete(index: number){
@@ -92,7 +138,15 @@ export class CreateDiagnosticComponent implements OnInit{
   }
 
   onConfirm(){
-    this.diagService.appendValue({});
-    this.diagService.selectedDiags = [];
+    this.diagService.appendValue({}).subscribe({
+      next: response => {
+        this.diagService.diagHTTPResponse = response;
+        this.diagService.selectedDiags = [];
+        this.diagService.diagRef.close();
+      },
+      error: err => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+      }
+    });
   }
 }

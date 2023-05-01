@@ -4,6 +4,7 @@ import {HttpService} from "@shared/services/http.service";
 import {ApiPaths} from "@enums/api-paths";
 import {Params} from "@angular/router";
 import {Organization} from "@models/organization";
+import {HttpResponse} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import {Organization} from "@models/organization";
 export class OrgService {
   orgRef! : DynamicDialogRef
   editMode : boolean = false;
+  orgHTTPResponse!: HttpResponse<any> | null;
 
   orgs! : Organization[];
 
@@ -34,17 +36,7 @@ export class OrgService {
   }
 
   createOrg(orgInfo: any){
-    this.httpService.createRequest(
-      `${this.orgURL}/add`,{
-        name: orgInfo.name,
-        phone: orgInfo.phone,
-        email: orgInfo.email,
-        address: orgInfo.address,
-        website: orgInfo.website,
-      })
-      .subscribe((response: any) => {
-      })
-    this.orgRef.close()
+   return this.httpService.createRequest(`${this.orgURL}/add`,orgInfo)
   }
 
 
