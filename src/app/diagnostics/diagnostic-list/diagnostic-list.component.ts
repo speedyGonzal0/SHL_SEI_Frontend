@@ -75,15 +75,22 @@ export class DiagnosticListComponent implements OnInit{
   }
 
   showCreateDialog(){
-    this.diagService.ref = this.dialogService.open(CreateDiagnosticComponent, {
+    this.diagService.diagRef = this.dialogService.open(CreateDiagnosticComponent, {
       header: "New Diagnostic",
       style: this.diagService.role !== 'ROLE_ADMIN' ? {'min-width': '800px', 'max-height': '600px'} : {'width': '30%', "min-width": "300px"}
+    });
+
+    this.diagService.diagRef.onClose.subscribe(() => {
+      if(this.diagService.diagHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Diagnostic Created!' });
+        this.diagService.diagHTTPResponse = null;
+      }
     });
   }
 
   showEditDialog(index: number){
     this.diagService.toggleEditMode();
-    this.diagService.ref = this.dialogService.open(CreateDiagnosticComponent, {
+    this.diagService.diagRef = this.dialogService.open(CreateDiagnosticComponent, {
       header: `Edit Diagnostic: ${this.diagService.diagnostics[index].serviceName}`,
       data: {
         index: index
@@ -91,7 +98,13 @@ export class DiagnosticListComponent implements OnInit{
       style: {'width': '30%', "min-width": "300px"}
     });
 
-    this.diagService.ref.onClose.subscribe(() => this.diagService.toggleEditMode());
+    this.diagService.diagRef.onClose.subscribe(() => {
+      this.diagService.toggleEditMode();
+      if(this.diagService.diagHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
+        this.diagService.diagHTTPResponse = null;
+      }
+    });
   }
 
   // onSort(){

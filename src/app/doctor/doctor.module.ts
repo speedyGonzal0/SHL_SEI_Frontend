@@ -24,6 +24,7 @@ import {AutoCompleteModule} from "primeng/autocomplete";
 import {InputNumberModule} from "primeng/inputnumber";
 import {MultiSelectModule} from "primeng/multiselect";
 import {CalendarModule} from "primeng/calendar";
+import {ToastModule} from "primeng/toast";
 @NgModule({
   declarations: [
     DoctorRegistrationComponent,
@@ -35,26 +36,27 @@ import {CalendarModule} from "primeng/calendar";
   exports: [
     DoctorListComponent,
   ],
-  imports: [
-    CommonModule,
-    CardModule,
-    ChipsModule,
-    ChipModule,
-    TagModule,
-    ButtonModule,
-    DropdownModule,
-    TableModule,
-    DynamicDialogModule,
-    ReactiveFormsModule,
-    ConfirmDialogModule,
-    DividerModule,
-    RouterLink,
-    DoctorRoutingModule,
-    FormsModule,
-    AutoCompleteModule,
-    InputNumberModule,
-    MultiSelectModule,
-    CalendarModule
-  ]
+    imports: [
+        CommonModule,
+        CardModule,
+        ChipsModule,
+        ChipModule,
+        TagModule,
+        ButtonModule,
+        DropdownModule,
+        TableModule,
+        DynamicDialogModule,
+        ReactiveFormsModule,
+        ConfirmDialogModule,
+        DividerModule,
+        RouterLink,
+        DoctorRoutingModule,
+        FormsModule,
+        AutoCompleteModule,
+        InputNumberModule,
+        MultiSelectModule,
+        CalendarModule,
+        ToastModule
+    ]
 })
 export class DoctorModule { }

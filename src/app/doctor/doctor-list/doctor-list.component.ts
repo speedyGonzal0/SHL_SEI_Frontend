@@ -55,6 +55,13 @@ export class DoctorListComponent implements OnInit{
       header: "New Doctor",
       style: {'min-width':'600px', 'max-width': '800px'}
     });
+
+    this.doctorService.doctorRef.onClose.subscribe(() => {
+      if(this.doctorService.docHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Doctor Created!' });
+        this.doctorService.docHTTPResponse = null;
+      }
+    });
   }
 
   showEditDialog(index: number){
@@ -71,7 +78,13 @@ export class DoctorListComponent implements OnInit{
       style: {'width':'600px', 'max-width': '800px'}
     });
 
-    this.doctorService.doctorRef.onClose.subscribe(() => this.doctorService.toggleEditMode());
+    this.doctorService.doctorRef.onClose.subscribe(() => {
+      this.doctorService.toggleEditMode();
+      if(this.doctorService.docHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
+        this.doctorService.docHTTPResponse = null;
+      }
+    });
   }
 
   onDelete(index: number) {

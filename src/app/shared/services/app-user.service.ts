@@ -5,6 +5,7 @@ import {ApiPaths} from "@enums/api-paths";
 import {AppUser} from "@models/appUser";
 import {Params} from "@angular/router";
 import {AuthService} from "@authentication/auth.service";
+import {HttpResponse} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class AppUserService {
   role = this.authService.getRole()
   userURL = ApiPaths.users
   appUserRef! : DynamicDialogRef
+  userHTTPResponse!: HttpResponse<any> | null;
+
   editMode : boolean = false;
   totalUsers : number = 0;
   appUsers! : AppUser[];
@@ -35,9 +38,9 @@ export class AppUserService {
     {gender: "Other", value: 2}];
 
   roles = [
-    {role: "Doctor Receptionist", value: 3},
-    {role: "Diagnostic Receptionist", value: 4},
-    {role: "Pharmacist", value: 5}];
+    {role: "ROLE_DOCTOR_RECEPTIONIST", value: 3},
+    {role: "ROLE_DIAGNOSTIC_RECEPTIONIST", value: 4},
+    {role: "ROLE_PHARMACIST", value: 5}];
 
   constructor(private httpService: HttpService, private authService: AuthService) {}
 
@@ -65,34 +68,12 @@ export class AppUserService {
   }
 
   createUser(appUserInfo: any){
-
-    const roles = appUserInfo.role.map((role: { value: any }) => {
-      return role.value;
-    });
-
-    this.httpService.createRequest(
-      `${this.userURL}/org/${appUserInfo.orgID}/add`,{
-        name: appUserInfo.name,
-        phone: appUserInfo.phone,
-        email: appUserInfo.email,
-        gender: appUserInfo.gender.value,
-        address: appUserInfo.address,
-        age: appUserInfo.age,
-        role: this.authService.role === "ROLE_ORG_ADMIN" ? roles : appUserInfo.role,
-        password: appUserInfo.password,
-      })
-      .subscribe((response: any) => {
-      })
-    this.appUserRef.close()
+   return this.httpService.createRequest(`${this.userURL}/org/${appUserInfo.orgID}/add`,appUserInfo)
   }
 
   editUser(id:number, appUserInfo: any){
-    appUserInfo.gender = appUserInfo.gender.value
-    this.httpService.updateRequest(`${this.userURL}/update/${id}`,appUserInfo)
-      .subscribe(Response => {
-        console.log(Response);
-      })
-    this.appUserRef.close()
+    console.log(appUserInfo)
+    return this.httpService.updateRequest(`${this.userURL}/update/${id}`,appUserInfo)
   }
 
   deleteUser(id: number){

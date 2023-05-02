@@ -1,4 +1,6 @@
-    <form class="container-fluid p-0 m-0 d-flex flex-column gap-3" [formGroup]="appUserForm" (ngSubmit)="onSubmit()">
+<p-toast position="center"></p-toast>
+
+<form class="container-fluid p-0 m-0 d-flex flex-column gap-3" [formGroup]="appUserForm" (ngSubmit)="onSubmit()">
 
       <!------------------------------------------------------------------
       ------------------------ Create Doctor Form ------------------------
@@ -144,7 +146,7 @@
       </div>
 
 
-      <div class="row p-0 m-0">
+      <div class="row p-0 m-0" *ngIf="appUserService.role === 'ROLE_ADMIN'">
         <div class="col fields">
           <label for="orgID">Organization ID</label>
           <input formControlName="orgID"

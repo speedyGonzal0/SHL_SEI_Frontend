@@ -51,6 +51,13 @@ export class AppUserListComponent implements OnInit{
       header: "New User",
       width: '40%',
     });
+
+    this.appUserService.appUserRef.onClose.subscribe(() => {
+      if(this.appUserService.userHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User Created!' });
+        this.appUserService.userHTTPResponse = null;
+      }
+    });
   }
 
   showEditDialog(index: number){
@@ -63,7 +70,13 @@ export class AppUserListComponent implements OnInit{
       width: '40%'
     });
 
-    this.appUserService.appUserRef.onClose.subscribe(() => this.appUserService.toggleEditMode());
+    this.appUserService.appUserRef.onClose.subscribe(() => {
+      this.appUserService.toggleEditMode();
+      if(this.appUserService.userHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
+        this.appUserService.userHTTPResponse = null;
+      }
+    });
   }
 
   onDelete(index: number) {

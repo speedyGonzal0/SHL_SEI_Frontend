@@ -48,22 +48,35 @@ export class MedicineListComponent implements OnInit{
   }
 
   showCreateDialog(){
-    this.medService.ref = this.dialogService.open(CreateMedicineComponent, {
+    this.medService.medRef = this.dialogService.open(CreateMedicineComponent, {
       header: "New Medicine",
       style: {'min-width': '500px', 'max-height': '600px'}
+    });
+
+    this.medService.medRef.onClose.subscribe(() => {
+      if(this.medService.medHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Medicine Created!' });
+        this.medService.medHTTPResponse = null;
+      }
     });
   }
 
   showEditDialog(index: number){
     this.medService.toggleEditMode();
-    this.medService.ref = this.dialogService.open(CreateMedicineComponent, {
+    this.medService.medRef = this.dialogService.open(CreateMedicineComponent, {
       header: `Edit Medicine: ${this.medService.medicines[index].name}`,
       data: {
         index: index
       }
     });
 
-    this.medService.ref.onClose.subscribe(() => this.medService.toggleEditMode());
+    this.medService.medRef.onClose.subscribe(() => {
+      this.medService.toggleEditMode();
+      if(this.medService.medHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
+        this.medService.medHTTPResponse = null;
+      }
+    });
   }
 
   onDelete(index: number){

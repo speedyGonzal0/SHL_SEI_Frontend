@@ -1,7 +1,7 @@
 <div class="patientRegContainer">
 
   <div class="patientRegCardContainer">
-
+    <p-toast position="center"></p-toast>
     <form [formGroup]="patientRegForm" (ngSubmit)="onCreatePatient()">
 
       <span class="inputField">
@@ -109,49 +109,19 @@
 
       </div>
 
-<!--      <span class="inputField">-->
-<!--        <label for="email">Email</label>-->
-<!--        <input formControlName="email"-->
-<!--               id="email"-->
-<!--               type="email"-->
-<!--               pInputText-->
-<!--               class="p-inputtext-sm"-->
-<!--        />-->
-<!--        <p-->
-<!--          *ngIf="!patientRegForm.controls['email'].valid && patientRegForm.controls['email'].touched">-->
-<!--          This field is required!-->
-<!--        </p>-->
-<!--      </span>-->
 
+      <button pButton type="submit" *ngIf="!patientService.editMode; else patientEdit"
+              label="Add Patient" class="p-button-success"
+              [disabled]="!patientRegForm.valid">
 
-<!--      <span class="inputField">-->
-<!--        <label for="gender">Gender</label>-->
-<!--        <p-dropdown formControlName="gender"-->
-<!--                    [options]="patientService.genders"-->
-<!--                    placeholder="-"-->
-<!--                    id="gender"-->
-<!--                    [style]="{width: '100%'}"-->
-<!--                    optionLabel="gender"-->
-<!--                    class="p-inputtext-sm">-->
-<!--        </p-dropdown>-->
-<!--      </span>-->
+      </button>
+      <ng-template #patientEdit>
+        <button pButton type="submit"
+                label="Update Patient" class="p-button-success"
+                [disabled]="!patientRegForm.valid">
 
-<!--      <span class="inputField">-->
-<!--        <label for="age">Age</label>-->
-<!--        <input formControlName="age"-->
-<!--               id="age"-->
-<!--               type="number"-->
-<!--               pInputText-->
-<!--               class="p-inputtext-sm"/>-->
-<!--        <p-->
-<!--          *ngIf="!patientRegForm.controls['age'].valid && patientRegForm.controls['age'].touched">-->
-<!--          This field is required!-->
-<!--        </p>-->
-<!--      </span>-->
-
-      <button pButton type="submit"
-              label="Create" class="p-button-success"
-              [disabled]="!patientRegForm.valid"></button>
+        </button>
+      </ng-template>
 
     </form>
 

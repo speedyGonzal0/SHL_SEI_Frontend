@@ -7,6 +7,7 @@ import {OrgRegistrationComponent} from "@org/org-registration/org-registration.c
 import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-org-diagnostic-list',
@@ -50,6 +51,13 @@ export class OrgListComponent {
       header: "New Organization",
       style: { 'min-width': '500px' },
     });
+
+    this.orgService.orgRef.onClose.subscribe(() => {
+      if(this.orgService.orgHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Organization Created!' });
+        this.orgService.orgHTTPResponse = null;
+      }
+    });
   }
 
   showEditDialog(index: number){
@@ -62,7 +70,13 @@ export class OrgListComponent {
       style: { 'min-width': '500px' }
     });
 
-    this.orgService.orgRef.onClose.subscribe(() => this.orgService.toggleEditMode());
+    this.orgService.orgRef.onClose.subscribe(() => {
+      this.orgService.toggleEditMode();
+      if(this.orgService.orgHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
+        this.orgService.orgHTTPResponse = null;
+      }
+    });
   }
 
   onDelete(index: number) {

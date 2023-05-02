@@ -49,6 +49,32 @@ export class PatientListComponent {
       header: "New Patient",
       style: {'width':'50%', 'max-width': '800px'}
     });
+
+    this.patientService.patientRef.onClose.subscribe(() => {
+      if(this.patientService.patientHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Patient Created!' });
+        this.patientService.patientHTTPResponse = null;
+      }
+    });
+  }
+
+  showEditDialog(index: number){
+    this.patientService.toggleEditMode();
+    this.patientService.patientRef = this.dialogService.open(PatientRegistrationComponent, {
+      header: `Editing ${this.patientService.patients[index].name}`,
+      data: {
+        index: index
+      },
+      style: { 'min-width': '500px' }
+    });
+
+    this.patientService.patientRef.onClose.subscribe(() => {
+      this.patientService.toggleEditMode();
+      if(this.patientService.patientHTTPResponse){
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
+        this.patientService.patientHTTPResponse = null;
+      }
+    });
   }
 
   onSearch(value: any){

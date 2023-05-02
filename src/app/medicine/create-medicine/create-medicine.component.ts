@@ -5,11 +5,14 @@ import {MedicineService} from "@medicine/medicine.service";
 import {HttpService} from "@shared/services/http.service";
 import {Medicine} from "@models/medicine";
 import {AuthService} from "@authentication/auth.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-create-medicine',
   templateUrl: './create-medicine.component.html',
-  styleUrls: ['./create-medicine.component.scss']
+  styleUrls: ['./create-medicine.component.scss'],
+  providers: [MessageService]
+
 })
 export class CreateMedicineComponent implements OnInit{
 
@@ -21,7 +24,8 @@ export class CreateMedicineComponent implements OnInit{
   constructor(public config: DynamicDialogConfig,
               public medService: MedicineService,
               private httpService: HttpService,
-              private authService: AuthService
+              private authService: AuthService,
+              private messageService: MessageService
               ) {
   }
 
@@ -64,12 +68,39 @@ export class CreateMedicineComponent implements OnInit{
 
   onSubmit(){
     if(this.medService.editMode){
-      this.medService.updateValue(this.config.data.index, this.createMedForm.value)
+      this.updateMedicine()
     }
     else{
-      this.medService.appendValue(this.createMedForm.value);
+      this.createMedicine();
     }
-    this.createMedForm.reset();
+  }
+
+  updateMedicine(){
+    let item = this.medService.medicines[this.config.data.index];
+    let body = {"id": item.id, ...this.createMedForm.value};
+    this.medService.updateValue(body).subscribe({
+      next: response => {
+        this.medService.medHTTPResponse = response;
+        this.createMedForm.reset();
+        this.medService.medRef.close();
+      },
+      error: err => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+      }
+    });
+  }
+
+  createMedicine(){
+    this.medService.appendValue(this.createMedForm.value).subscribe({
+      next: response => {
+        this.medService.medHTTPResponse = response;
+        this.createMedForm.reset();
+        this.medService.medRef.close();
+      },
+      error: err => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+      }
+    })
   }
 
   onOrgAdminSubmit(){
@@ -89,7 +120,15 @@ export class CreateMedicineComponent implements OnInit{
   }
 
   onConfirm(){
-    this.medService.appendValue({});
-    this.medService.selectedMeds = [];
+    this.medService.appendValue({}).subscribe({
+      next: response => {
+        this.medService.medHTTPResponse = response;
+        this.medService.selectedMeds = [];
+        this.medService.medRef.close();
+      },
+      error: err => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+      }
+    });
   }
 }

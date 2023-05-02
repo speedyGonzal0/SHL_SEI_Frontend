@@ -45,10 +45,7 @@
         <td style="text-align: center"> {{item.serviceName}} </td>
         <td style="text-align: center" *ngIf="diagService.role !== 'ROLE_ADMIN'"> {{item.price}}</td>
         <td style="text-align: center">
-          <span class="p-buttonset">
-            <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
-            <button [disabled]="diagService.role === 'admin'" (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
-          </span>
+          <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
         </td>
 
       </tr>
@@ -56,4 +53,5 @@
   </p-table>
 
   <p-confirmDialog icon="pi pi-exclamation-triangle" [baseZIndex]="10000"></p-confirmDialog>
+  <p-toast position="bottom-left"></p-toast>
 </div>

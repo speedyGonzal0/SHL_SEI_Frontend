@@ -15,6 +15,7 @@ import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { DividerModule } from 'primeng/divider';
 import {PatientRoutingModule} from "@patient/patient-routing.module";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
   declarations: [
@@ -24,19 +25,20 @@ import {PatientRoutingModule} from "@patient/patient-routing.module";
   exports: [
     PatientListComponent,
   ],
-  imports: [
-    CommonModule,
-    ChipsModule,
-    ChipModule,
-    TagModule,
-    ButtonModule,
-    DropdownModule,
-    TableModule,
-    DynamicDialogModule,
-    ReactiveFormsModule,
-    ConfirmDialogModule,
-    DividerModule,
-    PatientRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        ChipsModule,
+        ChipModule,
+        TagModule,
+        ButtonModule,
+        DropdownModule,
+        TableModule,
+        DynamicDialogModule,
+        ReactiveFormsModule,
+        ConfirmDialogModule,
+        DividerModule,
+        PatientRoutingModule,
+        ToastModule
+    ]
 })
 export class PatientModule { }

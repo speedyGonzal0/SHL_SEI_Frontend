@@ -45,7 +45,7 @@
         <th style="text-align: center"> Strength </th>
         <th style="text-align: center"> Vendor </th>
         <th style="text-align: center"> Price (BDT) </th>
-        <th style="text-align: center">Actions</th>
+        <th style="text-align: center" *ngIf="medService.role === 'ROLE_ADMIN'">Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
@@ -56,11 +56,11 @@
         <td style="text-align: center"> {{medService.role === 'ROLE_ADMIN' ? item.strength : item.medicine.strength}} </td>
         <td style="text-align: center"> {{medService.role === 'ROLE_ADMIN' ? item.vendor : item.medicine.vendor}} </td>
         <td style="text-align: center"> {{medService.role === 'ROLE_ADMIN' ? item.price : item.medicine.price}}</td>
-        <td style="text-align: center">
-          <span class="p-buttonset">
-            <button [disabled]="medService.role !== 'ROLE_ADMIN'" (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
-            <button [disabled]="medService.role === 'ROLE_ADMIN'" (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
-          </span>
+        <td style="text-align: center" *ngIf="medService.role === 'ROLE_ADMIN'">
+<!--          <span class="p-buttonset">-->
+            <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
+<!--            <button *ngIf="medService.role !== 'ROLE_ADMIN'" (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>-->
+<!--          </span>-->
         </td>
 
       </tr>
@@ -68,4 +68,6 @@
   </p-table>
 
   <p-confirmDialog icon="pi pi-exclamation-triangle" [baseZIndex]="10000"></p-confirmDialog>
+  <p-toast position="bottom-left"></p-toast>
+
 </div>
