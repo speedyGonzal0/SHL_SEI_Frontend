@@ -8,7 +8,7 @@ import {Params} from "@angular/router";
   providedIn: 'root'
 })
 export class HistoryService {
-
+  role = this.authService.getRole()
   billingDetails! : any
   diagBillHistory : any;
   totalDiagHistory! : number
@@ -39,13 +39,23 @@ export class HistoryService {
   }
 
   getMedHistory(params: Params){
-    this.httpService.getRequestWithParams(`${this.medBillURL}/get/org/${this.authService.orgID}/all`, params)
-      .subscribe(
-        (response:any) => {
-          console.log(response.content)
-          this.medBillHistory = response.content;
-          this.totalMedHistory = response.totalElements;
-        })
+    if (this.role === "ROLE_ADMIN"){
+      this.httpService.getRequestWithParams(`${this.medBillURL}/all`, params)
+        .subscribe(
+          (response:any) => {
+            console.log(response.content)
+            this.medBillHistory = response.content;
+            this.totalMedHistory = response.totalElements;
+          })
+    } else{
+      this.httpService.getRequestWithParams(`${this.medBillURL}/get/org/${this.authService.orgID}/all`, params)
+        .subscribe(
+          (response:any) => {
+            console.log(response.content)
+            this.medBillHistory = response.content;
+            this.totalMedHistory = response.totalElements;
+          })
+    }
   }
 
   getMedHistoryByID(id: number){
@@ -57,13 +67,23 @@ export class HistoryService {
   }
 
   getDocHistory(params: Params){
-    this.httpService.getRequestWithParams(`${this.docBillURL}/get/org/${this.authService.orgID}/all`, params)
-      .subscribe(
-        (response:any) => {
-          console.log(response.content)
-          this.docBillHistory = response.content;
-          this.totalDocHistory = response.totalElements;
-        })
+    if (this.role === "ROLE_ADMIN"){
+      this.httpService.getRequestWithParams(`${this.docBillURL}/all`, params)
+        .subscribe(
+          (response:any) => {
+            console.log(response.content)
+            this.docBillHistory = response.content;
+            this.totalDocHistory = response.totalElements;
+          })
+    } else{
+      this.httpService.getRequestWithParams(`${this.docBillURL}/get/org/${this.authService.orgID}/all`, params)
+        .subscribe(
+          (response:any) => {
+            console.log(response.content)
+            this.docBillHistory = response.content;
+            this.totalDocHistory = response.totalElements;
+          })
+    }
   }
 
   getDocHistoryByID(id: number){
