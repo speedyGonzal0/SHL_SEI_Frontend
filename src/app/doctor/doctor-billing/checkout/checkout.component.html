@@ -35,7 +35,7 @@
 
         <td style="text-align: center">{{docBillService.selectedTime.toString().split('G')[0]}}</td>
 
-        <td style="text-align: center">{{docBillService.selectedDoc.consultationFee}}</td>
+        <td style="text-align: center">{{docBillService.selectedAppointment.fee}}</td>
 
 
       </tr>
@@ -55,7 +55,7 @@
           </div>
         </td>
         <td style="text-align: center">Total</td>
-        <td style="text-align: center">{{appointment[0].fee}} BDT</td>
+        <td style="text-align: center">{{docBillService.selectedAppointment.fee}} BDT</td>
       </tr>
       <tr>
         <td style="text-align: center">Discount</td>

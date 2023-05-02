@@ -52,12 +52,12 @@ export class CheckoutComponent {
   }
 
   applyDiscount(){
-    this.discountAmount = Number(((this.discountPercent / 100) * this.appointment[0].fee).toFixed(2))
+    this.discountAmount = Number(((this.discountPercent / 100) * this.docBillService.selectedAppointment.fee).toFixed(2))
     this.showDiscountInput = false
   }
 
   calculatePayable(){
-    return this.appointment[0].fee - this.discountAmount;
+    return this.docBillService.selectedAppointment.fee - this.discountAmount;
   }
 
   cancelDiscount(){
