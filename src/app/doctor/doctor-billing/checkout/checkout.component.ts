@@ -86,7 +86,7 @@ export class CheckoutComponent {
   generateInvoice(){
     let doctorInvoice = {
       drTime: new Date(this.docBillService.selectedTime).getTime(),
-      fee : this.docBillService.selectedDoc.consultationFee,
+      fee : this.docBillService.selectedAppointment.fee,
       type : this.docBillService.selectedAppointment.value,
       discount : this.discountPercent,
       finalFee : this.calculatePayable() + (this.calculatePayable()*5)/100

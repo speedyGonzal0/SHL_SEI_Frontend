@@ -30,7 +30,8 @@
         <th style="text-align: center"> ID </th>
         <th style="text-align: center"> Name </th>
         <th style="text-align: center"> Role </th>
-        <th style="text-align: center">Actions</th>
+        <th style="text-align: center"> Email </th>
+<!--        <th style="text-align: center">Actions</th>-->
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
@@ -38,14 +39,15 @@
         <td style="text-align: center"> {{item.id}}</td>
         <td style="text-align: center"> {{item.name | titlecase}} </td>
         <td style="text-align: center"> {{item.role.toString().split("ROLE_")[1].replace('_', ' ') | titlecase}}</td>
-        <td style="text-align: center">
-<!--          <span class="p-buttonset">-->
-            <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
-                    class="p-button-outlined p-button-secondary"></button>
-<!--            <button (click)="onDelete(index)" pButton icon="pi pi-trash"-->
+        <td style="text-align: center"> {{item.email}} </td>
+        <!--        <td style="text-align: center">-->
+<!--&lt;!&ndash;          <span class="p-buttonset">&ndash;&gt;-->
+<!--            <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"-->
 <!--                    class="p-button-outlined p-button-secondary"></button>-->
-<!--          </span>-->
-        </td>
+<!--&lt;!&ndash;            <button (click)="onDelete(index)" pButton icon="pi pi-trash"&ndash;&gt;-->
+<!--&lt;!&ndash;                    class="p-button-outlined p-button-secondary"></button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </span>&ndash;&gt;-->
+<!--        </td>-->
 
       </tr>
     </ng-template>

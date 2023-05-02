@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {HttpService} from "@shared/services/http.service";
 import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -51,7 +52,9 @@ export class AdminDashboardComponent{
 
   adminURL = ApiPaths.admin
 
-  constructor(private httpService: HttpService, private refreshService: RefreshService) {}
+  constructor(private httpService: HttpService,
+              private refreshService: RefreshService,
+              public authService: AuthService) {}
 
   ngOnInit() {
     this.refreshService.refreshNeeded$

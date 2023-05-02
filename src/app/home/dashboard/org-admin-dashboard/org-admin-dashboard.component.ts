@@ -39,7 +39,7 @@ export class OrgAdminDashboardComponent {
   ]
   orgAdminURL = ApiPaths.orgAdmin
 
-  constructor(private httpService: HttpService, private refreshService: RefreshService, private authService: AuthService) {}
+  constructor(private httpService: HttpService, private refreshService: RefreshService, public authService: AuthService) {}
 
   ngOnInit() {
     this.refreshService.refreshNeeded$
