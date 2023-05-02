@@ -23,7 +23,25 @@ export class DiagnosticDetailsComponent implements OnInit{
   }
 
   toWords(bill: number){
-    const toWords = new ToWords();
+    const toWords = new ToWords({
+      localeCode: 'en-BD',
+      converterOptions: {
+        currency: true,
+        ignoreDecimal: false,
+        ignoreZeroCurrency: false,
+        doNotAddOnly: false,
+        currencyOptions: { // can be used to override defaults for the selected locale
+          name: 'Taka',
+          plural: 'Taka',
+          symbol: '₹',
+          fractionalUnit: {
+            name: 'Poisha',
+            plural: 'Poisha',
+            symbol: '',
+          },
+        }
+      }
+    });
     return toWords.convert(bill)
   }
 
