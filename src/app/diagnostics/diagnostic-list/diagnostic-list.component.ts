@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService} from 'primeng/api';
 import {DialogService} from "primeng/dynamicdialog";
 import {CreateDiagnosticComponent} from "@diagnostics/create-diagnostic/create-diagnostic.component";
 import {DiagnosticsService} from "@diagnostics/diagnostics.service";
@@ -11,7 +11,7 @@ import {RefreshService} from "@shared/services/refresh.service";
   selector: 'app-diagnostic-diagnostic-list',
   templateUrl: './diagnostic-list.component.html',
   styleUrls: ['./diagnostic-list.component.scss'],
-  providers: [MessageService, DialogService, ConfirmationService]
+  providers: [ DialogService, ConfirmationService]
 })
 export class DiagnosticListComponent implements OnInit{
 
@@ -20,7 +20,7 @@ export class DiagnosticListComponent implements OnInit{
 
   // sortOptions !: any[];
 
-  constructor(private messageService: MessageService,
+  constructor(
               private dialogService: DialogService,
               private confirmationService: ConfirmationService,
               public diagService: DiagnosticsService,
@@ -70,40 +70,26 @@ export class DiagnosticListComponent implements OnInit{
 
   }
 
-  addSingle() {
-    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-  }
 
   showCreateDialog(){
     this.diagService.diagRef = this.dialogService.open(CreateDiagnosticComponent, {
       header: "New Diagnostic",
-      style: this.diagService.role !== 'ROLE_ADMIN' ? {'min-width': '800px', 'max-height': '600px'} : {'width': '30%', "min-width": "300px"}
-    });
-
-    this.diagService.diagRef.onClose.subscribe(() => {
-      if(this.diagService.diagHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Diagnostic Created!' });
-        this.diagService.diagHTTPResponse = null;
-      }
+      style: this.diagService.role !== 'ROLE_ADMIN' ? {'min-width': '600px', 'max-height': '600px'} : {'width': '25%', "min-width": "300px"}
     });
   }
 
   showEditDialog(index: number){
     this.diagService.toggleEditMode();
     this.diagService.diagRef = this.dialogService.open(CreateDiagnosticComponent, {
-      header: `Edit Diagnostic: ${this.diagService.diagnostics[index].serviceName}`,
+      header: `Edit Diagnostic`,
       data: {
-        index: index
+        index: index % 10
       },
-      style: {'width': '30%', "min-width": "300px"}
+      style: {'width': '25%', "min-width": "300px"}
     });
 
     this.diagService.diagRef.onClose.subscribe(() => {
       this.diagService.toggleEditMode();
-      if(this.diagService.diagHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
-        this.diagService.diagHTTPResponse = null;
-      }
     });
   }
 

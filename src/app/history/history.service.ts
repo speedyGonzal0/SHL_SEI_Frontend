@@ -43,7 +43,6 @@ export class HistoryService {
       this.httpService.getRequestWithParams(`${this.medBillURL}/all`, params)
         .subscribe(
           (response:any) => {
-            console.log(response.content)
             this.medBillHistory = response.content;
             this.totalMedHistory = response.totalElements;
           })
@@ -51,7 +50,6 @@ export class HistoryService {
       this.httpService.getRequestWithParams(`${this.medBillURL}/get/org/${this.authService.orgID}/all`, params)
         .subscribe(
           (response:any) => {
-            console.log(response.content)
             this.medBillHistory = response.content;
             this.totalMedHistory = response.totalElements;
           })
@@ -62,7 +60,6 @@ export class HistoryService {
     this.httpService.getRequest(`${this.medBillURL}/get/${id}`)
       .subscribe((response: any) => {
         this.billingDetails = response
-        console.log(this.billingDetails)
       })
   }
 
@@ -71,7 +68,6 @@ export class HistoryService {
       this.httpService.getRequestWithParams(`${this.docBillURL}/all`, params)
         .subscribe(
           (response:any) => {
-            console.log(response.content)
             this.docBillHistory = response.content;
             this.totalDocHistory = response.totalElements;
           })
@@ -79,7 +75,6 @@ export class HistoryService {
       this.httpService.getRequestWithParams(`${this.docBillURL}/get/org/${this.authService.orgID}/all`, params)
         .subscribe(
           (response:any) => {
-            console.log(response.content)
             this.docBillHistory = response.content;
             this.totalDocHistory = response.totalElements;
           })
@@ -90,7 +85,6 @@ export class HistoryService {
     this.httpService.getRequest(`${this.docBillURL}/get/${id}`)
       .subscribe((response: any) => {
         this.billingDetails = response
-        console.log(this.billingDetails)
       })
   }
 }

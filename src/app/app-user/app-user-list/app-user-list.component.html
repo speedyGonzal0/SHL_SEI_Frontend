@@ -44,6 +44,8 @@
         <th> Email </th>
         <th> Phone </th>
         <th> Gender </th>
+        <th>Actions</th>
+
 <!--        <th>Actions</th>-->
       </tr>
     </ng-template>
@@ -56,18 +58,25 @@
         <td> {{item.email}} </td>
         <td> {{item.phone}} </td>
         <td> {{item.gender | titlecase}} </td>
-        <!--        <td>-->
-<!--&lt;!&ndash;          <span class="p-buttonset">&ndash;&gt;-->
-<!--            <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"-->
-<!--                    class="p-button-outlined p-button-secondary"></button>-->
-<!--&lt;!&ndash;            <button (click)="onDelete(index)" pButton icon="pi pi-trash"&ndash;&gt;-->
-<!--&lt;!&ndash;                    class="p-button-outlined p-button-secondary"></button>&ndash;&gt;-->
-<!--&lt;!&ndash;          </span>&ndash;&gt;-->
-<!--        </td>-->
+        <td>
+          <!--          <span class="p-buttonset">-->
+          <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
+                  *ngIf="appUserService.role === 'ROLE_ADMIN' && item.role.includes('ROLE_ORG_ADMIN'); else orgAdminUserEdit"
+                  class="p-button-outlined p-button-secondary">
+          </button>
+          <ng-template #orgAdminUserEdit>
+            <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
+                    *ngIf="appUserService.role === 'ROLE_ORG_ADMIN' && !item.role.includes('ROLE_ORG_ADMIN')"
+                    class="p-button-outlined p-button-secondary">
+            </button>
+          </ng-template>
+          <!--            <button (click)="onDelete(index)" pButton icon="pi pi-trash"-->
+          <!--                    class="p-button-outlined p-button-secondary"></button>-->
+          <!--          </span>-->
+        </td>
 
       </tr>
     </ng-template>
   </p-table>
   <p-confirmDialog icon="pi pi-exclamation-triangle" [baseZIndex]="10000"></p-confirmDialog>
-  <p-toast position="bottom-left"></p-toast>
 </div>

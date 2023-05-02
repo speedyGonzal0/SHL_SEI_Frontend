@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, MessageService} from 'primeng/api';
+import {ConfirmationService} from 'primeng/api';
 import {DialogService} from "primeng/dynamicdialog";
 import {FormControl} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
@@ -11,10 +11,10 @@ import {RefreshService} from "@shared/services/refresh.service";
   selector: 'app-medicine-diagnostic-list',
   templateUrl: './medicine-list.component.html',
   styleUrls: ['./medicine-list.component.scss'],
-  providers: [MessageService, DialogService, ConfirmationService]
+  providers: [ DialogService, ConfirmationService]
 })
 export class MedicineListComponent implements OnInit{
-  constructor(private messageService: MessageService,
+  constructor(
               private dialogService: DialogService,
               private confirmationService: ConfirmationService,
               public medService: MedicineService,
@@ -43,39 +43,25 @@ export class MedicineListComponent implements OnInit{
 
   }
 
-  addSingle() {
-    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-  }
 
   showCreateDialog(){
     this.medService.medRef = this.dialogService.open(CreateMedicineComponent, {
       header: "New Medicine",
       style: {'min-width': '500px', 'max-height': '600px'}
     });
-
-    this.medService.medRef.onClose.subscribe(() => {
-      if(this.medService.medHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Medicine Created!' });
-        this.medService.medHTTPResponse = null;
-      }
-    });
   }
 
   showEditDialog(index: number){
     this.medService.toggleEditMode();
     this.medService.medRef = this.dialogService.open(CreateMedicineComponent, {
-      header: `Edit Medicine: ${this.medService.medicines[index].name}`,
+      header: `Edit Medicine`,
       data: {
-        index: index
+        index: index % 10
       }
     });
 
     this.medService.medRef.onClose.subscribe(() => {
       this.medService.toggleEditMode();
-      if(this.medService.medHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
-        this.medService.medHTTPResponse = null;
-      }
     });
   }
 

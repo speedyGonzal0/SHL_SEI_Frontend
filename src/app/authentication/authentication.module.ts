@@ -13,6 +13,7 @@ import { MenuModule } from 'primeng/menu';
 
 import {LoginComponent} from "./login/login.component";
 import { LogoutComponent } from './logout/logout.component';
+import {ToastModule} from "primeng/toast";
 
 
 
@@ -21,17 +22,18 @@ import { LogoutComponent } from './logout/logout.component';
     LoginComponent,
     LogoutComponent
   ],
-  imports: [
-    CommonModule,
-    CardModule,
-    InputTextModule,
-    ButtonModule,
-    DropdownModule,
-    PasswordModule,
-    ReactiveFormsModule,
-    ConfirmDialogModule,
-    MenuModule
-  ],
+    imports: [
+        CommonModule,
+        CardModule,
+        InputTextModule,
+        ButtonModule,
+        DropdownModule,
+        PasswordModule,
+        ReactiveFormsModule,
+        ConfirmDialogModule,
+        MenuModule,
+        ToastModule
+    ],
   providers:[ConfirmationService],
   exports: [
     LoginComponent,

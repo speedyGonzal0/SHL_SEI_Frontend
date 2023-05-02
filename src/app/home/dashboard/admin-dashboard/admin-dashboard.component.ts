@@ -53,15 +53,9 @@ export class AdminDashboardComponent{
   adminURL = ApiPaths.admin
 
   constructor(private httpService: HttpService,
-              private refreshService: RefreshService,
               public authService: AuthService) {}
 
   ngOnInit() {
-    this.refreshService.refreshNeeded$
-      .subscribe(() => {
-          this.getAdminInfo()
-        }
-      )
     this.getAdminInfo()
   }
 

@@ -5,14 +5,13 @@ import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 import {HttpService} from "@shared/services/http.service";
 import {Diagnostic} from "@models/diagnostic";
 import {AuthService} from "@authentication/auth.service";
-import {MessageService} from "primeng/api";
-import {config} from "rxjs";
+import {NotificationService} from "@shared/components/notification/notification.service";
 
 @Component({
   selector: 'app-create-diagnostic',
   templateUrl: './create-diagnostic.component.html',
   styleUrls: ['./create-diagnostic.component.scss'],
-  providers: [MessageService]
+  providers: []
 })
 export class CreateDiagnosticComponent implements OnInit{
 
@@ -27,7 +26,7 @@ export class CreateDiagnosticComponent implements OnInit{
               public diagService: DiagnosticsService,
               private httpService: HttpService,
               private authService: AuthService,
-              private messageService: MessageService
+              private notificationService: NotificationService
               ) {
   }
 
@@ -75,12 +74,12 @@ export class CreateDiagnosticComponent implements OnInit{
   createDiagnostic(){
       this.diagService.appendValue(this.createDiagForm.value).subscribe({
         next: response => {
-          this.diagService.diagHTTPResponse = response;
+          this.notificationService.sendSuccessMessage("Created Succefully!")
           this.createDiagForm.reset();
           this.diagService.diagRef.close();
         },
         error: err => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+          this.notificationService.sendErrorMessage(`${err.error.message}` );
         }
       });
   }
@@ -90,12 +89,12 @@ export class CreateDiagnosticComponent implements OnInit{
     let body = {"id": item.id, ...this.createDiagForm.value};
     this.diagService.updateValue(body).subscribe({
       next: response => {
-        this.diagService.diagHTTPResponse = response;
+        this.notificationService.sendSuccessMessage("Edit Successful!")
         this.createDiagForm.reset();
         this.diagService.diagRef.close();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        this.notificationService.sendErrorMessage(`${err.error.message}`);
       }
     });
   }
@@ -105,12 +104,12 @@ export class CreateDiagnosticComponent implements OnInit{
     let body = {"id": item.id, "price": this.selectDiagForm.value.price, "organizationId": item.organizationId};
     this.diagService.updateValue(body).subscribe({
       next: response => {
-        this.diagService.diagHTTPResponse = response;
+        this.notificationService.sendSuccessMessage("Edit Successful!")
         this.selectDiagForm.reset();
         this.diagService.diagRef.close();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        this.notificationService.sendErrorMessage(`${err.error.message}` );
       }
     });
   }
@@ -140,12 +139,12 @@ export class CreateDiagnosticComponent implements OnInit{
   onConfirm(){
     this.diagService.appendValue({}).subscribe({
       next: response => {
-        this.diagService.diagHTTPResponse = response;
+        this.notificationService.sendSuccessMessage("Created Successfully!")
         this.diagService.selectedDiags = [];
         this.diagService.diagRef.close();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        this.notificationService.sendErrorMessage(`${err.error.message}` );
       }
     });
   }

@@ -45,6 +45,14 @@ li{
   padding: 10px;
   transition: 0.4s all ease;
   border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  i {
+    font-size: 20px;
+  }
+
 }
 
 li:hover{

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -10,19 +10,31 @@ import {AuthenticationModule} from "@authentication/authentication.module";
 import {AuthGuard} from "@authentication/auth.guard";
 import {AuthService} from "@authentication/auth.service";
 import {LoginInterceptor} from "@shared/services/login.interceptor";
+import {SharedModule} from "@shared/shared.module";
+
+function initializeApp() {
+  console.log("initializing")
+}
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AuthenticationModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [{
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AuthenticationModule,
+        AppRoutingModule,
+        HttpClientModule,
+        SharedModule
+    ],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => initializeApp,
+      multi: true
+    },
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpRequestInterceptor,
     multi: true

@@ -87,7 +87,6 @@ export class CheckoutComponent {
       finalFee : this.calculatePayable() + (this.calculatePayable()*5)/100
     }
 
-    console.log(doctorInvoice)
     this.httpService.createRequest(
       `/appointmentBill/appuser/${this.authService.appUserID}/orgDoc/${this.docBillService.selectedDoc.id}/patient/${this.docBillService.selectedPatient.id}/org/${this.authService.orgID}/add`,{
         ...doctorInvoice

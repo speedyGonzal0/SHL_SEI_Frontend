@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ConfirmationService, MessageService} from "primeng/api";
+import {ConfirmationService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
 import {OrgService} from "@shared/services/org.service";
@@ -7,19 +7,18 @@ import {OrgRegistrationComponent} from "@org/org-registration/org-registration.c
 import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-org-diagnostic-list',
   templateUrl: './org-list.component.html',
   styleUrls: ['./org-list.component.scss'],
-  providers: [MessageService, DialogService, ConfirmationService]
+  providers: [ DialogService, ConfirmationService]
 })
 export class OrgListComponent {
 
   orgURL = ApiPaths.org
 
-  constructor(private messageService: MessageService, private dialogService: DialogService,
+  constructor( private dialogService: DialogService,
               private confirmationService: ConfirmationService, private httpService: HttpService,
               public orgService: OrgService, private refreshService: RefreshService,
               private router: Router, private route: ActivatedRoute) {
@@ -51,31 +50,20 @@ export class OrgListComponent {
       header: "New Organization",
       style: { 'min-width': '500px' },
     });
-
-    this.orgService.orgRef.onClose.subscribe(() => {
-      if(this.orgService.orgHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Organization Created!' });
-        this.orgService.orgHTTPResponse = null;
-      }
-    });
   }
 
   showEditDialog(index: number){
     this.orgService.toggleEditMode();
     this.orgService.orgRef = this.dialogService.open(OrgRegistrationComponent, {
-      header: `Editing ${this.orgService.orgs[index].name}`,
+      header: `Edit Organization`,
       data: {
-        index: index
+        index: index % 10
       },
       style: { 'min-width': '500px' }
     });
 
     this.orgService.orgRef.onClose.subscribe(() => {
       this.orgService.toggleEditMode();
-      if(this.orgService.orgHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
-        this.orgService.orgHTTPResponse = null;
-      }
     });
   }
 
@@ -98,7 +86,7 @@ export class OrgListComponent {
     else{
       this.router.navigate([],
         {
-          queryParams: {page: parseInt(String(page), 10)},
+          queryParams: {pageNo: parseInt(String(page), 10)},
           queryParamsHandling: "merge"
         })
     }

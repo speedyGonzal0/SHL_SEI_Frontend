@@ -132,8 +132,8 @@ export class DoctorBillingComponent {
     this.DBService.selectedTime = this.DBForm.controls['docTime'].value;
   }
 
-  onSubmit(){
-    this.router.navigate(['/doctor/checkout']);
-  }
+  // onSubmit(){
+  //   this.router.navigate(['/doctor/checkout']);
+  // }
 
 }

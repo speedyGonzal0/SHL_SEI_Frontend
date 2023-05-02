@@ -3,13 +3,13 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {PatientService} from "@shared/services/patient.service";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {config} from "rxjs";
-import {MessageService} from "primeng/api";
+import {NotificationService} from "@shared/components/notification/notification.service";
 
 @Component({
   selector: 'app-patient-registration',
   templateUrl: './patient-registration.component.html',
   styleUrls: ['./patient-registration.component.scss'],
-  providers: [MessageService]
+  providers: []
 
 })
 export class PatientRegistrationComponent {
@@ -17,7 +17,7 @@ export class PatientRegistrationComponent {
 
   constructor(public patientService: PatientService,
               private config: DynamicDialogConfig,
-              private messageService: MessageService
+              private notificationService: NotificationService
               ) {
   }
   ngOnInit() {
@@ -62,12 +62,12 @@ export class PatientRegistrationComponent {
       })
       .subscribe({
         next: response => {
-          this.patientService.patientHTTPResponse = response;
+          this.notificationService.sendSuccessMessage("Edit Successful!")
           this.patientRegForm.reset()
           this.patientService.patientRef.close()
         },
         error: err => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+          this.notificationService.sendErrorMessage(`${err.error.message}`);
         }
       })
   }
@@ -79,12 +79,12 @@ export class PatientRegistrationComponent {
         gender: this.patientRegForm.value.gender.value
       }).subscribe({
       next: response => {
-        this.patientService.patientHTTPResponse = response;
+        this.notificationService.sendSuccessMessage("Created Successfully!")
         this.patientRegForm.reset();
         this.patientService.patientRef.close();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        this.notificationService.sendErrorMessage(`${err.error.message}`);
       }
     })
   }

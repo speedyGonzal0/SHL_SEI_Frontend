@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfirmationService, MessageService} from "primeng/api";
+import {ConfirmationService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
 import {AppUserService} from "@shared/services/app-user.service";
-import {AppUserRegistrationComponent} from "../app-user-registration/app-user-registration.component";
+import {AppUserRegistrationComponent} from "@appuser/app-user-registration/app-user-registration.component";
 import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RefreshService} from "@shared/services/refresh.service";
@@ -13,13 +13,13 @@ import {AuthService} from "@authentication/auth.service";
   selector: 'app-app-user-diagnostic-list',
   templateUrl: './app-user-list.component.html',
   styleUrls: ['./app-user-list.component.scss'],
-  providers: [MessageService, DialogService, ConfirmationService]
+  providers: [DialogService, ConfirmationService]
 
 })
 export class AppUserListComponent implements OnInit{
 
   adminURL = ApiPaths.users
-  constructor(private messageService: MessageService, private dialogService: DialogService,
+  constructor( private dialogService: DialogService,
               private confirmationService: ConfirmationService, private httpService: HttpService,
               public appUserService: AppUserService, private route: ActivatedRoute,
               private refreshService: RefreshService, private router: Router,
@@ -51,33 +51,22 @@ export class AppUserListComponent implements OnInit{
   showCreateDialog(){
     this.appUserService.appUserRef = this.dialogService.open(AppUserRegistrationComponent, {
       header: "Register User",
-      width: '40%',
-    });
-
-    this.appUserService.appUserRef.onClose.subscribe(() => {
-      if(this.appUserService.userHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User Created!' });
-        this.appUserService.userHTTPResponse = null;
-      }
+      width: '500px',
     });
   }
 
   showEditDialog(index: number){
     this.appUserService.toggleEditMode();
     this.appUserService.appUserRef = this.dialogService.open(AppUserRegistrationComponent, {
-      header: `Editing ${this.appUserService.appUsers[index].name}`,
+      header: `Edit User`,
       data: {
-        index: index
+        index: index % 10
       },
-      width: '40%'
+      width: '500px'
     });
 
     this.appUserService.appUserRef.onClose.subscribe(() => {
       this.appUserService.toggleEditMode();
-      if(this.appUserService.userHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
-        this.appUserService.userHTTPResponse = null;
-      }
     });
   }
 

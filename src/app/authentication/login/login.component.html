@@ -22,7 +22,7 @@
                   class="p-fluid"
                   inputId="password"
                   [feedback]="false"
-                  [toggleMask]="true"
+                  [toggleMask]="!!loginForm.controls['password'].value"
                   formControlName="password"/>
               </div>
               <div class="field mx-5">
@@ -38,5 +38,4 @@
           </div>
     </div>
   </div>
-
 </div>

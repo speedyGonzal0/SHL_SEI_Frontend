@@ -15,6 +15,7 @@ import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { MultiSelectModule } from 'primeng/multiselect';
 import {ToastModule} from "primeng/toast";
+import {AutoCompleteModule} from "primeng/autocomplete";
 import {PasswordModule} from "primeng/password";
 
 @NgModule({
@@ -36,6 +37,7 @@ import {PasswordModule} from "primeng/password";
         MultiSelectModule,
         AppUserRoutingModule,
         ToastModule,
+        AutoCompleteModule,
         PasswordModule
     ]
 })

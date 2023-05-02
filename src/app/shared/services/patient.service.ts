@@ -13,7 +13,6 @@ import {HttpResponse} from "@angular/common/http";
 export class PatientService {
   patientURL = ApiPaths.patient
   patientRef! : DynamicDialogRef
-  patientHTTPResponse!: HttpResponse<any> | null;
 
   patients! : Patient[];
   totalPatients! : number

@@ -6,12 +6,12 @@ import {Doctor} from "@models/doctor";
 import {HttpService} from "@shared/services/http.service";
 import {ApiPaths} from "@enums/api-paths";
 import {AuthService} from "@authentication/auth.service";
-import {MessageService} from "primeng/api";
+import {NotificationService} from "@shared/components/notification/notification.service";
 @Component({
   selector: 'app-doctor-registration',
   templateUrl: './doctor-registration.component.html',
   styleUrls: ['./doctor-registration.component.scss'],
-  providers: [MessageService]
+  providers: []
 })
 export class DoctorRegistrationComponent implements OnInit{
 
@@ -19,7 +19,7 @@ export class DoctorRegistrationComponent implements OnInit{
               private config: DynamicDialogConfig,
               private httpService: HttpService,
               private authService: AuthService,
-              private messageService: MessageService
+              private notificationService: NotificationService
               ) {}
 
   doctorForm!: FormGroup;
@@ -27,7 +27,7 @@ export class DoctorRegistrationComponent implements OnInit{
   filteredDocs!: Doctor[];
   availableTimes!: any;
   doctorEditID! : number;
-  submitLabel = this.doctorService.editMode ? "Edit" : "Create";
+  submitLabel = this.doctorService.editMode ? "Update" : "Confirm";
 
   ngOnInit() {
     this.doctorForm = new FormGroup({
@@ -46,7 +46,12 @@ export class DoctorRegistrationComponent implements OnInit{
       'consultationFee': new FormControl(null, Validators.required),
       'followupFee': new FormControl(null, Validators.required),
       'reportFee': new FormControl(null, Validators.required),
-      'availableTimes': new FormControl(null, Validators.required)
+      'availableTimes': new FormControl(null, Validators.required),
+      // 'availableDayTimes': new FormGroup({
+      //   'day': new FormControl(null),
+      //   'startTime': new FormControl(null),
+      //   'endTIme': new FormControl(null)
+      // })
     })
 
     this.filteredDocs = [];
@@ -96,6 +101,7 @@ export class DoctorRegistrationComponent implements OnInit{
   }
 
   editDoctor(){
+    console.log(this.doctorForm.value)
       this.doctorService.editDoctor(this.doctorEditID, {
         ...this.doctorForm.value,
         gender: this.doctorForm.value.gender.value,
@@ -103,12 +109,13 @@ export class DoctorRegistrationComponent implements OnInit{
       })
         .subscribe({
           next: response => {
-            this.doctorService.docHTTPResponse = response;
+            this.notificationService.sendSuccessMessage("Edit Successful!")
             this.doctorForm.reset();
             this.doctorService.doctorRef.close();
           },
           error: err => {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+            console.log(err)
+            this.notificationService.sendErrorMessage(err.error.message)
           }
         })
   }
@@ -122,12 +129,12 @@ export class DoctorRegistrationComponent implements OnInit{
       })
       .subscribe({
         next: response => {
-          this.doctorService.docHTTPResponse = response;
+          this.notificationService.sendSuccessMessage("Created Successfully!");
           this.doctorForm.reset();
           this.doctorService.doctorRef.close();
         },
         error: err => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+          this.notificationService.sendErrorMessage(err.error.message)
         }
       })
 
@@ -153,12 +160,12 @@ export class DoctorRegistrationComponent implements OnInit{
     this.doctorService.createDoctor(this.doctorSelectForm.value)
       .subscribe({
         next: response => {
-          this.doctorService.docHTTPResponse = response;
+          this.notificationService.sendSuccessMessage("Created Successfully");
           this.doctorForm.reset();
           this.doctorService.doctorRef.close();
         },
         error: err => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+          this.notificationService.sendErrorMessage(`${err.error.message}`);
         }
       })
   }
@@ -169,12 +176,12 @@ export class DoctorRegistrationComponent implements OnInit{
     this.doctorService.editDoctor(this.doctorEditID, this.doctorSelectForm.value)
       .subscribe({
         next: response => {
-          this.doctorService.docHTTPResponse = response;
+          this.notificationService.sendSuccessMessage("Edit Successful!")
           this.doctorSelectForm.reset();
           this.doctorService.doctorRef.close();
         },
         error: err => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+          this.notificationService.sendErrorMessage(`${err.error.message}` );
         }
       })
   }

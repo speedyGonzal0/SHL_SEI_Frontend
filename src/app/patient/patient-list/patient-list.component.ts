@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ConfirmationService, MessageService} from "primeng/api";
+import {ConfirmationService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
 import {PatientService} from "@shared/services/patient.service";
@@ -12,12 +12,12 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   selector: 'app-patient-diagnostic-list',
   templateUrl: './patient-list.component.html',
   styleUrls: ['./patient-list.component.scss'],
-  providers: [MessageService, DialogService, ConfirmationService]
+  providers: [ DialogService, ConfirmationService]
 })
 export class PatientListComponent {
 
   patientURL = ApiPaths.patient;
-  constructor(private messageService: MessageService, private dialogService: DialogService,
+  constructor( private dialogService: DialogService,
               private confirmationService: ConfirmationService, private httpService: HttpService,
               public patientService: PatientService, private refreshService: RefreshService,
               private router: Router, private route: ActivatedRoute) {
@@ -47,33 +47,23 @@ export class PatientListComponent {
   showCreateDialog(){
     this.patientService.patientRef = this.dialogService.open(PatientRegistrationComponent, {
       header: "New Patient",
-      style: {'width':'50%', 'max-width': '800px'}
+      style: {'min-width': '500px'}
     });
 
-    this.patientService.patientRef.onClose.subscribe(() => {
-      if(this.patientService.patientHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Patient Created!' });
-        this.patientService.patientHTTPResponse = null;
-      }
-    });
   }
 
   showEditDialog(index: number){
     this.patientService.toggleEditMode();
     this.patientService.patientRef = this.dialogService.open(PatientRegistrationComponent, {
-      header: `Editing ${this.patientService.patients[index].name}`,
+      header: `Edit patient`,
       data: {
-        index: index
+        index: index % 10
       },
       style: { 'min-width': '500px' }
     });
 
     this.patientService.patientRef.onClose.subscribe(() => {
       this.patientService.toggleEditMode();
-      if(this.patientService.patientHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
-        this.patientService.patientHTTPResponse = null;
-      }
     });
   }
 

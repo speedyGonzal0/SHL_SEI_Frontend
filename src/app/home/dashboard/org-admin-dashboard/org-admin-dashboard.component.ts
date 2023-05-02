@@ -28,13 +28,13 @@ export class OrgAdminDashboardComponent {
       title: "Doctors",
       icon: "stethoscope",
       count: null,
-      url: "doctor"
+      url: "/doctor"
     },
     {
       title: "Employees",
       icon: "admin_panel_settings",
       count: null,
-      url: "users"
+      url: "/users"
     }
   ]
   orgAdminURL = ApiPaths.orgAdmin
@@ -42,11 +42,11 @@ export class OrgAdminDashboardComponent {
   constructor(private httpService: HttpService, private refreshService: RefreshService, public authService: AuthService) {}
 
   ngOnInit() {
-    this.refreshService.refreshNeeded$
-      .subscribe(() => {
-          this.getAdminInfo()
-        }
-      )
+    // this.refreshService.refreshNeeded$
+    //   .subscribe(() => {
+    //       this.getAdminInfo()
+    //     }
+    //   )
     this.getAdminInfo()
   }
 

@@ -1,7 +1,6 @@
 <div class="patientRegContainer">
 
   <div class="patientRegCardContainer">
-    <p-toast position="center"></p-toast>
     <form [formGroup]="patientRegForm" (ngSubmit)="onCreatePatient()">
 
       <small class="mb-2" *ngIf="patientRegForm.invalid"><i>All fields are required *</i></small>
@@ -21,6 +20,7 @@
            This field is required!
         </small>
       </span>
+
 
       <div class="row p-0 m-0 d-flex gap-3">
         <div class="col p-0">
@@ -122,13 +122,13 @@
 
 
       <button pButton type="submit" *ngIf="!patientService.editMode; else patientEdit"
-              label="Add Patient" class=""
+              label="Confirm" class="p-button-sm"
               [disabled]="!patientRegForm.valid">
 
       </button>
       <ng-template #patientEdit>
         <button pButton type="submit"
-                label="Update Patient" class=" p-button-sm"
+                label="Update" class="p-button-sm"
                 [disabled]="!patientRegForm.valid">
 
         </button>

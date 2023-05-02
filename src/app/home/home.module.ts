@@ -15,6 +15,7 @@ import {SidebarModule} from 'primeng/sidebar';
 import {CardModule} from "primeng/card";
 import { OrgAdminDashboardComponent } from './dashboard/org-admin-dashboard/org-admin-dashboard.component';
 import {LandingPageComponent} from "@home/landing-page/landing-page.component";
+import {PanelMenuModule} from "primeng/panelmenu";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {LandingPageComponent} from "@home/landing-page/landing-page.component";
         RouterOutlet,
         RouterLinkActive,
         CardModule,
-        HomeRoutingModule
+        HomeRoutingModule,
+        PanelMenuModule
     ],
 })
 export class HomeModule { }

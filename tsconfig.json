@@ -12,6 +12,8 @@
       "@home/*": ["src/app/home/*"],
       "@org/*": ["src/app/org/*"],
       "@patient/*": ["src/app/patient/*"],
+      "@history/*": ["src/app/history/*"],
+      "@appuser/*": ["src/app/app-user/*"],
       "@enums/*": ["src/enums/*"],
       "@environments/*": ["src/environments/*"],
       "@models/*": ["src/models/*"],
