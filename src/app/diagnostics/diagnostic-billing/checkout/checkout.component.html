@@ -2,7 +2,7 @@
 
   <p-table [value]="diagBillService.selectedDiagnostics" [scrollable]="true" >
     <ng-template pTemplate="caption">
-      <h2 class="text-center my-2">{{org.name}}Diagnostics</h2>
+      <h3 class="text-center my-2">{{org.name}}Diagnostics</h3>
       <div class="tableCaption mt-4 row" id="table">
         <span class="captionInfo col-md">
           <p>Patient Name: <b>{{diagBillService.selectedPatient.name}}</b></p>
@@ -38,9 +38,10 @@
             <input pInputText type="number"
                    [style]="{width: '80px', borderRadius: '10px 0 0 10px'}"
                    placeholder="%"
+                   class="p-inputtext-sm"
                    [(ngModel)]="diagnostic.discount">
             <button pButton icon="pi pi-check"
-                    class="p-button-success"
+                    class="p-button-success p-button-sm"
                     [disabled]="isDisabled(diagnostic.discount)"
                     style="border-radius: 0 10px 10px 0"
                     (click)="applyIndividualDiscount(rowIndex, diagnostic.final_price, diagnostic.discount)">
@@ -62,8 +63,8 @@
         <td rowspan="4" colspan="2">
           <div *ngIf="showDiscountInput" class="discount">
             <input pInputText type="number" placeholder="Enter discount %" [min]="0" [max]="100"
-                   style="border-radius: 10px 0 0 10px; width: 200px" [(ngModel)]="discountPercent">
-            <button pButton label="Apply" class="p-button-success" [disabled]="isDisabled(discountPercent)"
+                   style="border-radius: 10px 0 0 10px; width: 200px" [(ngModel)]="discountPercent" class="p-inputtext-sm">
+            <button pButton label="Apply" class="p-button-success p-button-sm" [disabled]="isDisabled(discountPercent)"
                     style="border-radius: 0 10px 10px 0" (click)="applyDiscount()"></button>
           </div>
           <div *ngIf="!showDiscountInput" class="discount">
@@ -79,8 +80,12 @@
         <td style="text-align: center">-{{discountAmount}} BDT</td>
       </tr>
       <tr>
+        <td style="text-align: center">VAT</td>
+        <td style="text-align: center">+{{(calculatePayable()*5)/100}} BDT</td>
+      </tr>
+      <tr>
         <td style="text-align: center">Payable</td>
-        <td style="text-align: center">{{calculatePayable()}} BDT</td>
+        <td style="text-align: center">{{calculatePayable() + (calculatePayable()*5)/100}} BDT</td>
       </tr>
     </ng-template>
   </p-table>

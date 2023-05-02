@@ -11,7 +11,7 @@ export class DoctorProfileComponent implements OnInit{
 
   id! : number;
 
-  colHeaders = ["Sa", "Su", "Mo", "Tu", "We", "Th", "Fr"]
+  colHeaders = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]
 
   orgs : any = [
     {

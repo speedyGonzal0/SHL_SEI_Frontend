@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HistoryService} from "../../history.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
   selector: 'app-doctor-list',
@@ -9,10 +9,15 @@ import {Router} from "@angular/router";
 })
 export class DoctorListComponent implements OnInit{
   constructor(public historyService: HistoryService,
-              private router: Router) {}
+              private router: Router,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.historyService.getDocHistory()
+    this.route.queryParams.subscribe(
+      (param:Params) => {
+        this.historyService.getDocHistory(param);
+      }
+    )
   }
 
   onPagination(firstIndex: number){

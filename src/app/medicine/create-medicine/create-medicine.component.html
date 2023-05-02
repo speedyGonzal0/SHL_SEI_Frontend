@@ -5,6 +5,8 @@
       [formGroup]="createMedForm"
       (ngSubmit)="onSubmit()">
 
+  <small><i>All fields are required *</i></small>
+
   <div class="row p-0">
 
     <div class="fields col">
@@ -54,9 +56,17 @@
   </div>
 
   <div class="row p-0">
-    <button [disabled]="!createMedForm.valid" *ngIf="!medService.editMode; else updateMed" [style]="{'width': '100%'}" pButton type="submit" label="Add Medicine" class="p-button-success"></button>
+    <button [disabled]="!createMedForm.valid"
+            *ngIf="!medService.editMode;
+            else updateMed" [style]="{'width': '100%'}"
+            pButton type="submit"
+            label="Add Medicine"
+            class="p-button-success p-button-sm"></button>
     <ng-template #updateMed>
-      <button [disabled]="!createMedForm.valid"  [style]="{'width': '100%'}" pButton type="submit" label="Update Medicine" class="p-button-success"></button>
+      <button [disabled]="!createMedForm.valid"
+              [style]="{'width': '100%'}" pButton
+              type="submit" label="Update Medicine"
+              class="p-button-success p-button-sm"></button>
     </ng-template>
   </div>
 
@@ -156,7 +166,7 @@
                   [style]="{'width': '100%'}"
                   [disabled]="medService.selectedMeds.length < 1" pButton
                   label="Confirm selection"
-                  class="p-button-success">
+                  class="p-button-success p-button-sm">
           </button>
         </div>
       </div>

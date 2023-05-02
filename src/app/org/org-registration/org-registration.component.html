@@ -1,8 +1,5 @@
-<form class="container-fluid d-flex flex-column gap-3 p-0 m-0" [formGroup]="orgForm" (ngSubmit)="onSubmit()">
-
-      <!------------------------------------------------------------------
-      ------------------------ Create Doctor Form ------------------------
-      ------------------------------------------------ ------------------->
+    <form class="container-fluid d-flex flex-column gap-3 p-0 m-0" [formGroup]="orgForm" (ngSubmit)="onSubmit()">
+      <small><i>All fields are required *</i></small>
 
       <div class="row p-0 m-0">
         <div class="col fields">
@@ -28,6 +25,8 @@
           <input formControlName="address"
                  id="address"
                  type="text"
+                 [ngModel]="addressValue | titlecase"
+                 (ngModelChange) = "addressValue = $event"
                  pInputText
                  placeholder="E.g: Panthapath, Dhaka"
                  class="p-inputtext-sm"
@@ -94,7 +93,7 @@
       <div class="row p-0 m-0">
         <div class="col fields">
           <button pButton type="submit" label={{submitLabel}}
-                  class="p-button-success" [disabled]="!orgForm.valid"></button>
+                  class="p-button-success p-button-sm" [disabled]="!orgForm.valid"></button>
         </div>
       </div>
 

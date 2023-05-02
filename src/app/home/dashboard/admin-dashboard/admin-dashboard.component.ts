@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {HttpService} from "@shared/services/http.service";
 import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -14,38 +15,46 @@ export class AdminDashboardComponent{
     {
       title: "Diagnostics",
       icon: "ecg",
-      count: null
+      count: null,
+      url: "/diagnostics"
     },
     {
       title: "Medicines",
       icon: "pill",
-      count: null
+      count: null,
+      url: "/medicine"
     },
     {
       title: "Doctors",
       icon: "stethoscope",
-      count: null
+      count: null,
+      url: "/doctor"
     },
     {
       title: "Organizations",
       icon: "home_health",
-      count: null
+      count: null,
+      url: "/org"
     },
     {
       title: "Employees",
       icon: "admin_panel_settings",
-      count: null
+      count: null,
+      url: "/users"
     },
     {
       title: "Patients",
       icon: "groups",
-      count: null
+      count: null,
+      url: "/patients"
     },
   ]
 
   adminURL = ApiPaths.admin
 
-  constructor(private httpService: HttpService, private refreshService: RefreshService) {}
+  constructor(private httpService: HttpService,
+              private refreshService: RefreshService,
+              public authService: AuthService) {}
 
   ngOnInit() {
     this.refreshService.refreshNeeded$

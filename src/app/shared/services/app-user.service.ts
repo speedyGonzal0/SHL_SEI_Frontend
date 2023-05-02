@@ -20,18 +20,6 @@ export class AppUserService {
   totalUsers : number = 0;
   appUsers! : AppUser[];
 
-  appUser = {
-    id: 0,
-    name: '',
-    email: '',
-    phone: '',
-    gender: '',
-    address: '',
-    age: 0,
-    role: [],
-    password: ''
-  }
-
   genders = [
     {gender: "Male", value: 0},
     {gender: "Female", value: 1},

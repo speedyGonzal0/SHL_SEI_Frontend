@@ -21,20 +21,20 @@ import {ToastModule} from "primeng/toast";
     AppUserRegistrationComponent,
     AppUserListComponent
   ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        ButtonModule,
-        InputTextModule,
-        DynamicDialogModule,
-        ConfirmDialogModule,
-        RouterLink,
-        TableModule,
-        DropdownModule,
-        MultiSelectModule,
-        AppUserRoutingModule,
-        ToastModule
-    ]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ButtonModule,
+    InputTextModule,
+    DynamicDialogModule,
+    ConfirmDialogModule,
+    RouterLink,
+    TableModule,
+    DropdownModule,
+    MultiSelectModule,
+    AppUserRoutingModule,
+    ToastModule
+  ]
 })
 export class AppUserModule { }

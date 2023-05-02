@@ -14,7 +14,7 @@ import {MessageService} from "primeng/api";
 export class OrgRegistrationComponent {
 
   orgForm!: FormGroup;
-
+  addressValue!: string;
   orgEditID! : number;
 
   submitLabel = this.orgService.editMode ? "Edit" : "Create";
@@ -35,6 +35,8 @@ export class OrgRegistrationComponent {
 
     if(this.config.data) {
       let org = this.orgService.orgs[this.config.data.index];
+      console.log(org)
+      this.addressValue = org.address
       this.orgForm.setValue({
         name: org.name,
         phone: org.phone,
@@ -42,6 +44,7 @@ export class OrgRegistrationComponent {
         address: org.address,
         website: org.website
       })
+      console.log(this.orgForm.value)
       this.orgEditID = org.id
     }
   }
@@ -56,6 +59,7 @@ export class OrgRegistrationComponent {
   }
 
   createOrg(){
+    this.orgForm.controls['address'].setValue(this.addressValue);
     this.orgService.createOrg(this.orgForm.value).subscribe({
       next: response => {
         this.orgService.orgHTTPResponse = response;

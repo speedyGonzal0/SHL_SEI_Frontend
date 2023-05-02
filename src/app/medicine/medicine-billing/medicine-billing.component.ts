@@ -27,7 +27,7 @@ export class MedicineBillingComponent {
               private patientService: PatientService,
               private dialogService: DialogService,
               public MBService: MedicineBillingService,
-              private authService: AuthService
+              public authService: AuthService
   ) {  }
 
   ngOnInit() {

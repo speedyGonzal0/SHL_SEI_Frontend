@@ -2,20 +2,20 @@
 
   <div class="row p-0 m-0">
     <div class="col">
-      <h1> Hospital Diagnostic billing </h1>
+      <h3>{{authService.orgName}} Diagnostic </h3>
     </div>
   </div>
 
   <div class="card p-3 m-0">
     <div class="row p-0 m-0">
       <div class="col text-start">
-        <p>Receptionist ID: 12123</p>
+        <p>Diagnostic Receptionist #{{authService.appUserID}}</p>
       </div>
       <div class="col">
-        <p>Receptionist Name: XYZ</p>
+        <p>{{authService.appUserName}}</p>
       </div>
       <div class="col text-end">
-        <p>Date: 12/04/23</p>
+        <p>{{authService.appUserEmail}}</p>
       </div>
     </div>
   </div>
@@ -40,6 +40,7 @@
           [forceSelection]="true"
           (onSelect)="onPatientSelect()"
           (completeMethod)="filterPatient($event)"
+          class="p-inputtext-sm"
           field="name">
 
           <ng-template let-patient pTemplate="item">
@@ -52,7 +53,7 @@
 
     <div class="col-3 d-flex flex-column justify-content-end">
       <button pButton
-              class="p-button-success p-button-outlined d-none d-lg-block"
+              class="p-button-success p-button-outlined d-none d-lg-block p-button-sm"
               label="New patient"
               icon="pi pi-plus"
               (click)="showCreateDialog()"
@@ -85,10 +86,10 @@
 
         <div class="row p-0 m-0">
           <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="Phone: {{DBService.selectedPatient.phone}}"></p-chip>
-            <p-chip class="mx-2" label="Email: {{DBService.selectedPatient.email}}"></p-chip>
-            <p-chip class="mx-2" label="Age: {{DBService.selectedPatient.age}}"></p-chip>
-            <p-chip class="mx-2" label="Gender: {{DBService.selectedPatient.gender}}"></p-chip>
+            <p-chip class="mx-2" label="{{DBService.selectedPatient.phone}}"></p-chip>
+            <p-chip class="mx-2" label="{{DBService.selectedPatient.email}}"></p-chip>
+            <p-chip class="mx-2" label="{{DBService.selectedPatient.age}}y/o"></p-chip>
+            <p-chip class="mx-2" label="{{DBService.selectedPatient.gender | titlecase}}"></p-chip>
           </div>
         </div>
       </div>
@@ -113,6 +114,7 @@
           [forceSelection]="true"
           (onSelect)="onDiagSelect($event)"
           (completeMethod)="filterDiagnostic($event)"
+          class="p-inputtext-sm"
           field="serviceName">
 
         </p-autoComplete>
@@ -156,7 +158,7 @@
     <div class="col p-0 m-0">
       <button pButton
               type="button"
-              class="p-button-success"
+              class="p-button-success p-button-sm"
               icon="pi pi-arrow-right"
               iconPos="right"
               [disabled]="!patientSearch.valid || DBService.selectedDiagnostics.length < 1"

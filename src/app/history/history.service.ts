@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AuthService} from "@authentication/auth.service";
 import {HttpService} from "@shared/services/http.service";
 import {ApiPaths} from "@enums/api-paths";
+import {Params} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,8 @@ export class HistoryService {
   constructor(private authService: AuthService,
               private httpService: HttpService) { }
 
-  getDiagHistory(){
-    this.httpService.getRequest(`${this.diagBillURL}/view/${this.authService.orgID}/all`)
+  getDiagHistory(params: Params){
+    this.httpService.getRequestWithParams(`${this.diagBillURL}/view/${this.authService.orgID}/all`, params)
       .subscribe(
         (response:any) => {
           this.diagBillHistory = response.content;
@@ -37,8 +38,8 @@ export class HistoryService {
       })
   }
 
-  getMedHistory(){
-    this.httpService.getRequest(`${this.medBillURL}/get/org/${this.authService.orgID}/all`)
+  getMedHistory(params: Params){
+    this.httpService.getRequestWithParams(`${this.medBillURL}/get/org/${this.authService.orgID}/all`, params)
       .subscribe(
         (response:any) => {
           console.log(response.content)
@@ -55,8 +56,8 @@ export class HistoryService {
       })
   }
 
-  getDocHistory(){
-    this.httpService.getRequest(`${this.docBillURL}/get/org/${this.authService.orgID}/all`)
+  getDocHistory(params: Params){
+    this.httpService.getRequestWithParams(`${this.docBillURL}/get/org/${this.authService.orgID}/all`, params)
       .subscribe(
         (response:any) => {
           console.log(response.content)

@@ -10,33 +10,13 @@ import {Router} from "@angular/router";
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent {
-  appointment = [
-    {
-      doctor: "Md. Harun Ahmed",
-      type: "Consultation",
-      time: "11th April,23, 10:00 AM",
-      fee: 1000,
-    }
-  ]
 
   discountPercent = 0;
   discountAmount : number = 0;
   showDiscountInput = true;
   issued = new Date()
 
-  user = {
-    name: "Mr. Azmal",
-    id: 456
-  }
-  org = {
-    name: "Labaid Hospital ",
-    id: 123
-  }
-  patient = {
-    ID: 12345,
-    name: "Ranu Akter",
-    phone: "01715998810"
-  }
+  row = [{row: 1}]
 
   cols = [
     { field: 'doctor', header: 'Doctor ' },
@@ -47,7 +27,7 @@ export class CheckoutComponent {
 
   constructor(private httpService: HttpService,
               public docBillService: DoctorBillingService,
-              private authService: AuthService,
+              public authService: AuthService,
               private router: Router) {
   }
 
@@ -106,10 +86,10 @@ export class CheckoutComponent {
   generateInvoice(){
     let doctorInvoice = {
       drTime: new Date(this.docBillService.selectedTime).getTime(),
-      fee : this.docBillService.selectedDoc.consultationFee,
+      fee : this.docBillService.selectedAppointment.fee,
       type : this.docBillService.selectedAppointment.value,
       discount : this.discountPercent,
-      finalFee : this.calculatePayable()
+      finalFee : this.calculatePayable() + (this.calculatePayable()*5)/100
     }
 
     console.log(doctorInvoice)

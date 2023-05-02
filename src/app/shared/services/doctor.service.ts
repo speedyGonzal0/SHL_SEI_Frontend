@@ -91,6 +91,7 @@ export class DoctorService {
       this.httpService.getRequest(`${this.orgDoctorURL}/get/${id}`)
         .subscribe((response: any) => {
           this.doctor = response
+          console.log(response.availableTimes)
         })
     }
 

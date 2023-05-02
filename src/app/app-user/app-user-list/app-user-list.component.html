@@ -1,6 +1,6 @@
 <div class="doctorListContainer">
 
-  <h2 class="text-center mb-4">Users List</h2>
+  <h3 class="text-center mb-4">Users List</h3>
   <p-table #dt
            styleClass="p-datatable-gridlines p-datatable-sm"
            [rowHover]="true"
@@ -16,10 +16,10 @@
     <ng-template pTemplate="caption">
       <div class="tableToolbar">
         <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
-                class="p-button-success p-button-outlined" label="New User"></button>
+                class="p-button-success p-button-outlined p-button-sm" label="New User"></button>
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input pInputText type="text"
+            <input pInputText type="text" class="p-inputtext-sm"
                    (input)="onSearch($any($event.target).value)"
                    placeholder="Search Name" />
           </span>
@@ -30,7 +30,8 @@
         <th style="text-align: center"> ID </th>
         <th style="text-align: center"> Name </th>
         <th style="text-align: center"> Role </th>
-        <th style="text-align: center">Actions</th>
+        <th style="text-align: center"> Email </th>
+<!--        <th style="text-align: center">Actions</th>-->
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
@@ -38,14 +39,15 @@
         <td style="text-align: center"> {{item.id}}</td>
         <td style="text-align: center"> {{item.name | titlecase}} </td>
         <td style="text-align: center"> {{item.role.toString().split("ROLE_")[1].replace('_', ' ') | titlecase}}</td>
-        <td style="text-align: center">
-<!--          <span class="p-buttonset">-->
-            <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
-                    class="p-button-outlined p-button-secondary"></button>
-<!--            <button (click)="onDelete(index)" pButton icon="pi pi-trash"-->
+        <td style="text-align: center"> {{item.email}} </td>
+        <!--        <td style="text-align: center">-->
+<!--&lt;!&ndash;          <span class="p-buttonset">&ndash;&gt;-->
+<!--            <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"-->
 <!--                    class="p-button-outlined p-button-secondary"></button>-->
-<!--          </span>-->
-        </td>
+<!--&lt;!&ndash;            <button (click)="onDelete(index)" pButton icon="pi pi-trash"&ndash;&gt;-->
+<!--&lt;!&ndash;                    class="p-button-outlined p-button-secondary"></button>&ndash;&gt;-->
+<!--&lt;!&ndash;          </span>&ndash;&gt;-->
+<!--        </td>-->
 
       </tr>
     </ng-template>

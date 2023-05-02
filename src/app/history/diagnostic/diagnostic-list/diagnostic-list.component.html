@@ -29,6 +29,7 @@
         <th style="text-align: center">#</th>
         <th style="text-align: center">Date</th>
         <th style="text-align: center">Time</th>
+        <th style="text-align: center">Patient Name</th>
         <th style="text-align: center">Patient Phone</th>
         <th style="text-align: center">Total Bill (BDT)</th>
         <th style="text-align: center">Issued By</th>
@@ -40,6 +41,7 @@
         <td style="text-align: center"> {{index + 1}} </td>
         <td style="text-align: center"> {{item.timestamp[1]+"/"+item.timestamp[2]+"/"+item.timestamp[0]}} </td>
         <td style="text-align: center"> {{item.timestamp[3]+":"+item.timestamp[4]+":"+item.timestamp[5]}} </td>
+        <td style="text-align: center"> {{item.patient.name}} </td>
         <td style="text-align: center"> {{item.patient.phone}} </td>
         <td style="text-align: center"> {{item.finalFeeAfterAllDiscount}} </td>
         <td style="text-align: center"> {{item.appUser.name}} </td>

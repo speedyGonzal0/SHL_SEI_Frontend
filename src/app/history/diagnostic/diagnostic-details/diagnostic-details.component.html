@@ -71,11 +71,18 @@
   <p>Subtotal: BDT {{historyService.billingDetails.totalFeeWithoutAnyDiscount}}</p>
   <p>Total w. Individual Discount: BDT {{historyService.billingDetails.totalFeeAfterIndividualDiscount}}</p>
   <p>Overall Discount: {{historyService.billingDetails.overallDiscount}}%</p>
+  <p>VAT: 5%</p>
 
   <span class="finalBill">
     <p>Final Bill: BDT {{historyService.billingDetails.finalFeeAfterAllDiscount}}</p>
     <p>In words: {{toWords(historyService.billingDetails.finalFeeAfterAllDiscount)}} Taka Only</p>
   </span>
+
+  <hr class="border-0">
+
+    <small class="terms"><b>Terms & Conditions:</b>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</small>
 </div>
 
 <div class="pdfAction text-center">

@@ -48,7 +48,7 @@ export class AppUserListComponent implements OnInit{
 
   showCreateDialog(){
     this.appUserService.appUserRef = this.dialogService.open(AppUserRegistrationComponent, {
-      header: "New User",
+      header: "Register User",
       width: '40%',
     });
 
