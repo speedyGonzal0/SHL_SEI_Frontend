@@ -6,9 +6,7 @@
   [formGroup]="doctorForm"
   (ngSubmit)="onSubmit()">
 
-  <!------------------------------------------------------------------
-  ------------------------ Create Doctor Form ------------------------
-  ------------------------------------------------ ------------------->
+  <small><i>All fields are required *</i></small>
 
   <div class="row p-0 m-0">
     <div class="col p-0">
@@ -162,7 +160,9 @@
 
   <div class="row p-0 m-0 bg-light position-sticky bottom-0">
     <div class="col p-0">
-      <button [style]="{'width': '100%'}" pButton class="p-button-success" type="submit" label={{submitLabel}}
+      <button [style]="{'width': '100%'}" pButton
+              class="p-button-success p-button-sm"
+              type="submit"label={{submitLabel}}
               [disabled]="!doctorForm.valid">
       </button>
     </div>
@@ -330,7 +330,7 @@
             <button  [style]="{'width': '100%'}"
                      pButton type="submit"
                      label="Update"
-                     class="p-button-success"></button>
+                     class="p-button-success p-button-sm"></button>
           </ng-template>
         </div>
       </div>

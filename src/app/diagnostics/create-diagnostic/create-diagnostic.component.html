@@ -22,11 +22,13 @@
         [style]="{'width': '100%'}" pButton
         type="submit"
         label="Add Diagnostic"
-        class="p-button-success"
+        class="p-button-success p-button-sm"
         [disabled]="!createDiagForm.valid"
       ></button>
       <ng-template #updateDiag>
-        <button [disabled]="!createDiagForm.valid" [style]="{'width': '100%'}" pButton type="submit" label="Update Diagnostic" class="p-button-success"></button>
+        <button [disabled]="!createDiagForm.valid" [style]="{'width': '100%'}"
+                pButton type="submit" label="Update Diagnostic"
+                class="p-button-success p-button-sm"></button>
       </ng-template>
     </div>
 
@@ -88,10 +90,12 @@
                   pButton type="submit"
                   label="Add Diagnostic"
                   [style]="{'width': '100%'}"
-                  class="p-button-secondary">
+                  class="p-button-secondary p-button-sm">
           </button>
           <ng-template #updateDiag>
-            <button [disabled]="!selectDiagForm.valid" [style]="{'width': '100%'}" pButton type="submit" label="Update Diagnostic" class="p-button-success"></button>
+            <button [disabled]="!selectDiagForm.valid" [style]="{'width': '100%'}"
+                    pButton type="submit" label="Update Diagnostic"
+                    class="p-button-success p-button-sm"></button>
           </ng-template>
         </div>
 
@@ -138,7 +142,7 @@
                   pButton
                   [style]="{'width': '100%'}"
                   label="Confirm selection"
-                  class="p-button-success">
+                  class="p-button-success p-button-sm">
           </button>
         </div>
       </div>

@@ -1,5 +1,5 @@
 <div class="container-fluid text-center d-flex flex-column gap-5">
-  <h2> Available Medicines </h2>
+  <h3> Available Medicines </h3>
 
   <p-table styleClass="p-datatable-sm p-datatable-gridlines" #dt
            [rowHover]="true"
@@ -16,19 +16,23 @@
       <div class="row">
 
         <div class="col d-flex justify-content-start px-3">
-          <button (click)="showCreateDialog()" pButton icon="pi pi-plus" class="p-button-success p-button-outlined" label="New Medicine"></button>
+          <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
+                  class="p-button-success p-button-outlined p-button-sm"
+                  label="New Medicine"></button>
         </div>
 
         <div class="col d-flex justify-content-end gap-3 px-3">
 
           <span>
-            <p-dropdown placeholder="Vendor" [options]="medService.vendors" (onChange)="medService.onFilter($event)"></p-dropdown>
+            <p-dropdown placeholder="Vendor" [options]="medService.vendors"
+                        class="p-inputtext-sm"
+                        (onChange)="medService.onFilter($event)"></p-dropdown>
           </span>
 
           <span class="p-input-icon-left ml-auto">
                   <i class="pi pi-search"></i>
                   <input pInputText (input)="onSearch($any($event.target).value)"
-                         type="text"
+                         type="text" class="p-inputtext-sm"
                          placeholder="Search name/generic" />
           </span>
 

@@ -1,5 +1,5 @@
 <div class="doctorListContainer">
-  <h2 class="text-center mb-4">Registered Organizations</h2>
+  <h3 class="text-center mb-4">Registered Organizations</h3>
   <p-table [value]="orgService.orgs"
            styleClass="p-datatable-gridlines p-datatable-sm"
            [rowHover]="true"
@@ -18,7 +18,7 @@
                 class="p-button-success p-button-outlined p-button-sm" label="Organization"></button>
         <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input pInputText type="text"
+            <input pInputText type="text" class="p-inputtext-sm"
                    (input)="onSearch($any($event.target).value)"
                    placeholder="Search name" />
           </span>

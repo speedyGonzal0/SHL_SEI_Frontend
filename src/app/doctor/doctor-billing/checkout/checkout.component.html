@@ -1,20 +1,17 @@
 <div class="text-center">
 
-  <p-table [value]="appointment" [scrollable]="true" >
+  <p-table [value]="row" [scrollable]="true" >
     <ng-template pTemplate="caption">
-      <h2 class="text-center my-2">{{org.name}}Appointments</h2>
+      <h2 class="text-center my-2">{{authService.orgName}}Appointments</h2>
       <div class="mt-4 row">
         <span class="captionInfo col-md">
-          <p>Patient Name: <b>{{docBillService.selectedPatient.name}}</b></p>
+          <p>Patient: {{docBillService.selectedPatient.name}} ({{docBillService.selectedPatient.phone}})</p>
         </span>
         <span class="captionInfo col-md">
-          <p>Patient Phone: <b>{{docBillService.selectedPatient.phone}}</b></p>
+          <p>Issued: {{issued | date:'longDate'}}</p>
         </span>
         <span class="captionInfo col-md">
-          <p>Issued: <b>{{issued | date:'longDate'}}</b></p>
-        </span>
-        <span class="captionInfo col-md">
-          <p>Issued By: <b>#{{user.id}}</b></p>
+          <p>Issued By: #{{authService.appUserID}}({{authService.appUserName}})</p>
         </span>
       </div>
     </ng-template>
@@ -27,7 +24,7 @@
       </tr>
     </ng-template>
 
-    <ng-template pTemplate="body" let-app>
+    <ng-template pTemplate="body">
       <tr>
         <td style="text-align: center">{{docBillService.selectedDoc.doctor.name}}</td>
 
@@ -45,8 +42,8 @@
         <td rowspan="4" colspan="2">
           <div *ngIf="showDiscountInput" class="discount">
             <input pInputText type="number" placeholder="Enter discount %" [min]="0" [max]="100"
-                   style="border-radius: 10px 0 0 10px; width: 200px" [(ngModel)]="discountPercent">
-            <button pButton label="Apply" class="p-button-success" [disabled]="isDisabled(discountPercent)"
+                   style="border-radius: 10px 0 0 10px; width: 200px" [(ngModel)]="discountPercent" class="p-inputtext-sm">
+            <button pButton label="Apply" class="p-button-success p-button-sm" [disabled]="isDisabled(discountPercent)"
                     style="border-radius: 0 10px 10px 0" (click)="applyDiscount()"></button>
           </div>
           <div *ngIf="!showDiscountInput" class="discount">

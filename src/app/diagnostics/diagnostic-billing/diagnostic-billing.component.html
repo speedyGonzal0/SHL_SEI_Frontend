@@ -2,7 +2,7 @@
 
   <div class="row p-0 m-0">
     <div class="col">
-      <h1>{{authService.orgName}} Diagnostic </h1>
+      <h3>{{authService.orgName}} Diagnostic </h3>
     </div>
   </div>
 
@@ -40,6 +40,7 @@
           [forceSelection]="true"
           (onSelect)="onPatientSelect()"
           (completeMethod)="filterPatient($event)"
+          class="p-inputtext-sm"
           field="name">
 
           <ng-template let-patient pTemplate="item">
@@ -52,7 +53,7 @@
 
     <div class="col-3 d-flex flex-column justify-content-end">
       <button pButton
-              class="p-button-success p-button-outlined d-none d-lg-block"
+              class="p-button-success p-button-outlined d-none d-lg-block p-button-sm"
               label="New patient"
               icon="pi pi-plus"
               (click)="showCreateDialog()"
@@ -113,6 +114,7 @@
           [forceSelection]="true"
           (onSelect)="onDiagSelect($event)"
           (completeMethod)="filterDiagnostic($event)"
+          class="p-inputtext-sm"
           field="serviceName">
 
         </p-autoComplete>
@@ -156,7 +158,7 @@
     <div class="col p-0 m-0">
       <button pButton
               type="button"
-              class="p-button-success"
+              class="p-button-success p-button-sm"
               icon="pi pi-arrow-right"
               iconPos="right"
               [disabled]="!patientSearch.valid || DBService.selectedDiagnostics.length < 1"

@@ -15,22 +15,26 @@ export class OrgAdminDashboardComponent {
     {
       title: "Diagnostics",
       icon: "ecg",
-      count: null
+      count: null,
+      url: "/diagnostics"
     },
     {
       title: "Medicines",
       icon: "pill",
-      count: null
+      count: null,
+      url: "/medicine"
     },
     {
       title: "Doctors",
       icon: "stethoscope",
-      count: null
+      count: null,
+      url: "doctor"
     },
     {
       title: "Employees",
       icon: "admin_panel_settings",
-      count: null
+      count: null,
+      url: "users"
     }
   ]
   orgAdminURL = ApiPaths.orgAdmin

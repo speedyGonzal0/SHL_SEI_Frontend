@@ -31,6 +31,7 @@ export class AuthService{
   login(email: string){
     this.httpService.getRequest(`${ApiPaths.users}/get/email/${email}`).subscribe(
       (response: any) => {
+        console.log(response)
         this.orgID = response.organization.id
         this.orgName = response.organization.name
         this.appUserID = response.id

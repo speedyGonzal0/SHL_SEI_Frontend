@@ -2,7 +2,7 @@
 
   <p-table [value]="diagBillService.selectedDiagnostics" [scrollable]="true" >
     <ng-template pTemplate="caption">
-      <h2 class="text-center my-2">{{org.name}}Diagnostics</h2>
+      <h3 class="text-center my-2">{{org.name}}Diagnostics</h3>
       <div class="tableCaption mt-4 row" id="table">
         <span class="captionInfo col-md">
           <p>Patient Name: <b>{{diagBillService.selectedPatient.name}}</b></p>

@@ -66,7 +66,7 @@
         <ng-template pTemplate="body">
           <tr>
             <td *ngFor="let day of org.days">
-              <i *ngIf="day == '1'" class="pi pi-check"></i>
+              <p *ngIf="day == '1'">15:00 - 18:00</p>
             </td>
           </tr>
         </ng-template>
@@ -79,7 +79,7 @@
 <ng-template #orgAdminView>
   <div class="container-md" *ngIf="doctorService.doctor">
     <div class="text-center">
-      <h2>Dr. {{doctorService.doctor.doctor.name}}</h2>
+      <h3>Dr. {{doctorService.doctor.doctor.name}}</h3>
       <div class="chipContainer justify-content-center">
         <p-tag *ngFor="let speciality of doctorService.doctor.doctor.specialities"
                [style]="{
@@ -97,16 +97,16 @@
 
     <div class="row">
       <div class="col personalDetails">
-        <h3 class="text-md-start text-center">Personal Details</h3>
+        <h5 class="text-md-start text-center">Personal Details</h5>
         <div class="chipContainer justify-content-md-start justify-content-center">
           <p-tag>{{doctorService.doctor.doctor.email}}</p-tag>
           <p-tag>{{doctorService.doctor.doctor.phone}}</p-tag>
-          <p-tag>{{doctorService.doctor.doctor.gender}}</p-tag>
+          <p-tag>{{doctorService.doctor.doctor.gender | titlecase}}</p-tag>
         </div>
       </div>
 
       <div class="col degrees">
-        <h3 class="text-md-end text-center">Degrees</h3>
+        <h5 class="text-md-end text-center">Degrees</h5>
         <div class="chipContainer justify-content-md-end justify-content-center">
           <p-tag *ngFor="let degree of doctorService.doctor.doctor.degrees"
                  [style]="{
@@ -122,8 +122,9 @@
       </div>
     </div>
 
+    <hr class="my-4">
+
     <div class="orgContainer d-flex flex-column gap-3">
-      <h3 class="mt-4">{{doctorService.doctor.doctor.name}}</h3>
       <div class="row p-0 m-0">
         <div class="col p-0">
           <p-chip class="mr-2" label="Consultation Fee: {{doctorService.doctor.consultationFee}}"></p-chip>
@@ -139,7 +140,18 @@
           <ng-template pTemplate="caption">Availability</ng-template>
           <ng-template pTemplate="header">
             <tr>
-              <th *ngFor="let header of doctorService.doctor.availableTimes">{{header}}</th>
+              <th *ngFor="let header of colHeaders">{{header}}</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body">
+            <tr *ngIf="doctorService.doctor.availableTimes as time">
+              <td><p *ngIf="time.includes('Saturday')">12:00 - 13:00</p></td>
+              <td><p *ngIf="time.includes('Sunday')">12:00 - 14:00</p></td>
+              <td><p *ngIf="time.includes('Monday')">12:00 - 15:00</p></td>
+              <td><p *ngIf="time.includes('Tuesday')">12:00 - 16:00</p></td>
+              <td><p *ngIf="time.includes('Wednesday')">12:00 - 16:00</p></td>
+              <td><p *ngIf="time.includes('Thursday')">12:00 - 16:00</p></td>
+              <td><p *ngIf="time.includes('Friday')">12:00 - 16:00</p></td>
             </tr>
           </ng-template>
         </p-table>
