@@ -43,16 +43,16 @@ export class AuthGuard implements CanActivate, CanActivateChild, OnInit {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
 
-    if(route.data['role'].includes(this.authService.getRole())){
-      return true;
-    }
+    // if(route.data['role'].includes(this.authService.getRole())){
+    //   return true;
+    // }
 
-    // route.data['role'].forEach((role:string) => {
-    //   if(this.authService.getRole()!.includes(role)){
-    //     return true
-    //   }
-    //   return
-    // })
+    return route.data['role'].forEach((role:string) => {
+      if(this.authService.getRole()!.indexOf(role) > -1){
+        return true
+      }
+      return false
+    })
 
 
     alert("Unauthorized")
