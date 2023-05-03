@@ -31,17 +31,18 @@ export class MedicineDetailsComponent implements OnInit{
         ignoreDecimal: false,
         ignoreZeroCurrency: false,
         doNotAddOnly: false,
-        currencyOptions: { // can be used to override defaults for the selected locale
+        currencyOptions: {
           name: 'Taka',
           plural: 'Taka',
-          symbol: 'Taka',
+          symbol: '৳',
           fractionalUnit: {
             name: 'Poisha',
             plural: 'Poisha',
             symbol: '',
           },
         }
-      }});
+      }
+    });
     return toWords.convert(bill)
   }
 
