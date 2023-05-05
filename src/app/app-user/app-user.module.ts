@@ -15,26 +15,28 @@ import {DynamicDialogModule} from "primeng/dynamicdialog";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import { MultiSelectModule } from 'primeng/multiselect';
 import {ToastModule} from "primeng/toast";
+import {PasswordModule} from "primeng/password";
 
 @NgModule({
   declarations: [
     AppUserRegistrationComponent,
     AppUserListComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    ButtonModule,
-    InputTextModule,
-    DynamicDialogModule,
-    ConfirmDialogModule,
-    RouterLink,
-    TableModule,
-    DropdownModule,
-    MultiSelectModule,
-    AppUserRoutingModule,
-    ToastModule
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        ButtonModule,
+        InputTextModule,
+        DynamicDialogModule,
+        ConfirmDialogModule,
+        RouterLink,
+        TableModule,
+        DropdownModule,
+        MultiSelectModule,
+        AppUserRoutingModule,
+        ToastModule,
+        PasswordModule
+    ]
 })
 export class AppUserModule { }

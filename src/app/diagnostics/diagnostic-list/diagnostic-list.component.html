@@ -1,54 +1,58 @@
-<div class="container-fluid h-100 text-center d-flex flex-column gap-5">
-  <h3> Available Diagnostic Services </h3>
-
+<div>
+  <div class="row mb-4">
+    <h4 class="col-md-6 col text-md-start text-center">DIAGNOSTICS SERVICES</h4>
+    <div class="col-md-6 text-md-end text-center mt-md-0 mt-3">
+      <div class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" class="p-inputtext-sm"
+               (input)="onSearch($any($event.target).value)"
+               placeholder="Search name" />
+      </div>
+      <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
+              class="p-button-sm col ms-2" label="New"></button>
+    </div>
+  </div>
+<!--  <h4> Available Diagnostic Services </h4>-->
+<!--  <div class="row">-->
+<!--    <div class="col d-flex justify-content-start px-3">-->
+<!--      <button (click)="showCreateDialog()" pButton icon="pi pi-plus"-->
+<!--              class="p-button-sm"-->
+<!--              label="New Diagnostic"></button>-->
+<!--    </div>-->
+<!--    <div class="col d-flex justify-content-end gap-3 px-3">-->
+<!--          <span class="p-input-icon-left ml-auto">-->
+<!--                  <i class="pi pi-search"></i>-->
+<!--                  <input pInputText (input)="onSearch($any($event.target).value)"-->
+<!--                         class="p-inputtext-sm"-->
+<!--                         type="text" placeholder="Search name" />-->
+<!--          </span>-->
+<!--    </div>-->
+<!--  </div>-->
   <p-table styleClass="p-datatable-sm p-datatable-gridlines" #dt
            [rowHover]="true"
            [lazy]="true"
            (onLazyLoad)="onPagination($event.first)"
            [value]="diagService.diagnostics"
-           [style]="{'width': '100%', 'min-width': '800px'}"
            [paginator]="true"
            [rows]="10"
            [totalRecords]="diagService.totalDiagnostics"
            [scrollable]="true"
   >
-    <ng-template pTemplate="caption" class="container">
-      <div class="row">
 
-        <div class="col d-flex justify-content-start px-3">
-          <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
-                  class="p-button-success p-button-outlined p-button-sm"
-                  label="New Diagnostic"></button>
-        </div>
-
-        <div class="col d-flex justify-content-end gap-3 px-3">
-
-          <span class="p-input-icon-left ml-auto">
-                  <i class="pi pi-search"></i>
-                  <input pInputText (input)="onSearch($any($event.target).value)"
-                         class="p-inputtext-sm"
-                         type="text" placeholder="Search name" />
-          </span>
-
-        </div>
-
-      </div>
-
-    </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center"> # </th>
-        <th style="text-align: center"> Name </th>
-        <th style="text-align: center" *ngIf="diagService.role !== 'ROLE_ADMIN'"> Price (BDT) </th>
-        <th style="text-align: center">Actions</th>
+        <th> # </th>
+        <th> Name </th>
+        <th *ngIf="diagService.role !== 'ROLE_ADMIN'"> Price (BDT) </th>
+        <th>Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
-        <td style="text-align: center"> {{index + 1}} </td>
-        <td style="text-align: center"> {{item.serviceName}} </td>
-        <td style="text-align: center" *ngIf="diagService.role !== 'ROLE_ADMIN'"> {{item.price}}</td>
-        <td style="text-align: center">
+        <td> {{index + 1}} </td>
+        <td> {{item.serviceName}} </td>
+        <td *ngIf="diagService.role !== 'ROLE_ADMIN'"> {{item.price}}</td>
+        <td>
           <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
         </td>
 

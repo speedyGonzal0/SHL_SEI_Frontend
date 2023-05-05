@@ -49,7 +49,7 @@ export class DoctorDetailsComponent {
   createPDF(action: string){
 
     import('jspdf').then((jsPDF) => {
-      const doc = new jsPDF.default('p', 'pt', 'a4');
+      const doc = new jsPDF.default('p', 'pt', 'a3');
       doc.setProperties({
         title: "pharmacy_bill.pdf"
       });

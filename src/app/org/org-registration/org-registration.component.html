@@ -1,5 +1,5 @@
     <form class="container-fluid d-flex flex-column gap-3 p-0 m-0" [formGroup]="orgForm" (ngSubmit)="onSubmit()">
-      <small><i>All fields are required *</i></small>
+      <small *ngIf="orgForm.invalid"><i>All fields are required *</i></small>
 
       <div class="row p-0 m-0">
         <div class="col fields">
@@ -8,7 +8,7 @@
                  id="name"
                  type="text"
                  pInputText
-                 placeholder="E.g: Square Hospital Ltd."
+                 placeholder="e.g. Square Hospital Ltd."
                  class="p-inputtext-sm"
           />
           <small class="errorMsg m-0"
@@ -28,7 +28,7 @@
                  [ngModel]="addressValue | titlecase"
                  (ngModelChange) = "addressValue = $event"
                  pInputText
-                 placeholder="E.g: Panthapath, Dhaka"
+                 placeholder="e.g. Panthapath, Dhaka"
                  class="p-inputtext-sm"
           />
           <small class="errorMsg m-0"
@@ -46,12 +46,17 @@
                  id="phone"
                  type="text"
                  pInputText
-                 placeholder="E.g: 017xxxxxxxxxxx"
+                 placeholder="e.g. 017xxxxxxxxxxx"
                  class="p-inputtext-sm"
           />
           <small class="errorMsg m-0"
-             *ngIf="orgForm.controls['phone'].invalid && orgForm.controls['phone'].touched">
+             *ngIf="!orgForm.controls['phone'].value && orgForm.controls['phone'].touched">
             This field is required!
+          </small>
+
+          <small class="errorMsg m-0"
+                 *ngIf="orgForm.controls['phone'].invalid && orgForm.controls['phone'].value">
+            This field is invalid!
           </small>
         </div>
 
@@ -61,12 +66,17 @@
                  id="email"
                  type="email"
                  pInputText
-                 placeholder="E.g: info@square.net"
+                 placeholder="e.g. info@square.net"
                  class="p-inputtext-sm"
           />
           <small class="errorMsg m-0"
-             *ngIf="orgForm.controls['email'].invalid && orgForm.controls['email'].touched">
+             *ngIf="!orgForm.controls['email'].value && orgForm.controls['email'].touched">
             This field is required!
+          </small>
+
+          <small class="errorMsg m-0"
+                 *ngIf="orgForm.controls['email'].invalid && orgForm.controls['email'].value">
+            This field is invalid!
           </small>
         </div>
 
@@ -79,21 +89,26 @@
                  id="website"
                  type="text"
                  pInputText
-                 placeholder="E.g: www.square.com"
+                 placeholder="e.g. www.square.com"
                  class="p-inputtext-sm"
           />
           <small class="errorMsg m-0"
-             *ngIf="orgForm.controls['website'].invalid && orgForm.controls['website'].touched">
+             *ngIf="!orgForm.controls['website'].value && orgForm.controls['website'].touched">
             This field is required!
           </small>
-        </div>
 
+          <small class="errorMsg m-0"
+                 *ngIf="orgForm.controls['website'].invalid && orgForm.controls['website'].value">
+            This field is invalid!
+          </small>
+
+        </div>
       </div>
 
       <div class="row p-0 m-0">
         <div class="col fields">
           <button pButton type="submit" label={{submitLabel}}
-                  class="p-button-success p-button-sm" [disabled]="!orgForm.valid"></button>
+                  class=" p-button-sm" [disabled]="!orgForm.valid"></button>
         </div>
       </div>
 

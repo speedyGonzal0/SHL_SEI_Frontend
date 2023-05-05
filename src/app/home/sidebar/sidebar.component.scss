@@ -1,3 +1,5 @@
+@import "src/app/scss/variables.scss";
+
 .sidebarContainer{
   display: flex;
   flex-direction: column;
@@ -37,17 +39,19 @@ li{
   transition: 0.4s all ease;
   border-radius: 10px;
   cursor: pointer;
+  &:hover{
+    background-color: $primary-lighter;
+    color: $primary-color;
+  }
 }
-
-li:hover{
-  background-color: #d4ffe3;
-  color: green;
-
-}
+//li:hover{
+//  background-color: $primary-lighter;
+//  color: $primary-darker;
+//}
 
 .linkActive{
-  background-color: #d4ffe3;
-  color: green;
+  background-color: $primary-lighter;
+  color: $primary-color;
 }
 
 /* width */

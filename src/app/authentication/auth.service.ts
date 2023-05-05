@@ -3,6 +3,7 @@ import {HttpService} from "@shared/services/http.service";
 import {ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ApiPaths} from "@enums/api-paths";
+import {UserInfo} from "@models/userInfo";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AuthService{
   appUserName! : string;
   appUserEmail! : string;
   role = this.getRole()
+  userInfo! : UserInfo;
 
   constructor(private httpService: HttpService,
               private router: Router) {
@@ -28,15 +30,14 @@ export class AuthService{
     return localStorage.getItem('userRole')
   }
 
-  login(email: string){
+  fetchUserInfo(email: string){
     this.httpService.getRequest(`${ApiPaths.users}/get/email/${email}`).subscribe(
       (response: any) => {
-        console.log(response)
-        this.orgID = response.organization.id
-        this.orgName = response.organization.name
         this.appUserID = response.id
         this.appUserName = response.name
         this.appUserEmail = response.email
+        this.orgID = response.organization.id
+        this.orgName = response.organization.name
       }
     )
   }

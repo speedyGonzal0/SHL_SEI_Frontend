@@ -19,6 +19,7 @@ import { OrgListComponent } from './org-list/org-list.component';
 import {RouterLink} from "@angular/router";
 import {OrgRoutingModule} from "@org/org-routing.module";
 import {ToastModule} from "primeng/toast";
+import {TabViewModule} from "primeng/tabview";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {ToastModule} from "primeng/toast";
         DividerModule,
         RouterLink,
         OrgRoutingModule,
-        ToastModule
+        ToastModule,
+        TabViewModule
     ]
 })
 export class OrgModule { }

@@ -19,7 +19,7 @@ export class AppComponent implements OnInit{
     let token = localStorage.getItem("token")
     if(token){
       let email = JSON.parse(atob(token.split('.')[1])).sub
-      this.authService.login(email)
+      this.authService.fetchUserInfo(email)
     }
   }
 }

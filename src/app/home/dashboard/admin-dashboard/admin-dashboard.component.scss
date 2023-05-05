@@ -1,3 +1,5 @@
+@import "src/app/scss/variables";
+
 .cardBody{
   background: white;
   border-radius: 20px;
@@ -17,12 +19,4 @@
 
 .cardTitle p{
   margin: 0 5px;
-}
-
-.icon{
-  font-size: 24px;
-  color: #15A34A;
-  background: #D4FFE3;
-  padding: 5px;
-  border-radius: 8px;
 }

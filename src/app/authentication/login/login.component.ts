@@ -39,6 +39,7 @@ export class LoginComponent {
           localStorage.setItem("token", response);
           let token = JSON.parse(atob(response.split('.')[1]))
           localStorage.setItem('userRole', token.roles);
+          this.authService.fetchUserInfo(token.emails)
           this.router.navigate([''])
         },
         error: (err) => {

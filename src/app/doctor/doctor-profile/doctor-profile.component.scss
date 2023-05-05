@@ -1,7 +1,22 @@
+@import "src/app/scss/variables.scss";
+
+.profileContainer{
+  background: white;
+  border-radius: 10px;
+}
+
 .chipContainer{
-  display: flex;
+  display: block;
   gap: 10px;
   margin: 16px 0;
+  ::ng-deep .p-tag{
+    border-radius: 5px;
+    display: inline-block;
+    border: 2px solid $primary-color;
+    background: transparent;
+    color: $primary-color;
+    margin: 0 10px 10px 0;
+  }
 }
 .doctorInfo{
   display: flex;
@@ -9,12 +24,24 @@
   margin-bottom: 30px;
 }
 
-::ng-deep .p-tag{
-  border-radius: 5px;
-  padding: 6px 10px;
-  display: flex;
-  justify-content: center;
-  border: 2px solid #2D3649;
-  background: transparent;
-  color: #2D3649;
+//.orgContainer{
+//  ::ng-deep .p-tag{
+//    background: $primary-lighter;
+//  }
+//}
+
+.docOrgInfoTables{
+  display: block;
+  .availableTimes{
+    display: inline-block;
+    min-width: 130px;
+    margin: 0 10px 10px 0;
+    padding: 10px;
+    b{
+      color: $primary-color;
+    }
+    p{
+      font-size: 14px;
+    }
+  }
 }

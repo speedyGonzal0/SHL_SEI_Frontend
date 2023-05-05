@@ -34,16 +34,6 @@ export class MedicineService{
     this.editMode = !this.editMode;
   }
 
-  getMedHistory(){
-    this.httpService.getRequest(`${this.medBillURL}/get/org/${this.authService.orgID}/all`)
-      .subscribe(
-        (response:any) => {
-          this.medBillURL = response.content;
-          console.log(this.medBillURL)
-          this.medBillURL = response.totalElements;
-        })
-  }
-
   getData(queryParams: Params){
     if (this.role === 'ROLE_ADMIN'){
       this.httpService.getRequestWithParams(`${this.adminUrl}/search`, queryParams).subscribe(

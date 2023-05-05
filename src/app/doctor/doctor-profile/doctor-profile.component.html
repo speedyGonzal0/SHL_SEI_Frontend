@@ -1,15 +1,15 @@
-<div class="container-md" *ngIf="doctorService.role === 'ROLE_ADMIN' && doctorService.doctor; else orgAdminView">
+<div class="container-md p-4 profileContainer"
+     *ngIf="doctorService.role === 'ROLE_ADMIN'
+     && doctorService.doctor; else orgAdminView">
   <div class="text-center">
-    <h2>Dr. {{doctorService.doctor.name}}</h2>
+    <h4>Dr. {{doctorService.doctor.name}}</h4>
     <div class="chipContainer justify-content-center">
       <p-tag *ngFor="let speciality of doctorService.doctor.specialities"
               [style]="{
                 borderRadius: '5px',
-                padding: '10px',
+                padding: '5px',
                 width: '120px',
-                display: 'flex',
-                justifyContent: 'center',
-                background: '#2D3649',
+                background: '#34b0b2',
                 color: 'white'}">
         {{speciality}}</p-tag >
     </div>
@@ -18,8 +18,8 @@
 
   <div class="row">
     <div class="col personalDetails">
-      <h3 class="text-md-start text-center">Personal Details</h3>
-      <div class="chipContainer justify-content-md-start justify-content-center">
+      <h5 class="text-md-start text-center">Personal Details</h5>
+      <div class="chipContainer text-md-start text-center">
         <p-tag>{{doctorService.doctor.email}}</p-tag>
         <p-tag>{{doctorService.doctor.phone}}</p-tag>
         <p-tag>{{doctorService.doctor.gender}}</p-tag>
@@ -27,50 +27,51 @@
     </div>
 
     <div class="col degrees">
-      <h3 class="text-md-end text-center">Degrees</h3>
-      <div class="chipContainer justify-content-md-end justify-content-center">
+      <h5 class="text-md-end text-center">Degrees</h5>
+      <div class="chipContainer text-md-end text-center">
         <p-tag *ngFor="let degree of doctorService.doctor.degrees"
-               [style]="{
-                borderRadius: '5px',
-                padding: '6px 10px',
-                display: 'flex',
-                justifyContent: 'center',
-                background: '#cbd2e0',
-                color: '#2D3649',
-                border: 'none'}">
+        [style]="{
+                margin: '0 0 10px 10px'
+        }">
           {{degree}}</p-tag>
       </div>
     </div>
   </div>
 
   <div class="orgContainer d-flex flex-column gap-3" *ngFor="let org of orgs">
-    <h3 class="mt-4">{{org.name}}</h3>
+    <h5 class="mt-4">{{org.name}}</h5>
     <div class="row p-0 m-0">
-      <div class="col p-0">
-        <p-chip class="mr-2" label="Consultation Fee: {{org.fees[0]}}"></p-chip>
-        <p-chip class="mx-2" label="Follow-up Fee: {{org.fees[1]}}"></p-chip>
-        <p-chip class="mx-2" label="Report Fee: {{org.fees[2]}}"></p-chip>
+      <div class="chipContainer col p-0 m-0">
+        <p-tag>{{"Consultation Fee: "+org.fees[0]}}</p-tag>
+        <p-tag>{{"Followup Fee: "+org.fees[1]}}</p-tag>
+        <p-tag>{{"Report Fee: "+org.fees[2]}}</p-tag>
 
       </div>
     </div>
-    <div class="docOrgInfoTables row">
+    <div class="docOrgInfoTables">
 
-      <p-table [value]=[1] styleClass="p-datatable-gridlines"
-               class="col" [tableStyle]="{'min-width': '20rem'}">
-        <ng-template pTemplate="caption">Availability</ng-template>
-        <ng-template pTemplate="header">
-          <tr>
-            <th *ngFor="let header of colHeaders">{{header}}</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body">
-          <tr>
-            <td *ngFor="let day of org.days">
-              <p *ngIf="day == '1'">15:00 - 18:00</p>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+      <span class="card text-center availableTimes" *ngFor="let day of org.availableDayTimes">
+        <b class="day">{{day.day}}</b>
+        <p>S: {{day.startTime}}</p>
+        <p>E: {{day.endTime}}</p>
+      </span>
+
+<!--      <p-table [value]=[1] styleClass="p-datatable-gridlines"-->
+<!--               class="col" [tableStyle]="{'min-width': '20rem'}">-->
+<!--        <ng-template pTemplate="caption">Availability</ng-template>-->
+<!--        <ng-template pTemplate="header">-->
+<!--          <tr>-->
+<!--            <th *ngFor="let header of colHeaders">{{header}}</th>-->
+<!--          </tr>-->
+<!--        </ng-template>-->
+<!--        <ng-template pTemplate="body">-->
+<!--          <tr>-->
+<!--            <td *ngFor="let day of org.days">-->
+<!--              <p *ngIf="day == '1'">15:00 - 18:00</p>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--        </ng-template>-->
+<!--      </p-table>-->
     </div>
   </div>
 
@@ -79,16 +80,12 @@
 <ng-template #orgAdminView>
   <div class="container-md" *ngIf="doctorService.doctor">
     <div class="text-center">
-      <h3>Dr. {{doctorService.doctor.doctor.name}}</h3>
+      <h5>Dr. {{doctorService.doctor.doctor.name}}</h5>
       <div class="chipContainer justify-content-center">
         <p-tag *ngFor="let speciality of doctorService.doctor.doctor.specialities"
                [style]="{
-                borderRadius: '5px',
-                padding: '10px',
                 width: '120px',
-                display: 'flex',
-                justifyContent: 'center',
-                background: '#2D3649',
+                background: '#34b0b2',
                 color: 'white'}">
           {{speciality}}</p-tag >
       </div>
@@ -107,29 +104,20 @@
 
       <div class="col degrees">
         <h5 class="text-md-end text-center">Degrees</h5>
-        <div class="chipContainer justify-content-md-end justify-content-center">
-          <p-tag *ngFor="let degree of doctorService.doctor.doctor.degrees"
-                 [style]="{
-                borderRadius: '5px',
-                padding: '6px 10px',
-                display: 'flex',
-                justifyContent: 'center',
-                background: '#cbd2e0',
-                color: '#2D3649',
-                border: 'none'}">
-            {{degree}}</p-tag>
+        <div class="chipContainer text-md-end text-center">
+          <p-tag *ngFor="let degree of doctorService.doctor.doctor.degrees">{{degree}}</p-tag>
         </div>
       </div>
     </div>
 
-    <hr class="my-4">
+    <hr class="mb-4">
 
     <div class="orgContainer d-flex flex-column gap-3">
       <div class="row p-0 m-0">
-        <div class="col p-0">
-          <p-chip class="mr-2" label="Consultation Fee: {{doctorService.doctor.consultationFee}}"></p-chip>
-          <p-chip class="mx-2" label="Follow-up Fee: {{doctorService.doctor.followupFee}}"></p-chip>
-          <p-chip class="mx-2" label="Report Fee: {{doctorService.doctor.reportFee}}"></p-chip>
+        <div class="chipContainer col p-0 m-0">
+          <p-tag>{{"Consultation Fee: "+doctorService.doctor.consultationFee}}</p-tag>
+          <p-tag>{{"Followup Fee: "+doctorService.doctor.followupFee}}</p-tag>
+          <p-tag>{{"Report Fee: "+doctorService.doctor.reportFee}}</p-tag>
 
         </div>
       </div>

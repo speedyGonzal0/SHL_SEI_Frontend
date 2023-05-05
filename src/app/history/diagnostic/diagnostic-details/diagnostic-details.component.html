@@ -1,62 +1,54 @@
-<div class="historyContainer" #t *ngIf="historyService.billingDetails">
+<div class="historyContainer" #t *ngIf="historyService.billingDetails as diagBill">
 
   <div class="row">
-    <h1 class="col">Invoice #{{historyService.billingDetails.id}}</h1>
-    <div class="date col">
-      <p>Issued</p>
-      <p>{{historyService.billingDetails.timestamp.split('T')[1].split('.')[0]}}, {{historyService.billingDetails.timestamp.split('T')[0]}}</p>
+    <div class="col">
+      <h1>Invoice</h1>
+    </div>
+    <div class="col text-end">
+      <p>{{diagBill.organization.name}}</p>
+      <ul>
+        <li>{{diagBill.organization.address}}</li>
+        <li>{{diagBill.organization.phone}}</li>
+      </ul>
+
     </div>
   </div>
 
   <hr>
-
   <span class="row">
     <div class="orgDetails col">
-      <p>{{historyService.billingDetails.organization.name}}</p>
+      <p class="m-0">{{diagBill.patient.name}}</p>
       <ul>
-        <li>Address: {{historyService.billingDetails.organization.address | titlecase}}</li>
-        <li>Phone: {{historyService.billingDetails.organization.phone}}</li>
-        <li>Email: {{historyService.billingDetails.organization.email}}</li>
-        <li>Website: {{historyService.billingDetails.organization.website}}</li>
+        <li class="col">{{diagBill.patient.phone}}</li>
+        <li class="col">{{diagBill.patient.email}}</li>
+        <li class="col">{{diagBill.patient.age+"y/o, "+diagBill.patient.gender | titlecase}}</li>
       </ul>
     </div>
 
     <div class="userDetails col text-end">
-      <p>Service: Diagnostic</p>
+      <p class="m-0">Service: Diagnostic</p>
       <ul>
-        <li><b>Receptionist Details</b></li>
-        <li>ID: {{historyService.billingDetails.appUser.id}}</li>
-        <li>Name: {{historyService.billingDetails.appUser.name}}</li>
-        <li>Phone: {{historyService.billingDetails.appUser.phone}}</li>
+        <li>Invoice#: {{diagBill.id}}</li>
+        <li>
+          Issued: {{diagBill.timestamp.split('T')[0]}}
+        </li>
+        <li>Issued By: {{diagBill.appUser.name}}</li>
+
       </ul>
     </div>
-  </span>
-
-  <hr>
-
-  <span class="patinetnInfo">
-    <p class="sectionHeader mb-2">Patient Details#{{historyService.billingDetails.patient.id}}</p>
-    <ul class="row">
-      <li class="col">{{historyService.billingDetails.patient.name}}</li>
-      <li class="col-2">{{historyService.billingDetails.patient.age}}y/o</li>
-      <li class="col-2">{{historyService.billingDetails.patient.gender | titlecase}}</li>
-      <li class="col">{{historyService.billingDetails.patient.phone}}</li>
-      <li class="col">{{historyService.billingDetails.patient.email}}</li>
-    </ul>
   </span>
 
   <hr>
 
   <span class="billItems">
-      <p class="sectionHeader">Diagnostics</p>
       <table>
         <tr>
-          <th>Name</th>
+          <th>Diagnostic</th>
           <th>Price (BDT)</th>
           <th>Discount</th>
           <th>Final Price (BDT)</th>
         </tr>
-        <tr *ngFor="let item of historyService.billingDetails.orgDiagnosticAndDiscounts">
+        <tr *ngFor="let item of diagBill.orgDiagnosticAndDiscounts">
           <td>{{item.orgDiagnostic.diagnostic.serviceName}}</td>
           <td>{{item.orgDiagnostic.price}}</td>
           <td>{{item.discount}}%</td>
@@ -67,16 +59,24 @@
 
   <hr>
 
-  <p class="sectionHeader">Payment Details</p>
-  <p>Subtotal: BDT {{historyService.billingDetails.totalFeeWithoutAnyDiscount}}</p>
-  <p>Total w. Individual Discount: BDT {{historyService.billingDetails.totalFeeAfterIndividualDiscount}}</p>
-  <p>Overall Discount: {{historyService.billingDetails.overallDiscount}}%</p>
-  <p>VAT: 5%</p>
-
-  <span class="finalBill">
-    <p>Final Bill: BDT {{historyService.billingDetails.finalFeeAfterAllDiscount}}</p>
-    <p>In words: {{toWords(historyService.billingDetails.finalFeeAfterAllDiscount)}}</p>
-  </span>
+  <div class="row text-end">
+    <span class="col-9"></span>
+    <span class="col-2 te">
+      <p>Subtotal</p>
+      <p>w. Individual Discount</p>
+      <p>Discount</p>
+      <p>VAT</p>
+      <b>Total</b>
+    </span>
+    <span class="col">
+        <p>{{diagBill.totalFeeWithoutAnyDiscount}}</p>
+        <p>{{diagBill.totalFeeAfterIndividualDiscount}}</p>
+        <p>{{diagBill.overallDiscount}}%</p>
+        <p>5%</p>
+        <b>{{diagBill.finalFeeAfterAllDiscount}}</b>
+    </span>
+    <p class="text-end mt-3">In words: {{toWords(diagBill.finalFeeAfterAllDiscount)}}</p>
+  </div>
 
   <hr class="border-0">
 

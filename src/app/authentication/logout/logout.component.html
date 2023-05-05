@@ -1,5 +1,5 @@
-<p-menu #menu [model]="menuItems" [popup]="true" [style]="{'width': 'auto'}"></p-menu>
-<button pButton type="button" (click)="menu.toggle($event)" class="p-button-rounded p-button-success p-button-text" icon="pi pi-user"></button>
+<!--<p-menu #menu [model]="menuItems" [popup]="true" [style]="{'width': 'auto'}"></p-menu>-->
+<!--<button pButton type="button" (click)="menu.toggle($event)" class="p-button-rounded  p-button-text" icon="pi pi-user"></button>-->
 
 <p-confirmDialog [style]="{width: '40%'}"
                  acceptButtonStyleClass="p-button-danger"
@@ -7,3 +7,9 @@
                  header="Log out"
                  icon="pi pi-exclamation-triangle">
 </p-confirmDialog>
+
+<div class="d-flex align-items-center gap-3">
+  <p>{{authService.appUserName}}</p>
+  <button pButton icon="pi pi-sign-out" class="p-button-text p-button-sm"
+          label="Logout" (click)="confirm()"></button>
+</div>

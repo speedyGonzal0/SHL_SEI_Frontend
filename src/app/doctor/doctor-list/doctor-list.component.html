@@ -1,59 +1,69 @@
 <div class="doctorListContainer">
 
-  <h3 class="text-center mb-4">Registered Doctors</h3>
+  <div class="row mb-4">
+    <h4 class="col-md-6 col text-md-start text-center">REGISTERED DOCTORS</h4>
+    <div class="col-md-6 text-md-end text-center mt-md-0 mt-3">
+      <div class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" class="p-inputtext-sm"
+               (input)="onSearch($any($event.target).value)"
+               placeholder="Search name/bmdc" />
+      </div>
+      <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
+              class="p-button-sm col ms-2" label="New"></button>
+    </div>
+  </div>
+<!--  <h4>Registered Doctors</h4>-->
+<!--  <div class="tableToolbar">-->
+<!--    <span class="p-input-icon-left">-->
+<!--            <i class="pi pi-search"></i>-->
+<!--            <input pInputText type="text"-->
+<!--                   class="p-inputtext-sm"-->
+<!--                   (input)="onSearch($any($event.target).value)"-->
+<!--                   placeholder="Search Name/BMDC" />-->
+<!--          </span>-->
+<!--    <button (click)="showCreateDialog()" pButton icon="pi pi-plus"-->
+<!--            class=" p-button-sm" label="New Doctor"></button>-->
+<!--  </div>-->
   <p-table
            styleClass="p-datatable-gridlines p-datatable-sm"
            [rowHover]="true"
            [value]="doctorService.doctors"
            [lazy]="true"
            (onLazyLoad)="onPagination($event.first)"
-           [style]="{'width': '100%', 'min-width': '800px'}"
            [paginator]="true"
            [rows]="10"
            [totalRecords]="doctorService.totalDoctors"
            [scrollable]="true"
            (onPage)="onPagination($event)">
-    <ng-template pTemplate="caption">
-      <div class="tableToolbar">
-        <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
-                class="p-button-success p-button-outlined p-button-sm" label="New Doctor"></button>
-        <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text"
-                   class="p-inputtext-sm"
-                   (input)="onSearch($any($event.target).value)"
-                   placeholder="Search Name/BMDC" />
-          </span>
-      </div>
-    </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center"> Name </th>
-        <th style="text-align: center"> BMDC </th>
-        <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Degrees </th>
-        <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Specialities </th>
-        <th style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> Gender </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Consultation (BDT) </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Follow-up (BDT) </th>
-        <th style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Report (BDT) </th>
-        <th style="text-align: center">Actions</th>
+        <th> Name </th>
+        <th> BMDC </th>
+        <th *ngIf="doctorService.role === 'ROLE_ADMIN'"> Degrees </th>
+        <th *ngIf="doctorService.role === 'ROLE_ADMIN'"> Specialities </th>
+        <th *ngIf="doctorService.role === 'ROLE_ADMIN'"> Gender </th>
+        <th *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Consultation (BDT) </th>
+        <th *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Follow-up (BDT) </th>
+        <th *ngIf="doctorService.role !== 'ROLE_ADMIN'"> Report (BDT) </th>
+        <th>Actions</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
-        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.name}} </td>
-        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.doctor.name}} </td>
+        <td *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.name}} </td>
+        <td *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.doctor.name}} </td>
 
-        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.bmdc}}</td>
-        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.doctor.bmdc}}</td>
+        <td *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.bmdc}}</td>
+        <td *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.doctor.bmdc}}</td>
 
-        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.degrees}}</td>
-        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.specialities}}</td>
-        <td style="text-align: center" *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.gender}}</td>
-        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.consultationFee}} </td>
-        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.followupFee}} </td>
-        <td style="text-align: center" *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.reportFee}} </td>
-        <td style="text-align: center">
+        <td *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.degrees}}</td>
+        <td *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.specialities}}</td>
+        <td *ngIf="doctorService.role === 'ROLE_ADMIN'"> {{item.gender | titlecase}}</td>
+        <td *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.consultationFee}} </td>
+        <td *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.followupFee}} </td>
+        <td *ngIf="doctorService.role !== 'ROLE_ADMIN'"> {{item.reportFee}} </td>
+        <td>
           <span class="p-buttonset">
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
                     class="p-button-outlined p-button-secondary"></button>

@@ -18,12 +18,7 @@ export class CheckoutComponent {
 
   row = [{row: 1}]
 
-  cols = [
-    { field: 'doctor', header: 'Doctor ' },
-    { field: 'type', header: 'Type' },
-    { field: 'time', header: 'Time' },
-    { field: 'fee', header: 'Fee (BDT)' },
-  ];
+  cols = ['#', 'Doctor ', 'Type', 'Time', 'Fee (BDT)'];
 
   constructor(private httpService: HttpService,
               public docBillService: DoctorBillingService,
