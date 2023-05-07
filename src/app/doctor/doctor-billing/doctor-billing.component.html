@@ -1,208 +1,185 @@
-<form [formGroup]="DBForm" (ngSubmit)="onSubmit()" class="container-fluid p-0 m-0 text-center d-flex flex-column gap-5">
+<form [formGroup]="DBForm" (ngSubmit)="onSubmit()">
 
-  <div class="row p-0 m-0">
+  <div class="row">
     <div class="col">
-      <h3> {{authService.orgName}} Dr Appointment </h3>
-    </div>
-  </div>
-
-  <div class="card p-3 m-0">
-    <div class="row p-0 m-0">
-      <div class="col text-start">
-        <p>Dr Receptionist #{{authService.appUserID}}</p>
-      </div>
-      <div class="col">
-        <p>{{authService.appUserName}}</p>
-      </div>
-      <div class="col text-end">
-        <p>{{authService.appUserEmail}}</p>
-      </div>
+      <h4>DR APPOINTMENT BILLING </h4>
     </div>
   </div>
 
 
-  <div class="row p-0 m-0">
-    <div class="col-9 text-start fields">
-
-      <label for="searchPatient"> Search Patient </label>
-      <div class="p-inputgroup">
+  <div class="row">
+    <div class="col">
+      <div class=" text-start fields my-4">
+        <label for="searchPatient"> Search Patient </label>
+        <div class="p-inputgroup">
           <span class="p-inputgroup-addon">
               <i class="pi pi-search"></i>
           </span>
-        <p-autoComplete
-          [style]="{'width': '100%'}"
-          [inputStyle]="{'width': '100%'}"
-          inputId="searchPatient"
-          formControlName="patientSearch"
-          placeholder="Enter name/phone"
-          [showEmptyMessage] = "true"
-          [suggestions]="DBService.filteredPatients"
-          [forceSelection]="true"
-          (onSelect)="onPatientSelect()"
-          (completeMethod)="filterPatient($event)"
-          class="p-inputtext-sm"
-          field="name">
+          <p-autoComplete
+            [style]="{'width': '100%'}"
+            [inputStyle]="{'width': '100%'}"
+            id="searchPatient"
+            formControlName="patientSearch"
+            placeholder="Enter name/phone"
+            [showEmptyMessage] = "true"
+            [suggestions]="DBService.filteredPatients"
+            [forceSelection]="true"
+            (onSelect)="onPatientSelect()"
+            (completeMethod)="filterPatient($event)"
+            class="p-inputtext-sm"
+            field="name">
 
-          <ng-template let-patient pTemplate="item">
-            <p>{{ patient.name }} ({{ patient.phone }})</p>
-          </ng-template>
+            <ng-template let-patient pTemplate="item">
+              <p>{{ patient.name }} ({{ patient.phone }})</p>
+            </ng-template>
 
-        </p-autoComplete>
+          </p-autoComplete>
+        </div>
+      </div>
+      <div *ngIf="DBForm.controls['patientSearch'].valid" class="row p-0">
+        <div class="col">
+          <div class="card text-start p-3 d-flex flex-column">
+            <div class="row p-0 m-0">
+              <div class="col-10 p-0 m-0">
+                <h5>{{DBService.selectedPatient.name}}</h5>
+              </div>
+              <div class="col-2 d-flex justify-content-end p-0 m-0">
+                <button pButton
+                        icon="pi pi-times"
+                        class="p-button-sm p-button-text"
+                        (click)="resetPatientSearch()"
+                >
+                </button>
+              </div>
+            </div>
+
+            <div class="col p-0 mt-1">
+              <p-chip class="me-2" label="{{DBService.selectedPatient.phone}}"></p-chip>
+              <p-chip class="mx-2" label="{{DBService.selectedPatient.email}}"></p-chip>
+              <p-chip class="mx-2" label="{{DBService.selectedPatient.age}}y/o"></p-chip>
+              <p-chip class="mx-2" label="{{DBService.selectedPatient.gender}}"></p-chip>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="col-3 d-flex flex-column justify-content-end">
-      <button pButton
-              class=" p-button-outlined d-none d-lg-block p-button-sm"
-              label="New patient"
-              icon="pi pi-plus"
-              (click)="showCreateDialog()"
+    <!--    <div class="col-3 d-flex flex-column justify-content-end">-->
+    <!--      <button pButton-->
+    <!--              class=" p-button-outlined d-none d-lg-block p-button-sm"-->
+    <!--              label="New patient"-->
+    <!--              icon="pi pi-plus"-->
+    <!--              (click)="showCreateDialog()"-->
 
-      ></button>
-      <button pButton
-              class=" p-button-outlined d-lg-none"
-              icon="pi pi-plus"
-              (click)="showCreateDialog()"
-      ></button>
-    </div>
-  </div>
+    <!--      ></button>-->
+    <!--      <button pButton-->
+    <!--              class=" p-button-outlined d-lg-none"-->
+    <!--              icon="pi pi-plus"-->
+    <!--              (click)="showCreateDialog()"-->
+    <!--      ></button>-->
+    <!--    </div>-->
 
-  <div *ngIf="DBForm.controls['patientSearch'].valid" class="row p-0 m-0">
+
+
     <div class="col">
-      <div class="card text-start p-3 d-flex flex-column gap-3">
-        <div class="row p-0 m-0">
-          <div class="col-10 p-0 m-0">
-            <h4>Patient: {{DBService.selectedPatient.name}}</h4>
-          </div>
-          <div class="col-2 d-flex justify-content-end p-0 m-0">
-            <button pButton
-                    icon="pi pi-times"
-                    class="p-button-sm p-button-outlined p-button-danger"
-                    (click)="resetPatientSearch()"
-            >
-            </button>
-          </div>
-        </div>
-
-        <div class="row p-0 m-0">
-          <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="Phone: {{DBService.selectedPatient.phone}}"></p-chip>
-            <p-chip class="mx-2" label="Email: {{DBService.selectedPatient.email}}"></p-chip>
-            <p-chip class="mx-2" label="Age: {{DBService.selectedPatient.age}}"></p-chip>
-            <p-chip class="mx-2" label="Gender: {{DBService.selectedPatient.gender}}"></p-chip>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row p-0 m-0">
-    <div class="col-9 fields text-start">
-      <label for="searchDocs"> Search Doctor </label>
-      <div class="p-inputgroup">
+      <div class="fields text-start my-4">
+        <label for="searchDocs"> Search Doctor </label>
+        <div class="p-inputgroup">
                 <span class="p-inputgroup-addon">
                     <i class="pi pi-search"></i>
                 </span>
-        <p-autoComplete
-          [style]="{'width': '100%'}"
-          [inputStyle]="{'width': '100%'}"
-          inputId="searchDocs"
-          formControlName="docSearch"
-          placeholder="Enter name"
-          [showEmptyMessage] = "true"
-          [suggestions]="DBService.filteredDocs"
-          [forceSelection]="true"
-          (onSelect)="onDocSelect()"
-          (completeMethod)="filterDocs($event)"
-          class="p-inputtext-sm"
-          field="doctor.name">
-          <ng-template let-doc pTemplate="item">
-            <p>{{ doc.doctor.name }} (BMDC: {{ doc.doctor.bmdc }})</p>
-          </ng-template>
+          <p-autoComplete
+            [style]="{'width': '100%'}"
+            [inputStyle]="{'width': '100%'}"
+            id="searchDocs"
+            formControlName="docSearch"
+            placeholder="Enter name"
+            [showEmptyMessage] = "true"
+            [suggestions]="DBService.filteredDocs"
+            [forceSelection]="true"
+            (onSelect)="onDocSelect()"
+            (completeMethod)="filterDocs($event)"
+            class="p-inputtext-sm"
+            field="doctor.name">
+            <ng-template let-doc pTemplate="item">
+              <p>{{ doc.doctor.name }} (BMDC: {{ doc.doctor.bmdc }})</p>
+            </ng-template>
 
-        </p-autoComplete>
-      </div>
-
-    </div>
-
-    <div class="col-3">
-
-    </div>
-  </div>
-
-  <div *ngIf="DBForm.controls['docSearch'].valid" class="row p-0 m-0">
-    <div class="col">
-      <div class="card text-start p-3 d-flex flex-column gap-3">
-        <div class="row p-0 m-0">
-          <div class="col-10 p-0 m-0">
-            <h4>Doctor: {{DBService.selectedDoc.doctor.name}}</h4>
-          </div>
-          <div class="col-2 d-flex justify-content-end p-0 m-0">
-            <button pButton
-                    icon="pi pi-times"
-                    class="p-button-sm p-button-outlined p-button-danger"
-                    (click)="resetDocSearch()"
-            >
-            </button>
-          </div>
-        </div>
-
-        <div class="row p-0 m-0">
-          <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="BMDC: {{DBService.selectedDoc.doctor.bmdc}}"></p-chip>
-            <p-chip class="mx-2" label="Phone: {{DBService.selectedDoc.doctor.phone}}"></p-chip>
-            <p-chip class="mx-2" label="Email: {{DBService.selectedDoc.doctor.email}}"></p-chip>
-            <p-chip class="mx-2" label="Specialities: {{DBService.selectedDoc.doctor.specialities}}"></p-chip>
-            <p-chip class="mx-2" label="Degrees: {{DBService.selectedDoc.doctor.degrees}}"></p-chip>
-          </div>
+          </p-autoComplete>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="row p-0 m-0">
-    <div class="col fields text-start">
-      <label for="appointment"> Select Appointment Type</label>
-      <p-dropdown
-        inputId="appointment"
-        [style]="{'width': '100%'}"
-        formControlName="aptType"
-        [options]="DBService.appointmentOptions"
-        optionLabel="name"
-        placeholder="Consultation"
-        (onChange)="onAptSelect($event)"
-        class="p-inputtext-sm"
-      ></p-dropdown>
-    </div>
+      <div *ngIf="DBForm.controls['docSearch'].valid" class="row p-0">
+        <div class="col">
+          <div class="card text-start p-3 d-flex flex-column gap-3">
+            <div class="row p-0 m-0">
+              <div class="col-10 p-0 m-0">
+                <h5>Dr. {{DBService.selectedDoc.doctor.name}}</h5>
+              </div>
+              <div class="col-2 d-flex justify-content-end p-0 m-0">
+                <button pButton
+                        icon="pi pi-times"
+                        class="p-button-sm p-button-text"
+                        (click)="resetDocSearch()"
+                >
+                </button>
+              </div>
+            </div>
 
-    <div class="col fields text-start">
-      <label for="docTime"> Select Appointment Date </label>
-      <p-calendar inputId="docTime"
-                  formControlName="docTime"
-                  [minDate]="minDate"
-                  placeholder="Enter date"
-                  [showIcon]="true"
-                  hourFormat="12"
-                  (onSelect)="onTimeSelect($event)"
-                  class="p-inputtext-sm"
-                  [showTime]="true">
-      </p-calendar>
+            <div class="col p-0">
+              <p-chip class="me-2" label="BMDC: {{DBService.selectedDoc.doctor.bmdc}}"></p-chip>
+              <p-chip class="me-2" label="Phone: {{DBService.selectedDoc.doctor.phone}}"></p-chip>
+              <p-chip class="me-2" label="Email: {{DBService.selectedDoc.doctor.email}}"></p-chip>
+              <p-chip class="me-2" label="Specialities: {{DBService.selectedDoc.doctor.specialities}}"></p-chip>
+              <p-chip class="me-2" label="Degrees: {{DBService.selectedDoc.doctor.degrees}}"></p-chip>
+            </div>
+          </div>
 
-    </div>
-  </div>
+          <div class="row p-0 mt-4">
 
+            <div class="col fields m-0 text-start">
+              <label for="docTime"> Select Appointment Date </label>
+              <p-calendar id="docTime"
+                          formControlName="docTime"
+                          [minDate]="minDate"
+                          placeholder="Enter date"
+                          [showIcon]="true"
+                          hourFormat="12"
+                          (onSelect)="onTimeSelect($event)"
+                          class="p-inputtext-sm"
+                          [showTime]="true">
+              </p-calendar>
 
+            </div>
+            <div class="col fields m-0 text-start">
+              <label for="appointment"> Select Appointment Type</label>
+              <p-dropdown
+                id="appointment"
+                [style]="{'width': '100%'}"
+                formControlName="aptType"
+                [options]="DBService.appointmentOptions"
+                optionLabel="name"
+                placeholder="Consultation"
+                (onChange)="onAptSelect($event)"
+                class="p-inputtext-sm"
+              ></p-dropdown>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <div class="row p-0 m-0">
-    <div class="col p-0 m-0">
-      <button pButton
-              type="submit"
-              class=" p-button-sm"
-              icon="pi pi-arrow-right"
-              iconPos="right"
-              label="Proceed to checkout"
-              [disabled]="!DBForm.valid"
-      ></button>
+      <div class="row p-0 my-4">
+        <div class="col p-0 text-center">
+          <button pButton
+                  type="submit"
+                  class=" p-button-sm"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  label="Proceed to checkout"
+                  [disabled]="!DBForm.valid"
+          ></button>
+        </div>
+      </div>
     </div>
   </div>
 
