@@ -15,39 +15,15 @@ import {Medicine} from "@models/medicine";
 export class OrgProfileComponent implements OnInit{
   orgID!: number;
   medicines! : any;
+  doctors! : any;
+  users! : any;
+  diagnostics! : any;
   total! : number;
-  orgAdminURL = ApiPaths.orgAdmin
   orgMedURL = ApiPaths.orgMed;
   orgDiagURL = ApiPaths.orgDiag;
   orgDocURL = ApiPaths.orgDoc;
   orgUsersURL = ApiPaths.users;
   activeIndex: number = 0;
-  cardInfo = [
-    {
-      title: "Doctors",
-      icon: "stethoscope",
-      count: 123,
-      activeIndex: 0,
-    },
-    {
-      title: "Medicines",
-      icon: "pill",
-      count: 88,
-      activeIndex: 1,
-    },
-    {
-      title: "Diagnostics",
-      icon: "ecg",
-      count: 500,
-      activeIndex: 2,
-    },
-    {
-      title: "Employees",
-      icon: "groups",
-      count: 33,
-      activeIndex: 3,
-    },
-  ]
 
   constructor(public orgService: OrgService, private route: ActivatedRoute,
               private httpService: HttpService,
@@ -61,6 +37,10 @@ export class OrgProfileComponent implements OnInit{
       (params: Params) => {
         this.orgID = params['id'];
         this.orgService.getOrgByID(this.orgID)
+        this.getOrgMedicines(this.orgID)
+        this.getOrgUsers(this.orgID)
+        this.getOrgDiagnostics(this.orgID)
+        this.getOrgDoctors(this.orgID)
       }
     )
 
@@ -70,35 +50,16 @@ export class OrgProfileComponent implements OnInit{
           (params: Params) => {
             this.orgID = params['id'];
             this.orgService.getOrgByID(this.orgID)
+            this.getOrgMedicines(this.orgID)
+            this.getOrgUsers(this.orgID)
+            this.getOrgDiagnostics(this.orgID)
+            this.getOrgDoctors(this.orgID)
           }
         )
         }
       )
   }
 
-  getData(index: number){
-    this.activeIndex = index
-    switch(this.activeIndex) {
-      case 0:
-        this.getOrgDoctors(this.orgID)
-        break;
-      case 1:
-        this.getOrgMedicines(this.orgID)
-        break;
-      default:
-      // code block
-    }
-  }
-
-  getOrgInfo(orgID: number){
-    this.httpService.getRequest(`${this.orgAdminURL}/dashboard/${orgID}`)
-      .subscribe((response: any) => {
-        this.cardInfo[0].count = response.orgDoctors
-        this.cardInfo[1].count = response.orgMedicines
-        this.cardInfo[2].count = response.orgDiagnostics
-        this.cardInfo[3].count = response.orgEmployees
-      })
-  }
 
   getOrgMedicines(orgId: number){
     this.httpService
@@ -111,27 +72,27 @@ export class OrgProfileComponent implements OnInit{
 
   getOrgDiagnostics(orgId: number){
     this.httpService
-      .getRequest(`${this.orgMedURL}/organization/${orgId}/search`)
+      .getRequest(`${this.orgDiagURL}/organization/${orgId}/search`)
       .subscribe((response:any) => {
-        this.medicines = response.content;
+        this.diagnostics = response.content;
         this.total = response.totalElements;
       })
   }
 
   getOrgDoctors(orgId: number){
     this.httpService
-      .getRequest(`${this.orgMedURL}/organization/${orgId}/search`)
+      .getRequest(`${this.orgDocURL}/org/${orgId}/search`)
       .subscribe((response:any) => {
-        this.medicines = response.content;
+        this.doctors = response.content;
         this.total = response.totalElements;
       })
   }
 
   getOrgUsers(orgId: number){
     this.httpService
-      .getRequest(`${this.orgMedURL}/organization/${orgId}/search`)
+      .getRequest(`${this.orgUsersURL}/org/${orgId}/search`)
       .subscribe((response:any) => {
-        this.medicines = response.content;
+        this.users = response.content;
         this.total = response.totalElements;
       })
   }
