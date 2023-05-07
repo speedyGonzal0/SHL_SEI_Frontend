@@ -10,6 +10,8 @@ import {AuthenticationModule} from "@authentication/authentication.module";
 import {AuthGuard} from "@authentication/auth.guard";
 import {AuthService} from "@authentication/auth.service";
 import {LoginInterceptor} from "@shared/services/login.interceptor";
+import { ErrorComponent } from './error/error.component';
+import {ButtonModule} from "primeng/button";
 import {SharedModule} from "@shared/shared.module";
 
 function initializeApp() {
@@ -19,6 +21,7 @@ function initializeApp() {
 @NgModule({
   declarations: [
     AppComponent,
+    ErrorComponent,
   ],
     imports: [
         BrowserModule,
@@ -26,7 +29,8 @@ function initializeApp() {
         AuthenticationModule,
         AppRoutingModule,
         HttpClientModule,
-        SharedModule
+        SharedModule,
+      ButtonModule
     ],
   providers: [
     {

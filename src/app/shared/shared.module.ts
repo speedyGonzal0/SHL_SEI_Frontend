@@ -10,6 +10,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
+import {ErrorComponent} from "@shared/../error/error.component";
 import { NotificationComponent } from './components/notification/notification.component';
 
 
