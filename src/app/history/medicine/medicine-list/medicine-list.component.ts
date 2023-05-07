@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HistoryService} from "../../history.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-medicine-list',
@@ -10,7 +11,8 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 export class MedicineListComponent implements OnInit{
   constructor(public historyService: HistoryService,
               private router: Router,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              public authService: AuthService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(

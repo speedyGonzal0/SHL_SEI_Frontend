@@ -6,7 +6,7 @@
   [formGroup]="doctorForm"
   (ngSubmit)="onSubmit()">
 
-  <small><i>All fields are required *</i></small>
+  <small *ngIf="!doctorForm.valid"><i>All fields are required *</i></small>
 
   <div class="row p-0 m-0">
     <div class="col p-0">
@@ -17,7 +17,7 @@
                id="name"
                type="text"
                pInputText
-               placeholder="E.g: Md Rahim"
+               placeholder="e.g. Md Rahim"
                class="p-inputtext-sm"
         />
         <small
@@ -38,7 +38,7 @@
                id="phone"
                type="text"
                pInputText
-               placeholder="E.g: 01xxxxxxxxx"
+               placeholder="e.g. 01xxxxxxxxx"
                class="p-inputtext-sm"
         />
         <small
@@ -56,7 +56,7 @@
                id="email"
                type="email"
                pInputText
-               placeholder="E.g: sth@xmail.com"
+               placeholder="e.g. sth@xmail.com"
                class="p-inputtext-sm"/>
         <small
           *ngIf="!doctorForm.controls['email'].valid && doctorForm.controls['email'].touched">
@@ -114,7 +114,7 @@
                id="bmdc"
                type="number"
                pInputText
-               placeholder="E.g: 123456"
+               placeholder="e.g. 123456"
                class="p-inputtext-sm"/>
         <small
           *ngIf="!doctorForm.controls['bmdc'].valid && doctorForm.controls['bmdc'].touched">
@@ -130,7 +130,7 @@
         class="fields p-fluid">
         <label for="degrees">Degrees</label>
         <p-chips formControlName="degrees"
-                 placeholder="E.g: MBBS, FCPS"
+                 placeholder="e.g. MBBS, FCPS"
                  id="degrees">
         </p-chips>
       </span>
@@ -147,7 +147,7 @@
         class="fields p-fluid">
         <label for="specialities">Specialities</label>
         <p-chips formControlName="specialities"
-                 placeholder="E.g: Opthalmology"
+                 placeholder="e.g. Opthalmology"
                  id="specialities">
         </p-chips>
       </span>
@@ -161,7 +161,7 @@
   <div class="row p-0 m-0 bg-light position-sticky bottom-0">
     <div class="col p-0">
       <button [style]="{'width': '100%'}" pButton
-              class="p-button-success p-button-sm"
+              class=" p-button-sm"
               type="submit"label={{submitLabel}}
               [disabled]="!doctorForm.valid">
       </button>
@@ -250,7 +250,7 @@
             inputId="consultFee"
             mode="decimal"
             formControlName="consultationFee"
-            placeholder="E.g: 800"
+            placeholder="e.g. 800"
 
           >
           </p-inputNumber>
@@ -268,7 +268,7 @@
               inputId="followFee"
               mode="decimal"
               formControlName="followupFee"
-              placeholder="E.g: 500"
+              placeholder="e.g. 500"
             >
             </p-inputNumber>
             <small
@@ -285,7 +285,7 @@
               inputId="reportFee"
               mode="decimal"
               formControlName="reportFee"
-              placeholder="E.g: 300"
+              placeholder="e.g. 300"
             >
             </p-inputNumber>
             <small
@@ -324,13 +324,13 @@
                   pButton type="submit"
                   label="Confirm"
                   [disabled]="!doctorSelectForm.valid"
-                  class="p-button-success">
+                  class="">
           </button>
           <ng-template #updateDiag>
             <button  [style]="{'width': '100%'}"
                      pButton type="submit"
                      label="Update"
-                     class="p-button-success p-button-sm"></button>
+                     class=" p-button-sm"></button>
           </ng-template>
         </div>
       </div>

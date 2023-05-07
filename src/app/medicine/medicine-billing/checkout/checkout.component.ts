@@ -10,58 +10,18 @@ import {Router} from "@angular/router";
   styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent{
-  medicines = [
-    {
-      id: 1,
-      name: "Ace",
-      generic: "xyz",
-      strength: "5mg",
-      quantity: 5,
-      unit_price: 2,
-      total_price: 10
-    },
-    {
-      id: 2,
-      name: "Fexo",
-      generic: "xyz",
-      strength: "8mg",
-      quantity: 5,
-      unit_price: 10,
-      total_price: 50
-    }
-  ]
 
   discountPercent! : number;
   discountAmount : number = 0;
   showDiscountInput = true;
   issued = new Date()
 
-  user = {
-    name: "Mr. Azmal",
-    id: 456
-  }
-  org = {
-    name: "Labaid Hospital ",
-    id: 123
-  }
-  patient = {
-    ID: 12345,
-    name: "Ranu Akter",
-    phone: "01715998810"
-  }
 
-  cols = [
-    { field: 'name', header: 'Name' },
-    { field: 'generic', header: 'Generic' },
-    { field: 'strength', header: 'Strength' },
-    { field: 'quantity', header: 'Qty' },
-    { field: 'unit_price', header: 'Unit Price (BDT)' },
-    { field: 'total_price', header: 'Total Price (BDT)' }
-  ];
+  cols = ['#', 'Name', 'Generic', 'Strength', 'Qty', 'Unit (BDT)', 'Amount (BDT)'];
 
   constructor(private httpService: HttpService,
               public medBillService: MedicineBillingService,
-              private authService: AuthService,
+              public authService: AuthService,
               private router: Router) {
   }
 
@@ -128,9 +88,9 @@ export class CheckoutComponent{
 
     let medInvoice = {
       medQuantities: medQuantities,
-      totalBill : this.calculateTotal(),
+      totalBill : this.calculateTotal().toFixed(2),
       discount : this.discountAmount,
-      finalBill: this.calculatePayable() + (this.calculatePayable()*5)/100
+      finalBill: (this.calculatePayable() + (this.calculatePayable()*5)/100).toFixed(2)
     }
 
     this.httpService.createRequest(

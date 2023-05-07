@@ -1,2 +1,2 @@
-<app-admin-dashboard *ngIf="authService.role === 'ROLE_ADMIN'"></app-admin-dashboard>
-<app-org-admin-dashboard *ngIf="authService.role === 'ROLE_ORG_ADMIN'"></app-org-admin-dashboard>
+<app-admin-dashboard *ngIf="authService.getRole() === 'ROLE_ADMIN'"></app-admin-dashboard>
+<app-org-admin-dashboard *ngIf="authService.getRole() === 'ROLE_ORG_ADMIN'"></app-org-admin-dashboard>

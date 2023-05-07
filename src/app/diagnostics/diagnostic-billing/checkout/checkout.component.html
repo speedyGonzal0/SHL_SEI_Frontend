@@ -1,51 +1,60 @@
-<div class="text-center">
+<div>
+  <h4 class="mb-4">CHECKOUT</h4>
+
+  <div class="row my-4">
+    <div class="text-start col">
+      <p>{{diagBillService.selectedPatient.name}}</p>
+      <p>{{diagBillService.selectedPatient.phone}}</p>
+      <p>{{diagBillService.selectedPatient.email}}</p>
+    </div>
+
+    <div class="text-end col">
+      <p>{{org.name}}Diagnostics</p>
+      <p>Issue Date: {{issued | date:'longDate'}}</p>
+      <p>Issued By: {{authService.appUserName}}</p>
+    </div>
+  </div>
 
   <p-table [value]="diagBillService.selectedDiagnostics" [scrollable]="true" >
-    <ng-template pTemplate="caption">
-      <h3 class="text-center my-2">{{org.name}}Diagnostics</h3>
-      <div class="tableCaption mt-4 row" id="table">
-        <span class="captionInfo col-md">
-          <p>Patient Name: <b>{{diagBillService.selectedPatient.name}}</b></p>
-        </span>
-        <span class="captionInfo col-md">
-          <p>Patient Phone: <b>{{diagBillService.selectedPatient.phone}}</b></p>
-        </span>
-        <span class="captionInfo col-md">
-          <p>Issued: <b>{{issued | date:'longDate'}}</b></p>
-        </span>
-        <span class="captionInfo col-md">
-          <p>Issued By: <b>#{{user.id}}</b></p>
-        </span>
-      </div>
-    </ng-template>
 
     <ng-template pTemplate="header">
       <tr>
-        <th *ngFor="let col of cols"
-            style="text-align: center">
-          {{col.header}}</th>
+        <th *ngFor="let col of cols">
+          {{col}}</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-diagnostic let-rowIndex="rowIndex">
       <tr>
-        <td style="text-align: center">{{diagnostic.serviceName}}</td>
+        <td>{{rowIndex+1}}</td>
 
-        <td style="text-align: center">{{diagnostic.price}}</td>
+        <td>{{diagnostic.serviceName}}</td>
 
-        <td style="text-align: center">
-          <div *ngIf="!diagnostic.discountApplied">
+        <td>{{diagnostic.price}}</td>
+
+        <td>
+          <div *ngIf="!diagnostic.discountApplied" class="p-inputgroup">
             <input pInputText type="number"
-                   [style]="{width: '80px', borderRadius: '10px 0 0 10px'}"
+                   [style]="{'width': '80px'}"
                    placeholder="%"
                    class="p-inputtext-sm"
-                   [(ngModel)]="diagnostic.discount">
+                   [(ngModel)]="diagnostic.discount" />
             <button pButton icon="pi pi-check"
-                    class="p-button-success p-button-sm"
+                    class=" p-button-sm"
                     [disabled]="isDisabled(diagnostic.discount)"
                     style="border-radius: 0 10px 10px 0"
-                    (click)="applyIndividualDiscount(rowIndex, diagnostic.final_price, diagnostic.discount)">
-            </button>
+                    (click)="applyIndividualDiscount(rowIndex, diagnostic.final_price, diagnostic.discount)"></button>
+            <!--            <input pInputText type="number"-->
+            <!--                   [style]="{width: '80px', borderRadius: '10px 0 0 10px'}"-->
+            <!--                   placeholder="%"-->
+            <!--                   class="p-inputtext-sm"-->
+            <!--                   [(ngModel)]="diagnostic.discount">-->
+            <!--            <button pButton icon="pi pi-check"-->
+            <!--                    class=" p-button-sm"-->
+            <!--                    [disabled]="isDisabled(diagnostic.discount)"-->
+            <!--                    style="border-radius: 0 10px 10px 0"-->
+            <!--                    (click)="applyIndividualDiscount(rowIndex, diagnostic.final_price, diagnostic.discount)">-->
+            <!--            </button>-->
           </div>
           <div *ngIf="diagnostic.discountApplied" class="d-flex justify-content-center align-items-center">
             <p class="mb-0 mx-2">{{diagnostic.discount}}%</p>
@@ -53,42 +62,47 @@
           </div>
         </td>
 
-        <td style="text-align: center">{{diagnostic.final_price}}</td>
+        <td>{{diagnostic.final_price}}</td>
 
 
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="footer">
-      <tr>
-        <td rowspan="4" colspan="2">
-          <div *ngIf="showDiscountInput" class="discount">
-            <input pInputText type="number" placeholder="Enter discount %" [min]="0" [max]="100"
-                   style="border-radius: 10px 0 0 10px; width: 200px" [(ngModel)]="discountPercent" class="p-inputtext-sm">
-            <button pButton label="Apply" class="p-button-success p-button-sm" [disabled]="isDisabled(discountPercent)"
-                    style="border-radius: 0 10px 10px 0" (click)="applyDiscount()"></button>
-          </div>
-          <div *ngIf="!showDiscountInput" class="discount">
-            <p class="mx-2 my-0">{{discountPercent}}% discount has been applied</p>
-            <i class="pi pi-pencil" (click)="cancelDiscount()"></i>
-          </div>
-        </td>
-        <td style="text-align: center">Total</td>
-        <td style="text-align: center">{{calculateAfterTotalIndividualDiscount()}} BDT</td>
-      </tr>
-      <tr>
-        <td style="text-align: center">Discount</td>
-        <td style="text-align: center">-{{discountAmount}} BDT</td>
-      </tr>
-      <tr>
-        <td style="text-align: center">VAT</td>
-        <td style="text-align: center">+{{(calculatePayable()*5)/100}} BDT</td>
-      </tr>
-      <tr>
-        <td style="text-align: center">Payable</td>
-        <td style="text-align: center">{{calculatePayable() + (calculatePayable()*5)/100}} BDT</td>
       </tr>
     </ng-template>
   </p-table>
-  <button pButton label="Generate Invoice" icon="pi pi-file-pdf"
-          class="p-button-success mt-4" (click)="generateInvoice()"></button>
+
+
+  <div class="row d-flex align-items-center my-4">
+    <div class="col">
+      <div *ngIf="showDiscountInput" class="discount">
+        <input pInputText type="number" placeholder="Enter discount %" [min]="0" [max]="100"
+               style="border-radius: 10px 0 0 10px; width: 200px" [(ngModel)]="discountPercent" class="p-inputtext-sm">
+        <button pButton label="Apply" class=" p-button-sm" [disabled]="isDisabled(discountPercent)"
+                style="border-radius: 0 10px 10px 0" (click)="applyDiscount()"></button>
+      </div>
+      <div *ngIf="!showDiscountInput" class="discount">
+        <p class="mx-2 my-0">{{discountPercent}}% discount has been applied</p>
+        <i class="pi pi-pencil" (click)="cancelDiscount()"></i>
+      </div>
+    </div>
+
+    <div class="row col">
+      <ul class="col text-end">
+        <li >Total</li>
+        <li >Discount</li>
+        <li >VAT</li>
+        <li ><b>Payable</b></li>
+      </ul>
+
+      <ul class="col text-end">
+        <li >{{calculateAfterTotalIndividualDiscount()}} BDT</li>
+        <li >-{{discountAmount}} BDT</li>
+        <li >+{{(calculatePayable()*5)/100}} BDT</li>
+        <li ><b>{{calculatePayable() + (calculatePayable()*5)/100}} BDT</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <button pButton label="Generate Invoice" icon="pi pi-file-pdf"
+            class="mt-4" (click)="generateInvoice()"></button>
+  </div>
 </div>

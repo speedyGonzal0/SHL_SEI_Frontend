@@ -1,0 +1,41 @@
+@import "src/app/scss/variables.scss";
+
+.p-datatable{
+  .p-datatable-tbody > tr > td, .p-datatable-thead > tr > th {
+    text-align: center;
+  }
+}
+
+.p-button{
+  background: $primary-color;
+  border: none;
+  color: white;
+  &:hover:hover{
+    background: $primary-darker;
+  }
+}
+
+.p-button{
+  &.p-button-outlined, &.p-button-text{
+    color: $primary-color;
+    &:hover:hover{
+      color: $primary-darker;
+      background: $primary-lighter;
+    }
+  }
+}
+
+.p-button:disabled, :disabled:hover:hover{
+  background: $disabled;
+  border: $disabled;
+}
+
+.p-tabview {
+  .p-tabview-panels{
+    background: transparent;
+  }
+  .p-tabview-nav li .p-tabview-nav-link,
+  .p-tabview-nav-container{
+    display: none;
+  }
+}

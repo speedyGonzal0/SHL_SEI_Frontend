@@ -14,6 +14,7 @@ import {ButtonModule} from 'primeng/button';
 import {SidebarModule} from 'primeng/sidebar';
 import {CardModule} from "primeng/card";
 import { OrgAdminDashboardComponent } from './dashboard/org-admin-dashboard/org-admin-dashboard.component';
+import {LandingPageComponent} from "@home/landing-page/landing-page.component";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { OrgAdminDashboardComponent } from './dashboard/org-admin-dashboard/org-
     DashboardComponent,
     AdminDashboardComponent,
     OrgAdminDashboardComponent,
+    LandingPageComponent
   ],
   exports:[
     HomeComponent,

@@ -11,7 +11,7 @@ export class LogoutComponent implements OnInit{
   menuItems !: MenuItem[];
 
   constructor(private confirmationService: ConfirmationService,
-              private authService: AuthService){
+              public authService: AuthService){
   }
 
   ngOnInit() {

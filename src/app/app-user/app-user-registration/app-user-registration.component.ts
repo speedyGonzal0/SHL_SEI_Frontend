@@ -35,7 +35,7 @@ export class AppUserRegistrationComponent implements OnInit{
       'address' : new FormControl(null, [Validators.required]),
       'age' : new FormControl(null, [Validators.required, Validators.min(1)]),
       'role' : new FormControl(this.authService.role === "ROLE_ADMIN" ? [2] : null, [Validators.required]),
-      'password' : new FormControl(null, [Validators.required, Validators.minLength(8)]),
+      'password' : new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]),
       'orgID' : new FormControl(null, [Validators.required]),
     }
     )

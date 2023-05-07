@@ -15,13 +15,60 @@ export class DoctorProfileComponent implements OnInit{
 
   orgs : any = [
     {
-    name: "Popular Hospital",
-    days: ['0','1','0','1','1','0','0'],
-    fees: [1000, 650, 500],
+      name: "Popular Hospital",
+      availableDayTimes: [
+        {
+          day: "Saturday",
+          startTime: "03:05 PM",
+          endTime: "05:05 AM"
+        },
+        {
+          day: "Monday",
+          startTime: "03:05 PM",
+          endTime: "05:05 AM"
+        }
+      ],
+      fees: [1000, 650, 500],
     },
     {
       name: "Apollo Hospital",
-      days: ['0','1','0','0','0','0','1'],
+      availableDayTimes: [
+        {
+          day: "Saturday",
+          startTime: "03:05 PM",
+          endTime: "05:05 PM"
+        },
+        {
+          day: "Sunday",
+          startTime: "03:05 PM",
+          endTime: "05:05 PM"
+        },
+        {
+          day: "Monday",
+          startTime: "03:05 PM",
+          endTime: "05:05 PM"
+        },
+        {
+          day: "Tuesday",
+          startTime: "03:05 PM",
+          endTime: "05:05 PM"
+        },
+        {
+          day: "Wednesday",
+          startTime: "03:05 PM",
+          endTime: "05:05 PM"
+        },
+        {
+          day: "Thursday",
+          startTime: "03:05 PM",
+          endTime: "05:05 PM"
+        },
+        {
+          day: "Friday",
+          startTime: "03:05 PM",
+          endTime: "05:05 PM"
+        }
+      ],
       fees: [1200, 600, 800]
     },
   ]

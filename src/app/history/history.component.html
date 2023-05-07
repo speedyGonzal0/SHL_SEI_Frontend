@@ -1,5 +1,10 @@
-<div class="row">
-  <p-card class="col" [routerLink]="['/history/diagnostic']">Diagnostic History</p-card>
-  <p-card class="col" [routerLink]="['/history/medicine']">Medicine History</p-card>
-  <p-card class="col" [routerLink]="['/history/doctor-appointment']">Doctor History</p-card>
+<div *ngIf="authService.getRole() === 'ROLE_ADMIN' || authService.getRole() === 'ROLE_ORG_ADMIN'" class="row">
+  <h3 class="text-center mb-4">Billing History</h3>
+  <p-card class="col" [routerLink]="['/history/diagnostic']">Diagnostic</p-card>
+  <p-card class="col" [routerLink]="['/history/medicine']">Medicine</p-card>
+  <p-card class="col" [routerLink]="['/history/doctor-appointment']">Dr Appointment</p-card>
 </div>
+
+<app-doctor-list *ngIf="authService.getRole()!.includes('ROLE_DOCTOR_RECEPTIONIST')"></app-doctor-list>
+<app-diagnostic-list *ngIf="authService.getRole()!.includes('ROLE_DIAGNOSTIC_RECEPTIONIST')"></app-diagnostic-list>
+<app-medicine-list *ngIf="authService.getRole()!.includes('ROLE_PHARMACIST')"></app-medicine-list>

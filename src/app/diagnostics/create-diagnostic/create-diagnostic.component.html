@@ -9,8 +9,8 @@
 
     <div class="fields col">
       <label for="diagName"> Name </label>
-      <input type="text" pInputText id="diagName" placeholder="E.g: X-Ray" formControlName="serviceName"/>
-      <small *ngIf="createDiagForm.controls['serviceName'].touched && !createDiagForm.valid"> This field is required! </small>
+      <input type="text" pInputText id="diagName" placeholder="e.g. X-Ray" formControlName="serviceName"/>
+      <small class="errorMsg" *ngIf="createDiagForm.controls['serviceName'].touched && !createDiagForm.valid"> This field is required! </small>
     </div>
 
   </div>
@@ -22,13 +22,13 @@
         [style]="{'width': '100%'}" pButton
         type="submit"
         label="Add Diagnostic"
-        class="p-button-success p-button-sm"
+        class=" p-button-sm"
         [disabled]="!createDiagForm.valid"
       ></button>
       <ng-template #updateDiag>
-        <button [disabled]="!createDiagForm.valid" [style]="{'width': '100%'}"
+        <button [disabled]="!createDiagForm.valid || !createDiagForm.dirty" [style]="{'width': '100%'}"
                 pButton type="submit" label="Update Diagnostic"
-                class="p-button-success p-button-sm"></button>
+                class=" p-button-sm" ></button>
       </ng-template>
     </div>
 
@@ -71,13 +71,13 @@
 
         <div class="fields col-4" *ngIf="!diagService.editMode">
           <label for="diagPrice"> Price </label>
-          <p-inputNumber [style]="{'width': '100%'}" mode="decimal" [min]="1" id="diagPrice" placeholder="E.g: 500" formControlName="price"/>
+          <p-inputNumber [style]="{'width': '100%'}" mode="decimal" [min]="1" id="diagPrice" placeholder="e.g. 500" formControlName="price"/>
           <small *ngIf="selectDiagForm.controls['price'].touched && !selectDiagForm.controls['price'].valid"> This field is required! </small>
         </div>
 
         <div class="fields col" *ngIf="diagService.editMode">
           <label for="updateDiagPrice"> Price </label>
-          <p-inputNumber [style]="{'width': '100%'}" mode="decimal" [min]="1" id="updateDiagPrice" placeholder="E.g: 500" formControlName="price"/>
+          <p-inputNumber [style]="{'width': '100%'}" mode="decimal" [min]="1" id="updateDiagPrice" placeholder="e.g. 500" formControlName="price"/>
           <small *ngIf="selectDiagForm.controls['price'].touched && !selectDiagForm.controls['price'].valid"> This field is required! </small>
         </div>
 
@@ -95,7 +95,7 @@
           <ng-template #updateDiag>
             <button [disabled]="!selectDiagForm.valid" [style]="{'width': '100%'}"
                     pButton type="submit" label="Update Diagnostic"
-                    class="p-button-success p-button-sm"></button>
+                    class=" p-button-sm"></button>
           </ng-template>
         </div>
 
@@ -112,17 +112,17 @@
           <p-table [value]="diagService.selectedDiags" [scrollable]="true" scrollHeight="200px" styleClass="p-datatable-sm p-datatable-gridlines">
             <ng-template pTemplate="header">
               <tr>
-                <th style="text-align: center">Name</th>
-                <th style="text-align: center">Price</th>
-                <th style="text-align: center">Action</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Action</th>
 
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-diag let-index='rowIndex'>
               <tr>
-                <td style="text-align: center">{{ diag.serviceName }}</td>
-                <td style="text-align: center">{{ diag.price }}</td>
-                <td style="text-align: center">
+                <td>{{ diag.serviceName }}</td>
+                <td>{{ diag.price }}</td>
+                <td>
                   <button (click)="onDelete(index)"
                           pButton
                           class="p-button-outlined p-button-danger p-button-sm"
@@ -142,7 +142,7 @@
                   pButton
                   [style]="{'width': '100%'}"
                   label="Confirm selection"
-                  class="p-button-success p-button-sm">
+                  class=" p-button-sm">
           </button>
         </div>
       </div>

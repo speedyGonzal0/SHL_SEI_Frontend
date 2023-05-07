@@ -2,7 +2,7 @@
 
 <form class="container-fluid p-0 m-0 d-flex flex-column gap-3" [formGroup]="appUserForm" (ngSubmit)="onSubmit()">
 
-  <small><i>All fields are required *</i></small>
+  <small *ngIf="appUserForm.invalid"><i>All fields are required *</i></small>
 
       <div class="row p-0 m-0">
         <div class="col fields">
@@ -11,11 +11,12 @@
                  id="name"
                  type="text"
                  class="p-inputtext-sm"
-                 placeholder="E.g: Md Rahim"
+                 placeholder="e.g. Md Rahim"
                  pInputText
           />
-          <small
-            *ngIf="!appUserForm.controls['name'].valid && appUserForm.controls['name'].touched">
+          <small class="errorMsg m-0"
+            *ngIf="!appUserForm.controls['name'].value
+            && appUserForm.controls['name'].touched">
             This field is required!
           </small>
         </div>
@@ -30,12 +31,19 @@
                  id="phone"
                  type="text"
                  class="p-inputtext-sm"
-                 placeholder="E.g: 017xxxxxxxx"
+                 placeholder="e.g. 017xxxxxxxx"
                  pInputText
           />
-          <small
-            *ngIf="!appUserForm.controls['phone'].valid && appUserForm.controls['phone'].touched">
+          <small class="errorMsg m-0"
+            *ngIf="!appUserForm.controls['phone'].value
+            && appUserForm.controls['phone'].touched">
             This field is required!
+          </small>
+          <small class="errorMsg m-0"
+                 *ngIf="appUserForm.controls['phone'].invalid
+                 && appUserForm.controls['phone'].value
+                 && appUserForm.controls['phone'].touched">
+            This field is invalid!
           </small>
         </div>
 
@@ -45,11 +53,18 @@
                  id="email"
                  type="email"
                  class="p-inputtext-sm"
-                 placeholder="E.g: sth@gmail.com"
+                 placeholder="e.g. sth@gmail.com"
                  pInputText/>
-          <small
-            *ngIf="!appUserForm.controls['email'].valid && appUserForm.controls['email'].touched">
+          <small class="errorMsg m-0"
+            *ngIf="!appUserForm.controls['email'].value
+            && appUserForm.controls['email'].touched">
             This field is required!
+          </small>
+          <small class="errorMsg m-0"
+                 *ngIf="appUserForm.controls['email'].invalid
+                 && appUserForm.controls['email'].value
+                 && appUserForm.controls['email'].touched">
+            This field is invalid!
           </small>
         </div>
 
@@ -67,8 +82,9 @@
                       [style]="{width: '100%'}"
                       optionLabel="gender">
           </p-dropdown>
-          <small
-            *ngIf="!appUserForm.controls['gender'].valid && appUserForm.controls['gender'].touched">
+          <small class="errorMsg m-0"
+            *ngIf="!appUserForm.controls['gender'].value
+            && appUserForm.controls['gender'].touched">
             This field is required!
           </small>
         </div>
@@ -79,11 +95,18 @@
                  id="age"
                  type="number"
                  class="p-inputtext-sm"
-                 placeholder="E.g: 40"
+                 placeholder="e.g. 40"
                  pInputText/>
-          <small
-            *ngIf="!appUserForm.controls['age'].valid && appUserForm.controls['age'].touched">
+          <small class="errorMsg m-0"
+            *ngIf="!appUserForm.controls['age'].value
+            && appUserForm.controls['age'].touched">
             This field is required!
+          </small>
+          <small class="errorMsg m-0"
+                 *ngIf="appUserForm.controls['age'].invalid
+                 && appUserForm.controls['age'].value
+                 && appUserForm.controls['age'].touched">
+            This field is invalid!
           </small>
         </div>
 
@@ -98,19 +121,76 @@
                  id="address"
                  type="text"
                  class="p-inputtext-sm"
-                 placeholder="E.g: Mirpur, Dhaka"
+                 placeholder="e.g. Mirpur, Dhaka"
                  pInputText
           />
-          <small
-            *ngIf="!appUserForm.controls['address'].valid && appUserForm.controls['address'].touched">
+          <small class="errorMsg m-0"
+            *ngIf="!appUserForm.controls['address'].value
+            && appUserForm.controls['address'].touched">
+            This field is required!
+          </small>
+        </div>
+      </div>
+
+
+  <div class="row p-0 m-0">
+        <div class="col fields" *ngIf="authService.getRole() === 'ROLE_ADMIN'; else role">
+          <label for="orgID">Organization ID</label>
+          <input formControlName="orgID"
+                 id="orgID"
+                 type="number"
+                 class="p-inputtext-sm"
+                 placeholder="e.g. 2"
+                 pInputText/>
+          <small class="errorMsg m-0"
+            *ngIf="!appUserForm.controls['orgID'].value
+            && appUserForm.controls['orgID'].touched">
             This field is required!
           </small>
         </div>
 
+    <div class="col fields">
+      <label for="password">Password</label>
+      <p-password
+        class="p-inputtext-sm p-fluid"
+        [toggleMask]="true"
+        id="password"
+        placeholder="e.g. A Strong Password"
+        formControlName="password">
+        <ng-template pTemplate="footer">
+          <hr>
+          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+            <li>At least one lowercase</li>
+            <li>At least one uppercase</li>
+            <li>At least one numeric</li>
+            <li>At least one special character</li>
+            <li>Minimum 8 characters</li>
+          </ul>
+        </ng-template>
+      </p-password>
+      <!--          <input formControlName="password"-->
+      <!--                 id="password"-->
+      <!--                 type="password"-->
+      <!--                 class="p-inputtext-sm"-->
+      <!--                 placeholder="e.g. A Strong Password"-->
+      <!--                 pInputText/>-->
+      <small class="errorMsg m-0"
+        *ngIf="!appUserForm.controls['password'].value
+        && appUserForm.controls['password'].touched">
+        This field is required!
+      </small>
+
+      <small class="errorMsg m-0"
+             *ngIf="appUserForm.controls['password'].invalid
+             && appUserForm.controls['password'].value
+             && appUserForm.controls['password'].touched">
+        This field is invalid!
+      </small>
+    </div>
       </div>
 
 
-      <div class="row p-0 m-0" *ngIf="authService.role === 'ROLE_ORG_ADMIN'">
+      <ng-template #role>
         <div class="col fields">
           <label for="role">Role</label>
           <p-multiSelect formControlName="role"
@@ -118,57 +198,23 @@
                          placeholder="-"
                          id="role"
                          [style]="{width: '100%'}"
+                         class="p-inputtext-sm"
                          optionLabel="role">
           </p-multiSelect>
           <small
-            *ngIf="!appUserForm.controls['role'].valid && appUserForm.controls['role'].touched">
+            *ngIf="!appUserForm.controls['role'].value
+            && appUserForm.controls['role'].touched">
             This field is required!
           </small>
         </div>
-
-      </div>
-
-
-      <div class="row p-0 m-0">
-        <div class="col fields">
-          <label for="password">Password</label>
-          <input formControlName="password"
-                 id="password"
-                 type="password"
-                 class="p-inputtext-sm"
-                 placeholder="E.g: A Strong Password"
-                 pInputText/>
-          <small
-            *ngIf="!appUserForm.controls['password'].valid && appUserForm.controls['password'].touched">
-            This field is required!
-          </small>
-        </div>
-
-      </div>
-
-
-      <div class="row p-0 m-0" *ngIf="appUserService.role === 'ROLE_ADMIN'">
-        <div class="col fields">
-          <label for="orgID">Organization ID</label>
-          <input formControlName="orgID"
-                 id="orgID"
-                 type="number"
-                 class="p-inputtext-sm"
-                 placeholder="E.g: 2"
-                 pInputText/>
-          <small
-            *ngIf="!appUserForm.controls['orgID'].valid && appUserForm.controls['orgID'].touched">
-            This field is required!
-          </small>
-        </div>
-
-      </div>
-
+      </ng-template>
 
       <div class="row p-0 m-0 bg-white position-sticky bottom-0">
         <div class="col fields">
-          <button pButton class="p-button-success p-button-sm" type="submit" label={{submitLabel}}
-                  [disabled]="!appUserForm.valid && !appUserService.editMode"></button>
+          <button pButton class=" p-button-sm"
+                  type="submit" label={{submitLabel}}
+                  [disabled]="!appUserForm.valid &&
+                  !appUserService.editMode"></button>
         </div>
       </div>
 

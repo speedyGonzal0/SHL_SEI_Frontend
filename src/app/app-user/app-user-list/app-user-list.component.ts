@@ -7,6 +7,7 @@ import {AppUserRegistrationComponent} from "../app-user-registration/app-user-re
 import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RefreshService} from "@shared/services/refresh.service";
+import {AuthService} from "@authentication/auth.service";
 
 @Component({
   selector: 'app-app-user-diagnostic-list',
@@ -21,7 +22,8 @@ export class AppUserListComponent implements OnInit{
   constructor(private messageService: MessageService, private dialogService: DialogService,
               private confirmationService: ConfirmationService, private httpService: HttpService,
               public appUserService: AppUserService, private route: ActivatedRoute,
-              private refreshService: RefreshService, private router: Router,) {
+              private refreshService: RefreshService, private router: Router,
+              public  authService: AuthService) {
   }
 
   ngOnInit() {

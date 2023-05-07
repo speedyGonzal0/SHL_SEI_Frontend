@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap');
+@import "src/app/scss/variables.scss";
 
 *{
   margin: 0;
@@ -32,18 +33,46 @@ p{
 }
 
 .errorMsg{
-  font-size: 14px;
+  font-size: 12px;
+  color: red;
+}
+
+.search{
+  button{
+    width: 180px;
+  }
 }
 
 .tableToolbar{
   display: flex;
-  justify-content: space-between;
+  margin: 20px 0;
+  button{
+    width: 180px;
+  }
 }
 
 small{
   color: grey;
 }
 
+.historyContainer{
+  background: white;
+  padding: 20px 50px;
+  font-size: 14px;
+}
+
 .terms{
   color: black;
+}
+
+li{
+  list-style: none;
+}
+
+.icon{
+  font-size: 24px;
+  color: $primary-color;
+  background: $primary-lighter;
+  padding: 5px;
+  border-radius: 8px;
 }

@@ -64,15 +64,16 @@ export class CheckoutComponent {
   }
 
   cols = [
-    { field: 'serviceName', header: 'Name' },
-    { field: 'price', header: 'Price (BDT)' },
-    { field: 'discount', header: 'Discount (%)' },
-    { field: 'final_price', header: 'Final Price (BDT)' },
+    '#',
+    'Name',
+    'Price (BDT)',
+    'Discount (%)',
+    'Final Price (BDT)'
   ];
 
   constructor(private httpService: HttpService,
               public diagBillService: DiagnosticBillingService,
-              private authService: AuthService,
+              public authService: AuthService,
               private router: Router) {}
 
   applyIndividualDiscount(index: number, finalPrice:number, discount:number){

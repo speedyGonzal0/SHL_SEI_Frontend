@@ -30,7 +30,9 @@ import {PaginatorModule} from "primeng/paginator";
     MedicineBillingComponent,
     CheckoutComponent,
   ],
-  exports: [],
+    exports: [
+        MedicineBillingComponent
+    ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

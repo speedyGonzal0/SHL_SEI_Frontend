@@ -15,17 +15,10 @@ export class DiagnosticsService{
 
   diagnostics!: Diagnostic[];
   totalDiagnostics!: number;
-
-  diagBillHistory!: any;
-  totalDiagHistory!: number;
   selectedDiags!: Diagnostic[];
   diagHTTPResponse!: HttpResponse<any> | null;
-
   adminUrl : string = ApiPaths.diagnostic;
   orgAdminUrl : string = ApiPaths.orgDiag;
-
-  diagBillURL : string = ApiPaths.diagBilling;
-
   diagRef!: DynamicDialogRef;
 
   editMode : boolean = false;

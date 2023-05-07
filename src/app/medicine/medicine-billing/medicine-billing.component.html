@@ -1,192 +1,350 @@
-<!--<app-history></app-history>-->
+<div>
 
-<div class="container-fluid p-0 m-0 text-center d-flex flex-column gap-5">
-
-  <div class="row p-0 m-0">
+  <div class="row p-0 ">
     <div class="col">
-      <h3> {{authService.orgName}} Pharmcy </h3>
+      <h4>MEDECINE BILLING</h4>
     </div>
   </div>
 
-  <div class="card p-3 m-0">
-    <div class="row p-0 m-0">
-      <div class="col text-start">
-        <p>Pharmacy Receptionist #{{authService.appUserID}}</p>
-      </div>
-      <div class="col">
-        <p>Name: {{authService.appUserName}}</p>
-      </div>
-      <div class="col text-end">
-        <p>Email: {{authService.appUserEmail}}</p>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row p-0 m-0">
-    <div class="col-9 text-start fields">
-
-      <label for="searchPatient"> Search Patient </label>
-      <div class="p-inputgroup">
+  <div class="row">
+    <div class="col">
+      <div class="text-start fields my-4">
+        <label for="searchPatient"> Search Patient </label>
+        <div class="p-inputgroup">
           <span class="p-inputgroup-addon">
               <i class="pi pi-search"></i>
           </span>
-        <p-autoComplete
-          [style]="{'width': '100%'}"
-          [inputStyle]="{'width': '100%'}"
-          inputId="searchPatient"
-          [formControl]="patientSearch"
-          placeholder="Enter name/phone"
-          [showEmptyMessage] = "true"
-          [suggestions]="MBService.filteredPatients"
-          (onSelect)="onPatientSelect()"
-          [forceSelection]="true"
-          (completeMethod)="filterPatient($event)"
-          field="name">
+          <p-autoComplete
+            [style]="{'width': '100%'}"
+            [inputStyle]="{'width': '100%'}"
+            id="searchPatient"
+            [formControl]="patientSearch"
+            placeholder="Enter name/phone"
+            [showEmptyMessage] = "true"
+            [suggestions]="MBService.filteredPatients"
+            [forceSelection]="true"
+            (onSelect)="onPatientSelect()"
+            (completeMethod)="filterPatient($event)"
+            class="p-inputtext-sm"
+            field="name">
 
-          <ng-template let-patient pTemplate="item">
-            <p>{{ patient.name }} ({{ patient.phone }})</p>
-          </ng-template>
+            <ng-template let-patient pTemplate="item">
+              <p>{{ patient.name }} ({{ patient.phone }})</p>
+            </ng-template>
 
-        </p-autoComplete>
+          </p-autoComplete>
+        </div>
+
+        <!--        <div class="col-3 d-flex flex-column justify-content-end">-->
+        <!--          <button pButton-->
+        <!--                  class=" p-button-outlined d-none d-lg-block p-button-sm"-->
+        <!--                  label="New patient"-->
+        <!--                  icon="pi pi-plus"-->
+        <!--                  (click)="showCreateDialog()"-->
+
+        <!--          ></button>-->
+        <!--          <button pButton-->
+        <!--                  class=" p-button-outlined d-lg-none"-->
+        <!--                  icon="pi pi-plus"-->
+        <!--                  (click)="showCreateDialog()"-->
+        <!--          ></button>-->
+        <!--        </div>-->
+      </div>
+
+      <div *ngIf="patientSearch.valid; else regPatient" class="row p-0">
+        <div class="col">
+          <div class="card text-start p-3 d-flex flex-column">
+            <div class="row p-0 m-0">
+              <div class="col-10 p-0 m-0">
+                <h5>{{MBService.selectedPatient.name}}</h5>
+              </div>
+              <div class="col-2 d-flex justify-content-end p-0 m-0">
+                <button pButton
+                        icon="pi pi-times"
+                        class="p-button-sm p-button-text"
+                        (click)="resetPatientSearch()"
+                >
+                </button>
+              </div>
+            </div>
+
+            <div class="col p-0 mt-1">
+              <p-chip class="me-2" label="{{MBService.selectedPatient.phone}}"></p-chip>
+              <p-chip class="mx-2" label="{{MBService.selectedPatient.email}}"></p-chip>
+              <p-chip class="mx-2" label="{{MBService.selectedPatient.age}}y/o"></p-chip>
+              <p-chip class="mx-2" label="{{MBService.selectedPatient.gender | titlecase}}"></p-chip>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="col-3 d-flex flex-column justify-content-end">
-      <button pButton
-              class="p-button-success p-button-outlined d-none d-lg-block"
-              label="New patient"
-              icon="pi pi-plus"
-              (click)="showCreateDialog()"
+    <ng-template #regPatient>
+      <div class="text-center">
+        <button pButton
+                class="p-button-sm"
+                label="New Patient"
+                icon="pi pi-plus"
+                (click)="showCreateDialog()"
 
-      ></button>
-      <button pButton
-              class="p-button-success p-button-outlined d-lg-none"
-              icon="pi pi-plus"
-              (click)="showCreateDialog()"
-      ></button>
-    </div>
-  </div>
+        ></button>
+      </div>
+    </ng-template>
 
-  <div *ngIf="patientSearch.valid" class="row p-0 m-0">
     <div class="col">
-      <div class="card text-start p-3 d-flex flex-column gap-3">
-        <div class="row p-0 m-0">
-          <div class="col-10 p-0 m-0">
-            <h4>Patient: {{MBService.selectedPatient.name}}</h4>
-          </div>
-          <div class="col-2 d-flex justify-content-end p-0 m-0">
-            <button pButton
-                    icon="pi pi-pencil"
-                    class="p-button-sm p-button-outlined p-button-danger"
-                    (click)="resetPatientSearch()"
-            >
-            </button>
-          </div>
-        </div>
-
-        <div class="row p-0 m-0">
-          <div class="col p-0 m-0">
-            <p-chip class="mx-2" label="{{MBService.selectedPatient.phone}}"></p-chip>
-            <p-chip class="mx-2" label="{{MBService.selectedPatient.email}}"></p-chip>
-            <p-chip class="mx-2" label="{{MBService.selectedPatient.age}}y/o"></p-chip>
-            <p-chip class="mx-2" label="{{MBService.selectedPatient.gender | titlecase}}"></p-chip>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row p-0 m-0">
-    <div class="col-9 fields text-start">
-      <label for="searchMeds"> Search & Add Medicines </label>
-      <div class="p-inputgroup">
+      <div class="fields text-start my-4">
+        <label for="searchMeds"> Search & Add Medicines </label>
+        <div class="p-inputgroup p-inputtext-sm">
                 <span class="p-inputgroup-addon">
                     <i class="pi pi-search"></i>
                 </span>
-        <p-autoComplete
-          [style]="{'width': '100%'}"
-          [inputStyle]="{'width': '100%'}"
-          inputId="searchMeds"
-          [formControl]="medicineSearch"
-          placeholder="Enter name"
-          [showEmptyMessage] = "true"
-          [suggestions]="MBService.filteredMeds"
-          [forceSelection]="true"
-          (onSelect)="onMedSelect($event)"
-          (completeMethod)="filterMeds($event)"
-          field="medicine.name">
-          <ng-template let-med pTemplate="item">
-            <p>{{ med.medicine.name }} ({{ med.medicine.strength }} {{med.medicine.formulation}} | Vendor: {{med.medicine.vendor}})</p>
-          </ng-template>
+          <p-autoComplete
+            [style]="{'width': '100%'}"
+            [inputStyle]="{'width': '100%'}"
+            id="searchMeds"
+            [formControl]="medicineSearch"
+            placeholder="Enter name"
+            [showEmptyMessage] = "true"
+            [suggestions]="MBService.filteredMeds"
+            [forceSelection]="true"
+            (onSelect)="onMedSelect($event)"
+            (completeMethod)="filterMeds($event)"
+            field="medicine.name">
+            <ng-template let-med pTemplate="item">
+              <p>{{ med.medicine.name }} ({{ med.medicine.strength }} {{med.medicine.formulation}} | Vendor: {{med.medicine.vendor}})</p>
+            </ng-template>
 
-        </p-autoComplete>
+          </p-autoComplete>
+        </div>
+
       </div>
 
+      <div class="col">
+        <p-table styleClass="p-datatable-sm p-datatable-gridlines" *ngIf="MBService.selectedMeds.length > 0"
+                 [rowHover]="true"
+                 [value]="MBService.selectedMeds"
+                 [scrollable]="true"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th> # </th>
+              <th> Name </th>
+              <th> Unit (BDT) </th>
+              <th> Quantity </th>
+              <th> Amount (BDT) </th>
+              <th> Actions </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item let-index='rowIndex'>
+            <tr>
+              <td> {{index + 1}} </td>
+              <td> {{item.medicine.name}} </td>
+              <td> {{item.medicine.price}}</td>
+              <td>
+                <p-inputNumber
+                  [inputStyle]="{'width': '80px'}"
+                  [showButtons]="true"
+                  buttonLayout="horizontal"
+                  [(ngModel)]="item.quantity"
+                  [step]="1"
+                  [min]="1"
+                  (onInput)="handleQtyInput($event, index)"
+                  incrementButtonClass="p-button-outlined p-button-secondary"
+                  decrementButtonClass="p-button-outlined p-button-secondary"
+                  incrementButtonIcon="pi pi-plus"
+                  decrementButtonIcon="pi pi-minus"
+                  mode="decimal">
+                </p-inputNumber>
+              </td>
+              <td> {{item.total_price}}</td>
+              <td>
+                <button (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
+              </td>
+
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="row p-0 mt-3 text-center">
+        <div class="col p-0 m-0">
+          <button pButton
+                  type="button"
+                  class=" p-button-sm"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  [disabled]="!patientSearch.valid || MBService.selectedMeds.length < 1"
+                  label="Proceed to checkout"
+                  routerLink="/medicine/checkout"
+          ></button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="row p-0 m-0">
-    <div class="col">
-      <p-table styleClass="p-datatable-sm p-datatable-gridlines" #dt
-               [rowHover]="true"
-               [value]="MBService.selectedMeds"
-               [style]="{'width': '100%', 'min-width': '800px'}"
-               [scrollable]="true"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th style="text-align: center"> # </th>
-            <th style="text-align: center"> Name </th>
-            <th style="text-align: center"> Unit Price (BDT) </th>
-            <th style="text-align: center"> Quantity </th>
-            <th style="text-align: center"> Final Price (BDT) </th>
-            <th style="text-align: center"> Actions </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item let-index='rowIndex'>
-          <tr>
-            <td style="text-align: center"> {{index + 1}} </td>
-            <td style="text-align: center"> {{item.medicine.name}} </td>
-            <td style="text-align: center"> {{item.medicine.price}}</td>
-            <td style="text-align: center">
-              <p-inputNumber
-                [showButtons]="true"
-                buttonLayout="horizontal"
-                [(ngModel)]="item.quantity"
-                [step]="1"
-                [min]="1"
-                (onInput)="handleQtyInput($event, index)"
-                incrementButtonClass="p-button-outlined p-button-secondary"
-                decrementButtonClass="p-button-outlined p-button-secondary"
-                incrementButtonIcon="pi pi-plus"
-                decrementButtonIcon="pi pi-minus"
-                mode="decimal">
-              </p-inputNumber>
-            </td>
-            <td style="text-align: center"> {{item.total_price}}</td>
-            <td style="text-align: center">
-              <button (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
-            </td>
+<!--  <div class="row p-0 m-0">-->
+<!--    <div class="col-9 text-start fields">-->
 
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-  </div>
+<!--      <label for="searchPatient"> Search Patient </label>-->
+<!--      <div class="p-inputgroup">-->
+<!--          <span class="p-inputgroup-addon">-->
+<!--              <i class="pi pi-search"></i>-->
+<!--          </span>-->
+<!--        <p-autoComplete-->
+<!--          [style]="{'width': '100%'}"-->
+<!--          [inputStyle]="{'width': '100%'}"-->
+<!--          inputId="searchPatient"-->
+<!--          [formControl]="patientSearch"-->
+<!--          placeholder="Enter name/phone"-->
+<!--          [showEmptyMessage] = "true"-->
+<!--          [suggestions]="MBService.filteredPatients"-->
+<!--          (onSelect)="onPatientSelect()"-->
+<!--          [forceSelection]="true"-->
+<!--          (completeMethod)="filterPatient($event)"-->
+<!--          field="name">-->
 
-  <div class="row p-0 m-0">
-    <div class="col p-0 m-0">
-      <button pButton
-              type="button"
-              class="p-button-success"
-              icon="pi pi-arrow-right"
-              iconPos="right"
-              [disabled]="!patientSearch.valid || MBService.selectedMeds.length < 1"
-              label="Proceed to checkout"
-              routerLink="/medicine/checkout"
-      ></button>
-    </div>
-  </div>
+<!--          <ng-template let-patient pTemplate="item">-->
+<!--            <p>{{ patient.name }} ({{ patient.phone }})</p>-->
+<!--          </ng-template>-->
+
+<!--        </p-autoComplete>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-3 d-flex flex-column justify-content-end">-->
+<!--      <button pButton-->
+<!--              class=" p-button-outlined d-none d-lg-block"-->
+<!--              label="New patient"-->
+<!--              icon="pi pi-plus"-->
+<!--              (click)="showCreateDialog()"-->
+
+<!--      ></button>-->
+<!--      <button pButton-->
+<!--              class=" p-button-outlined d-lg-none"-->
+<!--              icon="pi pi-plus"-->
+<!--              (click)="showCreateDialog()"-->
+<!--      ></button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div *ngIf="patientSearch.valid" class="row p-0 m-0">-->
+<!--    <div class="col">-->
+<!--      <div class="card text-start p-3 d-flex flex-column gap-3">-->
+<!--        <div class="row p-0 m-0">-->
+<!--          <div class="col-10 p-0 m-0">-->
+<!--            <h4>Patient: {{MBService.selectedPatient.name}}</h4>-->
+<!--          </div>-->
+<!--          <div class="col-2 d-flex justify-content-end p-0 m-0">-->
+<!--            <button pButton-->
+<!--                    icon="pi pi-pencil"-->
+<!--                    class="p-button-sm p-button-outlined p-button-danger"-->
+<!--                    (click)="resetPatientSearch()"-->
+<!--            >-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="row p-0 m-0">-->
+<!--          <div class="col p-0 m-0">-->
+<!--            <p-chip class="mx-2" label="{{MBService.selectedPatient.phone}}"></p-chip>-->
+<!--            <p-chip class="mx-2" label="{{MBService.selectedPatient.email}}"></p-chip>-->
+<!--            <p-chip class="mx-2" label="{{MBService.selectedPatient.age}}y/o"></p-chip>-->
+<!--            <p-chip class="mx-2" label="{{MBService.selectedPatient.gender | titlecase}}"></p-chip>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="row p-0 m-0">-->
+<!--    <div class="col-9 fields text-start">-->
+<!--      <label for="searchMeds"> Search & Add Medicines </label>-->
+<!--      <div class="p-inputgroup">-->
+<!--                <span class="p-inputgroup-addon">-->
+<!--                    <i class="pi pi-search"></i>-->
+<!--                </span>-->
+<!--        <p-autoComplete-->
+<!--          [style]="{'width': '100%'}"-->
+<!--          [inputStyle]="{'width': '100%'}"-->
+<!--          inputId="searchMeds"-->
+<!--          [formControl]="medicineSearch"-->
+<!--          placeholder="Enter name"-->
+<!--          [showEmptyMessage] = "true"-->
+<!--          [suggestions]="MBService.filteredMeds"-->
+<!--          [forceSelection]="true"-->
+<!--          (onSelect)="onMedSelect($event)"-->
+<!--          (completeMethod)="filterMeds($event)"-->
+<!--          field="medicine.name">-->
+<!--          <ng-template let-med pTemplate="item">-->
+<!--            <p>{{ med.medicine.name }} ({{ med.medicine.strength }} {{med.medicine.formulation}} | Vendor: {{med.medicine.vendor}})</p>-->
+<!--          </ng-template>-->
+
+<!--        </p-autoComplete>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="row p-0 m-0">-->
+<!--    <div class="col">-->
+<!--      <p-table styleClass="p-datatable-sm p-datatable-gridlines" *ngIf="MBService.selectedMeds.length > 0"-->
+<!--               [rowHover]="true"-->
+<!--               [value]="MBService.selectedMeds"-->
+<!--               [style]="{'width': '100%', 'min-width': '800px'}"-->
+<!--               [scrollable]="true"-->
+<!--      >-->
+<!--        <ng-template pTemplate="header">-->
+<!--          <tr>-->
+<!--            <th> # </th>-->
+<!--            <th> Name </th>-->
+<!--            <th> Unit Price (BDT) </th>-->
+<!--            <th> Quantity </th>-->
+<!--            <th> Final Price (BDT) </th>-->
+<!--            <th> Actions </th>-->
+<!--          </tr>-->
+<!--        </ng-template>-->
+<!--        <ng-template pTemplate="body" let-item let-index='rowIndex'>-->
+<!--          <tr>-->
+<!--            <td> {{index + 1}} </td>-->
+<!--            <td> {{item.medicine.name}} </td>-->
+<!--            <td> {{item.medicine.price}}</td>-->
+<!--            <td>-->
+<!--              <p-inputNumber-->
+<!--                [showButtons]="true"-->
+<!--                buttonLayout="horizontal"-->
+<!--                [(ngModel)]="item.quantity"-->
+<!--                [step]="1"-->
+<!--                [min]="1"-->
+<!--                (onInput)="handleQtyInput($event, index)"-->
+<!--                incrementButtonClass="p-button-outlined p-button-secondary"-->
+<!--                decrementButtonClass="p-button-outlined p-button-secondary"-->
+<!--                incrementButtonIcon="pi pi-plus"-->
+<!--                decrementButtonIcon="pi pi-minus"-->
+<!--                mode="decimal">-->
+<!--              </p-inputNumber>-->
+<!--            </td>-->
+<!--            <td> {{item.total_price}}</td>-->
+<!--            <td>-->
+<!--              <button (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>-->
+<!--            </td>-->
+
+<!--          </tr>-->
+<!--        </ng-template>-->
+<!--      </p-table>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="row p-0 m-0">-->
+<!--    <div class="col p-0 m-0">-->
+<!--      <button pButton-->
+<!--              type="button"-->
+<!--              class=""-->
+<!--              icon="pi pi-arrow-right"-->
+<!--              iconPos="right"-->
+<!--              [disabled]="!patientSearch.valid || MBService.selectedMeds.length < 1"-->
+<!--              label="Proceed to checkout"-->
+<!--              routerLink="/medicine/checkout"-->
+<!--      ></button>-->
+<!--    </div>-->
+<!--  </div>-->
 
 </div>

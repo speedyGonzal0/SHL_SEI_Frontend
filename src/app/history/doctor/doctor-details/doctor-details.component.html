@@ -1,12 +1,16 @@
 <div class="historyContainer" #t *ngIf="historyService.billingDetails as docBill">
 
   <div class="row">
-    <h1 class="col">Invoice #{{docBill.id}}</h1>
-    <div class="date col">
-      <p>Issued</p>
-      <p *ngIf="docBill.createdAt as time">
-        {{time[3]+":"+time[4]+":"+time[5]+", "+time[1]+"/"+time[2]+"/"+time[0]}}
-      </p>
+    <div class="col">
+      <h1>Invoice</h1>
+    </div>
+    <div class="col text-end">
+      <p>{{docBill.organization.name}}</p>
+      <ul>
+        <li>{{docBill.organization.address}}</li>
+        <li>{{docBill.organization.phone}}</li>
+      </ul>
+
     </div>
   </div>
 
@@ -14,48 +18,34 @@
 
   <span class="row">
     <div class="orgDetails col">
-      <p>{{docBill.organization.name}}</p>
+      <p class="m-0">{{docBill.patient.name}}</p>
       <ul>
-        <li>Address: {{docBill.organization.address | titlecase}}</li>
-        <li>Phone: {{docBill.organization.phone}}</li>
-        <li>Email: {{docBill.organization.email}}</li>
-        <li>Website: {{docBill.organization.website}}</li>
+        <li class="col">{{docBill.patient.phone}}</li>
+        <li class="col">{{docBill.patient.email}}</li>
+        <li class="col">{{docBill.patient.age+"y/o, "+docBill.patient.gender | titlecase}}</li>
       </ul>
     </div>
 
     <div class="userDetails col text-end">
-      <p>Service: Diagnostic</p>
+      <p class="m-0">Service: Dr Appointment</p>
       <ul>
-        <li><b>Receptionist Details</b></li>
-        <li>ID: {{docBill.createdBy.id}}</li>
-        <li>Name: {{docBill.createdBy.name}}</li>
-        <li>Phone: {{docBill.createdBy.phone}}</li>
+        <li>Invoice#: {{docBill.id}}</li>
+        <li *ngIf="docBill.createdAt as time">
+          Issued: {{time[2]+"/"+time[1]+"/"+time[0]}}
+        </li>
+        <li>Issued By: {{docBill.createdBy.name}}</li>
+
       </ul>
     </div>
   </span>
-
-  <hr>
-
-  <span class="patinetnInfo">
-    <p class="sectionHeader mb-2">Patient Details#{{docBill.patient.id}}</p>
-    <ul class="row">
-      <li class="col">{{docBill.patient.name}}</li>
-      <li class="col-2">{{docBill.patient.age}}y/o</li>
-      <li class="col-2">{{docBill.patient.gender | titlecase}}</li>
-      <li class="col">{{docBill.patient.phone}}</li>
-      <li class="col">{{docBill.patient.email}}</li>
-    </ul>
-  </span>
-
   <hr>
 
   <span class="billItems">
-      <p class="sectionHeader">Doctor Details</p>
       <table>
         <tr>
-          <th>Name</th>
+          <th>Dr Name</th>
           <th>Time</th>
-          <th>Service</th>
+          <th>Service Type</th>
           <th>BMDC</th>
           <th>Email</th>
         </tr>
@@ -71,15 +61,22 @@
 
   <hr>
 
-  <p class="sectionHeader">Payment Details</p>
-  <p>Subtotal: BDT {{docBill.fee}}</p>
-  <p>Overall Discount: {{docBill.discount}}%</p>
-  <p>VAT: 5%</p>
-
-  <span class="finalBill">
-    <p>Final Bill: BDT {{docBill.finalFee}}</p>
-    <p>In words: {{toWords(docBill.finalFee)}}</p>
-  </span>
+  <div class="row text-end">
+    <span class="col-9"></span>
+    <span class="col-1 te">
+      <p>Subtotal</p>
+      <p>Discount</p>
+      <p>VAT</p>
+      <b>Total</b>
+    </span>
+    <span class="col">
+        <p>{{docBill.fee}}</p>
+        <p>{{docBill.discount}}%</p>
+        <p>5%</p>
+        <b>{{docBill.finalFee}}</b>
+    </span>
+    <p class="text-end mt-3">In words: {{toWords(docBill.finalFee)}}</p>
+  </div>
 
   <hr class="border-0">
 

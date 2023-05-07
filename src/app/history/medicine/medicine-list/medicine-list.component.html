@@ -1,4 +1,16 @@
-<div class="container-fluid h-100 text-center d-flex flex-column gap-5">
+<div>
+  <div>
+    <div class="row mb-4">
+      <h4 class="col-md-6 col text-md-start text-center">MEDICINE BILLING HISTORY</h4>
+      <div class="col-md-6 text-md-end text-center mt-md-0 mt-3">
+        <div class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" class="p-inputtext-sm"
+                 (input)="onSearch($any($event.target).value)"
+                 placeholder="Search name" />
+        </div>
+      </div>
+    </div>
   <p-table styleClass="p-datatable-sm p-datatable-gridlines"
            [rowHover]="true"
            [lazy]="true"
@@ -9,41 +21,43 @@
            [totalRecords]="historyService.totalMedHistory"
            [scrollable]="true"
   >
-    <ng-template pTemplate="caption" class="container">
-      <div class="row">
+<!--    <ng-template pTemplate="caption" class="container">-->
+<!--      <div class="row">-->
 
-        <div class="col d-flex justify-content-end gap-3 px-3">
+<!--        <div class="col d-flex justify-content-end gap-3 px-3">-->
 
-          <span class="p-input-icon-left ml-auto">
-                  <i class="pi pi-search"></i>
-                  <input pInputText (input)="onSearch($any($event.target).value)" type="text" placeholder="Search by name" />
-          </span>
+<!--          <span class="p-input-icon-left ml-auto">-->
+<!--                  <i class="pi pi-search"></i>-->
+<!--                  <input pInputText (input)="onSearch($any($event.target).value)" type="text" placeholder="Search by name" />-->
+<!--          </span>-->
 
-        </div>
+<!--        </div>-->
 
-      </div>
+<!--      </div>-->
 
-    </ng-template>
+<!--    </ng-template>-->
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center">#</th>
-        <th style="text-align: center">Date</th>
-        <th style="text-align: center">Time</th>
-        <th style="text-align: center">Patient Phone</th>
-        <th style="text-align: center">Total Bill (BDT)</th>
-        <th style="text-align: center">Issued By</th>
-        <th style="text-align: center">Action</th>
+        <th>#</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th *ngIf="authService.getRole() === 'ROLE_ADMIN'">Organization</th>
+        <th>Patient Phone</th>
+        <th>Total Bill (BDT)</th>
+        <th>Issued By</th>
+        <th>Action</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
-        <td style="text-align: center"> {{index + 1}} </td>
-        <td style="text-align: center"> {{item.createdAt[1]+"/"+item.createdAt[2]+"/"+item.createdAt[0]}} </td>
-        <td style="text-align: center"> {{item.createdAt[3]+":"+item.createdAt[4]+":"+item.createdAt[5]}} </td>
-        <td style="text-align: center"> {{item.patient.phone}} </td>
-        <td style="text-align: center"> {{item.totalBill}} </td>
-        <td style="text-align: center"> {{item.createdBy.name}} </td>
-        <td style="text-align: center">
+        <td> {{index + 1}} </td>
+        <td> {{item.createdAt[1]+"/"+item.createdAt[2]+"/"+item.createdAt[0]}} </td>
+        <td> {{item.createdAt[3]+":"+item.createdAt[4]+":"+item.createdAt[5]}} </td>
+        <td *ngIf="authService.getRole() === 'ROLE_ADMIN'"> {{item.organization.name}} </td>
+        <td> {{item.patient.phone}} </td>
+        <td> {{item.totalBill}} </td>
+        <td> {{item.createdBy.name}} </td>
+        <td>
           <button [routerLink]="['/history/medicine', item.id]" pButton icon="pi pi-eye"
                   class="p-button-outlined p-button-secondary"></button>
         </td>

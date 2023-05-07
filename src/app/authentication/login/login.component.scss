@@ -48,12 +48,14 @@
 //  margin-top: 10%;
 //}
 
+@import "src/app/scss/variables.scss";
+
 .loginContainer{
   height: 100vh;
 }
 
 .leftContainer{
-  background: #D4FFE3;
+  background: $primary-lighter;
 }
 
 .rightContainer{

@@ -1,46 +1,62 @@
 <div class="doctorListContainer">
 
-  <h3 class="text-center mb-4">Users List</h3>
+  <div class="row mb-4">
+    <h4 class="col-md-6 col text-md-start text-center">REGISTERED USERS</h4>
+    <div class="col-md-6 text-md-end text-center mt-md-0 mt-3">
+      <div class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" class="p-inputtext-sm"
+               (input)="onSearch($any($event.target).value)"
+               placeholder="Search name" />
+      </div>
+      <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
+              class="p-button-sm col ms-2" label="New"></button>
+    </div>
+  </div>
+<!--  <h4>Users List</h4>-->
+<!--  <div class="tableToolbar">-->
+<!--    <span class="p-input-icon-left">-->
+<!--            <i class="pi pi-search"></i>-->
+<!--            <input pInputText type="text" class="p-inputtext-sm"-->
+<!--                   (input)="onSearch($any($event.target).value)"-->
+<!--                   placeholder="Search Name" />-->
+<!--          </span>-->
+<!--    <button (click)="showCreateDialog()" pButton icon="pi pi-plus"-->
+<!--            class="p-button-sm" label="New User"></button>-->
+<!--  </div>-->
   <p-table #dt
            styleClass="p-datatable-gridlines p-datatable-sm"
            [rowHover]="true"
            [value]="appUserService.appUsers"
            [lazy]="true"
            (onLazyLoad)="onPagination($event.first)"
-           [style]="{'width': '100%', 'min-width': '800px'}"
            [paginator]="true"
            [rows]="10"
            [totalRecords]="appUserService.totalUsers"
            [scrollable]="true"
            (onPage)="onPagination($event)">
-    <ng-template pTemplate="caption">
-      <div class="tableToolbar">
-        <button (click)="showCreateDialog()" pButton icon="pi pi-plus"
-                class="p-button-success p-button-outlined p-button-sm" label="New User"></button>
-        <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText type="text" class="p-inputtext-sm"
-                   (input)="onSearch($any($event.target).value)"
-                   placeholder="Search Name" />
-          </span>
-      </div>
-    </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th style="text-align: center"> ID </th>
-        <th style="text-align: center"> Name </th>
-        <th style="text-align: center"> Role </th>
-        <th style="text-align: center"> Email </th>
-<!--        <th style="text-align: center">Actions</th>-->
+        <th> ID </th>
+        <th> Name </th>
+        <th> Role </th>
+        <th *ngIf="authService.getRole() === 'ROLE_ADMIN'"> Organization </th>
+        <th> Email </th>
+        <th> Phone </th>
+        <th> Gender </th>
+<!--        <th>Actions</th>-->
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
-        <td style="text-align: center"> {{item.id}}</td>
-        <td style="text-align: center"> {{item.name | titlecase}} </td>
-        <td style="text-align: center"> {{item.role.toString().split("ROLE_")[1].replace('_', ' ') | titlecase}}</td>
-        <td style="text-align: center"> {{item.email}} </td>
-        <!--        <td style="text-align: center">-->
+        <td> {{item.id}}</td>
+        <td> {{item.name | titlecase}} </td>
+        <td> {{item.role.toString().split("ROLE_")[1].replace('_', ' ') | titlecase}}</td>
+        <td *ngIf="authService.getRole() === 'ROLE_ADMIN'"> {{item.organization.name}} </td>
+        <td> {{item.email}} </td>
+        <td> {{item.phone}} </td>
+        <td> {{item.gender | titlecase}} </td>
+        <!--        <td>-->
 <!--&lt;!&ndash;          <span class="p-buttonset">&ndash;&gt;-->
 <!--            <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"-->
 <!--                    class="p-button-outlined p-button-secondary"></button>-->

@@ -4,7 +4,7 @@
     <p-toast position="center"></p-toast>
     <form [formGroup]="patientRegForm" (ngSubmit)="onCreatePatient()">
 
-      <small class="mb-2"><i>All fields are required *</i></small>
+      <small class="mb-2" *ngIf="patientRegForm.invalid"><i>All fields are required *</i></small>
 
       <span class="inputField">
         <label for="name">Name</label>
@@ -13,27 +13,14 @@
                type="text"
                pInputText
                class="p-inputtext-sm"
-               placeholder="E.g: Md Rahim"
+               placeholder="e.g. Md Rahim"
         />
-        <p
-          *ngIf="!patientRegForm.controls['name'].valid && patientRegForm.controls['name'].touched">
+        <small class="errorMsg m-0"
+          *ngIf="!patientRegForm.controls['name'].value
+          && patientRegForm.controls['name'].touched">
            This field is required!
-        </p>
+        </small>
       </span>
-
-<!--      <span class="inputField">-->
-<!--        <label for="phone">Phone</label>-->
-<!--        <input formControlName="phone"-->
-<!--               id="phone"-->
-<!--               type="text"-->
-<!--               pInputText-->
-<!--               class="p-inputtext-sm"-->
-<!--        />-->
-<!--        <p-->
-<!--          *ngIf="!patientRegForm.controls['phone'].valid && patientRegForm.controls['phone'].touched">-->
-<!--          This field is required!-->
-<!--        </p>-->
-<!--      </span>-->
 
       <div class="row p-0 m-0 d-flex gap-3">
         <div class="col p-0">
@@ -48,8 +35,9 @@
                     [style]="{width: '100%'}"
                     optionLabel="gender">
         </p-dropdown>
-        <small
-          *ngIf="!patientRegForm.controls['gender'].valid && patientRegForm.controls['gender'].touched">
+        <small class="errorMsg m-0"
+          *ngIf="!patientRegForm.controls['gender'].value
+          && patientRegForm.controls['gender'].touched">
           This field is required!
         </small>
       </span>
@@ -63,12 +51,19 @@
                id="age"
                type="number"
                pInputText
-               placeholder="E.g: 35"
+               placeholder="e.g. 35"
                class="p-inputtext-sm"/>
-        <small
-          *ngIf="!patientRegForm.controls['age'].valid && patientRegForm.controls['age'].touched">
+        <small class="errorMsg m-0"
+          *ngIf="!patientRegForm.controls['age'].value
+           && patientRegForm.controls['age'].touched">
           This field is required!
         </small>
+        <small class="errorMsg m-0"
+               *ngIf="patientRegForm.controls['age'].invalid
+                 && patientRegForm.controls['age'].value
+                 && patientRegForm.controls['age'].touched">
+            This field is invalid!
+          </small>
       </span>
         </div>
       </div>
@@ -82,13 +77,20 @@
                id="phone"
                type="text"
                pInputText
-               placeholder="E.g: 01xxxxxxxxx"
+               placeholder="e.g. 01xxxxxxxxx"
                class="p-inputtext-sm"
         />
-        <small
-          *ngIf="!patientRegForm.controls['phone'].valid && patientRegForm.controls['phone'].touched">
+        <small class="errorMsg m-0"
+          *ngIf="!patientRegForm.controls['phone'].value
+          && patientRegForm.controls['phone'].touched">
           This field is required!
         </small>
+        <small class="errorMsg m-0"
+               *ngIf="patientRegForm.controls['phone'].invalid
+                 && patientRegForm.controls['phone'].value
+                 && patientRegForm.controls['phone'].touched">
+            This field is invalid!
+          </small>
       </span>
         </div>
 
@@ -100,12 +102,19 @@
                id="email"
                type="email"
                pInputText
-               placeholder="E.g: sth@xmail.com"
+               placeholder="e.g. sth@xmail.com"
                class="p-inputtext-sm"/>
-        <small
-          *ngIf="!patientRegForm.controls['email'].valid && patientRegForm.controls['email'].touched">
+        <small class="errorMsg m-0"
+          *ngIf="!patientRegForm.controls['email'].value
+           && patientRegForm.controls['email'].touched">
           This field is required!
         </small>
+        <small class="errorMsg m-0"
+               *ngIf="patientRegForm.controls['email'].invalid
+                 && patientRegForm.controls['email'].value
+                 && patientRegForm.controls['email'].touched">
+            This field is invalid!
+          </small>
       </span>
         </div>
 
@@ -113,13 +122,13 @@
 
 
       <button pButton type="submit" *ngIf="!patientService.editMode; else patientEdit"
-              label="Add Patient" class="p-button-success"
+              label="Add Patient" class=""
               [disabled]="!patientRegForm.valid">
 
       </button>
       <ng-template #patientEdit>
         <button pButton type="submit"
-                label="Update Patient" class="p-button-success p-button-sm"
+                label="Update Patient" class=" p-button-sm"
                 [disabled]="!patientRegForm.valid">
 
         </button>

@@ -1,13 +1,17 @@
-<div class="historyContainer" #t *ngIf="historyService.billingDetails as medBill">
+<div class="historyContainer"
+     #t *ngIf="historyService.billingDetails as medBill">
 
   <div class="row">
-    <h1 class="col">Invoice #{{medBill.id}}</h1>
-    <div class="date col">
-      <p>Issued</p>
-      <p *ngIf="medBill.createdAt as time">
-        {{time[3]+":"+time[4]+":"+time[5]+", "+time[1]+"/"+time[2]+"/"+time[0]}}
-      </p>
-<!--      <p>{{medBill.createdAt.split('T')[1].split('.')[0]}}, {{medBill.createdAt.split('T')[0]}}</p>-->
+    <div class="col">
+      <h1>Invoice</h1>
+    </div>
+    <div class="col text-end">
+      <p>{{medBill.organization.name}}</p>
+      <ul>
+        <li>{{medBill.organization.address}}</li>
+        <li>{{medBill.organization.phone}}</li>
+      </ul>
+
     </div>
   </div>
 
@@ -15,74 +19,66 @@
 
   <span class="row">
     <div class="orgDetails col">
-      <p>{{medBill.organization.name}}</p>
+      <p class="m-0">{{medBill.patient.name}}</p>
       <ul>
-        <li>Address: {{medBill.organization.address | titlecase}}</li>
-        <li>Phone: {{medBill.organization.phone}}</li>
-        <li>Email: {{medBill.organization.email}}</li>
-        <li>Website: {{medBill.organization.website}}</li>
+        <li class="col">{{medBill.patient.phone}}</li>
+        <li class="col">{{medBill.patient.email}}</li>
+        <li class="col">{{medBill.patient.age+"y/o, "+medBill.patient.gender | titlecase}}</li>
       </ul>
     </div>
 
     <div class="userDetails col text-end">
-      <p>Service: Diagnostic</p>
+      <p class="m-0">Service: Medicine</p>
       <ul>
-        <li><b>Receptionist Details</b></li>
-        <li>ID: {{medBill.createdBy.id}}</li>
-        <li>Name: {{medBill.createdBy.name}}</li>
-        <li>Phone: {{medBill.createdBy.phone}}</li>
+        <li>Invoice#: {{medBill.id}}</li>
+        <li *ngIf="medBill.createdAt as time">
+          Issued: {{time[2]+"/"+time[1]+"/"+time[0]}}
+        </li>
+        <li>Issued By: {{medBill.createdBy.name}}</li>
+
       </ul>
     </div>
-  </span>
-
-  <hr>
-
-  <span class="patinetnInfo">
-    <p class="sectionHeader mb-2">Patient Details#{{medBill.patient.id}}</p>
-    <ul class="row">
-      <li class="col">{{medBill.patient.name}}</li>
-      <li class="col-2">{{medBill.patient.age}}y/o</li>
-      <li class="col-2">{{medBill.patient.gender | titlecase}}</li>
-      <li class="col">{{medBill.patient.phone}}</li>
-      <li class="col">{{medBill.patient.email}}</li>
-    </ul>
   </span>
 
   <hr>
 
   <span class="billItems">
-      <p class="sectionHeader">Medicines</p>
       <table>
-        <tr>
-          <th>Name</th>
-          <th>Strength</th>
-          <th>Generic</th>
-          <th>Vendor</th>
-          <th>Unit Price</th>
-          <th>Quantity</th>
+        <tr class="row">
+          <th class="col">Medicine</th>
+          <th class="col text-end">Strength</th>
+          <th class="col text-end">Quantity</th>
+          <th class="col text-end">Unit</th>
+          <th class="col text-end">Amount</th>
         </tr>
-        <tr *ngFor="let item of medBill.medicines; let i=index">
-          <td>{{item.name}}</td>
-          <td>{{item.strength}}</td>
-          <td>{{item.genericName}}</td>
-          <td>{{item.vendor}}</td>
-          <td>BDT {{item.price}}</td>
-          <td>{{medBill.medQuantities[i]}}</td>
+        <tr *ngFor="let item of medBill.medicines; let i=index" class="row">
+          <td class="col">{{item.name}} {{item.formulation}}</td>
+          <td class="col text-end">{{item.strength}}</td>
+          <td class="col text-end">{{medBill.medQuantities[i]}}</td>
+          <td class="col text-end">{{item.price}}</td>
+          <td class="col text-end">{{item.price * medBill.medQuantities[i]}}</td>
         </tr>
       </table>
   </span>
 
   <hr>
 
-  <p class="sectionHeader">Payment Details</p>
-  <p>Subtotal: BDT {{medBill.totalBill}}</p>
-  <p>Overall Discount: {{medBill.discount}}%</p>
-  <p>VAT: 5%</p>
-
-  <span class="finalBill">
-    <p>Final Bill: BDT {{medBill.finalBill}}</p>
-    <p>In words: {{toWords(medBill.finalBill)}}</p>
-  </span>
+  <div class="row text-end">
+    <span class="col-9"></span>
+    <span class="col-1 te">
+      <p>Subtotal</p>
+      <p>Discount</p>
+      <p>VAT</p>
+      <b>Total</b>
+    </span>
+    <span class="col">
+        <p>{{medBill.totalBill}}</p>
+        <p>{{medBill.discount}}%</p>
+        <p>5%</p>
+        <b>{{medBill.finalBill}}</b>
+    </span>
+    <p class="text-end mt-3">In words: {{toWords(medBill.finalBill)}}</p>
+  </div>
 
   <hr class="border-0">
 

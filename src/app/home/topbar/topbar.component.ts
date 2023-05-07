@@ -11,7 +11,7 @@ export class TopbarComponent {
   sidebarVisible: boolean = false;
   role !: any;
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
   }
   ngOnInit(){
     this.role = this.authService.getRole();
