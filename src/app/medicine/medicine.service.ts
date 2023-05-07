@@ -22,7 +22,6 @@ export class MedicineService{
 
   medRef!: DynamicDialogRef;
   medBillURL : string = ApiPaths.medBilling
-  medHTTPResponse!: HttpResponse<any> | null;
 
   editMode : boolean = false;
   role = this.authService.getRole();
@@ -41,11 +40,11 @@ export class MedicineService{
           this.medicines = response.content;
           this.totalMedicine = response.totalElements;
 
-          this.medicines.map((med) => {
-            if(!this.vendors.includes(med.vendor?.toLowerCase())){
-              this.vendors.push(med.vendor);
-            }
-          })
+          // this.medicines.map((med) => {
+          //   if(!this.vendors.includes(med.vendor?.toLowerCase())){
+          //     this.vendors.push(med.vendor);
+          //   }
+          // })
         }
       )
     }
@@ -82,7 +81,7 @@ export class MedicineService{
     this.httpService.deleteRequest(`${this.orgAdminUrl}/delete/${this.medicines[index].id}`).subscribe();
   }
 
-  onFilter(event: any){
-    this.medicines = this.medicines.filter( (med) => med.vendor?.toLowerCase() === event.value.toLowerCase())
-  }
+  // onFilter(event: any){
+  //   this.medicines = this.medicines.filter( (med) => med.vendor?.toLowerCase() === event.value.toLowerCase())
+  // }
 }

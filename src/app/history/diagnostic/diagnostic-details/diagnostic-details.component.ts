@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {HistoryService} from "../../history.service";
+import {HistoryService} from "@history/history.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import { ToWords } from 'to-words';
 @Component({

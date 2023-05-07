@@ -16,10 +16,17 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.primengConfig.ripple = true;
-    let token = localStorage.getItem("token")
-    if(token){
-      let email = JSON.parse(atob(token.split('.')[1])).sub
-      this.authService.fetchUserInfo(email)
+
+    let token = localStorage.getItem('token');
+    if (token){
+      this.authService.fetchUser().subscribe({
+        next: response => {
+          this.authService.setUser(response)
+        },
+        error: err => {
+          alert("Invalid token")
+        }
+      })
     }
   }
 }

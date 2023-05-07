@@ -16,7 +16,7 @@ export class DiagnosticsService{
   diagnostics!: Diagnostic[];
   totalDiagnostics!: number;
   selectedDiags!: Diagnostic[];
-  diagHTTPResponse!: HttpResponse<any> | null;
+
   adminUrl : string = ApiPaths.diagnostic;
   orgAdminUrl : string = ApiPaths.orgDiag;
   diagRef!: DynamicDialogRef;

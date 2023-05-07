@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MessageService, ConfirmationService} from "primeng/api";
+import { ConfirmationService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import {DoctorRegistrationComponent} from "../doctor-registration/doctor-registration.component";
 import {HttpService} from "@shared/services/http.service";
@@ -12,14 +12,14 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   selector: 'app-doctor-diagnostic-list',
   templateUrl: './doctor-list.component.html',
   styleUrls: ['./doctor-list.component.scss'],
-  providers: [MessageService, DialogService, ConfirmationService]
+  providers: [ DialogService, ConfirmationService]
 })
 export class DoctorListComponent implements OnInit{
 
   doctorURL = ApiPaths.doctor;
   orgAdminUrl = ApiPaths.orgDoc;
 
-  constructor(private messageService: MessageService,
+  constructor(
               private dialogService: DialogService,
               private confirmationService: ConfirmationService,
               private httpService: HttpService,
@@ -53,37 +53,23 @@ export class DoctorListComponent implements OnInit{
   showCreateDialog(){
     this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
       header: "New Doctor",
-      style: {'min-width':'600px', 'max-width': '800px'}
-    });
-
-    this.doctorService.doctorRef.onClose.subscribe(() => {
-      if(this.doctorService.docHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Doctor Created!' });
-        this.doctorService.docHTTPResponse = null;
-      }
+      style: {'min-width':'600px', 'max-width': '600px'}
     });
   }
 
   showEditDialog(index: number){
     this.doctorService.toggleEditMode();
     this.doctorService.doctorRef = this.dialogService.open(DoctorRegistrationComponent, {
-      header: this.doctorService.role === "ROLE_ADMIN" ?
-        `Editing ${this.doctorService.doctors[index].name}`
-        :
-        `Editing ${this.doctorService.doctors[index].doctor.name}`
+      header: "Edit doctor"
       ,
       data: {
-        index: index
+        index: index % 10
       },
-      style: {'width':'600px', 'max-width': '800px'}
+      style: {'width':'600px', 'max-width': '600px'}
     });
 
     this.doctorService.doctorRef.onClose.subscribe(() => {
       this.doctorService.toggleEditMode();
-      if(this.doctorService.docHTTPResponse){
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Edit Successful' });
-        this.doctorService.docHTTPResponse = null;
-      }
     });
   }
 

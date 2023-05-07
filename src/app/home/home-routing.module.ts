@@ -3,9 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "@home/home/home.component";
 import {DashboardComponent} from "@home/dashboard/dashboard.component";
 import {AuthGuard} from "@authentication/auth.guard";
+import {LandingPageComponent} from "@home/landing-page/landing-page.component";
 
 const routes: Routes = [
-  {path: "", component: HomeComponent, canActivate: [AuthGuard], canActivateChild:[AuthGuard],
+  {path: "",
+    component: HomeComponent,
+    canActivate: [AuthGuard],
+    canActivateChild:[AuthGuard],
     children: [
       {path: "dashboard", component: DashboardComponent,
         data:{
@@ -69,7 +73,13 @@ const routes: Routes = [
             "ROLE_PHARMACIST"
           ]},
         loadChildren: () => import('../history/history.module')
-          .then(m => m.HistoryModule) }
+          .then(m => m.HistoryModule)
+      },
+      {path: "", component: LandingPageComponent,
+        data: {
+          role: ["ROLE_ADMIN", "ROLE_ORG_ADMIN", "ROLE_DOCTOR_RECEPTIONIST", "ROLE_DIAGNOSTIC_RECEPTIONIST", "ROLE_PHARMACIST"]
+        }
+      }
     ]
   }
 ];

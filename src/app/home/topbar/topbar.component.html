@@ -1,58 +1,97 @@
 <nav class="navContainer">
   <div class="navLeft">
-<!--    <button pButton class="p-button-outlined  d-md-none" icon="pi pi-bars"></button>-->
+<!--    <button pButton class="p-button-outlined p-button-success d-md-none" icon="pi pi-bars"></button>-->
     <p-sidebar [(visible)]="sidebarVisible" [baseZIndex]=10000>
       <div class="sidebarBody">
         <ul>
 
           <li
+            routerLink="" routerLinkActive="linkActive" [routerLinkActiveOptions]="{exact: true}">
+            <i class="material-symbols-outlined">
+              home
+            </i>
+            Home </li>
+
+          <li
             *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
-            routerLink="dashboard" routerLinkActive="linkActive"> Dashboard </li>
+            routerLink="dashboard" routerLinkActive="linkActive">
+            <i class="material-symbols-outlined">
+              dashboard
+            </i>
+            Dashboard </li>
 
           <li *ngIf="role === 'ROLE_ADMIN'"
               routerLink="org"
               routerLinkActive="linkActive"
-              [routerLinkActiveOptions]="{exact: true}" > Organizations </li>
+              [routerLinkActiveOptions]="{exact: true}" >
+            <i class="material-symbols-outlined">
+              home_health
+            </i>
+            Organizations </li>
 
           <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
               routerLink="doctor"
               routerLinkActive="linkActive"
-          >  Doctors </li>
+          >
+            <i class="material-symbols-outlined">
+              stethoscope
+            </i>
+            Doctors </li>
 
-          <li *ngIf="role === 'ROLE_DOCTOR_RECEPTIONIST'"
+          <li *ngIf="role.includes('ROLE_DOCTOR_RECEPTIONIST')"
               routerLink="doctor/billing"
               routerLinkActive="linkActive"
               [routerLinkActiveOptions]="{exact: true}"
           >
+            <i class="material-symbols-outlined">
+              receipt_long
+            </i>
             Doctor Billing </li>
 
           <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
               routerLink="diagnostics"
               routerLinkActive="linkActive"
-          > Diagnostics </li>
-
-          <li *ngIf="role === 'ROLE_DIAGNOSTIC_RECEPTIONIST'"
-              routerLink="diagnostics/billing"
-              routerLinkActive="linkActive"
-              [routerLinkActiveOptions]="{exact: true}"
           >
+            <i class="material-symbols-outlined">
+              ecg
+            </i>
+            Diagnostics </li>
+
+          <li *ngIf="role.includes('ROLE_DIAGNOSTIC_RECEPTIONIST')"
+              routerLink="diagnostics/billing"
+              [routerLinkActiveOptions]="{exact: true}"
+              routerLinkActive="linkActive">
+            <i class="material-symbols-outlined">
+              receipt_long
+            </i>
             Diagnostic Billing </li>
 
           <li *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
               routerLink="medicine"
               routerLinkActive="linkActive"
-          > Medicines </li>
+          >
+            <i class="material-symbols-outlined">
+              pill
+            </i>
+            Medicines </li>
 
-          <li *ngIf="role === 'ROLE_PHARMACIST'"
+          <li *ngIf="role.includes('ROLE_PHARMACIST')"
               routerLink="medicine/billing"
-              routerLinkActive="linkActive"
               [routerLinkActiveOptions]="{exact: true}"
-          > Medicine Billing </li>
+              routerLinkActive="linkActive">
+            <i class="material-symbols-outlined">
+              receipt_long
+            </i>
+            Medicine Billing </li>
 
           <li
             *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
             routerLink="patients"
             routerLinkActive="linkActive">
+
+            <i class="material-symbols-outlined">
+              groups
+            </i>
             Patients
           </li>
 
@@ -60,8 +99,19 @@
             *ngIf="role === 'ROLE_ADMIN' || role === 'ROLE_ORG_ADMIN'"
             routerLink="users"
             routerLinkActive="linkActive">
+            <i class="material-symbols-outlined">
+              admin_panel_settings
+            </i>
             Users
           </li>
+
+          <!--      <li-->
+          <!--        routerLink="history"-->
+          <!--        routerLinkActive="linkActive">-->
+          <!--        History-->
+          <!--      </li>-->
+
+          <p-panelMenu [model]="items" [style]="{'width':'auto'}" [multiple]="true"></p-panelMenu>
 
         </ul>
 

@@ -4,11 +4,13 @@ import {AuthService} from "@authentication/auth.service";
 import {HttpService} from "@shared/services/http.service";
 import {Router} from "@angular/router";
 import {ApiPaths} from "@enums/api-paths";
+import {NotificationService} from "@shared/components/notification/notification.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: []
 })
 export class LoginComponent {
   loginForm!: FormGroup;
@@ -22,7 +24,11 @@ export class LoginComponent {
     'pharmaUser@gmail.com': "ROLE_PHARMACIST"
   }
 
-  constructor(private authService: AuthService, private httpService: HttpService, private router: Router) {}
+  constructor(private authService: AuthService,
+              private httpService: HttpService,
+              private router: Router,
+              private notificationService: NotificationService
+              ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -37,13 +43,18 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           localStorage.setItem("token", response);
-          let token = JSON.parse(atob(response.split('.')[1]))
-          localStorage.setItem('userRole', token.roles);
-          this.authService.fetchUserInfo(token.emails)
-          this.router.navigate([''])
+          this.authService.fetchUser().subscribe({
+            next: (response: any) => {
+              this.authService.setUser(response);
+              this.router.navigate([''])
+            },
+            error: err => {
+              this.notificationService.sendErrorMessage(JSON.parse(err.error).message);
+            }
+          })
         },
         error: (err) => {
-          console.log(err)
+          this.notificationService.sendErrorMessage(JSON.parse(err.error).message);
         }
       }
     )

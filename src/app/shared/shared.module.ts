@@ -10,11 +10,14 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 
 @NgModule({
   declarations: [
+
+    NotificationComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,8 @@ import {MessageService} from 'primeng/api';
     ToastModule
   ],
   providers: [MessageService],
-  exports:[]
+  exports: [
+    NotificationComponent
+  ]
 })
 export class SharedModule { }

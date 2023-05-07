@@ -2,7 +2,7 @@
       <small *ngIf="orgForm.invalid"><i>All fields are required *</i></small>
 
       <div class="row p-0 m-0">
-        <div class="col fields">
+        <div class="col p-0 fields">
           <label for="name">Name</label>
           <input formControlName="name"
                  id="name"
@@ -20,7 +20,7 @@
       </div>
 
       <div class="row p-0 m-0">
-        <div class="col fields">
+        <div class="col p-0 fields">
           <label for="address">Address</label>
           <input formControlName="address"
                  id="address"
@@ -39,8 +39,8 @@
 
       </div>
 
-      <div class="row p-0 m-0">
-        <div class="col fields">
+      <div class="row p-0 gap-3 m-0">
+        <div class="col p-0 fields">
           <label for="phone">Phone</label>
           <input formControlName="phone"
                  id="phone"
@@ -60,7 +60,7 @@
           </small>
         </div>
 
-        <div class="col fields">
+        <div class="col p-0 fields">
           <label for="email">Email</label>
           <input formControlName="email"
                  id="email"
@@ -83,7 +83,7 @@
       </div>
 
       <div class="row p-0 m-0">
-        <div class="col fields">
+        <div class="col p-0 fields">
           <label for="website">Website</label>
           <input formControlName="website"
                  id="website"
@@ -106,13 +106,12 @@
       </div>
 
       <div class="row p-0 m-0">
-        <div class="col fields">
+        <div class="col p-0">
           <button pButton type="submit" label={{submitLabel}}
+                  [style]="{'width': '100%'}"
                   class=" p-button-sm" [disabled]="!orgForm.valid"></button>
         </div>
       </div>
 
-
-  <p-toast position="center"></p-toast>
 
     </form>

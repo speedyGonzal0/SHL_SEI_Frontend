@@ -17,7 +17,6 @@ export class DoctorService {
   editMode : boolean = false;
   doctors! : Doctor[]
   role = this.authService.getRole()
-  docHTTPResponse!: HttpResponse<any> | null;
   totalDoctors!: number;
   doctor!: Doctor;
 

@@ -12,7 +12,6 @@ import {HttpResponse} from "@angular/common/http";
 export class OrgService {
   orgRef! : DynamicDialogRef
   editMode : boolean = false;
-  orgHTTPResponse!: HttpResponse<any> | null;
 
   orgs! : Organization[];
 

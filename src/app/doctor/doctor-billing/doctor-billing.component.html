@@ -1,4 +1,4 @@
-<form [formGroup]="DBForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="DBForm">
 
   <div class="row">
     <div class="col">
@@ -176,6 +176,7 @@
                   icon="pi pi-arrow-right"
                   iconPos="right"
                   label="Proceed to checkout"
+                  routerLink="/doctor/checkout"
                   [disabled]="!DBForm.valid"
           ></button>
         </div>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HistoryService} from "../../history.service";
+import {HistoryService} from "@history/history.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {AuthService} from "@authentication/auth.service";
 

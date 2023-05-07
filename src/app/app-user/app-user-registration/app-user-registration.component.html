@@ -1,11 +1,11 @@
-<p-toast position="center"></p-toast>
+
 
 <form class="container-fluid p-0 m-0 d-flex flex-column gap-3" [formGroup]="appUserForm" (ngSubmit)="onSubmit()">
 
   <small *ngIf="appUserForm.invalid"><i>All fields are required *</i></small>
 
       <div class="row p-0 m-0">
-        <div class="col fields">
+        <div class="col fields p-0">
           <label for="name">Name</label>
           <input formControlName="name"
                  id="name"
@@ -23,9 +23,9 @@
 
       </div>
 
-      <div class="row p-0 m-0">
+      <div class="row p-0 m-0 gap-3">
 
-        <div class="col fields">
+        <div class="col fields p-0">
           <label for="phone">Phone</label>
           <input formControlName="phone"
                  id="phone"
@@ -47,7 +47,7 @@
           </small>
         </div>
 
-        <div class="col fields">
+        <div class="col fields p-0">
           <label for="email">Email</label>
           <input formControlName="email"
                  id="email"
@@ -71,16 +71,15 @@
       </div>
 
 
-      <div class="row p-0 m-0">
-        <div class="col fields">
+      <div class="row p-0 m-0 gap-3">
+        <div class="col fields p-0">
           <label for="gender">Gender</label>
           <p-dropdown formControlName="gender"
                       [options]="appUserService.genders"
                       placeholder="-"
                       id="gender"
                       class="p-inputtext-sm"
-                      [style]="{width: '100%'}"
-                      optionLabel="gender">
+                      [style]="{width: '100%'}">
           </p-dropdown>
           <small class="errorMsg m-0"
             *ngIf="!appUserForm.controls['gender'].value
@@ -89,7 +88,7 @@
           </small>
         </div>
 
-        <div class="col fields">
+        <div class="col fields p-0">
           <label for="age">Age</label>
           <input formControlName="age"
                  id="age"
@@ -112,8 +111,8 @@
 
       </div>
 
-      <div class="row p-0 m-0">
-        <div class="col fields">
+      <div class="row p-0 m-0 gap-3">
+        <div class="col fields p-0">
           <label for="address">Address</label>
           <input formControlName="address"
                  [ngModel]="addressValue | titlecase"
@@ -133,18 +132,18 @@
       </div>
 
 
-  <div class="row p-0 m-0">
-        <div class="col fields" *ngIf="authService.getRole() === 'ROLE_ADMIN'; else role">
-          <label for="orgID">Organization ID</label>
-          <input formControlName="orgID"
-                 id="orgID"
-                 type="number"
-                 class="p-inputtext-sm"
-                 placeholder="e.g. 2"
-                 pInputText/>
-          <small class="errorMsg m-0"
-            *ngIf="!appUserForm.controls['orgID'].value
-            && appUserForm.controls['orgID'].touched">
+      <div class="row p-0 m-0" *ngIf="role === 'ROLE_ORG_ADMIN'">
+        <div class="col fields p-0">
+          <label for="role">Role</label>
+          <p-multiSelect formControlName="role"
+                         [options]="appUserService.roles"
+                         placeholder="-"
+                         id="role"
+                         [style]="{width: '100%'}">
+          </p-multiSelect>
+          <small
+            *ngIf="!appUserForm.controls['role'].value
+            && appUserForm.controls['role'].touched">
             This field is required!
           </small>
         </div>
@@ -190,27 +189,46 @@
       </div>
 
 
-      <ng-template #role>
-        <div class="col fields">
-          <label for="role">Role</label>
-          <p-multiSelect formControlName="role"
-                         [options]="appUserService.roles"
-                         placeholder="-"
-                         id="role"
-                         [style]="{width: '100%'}"
-                         class="p-inputtext-sm"
-                         optionLabel="role">
-          </p-multiSelect>
-          <small
-            *ngIf="!appUserForm.controls['role'].value
-            && appUserForm.controls['role'].touched">
+      <div class="row p-0 m-0" *ngIf="role === 'ROLE_ADMIN'">
+        <div class="col fields p-0">
+          <label for="orgID">Organization</label>
+<!--          <input formControlName="orgID"-->
+<!--                 id="orgID"-->
+<!--                 type="number"-->
+<!--                 class="p-inputtext-sm"-->
+<!--                 placeholder="E.g: 2"-->
+<!--                 pInputText/>-->
+
+          <p-autoComplete
+            [style]="{'width': '100%'}"
+            [inputStyle]="{'width': '100%'}"
+            inputId="orgID"
+            class="p-inputtext-sm"
+            formControlName="orgID"
+            placeholder="Search Name..."
+            [showEmptyMessage] = "true"
+            [showClear] = "true"
+            [suggestions]="organizations"
+            [forceSelection]="true"
+            (completeMethod)="getOrg($event)"
+            (onSelect)="setOrgID($event)"
+            field="name">
+            <ng-template let-org pTemplate="item">
+              <p>{{ org.name }} (ID: {{org.id}})</p>
+            </ng-template>
+          </p-autoComplete>
+          <small class="errorMsg m-0"
+                 *ngIf="!appUserForm.controls['orgID'].value
+            && appUserForm.controls['orgID'].touched">
             This field is required!
           </small>
         </div>
-      </ng-template>
+
+      </div>
+
 
       <div class="row p-0 m-0 bg-white position-sticky bottom-0">
-        <div class="col fields">
+        <div class="col fields p-0">
           <button pButton class=" p-button-sm"
                   type="submit" label={{submitLabel}}
                   [disabled]="!appUserForm.valid &&

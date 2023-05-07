@@ -1,13 +1,13 @@
-<p-toast position="center"></p-toast>
+
 
 <form *ngIf="diagService.role ==='ROLE_ADMIN'; else orgAdminFunctions"
       class="container-fluid d-flex flex-column gap-4 p-0 m-0"
       [formGroup]="createDiagForm"
       (ngSubmit)="onSubmit()">
 
-  <div class="row p-0">
+  <div class="row p-0 m-0">
 
-    <div class="fields col">
+    <div class="fields col p-0">
       <label for="diagName"> Name </label>
       <input type="text" pInputText id="diagName" placeholder="e.g. X-Ray" formControlName="serviceName"/>
       <small class="errorMsg" *ngIf="createDiagForm.controls['serviceName'].touched && !createDiagForm.valid"> This field is required! </small>
@@ -15,19 +15,20 @@
 
   </div>
 
-  <div class="row p-0">
-    <div class="col">
+  <div class="row p-0 m-0">
+    <div class="col p-0">
       <button
         *ngIf="!diagService.editMode; else updateDiag"
-        [style]="{'width': '100%'}" pButton
+        pButton
+        [style]="{'width': '100%'}"
         type="submit"
-        label="Add Diagnostic"
+        label="Confirm"
         class=" p-button-sm"
         [disabled]="!createDiagForm.valid"
       ></button>
       <ng-template #updateDiag>
         <button [disabled]="!createDiagForm.valid || !createDiagForm.dirty" [style]="{'width': '100%'}"
-                pButton type="submit" label="Update Diagnostic"
+                pButton type="submit" label="Update"
                 class=" p-button-sm" ></button>
       </ng-template>
     </div>
@@ -41,9 +42,9 @@
   <div class="container-fluid p-0 m-0 d-flex flex-column gap-5">
     <form class="container-fluid d-flex flex-column gap-4 p-0 m-0" [formGroup] = "selectDiagForm" (ngSubmit)="onOrgAdminSubmit()" >
 
-      <div class="row p-0 m-0">
+      <div class="row p-0 m-0 gap-3">
 
-        <div class="fields col-8" *ngIf="!diagService.editMode">
+        <div class="fields col p-0" *ngIf="!diagService.editMode">
           <label for="diagOptions"> Search Diagnostics </label>
 
           <div class="p-inputgroup">
@@ -55,6 +56,7 @@
               [inputStyle]="{'width': '100%'}"
               inputId="diagOptions"
               formControlName="diag"
+              class="p-inputtext-sm"
               placeholder="Search..."
               [showEmptyMessage] = "true"
               [showClear] = "true"
@@ -69,13 +71,13 @@
 
         </div>
 
-        <div class="fields col-4" *ngIf="!diagService.editMode">
+        <div class="fields col-4 p-0" *ngIf="!diagService.editMode">
           <label for="diagPrice"> Price </label>
           <p-inputNumber [style]="{'width': '100%'}" mode="decimal" [min]="1" id="diagPrice" placeholder="e.g. 500" formControlName="price"/>
           <small *ngIf="selectDiagForm.controls['price'].touched && !selectDiagForm.controls['price'].valid"> This field is required! </small>
         </div>
 
-        <div class="fields col" *ngIf="diagService.editMode">
+        <div class="fields col p-0" *ngIf="diagService.editMode">
           <label for="updateDiagPrice"> Price </label>
           <p-inputNumber [style]="{'width': '100%'}" mode="decimal" [min]="1" id="updateDiagPrice" placeholder="e.g. 500" formControlName="price"/>
           <small *ngIf="selectDiagForm.controls['price'].touched && !selectDiagForm.controls['price'].valid"> This field is required! </small>
@@ -84,17 +86,16 @@
       </div>
 
       <div class="row p-0 m-0">
-        <div class="col">
+        <div class="col p-0">
           <button *ngIf="!diagService.editMode; else updateDiag"
                   [disabled]="!selectDiagForm.valid"
                   pButton type="submit"
-                  label="Add Diagnostic"
-                  [style]="{'width': '100%'}"
+                  label="Add to selection"
                   class="p-button-secondary p-button-sm">
           </button>
           <ng-template #updateDiag>
             <button [disabled]="!selectDiagForm.valid" [style]="{'width': '100%'}"
-                    pButton type="submit" label="Update Diagnostic"
+                    pButton type="submit" label="Update"
                     class=" p-button-sm"></button>
           </ng-template>
         </div>
@@ -103,10 +104,10 @@
 
     </form>
 
-    <div class="container-fluid fields" *ngIf="!diagService.editMode">
+    <div class="container-fluid d-flex flex-column gap-4 p-0 m-0" *ngIf="!diagService.editMode">
 
-      <div class="row p-0">
-        <div class="col fields">
+      <div class="row p-0 m-0">
+        <div class="col fields p-0">
           <label>Selected Diagnostics</label>
 
           <p-table [value]="diagService.selectedDiags" [scrollable]="true" scrollHeight="200px" styleClass="p-datatable-sm p-datatable-gridlines">
@@ -140,7 +141,6 @@
         <div class="col p-0">
           <button (click)="onConfirm()" [disabled]="diagService.selectedDiags.length < 1"
                   pButton
-                  [style]="{'width': '100%'}"
                   label="Confirm selection"
                   class=" p-button-sm">
           </button>

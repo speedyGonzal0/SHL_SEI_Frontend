@@ -3,13 +3,13 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {OrgService} from "@shared/services/org.service";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {RegEx} from "@enums/regex";
-import {MessageService} from "primeng/api";
+import {NotificationService} from "@shared/components/notification/notification.service";
 
 @Component({
   selector: 'app-org-registration',
   templateUrl: './org-registration.component.html',
   styleUrls: ['./org-registration.component.scss'],
-  providers: [MessageService]
+  providers: []
 })
 export class OrgRegistrationComponent {
 
@@ -17,10 +17,10 @@ export class OrgRegistrationComponent {
   addressValue!: string;
   orgEditID! : number;
 
-  submitLabel = this.orgService.editMode ? "Edit" : "Create";
+  submitLabel = this.orgService.editMode ? "Update" : "Confirm";
   constructor(public orgService: OrgService,
               private config: DynamicDialogConfig,
-              private messageService: MessageService
+              private notificationService: NotificationService
               ) {
   }
 
@@ -35,7 +35,6 @@ export class OrgRegistrationComponent {
 
     if(this.config.data) {
       let org = this.orgService.orgs[this.config.data.index];
-      console.log(org)
       this.addressValue = org.address
       this.orgForm.setValue({
         name: org.name,
@@ -44,7 +43,6 @@ export class OrgRegistrationComponent {
         address: org.address,
         website: org.website
       })
-      console.log(this.orgForm.value)
       this.orgEditID = org.id
     }
   }
@@ -62,12 +60,12 @@ export class OrgRegistrationComponent {
     this.orgForm.controls['address'].setValue(this.addressValue);
     this.orgService.createOrg(this.orgForm.value).subscribe({
       next: response => {
-        this.orgService.orgHTTPResponse = response;
+        this.notificationService.sendSuccessMessage("Created Successfully!")
         this.orgForm.reset();
         this.orgService.orgRef.close();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        this.notificationService.sendErrorMessage(`${err.error.message}` );
       }
     })
   }
@@ -76,12 +74,12 @@ export class OrgRegistrationComponent {
     this.orgService.editOrg(id, orgInfo)
       .subscribe({
         next: response => {
-          this.orgService.orgHTTPResponse = response;
+          this.notificationService.sendSuccessMessage("Edit Successful!")
           this.orgForm.reset()
           this.orgService.orgRef.close()
         },
         error: err => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+          this.notificationService.sendErrorMessage(`${err.error.message}`);
         }
       })
 

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AuthGuard} from "@authentication/auth.guard";
-import {HistoryComponent} from "./history.component";
-import {DiagnosticDetailsComponent} from "./diagnostic/diagnostic-details/diagnostic-details.component";
-import {MedicineListComponent} from "./medicine/medicine-list/medicine-list.component";
-import {MedicineDetailsComponent} from "./medicine/medicine-details/medicine-details.component";
-import {DoctorListComponent} from "./doctor/doctor-list/doctor-list.component";
-import {DoctorDetailsComponent} from "./doctor/doctor-details/doctor-details.component";
-import {DiagnosticListComponent} from "./diagnostic/diagnostic-list/diagnostic-list.component";
+import {HistoryComponent} from "@history/history.component";
+import {DiagnosticDetailsComponent} from "@history/diagnostic/diagnostic-details/diagnostic-details.component";
+import {MedicineListComponent} from "@history/medicine/medicine-list/medicine-list.component";
+import {MedicineDetailsComponent} from "@history/medicine/medicine-details/medicine-details.component";
+import {DoctorListComponent} from "@history/doctor/doctor-list/doctor-list.component";
+import {DoctorDetailsComponent} from "@history/doctor/doctor-details/doctor-details.component";
+import {DiagnosticListComponent} from "@history/diagnostic/diagnostic-list/diagnostic-list.component";
 
 const routes: Routes = [
   {path: "", canActivateChild: [AuthGuard], children:[

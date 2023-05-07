@@ -21,14 +21,14 @@ export class AppUserService {
   appUsers! : AppUser[];
 
   genders = [
-    {gender: "Male", value: 0},
-    {gender: "Female", value: 1},
-    {gender: "Other", value: 2}];
+    "MALE",
+    "FEMALE",
+    "OTHER"];
 
   roles = [
-    {role: "ROLE_DOCTOR_RECEPTIONIST", value: 3},
-    {role: "ROLE_DIAGNOSTIC_RECEPTIONIST", value: 4},
-    {role: "ROLE_PHARMACIST", value: 5}];
+    "ROLE_DOCTOR_RECEPTIONIST",
+    "ROLE_DIAGNOSTIC_RECEPTIONIST",
+    "ROLE_PHARMACIST"];
 
   constructor(private httpService: HttpService, private authService: AuthService) {}
 
@@ -60,7 +60,6 @@ export class AppUserService {
   }
 
   editUser(id:number, appUserInfo: any){
-    console.log(appUserInfo)
     return this.httpService.updateRequest(`${this.userURL}/update/${id}`,appUserInfo)
   }
 

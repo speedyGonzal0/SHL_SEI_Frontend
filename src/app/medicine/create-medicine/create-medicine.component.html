@@ -1,4 +1,4 @@
-<p-toast position="center"></p-toast>
+
 
 <form *ngIf="medService.role ==='ROLE_ADMIN'; else orgAdminFunctions"
       class="container-fluid d-flex flex-column gap-4 p-0 m-0"
@@ -7,65 +7,65 @@
 
   <small *ngIf="createMedForm.invalid"><i>All fields are required *</i></small>
 
-  <div class="row p-0">
+  <div class="row p-0 m-0 gap-3">
 
-    <div class="fields col">
+    <div class="fields col p-0">
       <label for="medName"> Name </label>
-      <input type="text" pInputText id="medName" placeholder="e.g. Napa" formControlName="name"/>
+      <input type="text" class="p-inputtext-sm" pInputText id="medName" placeholder="e.g. Napa" formControlName="name"/>
       <small class="errorMsg" *ngIf="!createMedForm.controls['name'].valid && createMedForm.controls['name'].touched"> This field is required!</small>
     </div>
 
-    <div class="fields col">
+    <div class="fields col p-0">
       <label for="medGeneric" class="block"> Generic </label>
-      <input type="text" pInputText id="medGeneric" placeholder="e.g. Paracetamol" formControlName="genericName"/>
+      <input type="text" class="p-inputtext-sm" pInputText id="medGeneric" placeholder="e.g. Paracetamol" formControlName="genericName"/>
       <small class="errorMsg" *ngIf="!createMedForm.controls['genericName'].valid && createMedForm.controls['genericName'].touched"> This field is required!</small>
     </div>
 
   </div>
 
-  <div class="row p-0">
+  <div class="row p-0 m-0 gap-3">
 
-    <div class="fields col">
+    <div class="fields col p-0">
       <label for="medformulation" class="block"> Formulation </label>
-      <input type="text" pInputText id="medformulation" placeholder="e.g. Tablet" formControlName="formulation"/>
+      <input type="text" class="p-inputtext-sm" pInputText id="medformulation" placeholder="e.g. Tablet" formControlName="formulation"/>
       <small class="errorMsg" *ngIf="!createMedForm.controls['formulation'].valid && createMedForm.controls['formulation'].touched"> This field is required!</small>
     </div>
 
-    <div class="fields col">
+    <div class="fields col p-0">
       <label for="medStrength" class="block"> Strength </label>
-      <input type="text" pInputText id="medStrength" placeholder="e.g. 20mg" formControlName="strength"/>
+      <input type="text" class="p-inputtext-sm" pInputText id="medStrength" placeholder="e.g. 20mg" formControlName="strength"/>
       <small class="errorMsg" *ngIf="!createMedForm.controls['strength'].valid && createMedForm.controls['strength'].touched"> This field is required!</small>
     </div>
 
   </div>
 
-  <div class="row p-0">
+  <div class="row p-0 m-0 gap-3">
 
-    <div class="fields col">
+    <div class="fields col p-0">
       <label for="medVendor" class="block"> Vendor </label>
-      <input type="text" pInputText id="medVendor" placeholder="e.g. BEXIMCO" formControlName="vendor"/>
+      <input type="text" class="p-inputtext-sm" pInputText id="medVendor" placeholder="e.g. BEXIMCO" formControlName="vendor"/>
       <small class="errorMsg" *ngIf="!createMedForm.controls['vendor'].valid && createMedForm.controls['vendor'].touched"> This field is required!</small>
     </div>
 
-    <div class="fields col">
+    <div class="fields col p-0">
       <label for="medPrice" class="block"> Price </label>
-      <p-inputNumber formControlName="price" [style]="{'width': '100%'}" placeholder="e.g. 2.00" inputId="medPrice" mode="decimal" [maxFractionDigits]="2"></p-inputNumber>
+      <p-inputNumber class="p-inputtext-sm" formControlName="price" [style]="{'width': '100%'}" placeholder="e.g. 2.00" inputId="medPrice" mode="decimal" [maxFractionDigits]="2"></p-inputNumber>
       <small class="errorMsg" *ngIf="!createMedForm.controls['price'].valid && createMedForm.controls['price'].touched"> This field is required!</small>
     </div>
 
   </div>
 
-  <div class="row p-0">
+  <div class="row p-0 m-0">
     <button [disabled]="!createMedForm.valid"
             *ngIf="!medService.editMode;
             else updateMed" [style]="{'width': '100%'}"
             pButton type="submit"
-            label="Add Medicine"
+            label="Confirm"
             class=" p-button-sm"></button>
     <ng-template #updateMed>
       <button [disabled]="!createMedForm.valid || !createMedForm.dirty"
               [style]="{'width': '100%'}" pButton
-              type="submit" label="Update Medicine"
+              type="submit" label="Update"
               class=" p-button-sm"></button>
     </ng-template>
   </div>
@@ -79,7 +79,7 @@
 
       <div class="row p-0 m-0">
 
-        <div class="fields" *ngIf="!medService.editMode">
+        <div class="fields col p-0" *ngIf="!medService.editMode">
           <label for="medOptions"> Search Medicines </label>
 
           <div class="p-inputgroup">
@@ -90,12 +90,14 @@
               [style]="{'width': '100%'}"
               [inputStyle]="{'width': '100%'}"
               inputId="medOptions"
+              class="p-inputtext-sm"
               formControlName="med"
               placeholder="Search..."
               [showEmptyMessage] = "true"
               [showClear] = "true"
               [suggestions]="filteredMeds"
               [forceSelection]="true"
+              (onSelect)="onOrgAdminSubmit()"
               (completeMethod)="filterMeds($event)"
               field="name">
 
@@ -108,25 +110,12 @@
 
       </div>
 
-      <div class="row p-0 m-0">
-        <div class="col">
-          <button *ngIf="!medService.editMode"
-                  [disabled]="!selectedMedForm.valid"
-                  [style]="{'width': '100%'}"
-                  pButton type="submit"
-                  label="Add Medicine"
-                  class="p-button-secondary">
-          </button>
-        </div>
-
-      </div>
-
     </form>
 
-    <div class="container-fluid fields" *ngIf="!medService.editMode">
+    <div class="container-fluid d-flex flex-column p-0 m-0 gap-4" *ngIf="!medService.editMode">
 
       <div class="row p-0 m-0">
-        <div class="col fields">
+        <div class="col fields p-0">
           <label>Selected Medicines</label>
 
           <p-table [value]="medService.selectedMeds"
@@ -159,7 +148,7 @@
       </div>
 
       <div class="row p-0 m-0 bg-white position-sticky bottom-0">
-        <div class="col">
+        <div class="col p-0">
           <button (click)="onConfirm()"
                   [style]="{'width': '100%'}"
                   [disabled]="medService.selectedMeds.length < 1" pButton

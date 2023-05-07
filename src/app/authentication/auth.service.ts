@@ -3,7 +3,7 @@ import {HttpService} from "@shared/services/http.service";
 import {ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ApiPaths} from "@enums/api-paths";
-import {UserInfo} from "@models/userInfo";
+import {BehaviorSubject, Observable, Subject, Subscriber} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,14 @@ export class AuthService{
   adminID = 1;
   appUserName! : string;
   appUserEmail! : string;
-  role = this.getRole()
-  userInfo! : UserInfo;
+  role !: string;
+  newRole!: Observable<any>;
+
+  userInfo: any;
+
+  private userSource = new BehaviorSubject({});
+
+  userSourceInfo = this.userSource.asObservable();
 
   constructor(private httpService: HttpService,
               private router: Router) {
@@ -27,22 +33,27 @@ export class AuthService{
   }
 
   getRole(){
-    return localStorage.getItem('userRole')
+    return localStorage.getItem('userRole')!
   }
 
-  fetchUserInfo(email: string){
-    this.httpService.getRequest(`${ApiPaths.users}/get/email/${email}`).subscribe(
-      (response: any) => {
-        this.appUserID = response.id
-        this.appUserName = response.name
-        this.appUserEmail = response.email
-        this.orgID = response.organization.id
-        this.orgName = response.organization.name
-      }
-    )
+  fetchUser(){
+
+    return this.httpService.getRequest(`${ApiPaths.users}/get/info`)
+  }
+
+  setUser(user : any){
+    this.userSource.next(user)
+    localStorage.setItem('userRole', user.role);
+    this.role = user.role.toString();
+    this.orgID = user.organization.id
+    this.orgName = user.organization.name
+    this.appUserID = user.id
+    this.appUserName = user.name
+    this.appUserEmail = user.email
   }
 
   logout(){
+    this.userSource.next({})
     localStorage.clear()
     this.router.navigate(['login'])
   }

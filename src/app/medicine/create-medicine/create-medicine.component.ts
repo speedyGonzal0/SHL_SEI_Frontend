@@ -5,13 +5,13 @@ import {MedicineService} from "@medicine/medicine.service";
 import {HttpService} from "@shared/services/http.service";
 import {Medicine} from "@models/medicine";
 import {AuthService} from "@authentication/auth.service";
-import {MessageService} from "primeng/api";
+import {NotificationService} from "@shared/components/notification/notification.service";
 
 @Component({
   selector: 'app-create-medicine',
   templateUrl: './create-medicine.component.html',
   styleUrls: ['./create-medicine.component.scss'],
-  providers: [MessageService]
+  providers: []
 
 })
 export class CreateMedicineComponent implements OnInit{
@@ -25,7 +25,7 @@ export class CreateMedicineComponent implements OnInit{
               public medService: MedicineService,
               private httpService: HttpService,
               private authService: AuthService,
-              private messageService: MessageService
+              private notificationService: NotificationService
               ) {
   }
 
@@ -80,12 +80,12 @@ export class CreateMedicineComponent implements OnInit{
     let body = {"id": item.id, ...this.createMedForm.value};
     this.medService.updateValue(body).subscribe({
       next: response => {
-        this.medService.medHTTPResponse = response;
+        this.notificationService.sendSuccessMessage("Edit Successful!")
         this.createMedForm.reset();
         this.medService.medRef.close();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        this.notificationService.sendErrorMessage(`${err.error.message}`);
       }
     });
   }
@@ -93,12 +93,12 @@ export class CreateMedicineComponent implements OnInit{
   createMedicine(){
     this.medService.appendValue(this.createMedForm.value).subscribe({
       next: response => {
-        this.medService.medHTTPResponse = response;
+        this.notificationService.sendSuccessMessage("Created Successfully!")
         this.createMedForm.reset();
         this.medService.medRef.close();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        this.notificationService.sendErrorMessage(`${err.error.message}`);
       }
     })
   }
@@ -122,12 +122,12 @@ export class CreateMedicineComponent implements OnInit{
   onConfirm(){
     this.medService.appendValue({}).subscribe({
       next: response => {
-        this.medService.medHTTPResponse = response;
+        this.notificationService.sendSuccessMessage("Created Successfully!")
         this.medService.selectedMeds = [];
         this.medService.medRef.close();
       },
       error: err => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: `${err.error.message}` });
+        this.notificationService.sendErrorMessage(`${err.error.message}` );
       }
     });
   }
