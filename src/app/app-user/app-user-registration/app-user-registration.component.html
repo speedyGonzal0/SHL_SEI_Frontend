@@ -135,57 +135,59 @@
       <div class="row p-0 m-0" *ngIf="role === 'ROLE_ORG_ADMIN'">
         <div class="col fields p-0">
           <label for="role">Role</label>
-          <p-multiSelect formControlName="role"
+          <p-dropdown formControlName="role"
                          [options]="appUserService.roles"
                          placeholder="-"
                          id="role"
                          [style]="{width: '100%'}">
-          </p-multiSelect>
+          </p-dropdown>
           <small
             *ngIf="!appUserForm.controls['role'].value
             && appUserForm.controls['role'].touched">
             This field is required!
           </small>
         </div>
+      </div>
 
-    <div class="col fields">
-      <label for="password">Password</label>
-      <p-password
-        class="p-inputtext-sm p-fluid"
-        [toggleMask]="true"
-        id="password"
-        placeholder="e.g. A Strong Password"
-        formControlName="password">
-        <ng-template pTemplate="footer">
-          <hr>
-          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-            <li>At least one lowercase</li>
-            <li>At least one uppercase</li>
-            <li>At least one numeric</li>
-            <li>At least one special character</li>
-            <li>Minimum 8 characters</li>
-          </ul>
-        </ng-template>
-      </p-password>
-      <!--          <input formControlName="password"-->
-      <!--                 id="password"-->
-      <!--                 type="password"-->
-      <!--                 class="p-inputtext-sm"-->
-      <!--                 placeholder="e.g. A Strong Password"-->
-      <!--                 pInputText/>-->
-      <small class="errorMsg m-0"
-        *ngIf="!appUserForm.controls['password'].value
-        && appUserForm.controls['password'].touched">
-        This field is required!
-      </small>
+      <div class="row p-0 m-0">
+        <div class="col fields p-0">
+          <label for="password">Password</label>
+          <p-password
+            class="p-inputtext-sm p-fluid"
+            [toggleMask]="true"
+            id="password"
+            placeholder="e.g. A Strong Password"
+            formControlName="password">
+            <ng-template pTemplate="footer">
+              <hr>
+              <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                <li>At least one lowercase</li>
+                <li>At least one uppercase</li>
+                <li>At least one numeric</li>
+                <li>At least one special character</li>
+                <li>Minimum 8 characters</li>
+              </ul>
+            </ng-template>
+          </p-password>
+          <!--          <input formControlName="password"-->
+          <!--                 id="password"-->
+          <!--                 type="password"-->
+          <!--                 class="p-inputtext-sm"-->
+          <!--                 placeholder="e.g. A Strong Password"-->
+          <!--                 pInputText/>-->
+          <small class="errorMsg m-0"
+                 *ngIf="!appUserForm.controls['password'].value
+            && appUserForm.controls['password'].touched">
+            This field is required!
+          </small>
 
-      <small class="errorMsg m-0"
-             *ngIf="appUserForm.controls['password'].invalid
-             && appUserForm.controls['password'].value
-             && appUserForm.controls['password'].touched">
-        This field is invalid!
-      </small>
-    </div>
+          <small class="errorMsg m-0"
+                 *ngIf="appUserForm.controls['password'].invalid
+                 && appUserForm.controls['password'].value
+                 && appUserForm.controls['password'].touched">
+            This field is invalid!
+          </small>
+        </div>
       </div>
 
 

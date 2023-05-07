@@ -25,6 +25,7 @@ export class DoctorBillingComponent {
   patientUrl = ApiPaths.patient;
   orgDoctorUrl = ApiPaths.orgDoc;
   minDate!: Date;
+  disabledDays!: number[];
 
   constructor(private httpService: HttpService,
               private patientService: PatientService,
@@ -66,6 +67,8 @@ export class DoctorBillingComponent {
     if(this.DBService.selectedAppointment){
       this.DBForm.controls['aptType'].setValue(this.DBService.selectedAppointment);
     }
+
+    this.disabledDays = []
 
     // this.patientSearch = new FormControl(null, Validators.required);
     // this.docSearch = new FormControl(null, Validators.required);
@@ -126,9 +129,42 @@ export class DoctorBillingComponent {
 
   onDocSelect(){
     this.DBService.selectedDoc = this.DBForm.controls['docSearch'].value;
+
+    this.disabledDays = []
+    let docTimes = this.DBService.selectedDoc.availableDayTimes;
+    let timesToEnable = docTimes?.map( dt => dt.day);
+    let daysInWeek = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    let timesToDisable = daysInWeek.filter( day => !timesToEnable?.includes(day))
+
+    timesToDisable?.forEach(t => {
+      switch (t){
+        case "Saturday": {
+          this.disabledDays.push(6); break;
+        }
+        case "Sunday": {
+          this.disabledDays.push(0); break;
+        }
+        case "Monday": {
+          this.disabledDays.push(1)  ; break;
+        }
+        case "Tuesday": {
+          this.disabledDays.push(2); break;
+        }
+        case "Wednesday": {
+          this.disabledDays.push(3); break;
+        }
+        case "Thursday": {
+          this.disabledDays.push(4); break;
+        }
+        case "Friday": {
+          this.disabledDays.push(5); break;
+        }
+      }
+    })
   }
 
   onTimeSelect(event: any){
+    // console.log(event)
     this.DBService.selectedTime = this.DBForm.controls['docTime'].value;
   }
 

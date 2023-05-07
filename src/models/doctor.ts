@@ -1,3 +1,5 @@
+import {dayTimes} from "@models/dayTimes";
+
 export interface Doctor{
   id: number,
   name?: string,
@@ -11,6 +13,6 @@ export interface Doctor{
   consultationFee?: number,
   followupFee?: number,
   reportFee?: number,
-  availableTimes?: string[],
+  availableDayTimes?: dayTimes[],
   doctor?: any;
 }

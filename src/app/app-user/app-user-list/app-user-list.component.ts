@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
@@ -8,6 +8,7 @@ import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RefreshService} from "@shared/services/refresh.service";
 import {AuthService} from "@authentication/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-app-user-diagnostic-list',
@@ -16,9 +17,12 @@ import {AuthService} from "@authentication/auth.service";
   providers: [DialogService, ConfirmationService]
 
 })
-export class AppUserListComponent implements OnInit{
+export class AppUserListComponent implements OnInit, OnDestroy{
 
   adminURL = ApiPaths.users
+  userTableSub!: Subscription;
+  role!: string;
+  roleSub!: Subscription;
   constructor( private dialogService: DialogService,
               private confirmationService: ConfirmationService, private httpService: HttpService,
               public appUserService: AppUserService, private route: ActivatedRoute,
@@ -27,7 +31,13 @@ export class AppUserListComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.refreshService.refreshNeeded$
+    this.roleSub = this.authService.userSourceInfo.subscribe((value: any) => {
+      this.role = value.role.toString();
+      this.appUserService.role = this.role;
+      this.appUserService.userInfo = value;
+    })
+
+    this.userTableSub = this.refreshService.userTable
       .subscribe(() => {
           this.getUserList()
         }
@@ -102,5 +112,10 @@ export class AppUserListComponent implements OnInit{
     else{
       this.router.navigate([], {queryParams: {query: value}, queryParamsHandling: 'merge'})
     }
+  }
+
+  ngOnDestroy(){
+    this.userTableSub.unsubscribe()
+    this.roleSub.unsubscribe()
   }
 }

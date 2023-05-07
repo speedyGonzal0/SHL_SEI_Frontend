@@ -6,6 +6,7 @@ import {HttpService} from "@shared/services/http.service";
 import {Medicine} from "@models/medicine";
 import {AuthService} from "@authentication/auth.service";
 import {NotificationService} from "@shared/components/notification/notification.service";
+import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
   selector: 'app-create-medicine',
@@ -25,6 +26,7 @@ export class CreateMedicineComponent implements OnInit{
               public medService: MedicineService,
               private httpService: HttpService,
               private authService: AuthService,
+              private refreshService: RefreshService,
               private notificationService: NotificationService
               ) {
   }
@@ -82,6 +84,7 @@ export class CreateMedicineComponent implements OnInit{
       next: response => {
         this.notificationService.sendSuccessMessage("Edit Successful!")
         this.createMedForm.reset();
+        this.refreshService.updateMedTable();
         this.medService.medRef.close();
       },
       error: err => {
@@ -95,6 +98,7 @@ export class CreateMedicineComponent implements OnInit{
       next: response => {
         this.notificationService.sendSuccessMessage("Created Successfully!")
         this.createMedForm.reset();
+        this.refreshService.updateMedTable();
         this.medService.medRef.close();
       },
       error: err => {
@@ -124,6 +128,7 @@ export class CreateMedicineComponent implements OnInit{
       next: response => {
         this.notificationService.sendSuccessMessage("Created Successfully!")
         this.medService.selectedMeds = [];
+        this.refreshService.updateMedTable();
         this.medService.medRef.close();
       },
       error: err => {

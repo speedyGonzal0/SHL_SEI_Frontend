@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
@@ -7,6 +7,7 @@ import {PatientRegistrationComponent} from "@patient/patient-registration/patien
 import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-patient-diagnostic-list',
@@ -14,9 +15,10 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   styleUrls: ['./patient-list.component.scss'],
   providers: [ DialogService, ConfirmationService]
 })
-export class PatientListComponent {
+export class PatientListComponent implements OnInit, OnDestroy{
 
   patientURL = ApiPaths.patient;
+  patientTableSub!: Subscription;
   constructor( private dialogService: DialogService,
               private confirmationService: ConfirmationService, private httpService: HttpService,
               public patientService: PatientService, private refreshService: RefreshService,
@@ -24,7 +26,7 @@ export class PatientListComponent {
   }
 
   ngOnInit() {
-    this.refreshService.refreshNeeded$
+    this.patientTableSub = this.refreshService.patientTable
       .subscribe(() => {
           this.getPatientList()
         }
@@ -88,5 +90,9 @@ export class PatientListComponent {
           queryParamsHandling: "merge"
         })
     }
+  }
+
+  ngOnDestroy() {
+    this.patientTableSub.unsubscribe();
   }
 }

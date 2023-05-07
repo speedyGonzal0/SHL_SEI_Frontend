@@ -144,10 +144,11 @@
                           [minDate]="minDate"
                           placeholder="Enter date"
                           [showIcon]="true"
-                          hourFormat="12"
+                          [disabledDays]="disabledDays"
                           (onSelect)="onTimeSelect($event)"
-                          class="p-inputtext-sm"
-                          [showTime]="true">
+                          [showTime]="true"
+                          hourFormat="12"
+                          class="p-inputtext-sm">
               </p-calendar>
 
             </div>

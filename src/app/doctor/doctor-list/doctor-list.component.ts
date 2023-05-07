@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ConfirmationService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import {DoctorRegistrationComponent} from "../doctor-registration/doctor-registration.component";
@@ -7,6 +7,7 @@ import {DoctorService} from "@shared/services/doctor.service";
 import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-doctor-diagnostic-list',
@@ -14,10 +15,11 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   styleUrls: ['./doctor-list.component.scss'],
   providers: [ DialogService, ConfirmationService]
 })
-export class DoctorListComponent implements OnInit{
+export class DoctorListComponent implements OnInit, OnDestroy{
 
   doctorURL = ApiPaths.doctor;
   orgAdminUrl = ApiPaths.orgDoc;
+  docTableSub!: Subscription;
 
   constructor(
               private dialogService: DialogService,
@@ -30,7 +32,7 @@ export class DoctorListComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.refreshService.refreshNeeded$
+    this.docTableSub = this.refreshService.doctorTable
       .subscribe(() => {
         this.getDoctorList()
         }
@@ -105,5 +107,9 @@ export class DoctorListComponent implements OnInit{
     else{
       this.router.navigate([], {queryParams: {query: value}, queryParamsHandling: 'merge'})
     }
+  }
+
+  ngOnDestroy() {
+    this.docTableSub.unsubscribe();
   }
 }

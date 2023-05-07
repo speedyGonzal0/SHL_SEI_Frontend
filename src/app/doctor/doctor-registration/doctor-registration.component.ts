@@ -7,6 +7,8 @@ import {HttpService} from "@shared/services/http.service";
 import {ApiPaths} from "@enums/api-paths";
 import {AuthService} from "@authentication/auth.service";
 import {NotificationService} from "@shared/components/notification/notification.service";
+import {dayTimes} from "@models/dayTimes";
+import {RefreshService} from "@shared/services/refresh.service";
 @Component({
   selector: 'app-doctor-registration',
   templateUrl: './doctor-registration.component.html',
@@ -19,6 +21,7 @@ export class DoctorRegistrationComponent implements OnInit{
               private config: DynamicDialogConfig,
               private httpService: HttpService,
               private authService: AuthService,
+              private refreshService: RefreshService,
               private notificationService: NotificationService
               ) {}
 
@@ -28,6 +31,8 @@ export class DoctorRegistrationComponent implements OnInit{
   availableTimes!: any;
   doctorEditID! : number;
   submitLabel = this.doctorService.editMode ? "Update" : "Confirm";
+
+  availableDayTimes!: dayTimes[] | undefined;
 
   ngOnInit() {
     this.doctorForm = new FormGroup({
@@ -55,6 +60,7 @@ export class DoctorRegistrationComponent implements OnInit{
     })
 
     this.filteredDocs = [];
+    this.availableDayTimes = [];
     this.availableTimes = [
       "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
     ];
@@ -84,8 +90,9 @@ export class DoctorRegistrationComponent implements OnInit{
           consultationFee: doctor.consultationFee,
           followupFee: doctor.followupFee,
           reportFee: doctor.reportFee,
-          availableTimes: doctor.availableTimes
+          availableTimes: doctor.availableDayTimes?.map( dt => dt.day)
         })
+        this.availableDayTimes = doctor.availableDayTimes
       }
       this.doctorEditID = doctor.id
 
@@ -101,7 +108,6 @@ export class DoctorRegistrationComponent implements OnInit{
   }
 
   editDoctor(){
-    console.log(this.doctorForm.value)
       this.doctorService.editDoctor(this.doctorEditID, {
         ...this.doctorForm.value,
         gender: this.doctorForm.value.gender.value,
@@ -111,10 +117,10 @@ export class DoctorRegistrationComponent implements OnInit{
           next: response => {
             this.notificationService.sendSuccessMessage("Edit Successful!")
             this.doctorForm.reset();
+            this.refreshService.updateDocTable();
             this.doctorService.doctorRef.close();
           },
           error: err => {
-            console.log(err)
             this.notificationService.sendErrorMessage(err.error.message)
           }
         })
@@ -131,6 +137,7 @@ export class DoctorRegistrationComponent implements OnInit{
         next: response => {
           this.notificationService.sendSuccessMessage("Created Successfully!");
           this.doctorForm.reset();
+          this.refreshService.updateDocTable();
           this.doctorService.doctorRef.close();
         },
         error: err => {
@@ -157,11 +164,15 @@ export class DoctorRegistrationComponent implements OnInit{
   }
 
   orgAdminCreateDoctor(){
-    this.doctorService.createDoctor(this.doctorSelectForm.value)
+    this.doctorService.createDoctor({
+      ...this.doctorSelectForm.value,
+      availableDayTimes: this.availableDayTimes
+    })
       .subscribe({
         next: response => {
           this.notificationService.sendSuccessMessage("Created Successfully");
           this.doctorForm.reset();
+          this.refreshService.updateDocTable();
           this.doctorService.doctorRef.close();
         },
         error: err => {
@@ -171,18 +182,39 @@ export class DoctorRegistrationComponent implements OnInit{
   }
 
   orgAdminEditDoctor(){
-    this.doctorService.editDoctor(this.doctorEditID, this.doctorSelectForm.value)
+    // console.log({...this.doctorSelectForm.value, availableDayTimes: this.availableDayTimes})
+    // this.doctorService.editDoctor(this.doctorEditID,
+    //   {
+    //     ...this.doctorSelectForm.value,
+    //     availableDayTimes: this.availableDayTimes
+    //   })
 
-    this.doctorService.editDoctor(this.doctorEditID, this.doctorSelectForm.value)
+    this.doctorService.editDoctor(this.doctorEditID, {
+      ...this.doctorSelectForm.value,
+      availableDayTimes: this.availableDayTimes
+    })
       .subscribe({
         next: response => {
           this.notificationService.sendSuccessMessage("Edit Successful!")
           this.doctorSelectForm.reset();
+          this.refreshService.updateDocTable();
           this.doctorService.doctorRef.close();
         },
         error: err => {
           this.notificationService.sendErrorMessage(`${err.error.message}` );
         }
       })
+  }
+
+  showTime(event: any){
+    console.log(event)
+  }
+
+  appendDayTime(event: any){
+    this.availableDayTimes = []
+    event.value.forEach( (t:any) => {
+      this.availableDayTimes?.push({day: t, startTime: "", endTime: ""})
+    })
+    // this.availableDayTime.push({day: event.itemValue, startTime: "", endTime: ""})
   }
 }

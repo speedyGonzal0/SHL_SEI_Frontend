@@ -40,7 +40,7 @@
         <th> ID </th>
         <th> Name </th>
         <th> Role </th>
-        <th *ngIf="authService.getRole() === 'ROLE_ADMIN'"> Organization </th>
+        <th *ngIf="role === 'ROLE_ADMIN'"> Organization </th>
         <th> Email </th>
         <th> Phone </th>
         <th> Gender </th>
@@ -54,19 +54,19 @@
         <td> {{item.id}}</td>
         <td> {{item.name | titlecase}} </td>
         <td> {{item.role.toString().split("ROLE_")[1].replace('_', ' ') | titlecase}}</td>
-        <td *ngIf="authService.getRole() === 'ROLE_ADMIN'"> {{item.organization.name}} </td>
+        <td *ngIf="role === 'ROLE_ADMIN'"> {{item.organization.name}} </td>
         <td> {{item.email}} </td>
         <td> {{item.phone}} </td>
         <td> {{item.gender | titlecase}} </td>
         <td>
           <!--          <span class="p-buttonset">-->
           <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
-                  *ngIf="appUserService.role === 'ROLE_ADMIN' && item.role.includes('ROLE_ORG_ADMIN'); else orgAdminUserEdit"
+                  *ngIf="role === 'ROLE_ADMIN' && item.role.includes('ROLE_ORG_ADMIN'); else orgAdminUserEdit"
                   class="p-button-outlined p-button-sm p-button-secondary">
           </button>
           <ng-template #orgAdminUserEdit>
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
-                    *ngIf="appUserService.role === 'ROLE_ORG_ADMIN' && !item.role.includes('ROLE_ORG_ADMIN')"
+                    *ngIf="role === 'ROLE_ORG_ADMIN' && !item.role.includes('ROLE_ORG_ADMIN')"
                     class="p-button-outlined p-button-sm p-button-secondary">
             </button>
           </ng-template>

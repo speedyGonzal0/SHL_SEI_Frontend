@@ -11,10 +11,10 @@ import {HttpResponse} from "@angular/common/http";
   providedIn: 'root'
 })
 export class AppUserService {
-  role = this.authService.getRole()
+  role !: string;
+  userInfo!: AppUser;
   userURL = ApiPaths.users
   appUserRef! : DynamicDialogRef
-  userHTTPResponse!: HttpResponse<any> | null;
 
   editMode : boolean = false;
   totalUsers : number = 0;
@@ -42,7 +42,7 @@ export class AppUserService {
       )
     }
     else {
-      this.httpService.getRequestWithParams(`${this.userURL}/org/${this.authService.orgID}/search`, queryParams).subscribe(
+      this.httpService.getRequestWithParams(`${this.userURL}/org/${this.userInfo.organization.id}/search`, queryParams).subscribe(
         (response: any) => {
           this.appUsers = response.content;
           this.totalUsers = response.totalElements;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConfirmationService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
 import {HttpService} from "@shared/services/http.service";
@@ -7,6 +7,7 @@ import {OrgRegistrationComponent} from "@org/org-registration/org-registration.c
 import {RefreshService} from "@shared/services/refresh.service";
 import {ApiPaths} from "@enums/api-paths";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-org-diagnostic-list',
@@ -14,9 +15,10 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   styleUrls: ['./org-list.component.scss'],
   providers: [ DialogService, ConfirmationService]
 })
-export class OrgListComponent {
+export class OrgListComponent implements OnInit, OnDestroy{
 
   orgURL = ApiPaths.org
+  orgTableSub!: Subscription;
 
   constructor( private dialogService: DialogService,
               private confirmationService: ConfirmationService, private httpService: HttpService,
@@ -25,7 +27,7 @@ export class OrgListComponent {
   }
 
   ngOnInit() {
-    this.refreshService.refreshNeeded$
+    this.orgTableSub = this.refreshService.orgTable
       .subscribe(() => {
           this.getOrgList()
         }
@@ -99,5 +101,9 @@ export class OrgListComponent {
     else{
       this.router.navigate([], {queryParams: {query: value}, queryParamsHandling: 'merge'})
     }
+  }
+
+  ngOnDestroy() {
+    this.orgTableSub.unsubscribe();
   }
 }

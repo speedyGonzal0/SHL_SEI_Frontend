@@ -25,7 +25,6 @@ export class MedicineService{
 
   editMode : boolean = false;
   role = this.authService.getRole();
-  vendors!: any[];
 
   constructor(public httpService: HttpService, private authService: AuthService) { }
 
@@ -54,11 +53,11 @@ export class MedicineService{
           this.medicines = response.content;
           this.totalMedicine = response.totalElements;
 
-          this.medicines.map((med) => {
-            if(!this.vendors.includes(med.vendor?.toLowerCase())){
-              this.vendors.push(med.vendor);
-            }
-          })
+          // this.medicines.map((med) => {
+          //   if(!this.vendors.includes(med.vendor?.toLowerCase())){
+          //     this.vendors.push(med.vendor);
+          //   }
+          // })
         }
       )
     }

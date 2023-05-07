@@ -80,12 +80,14 @@ export class CheckoutComponent {
 
   generateInvoice(){
     let doctorInvoice = {
-      drTime: new Date(this.docBillService.selectedTime).getTime(),
+      appointmentTime: this.docBillService.selectedTime,
       fee : this.docBillService.selectedAppointment.fee,
       type : this.docBillService.selectedAppointment.value,
       discount : this.discountPercent,
       finalFee : this.calculatePayable() + (this.calculatePayable()*5)/100
     }
+
+    // console.log(doctorInvoice)
 
     this.httpService.createRequest(
       `/appointmentBill/appuser/${this.authService.appUserID}/orgDoc/${this.docBillService.selectedDoc.id}/patient/${this.docBillService.selectedPatient.id}/org/${this.authService.orgID}/add`,{

@@ -328,6 +328,7 @@
                          defaultLabel="Select days"
                          inputId="docTimes"
                          display="chip"
+                         (onChange)="appendDayTime($event)"
                          [style]="{'width': '100%'}"
           >
           </p-multiSelect>
@@ -339,15 +340,16 @@
         </div>
       </div>
 
-      <div class="row p-0 m-0" *ngFor="let time of doctorSelectForm.value.availableTimes">
+      <div class="row p-0 m-0 gap-3" *ngFor="let dayTime of availableDayTimes">
         <div class="col fields p-0" >
-          <label for="startTime"> {{time}} Start </label>
-          <p-calendar inputId="startTime" [timeOnly]="true" [inline]="true" hourFormat="12"></p-calendar>
-
+          <label for="startTime"> {{dayTime.day}} Start </label>
+<!--          <p-calendar (onSelect)="showTime($event)" [formControl]="drTime" inputId="startTime" [timeOnly]="true" [inline]="true" hourFormat="12"></p-calendar>-->
+          <input class="p-inputtext-sm" placeholder="e.g. 06:00 PM" pInputText id="startTime" [(ngModel)]="dayTime.startTime" [ngModelOptions]="{standalone: true}" >
         </div>
         <div class="col fields p-0" >
-          <label for="endTime"> {{time}} End </label>
-          <p-calendar inputId="endTime" [timeOnly]="true" [inline]="true" hourFormat="12"></p-calendar>
+          <label for="endTime"> {{dayTime.day}} End </label>
+          <!--          <p-calendar inputId="endTime" [timeOnly]="true" [inline]="true" hourFormat="12"></p-calendar>-->
+          <input class="p-inputtext-sm" placeholder="e.g. 08:00 PM" pInputText id="endTime" [(ngModel)]="dayTime.endTime" [ngModelOptions]="{standalone: true}">
         </div>
       </div>
 
@@ -371,4 +373,5 @@
 
 
     </form>
+
 </ng-template>

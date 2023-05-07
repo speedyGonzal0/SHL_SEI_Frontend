@@ -1,7 +1,25 @@
 <div class="container-lg h-100">
-  <div class="welcome text-center mb-4">
-    <h3>Welcome, {{authService.appUserName}}</h3>
-    <p>You are logged in as Organization Admin</p>
+  <div class="welcome text-center mb-2">
+<!--    <h3>Welcome, {{authService.appUserName}}</h3>-->
+<!--    <p>You are logged in as Organization Admin</p>-->
+    <h3> DASHBOARD </h3>
+
+
+    <div class="row justify-content-center">
+      <div class="col-9 cardBody">
+        <div class="cardContainer row">
+          <div class="col d-flex flex-column align-items-center">
+        <span class="cardTitle">
+            <i class="material-symbols-outlined icon">
+            account_balance
+            </i>
+            <p>Total Revenue</p>
+          </span>
+            <h2 *ngIf="totalRevenue">{{totalRevenue.toFixed(2)}} BDT</h2>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="row justify-content-center">
 

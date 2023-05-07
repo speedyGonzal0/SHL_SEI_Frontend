@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConfirmationService} from 'primeng/api';
 import {DialogService} from "primeng/dynamicdialog";
 import {FormControl} from "@angular/forms";
@@ -6,6 +6,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MedicineService} from "@medicine/medicine.service";
 import {CreateMedicineComponent} from "@medicine/create-medicine/create-medicine.component";
 import {RefreshService} from "@shared/services/refresh.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-medicine-diagnostic-list',
@@ -13,7 +14,9 @@ import {RefreshService} from "@shared/services/refresh.service";
   styleUrls: ['./medicine-list.component.scss'],
   providers: [ DialogService, ConfirmationService]
 })
-export class MedicineListComponent implements OnInit{
+export class MedicineListComponent implements OnInit, OnDestroy{
+
+  medTableSub!: Subscription;
   constructor(
               private dialogService: DialogService,
               private confirmationService: ConfirmationService,
@@ -25,8 +28,7 @@ export class MedicineListComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.medService.vendors = [];
-    this.refreshService.refreshNeeded$
+    this.medTableSub = this.refreshService.medTable
       .subscribe(() => {
         this.route.queryParams.subscribe(
           (qp:Params) => {
@@ -97,5 +99,9 @@ export class MedicineListComponent implements OnInit{
           queryParamsHandling: "merge"
         })
     }
+  }
+
+  ngOnDestroy() {
+    this.medTableSub.unsubscribe();
   }
 }

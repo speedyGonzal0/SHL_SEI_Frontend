@@ -50,9 +50,9 @@
         </tr>
         <tr *ngFor="let item of diagBill.orgDiagnosticAndDiscounts">
           <td>{{item.orgDiagnostic.diagnostic.serviceName}}</td>
-          <td>{{item.orgDiagnostic.price}}</td>
+          <td>{{item.orgDiagnostic.price.toFixed(2)}}</td>
           <td>{{item.discount}}%</td>
-          <td>{{item.invoicePrice}}</td>
+          <td>{{item.invoicePrice.toFixed(2)}}</td>
         </tr>
       </table>
   </span>
@@ -69,13 +69,13 @@
       <b>Total</b>
     </span>
     <span class="col">
-        <p>{{diagBill.totalFeeWithoutAnyDiscount}}</p>
-        <p>{{diagBill.totalFeeAfterIndividualDiscount}}</p>
+        <p>{{diagBill.totalFeeWithoutAnyDiscount.toFixed(2)}}</p>
+        <p>{{diagBill.totalFeeAfterIndividualDiscount.toFixed(2)}}</p>
         <p>{{diagBill.overallDiscount}}%</p>
         <p>5%</p>
-        <b>{{diagBill.finalFeeAfterAllDiscount}}</b>
+        <b>{{diagBill.finalFeeAfterAllDiscount.toFixed(2)}}</b>
     </span>
-    <p class="text-end mt-3">In words: {{toWords(diagBill.finalFeeAfterAllDiscount)}}</p>
+    <p class="text-end mt-3">In words: {{toWords(diagBill.finalFeeAfterAllDiscount.toFixed(2))}}</p>
   </div>
 
   <hr class="border-0">

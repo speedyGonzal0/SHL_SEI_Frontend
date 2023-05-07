@@ -44,14 +44,20 @@
       <table>
         <tr>
           <th>Dr Name</th>
-<!--          <th>Time</th>-->
+          <th>Time</th>
+          <th>Date (YYYY-MM-DD)</th>
           <th>Service Type</th>
           <th>BMDC</th>
           <th>Email</th>
         </tr>
         <tr *ngIf="docBill">
           <td>{{docBill.doctor.name}}</td>
-<!--          <td>{{docBill.drTime}}</td>-->
+          <td>
+            {{docBill.appointmentTime | date:"hh:mm a"}}
+          </td>
+          <td>
+            {{docBill.appointmentTime | date: "yyyy-MM-dd"}}
+          </td>
           <td>{{docBill.type | titlecase}}</td>
           <td>{{docBill.doctor.bmdc}}</td>
           <td>{{docBill.doctor.email}}</td>
@@ -70,12 +76,12 @@
       <b>Total</b>
     </span>
     <span class="col">
-        <p>{{docBill.fee}}</p>
+        <p>{{docBill.fee.toFixed(2)}}</p>
         <p>{{docBill.discount}}%</p>
         <p>5%</p>
-        <b>{{docBill.finalFee}}</b>
+        <b>{{docBill.finalFee.toFixed(2)}}</b>
     </span>
-    <p class="text-end mt-3">In words: {{toWords(docBill.finalFee)}}</p>
+    <p class="text-end mt-3">In words: {{toWords(docBill.finalFee.toFixed(2))}}</p>
   </div>
 
   <hr class="border-0">

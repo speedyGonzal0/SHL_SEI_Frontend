@@ -1,12 +1,13 @@
-<div class="container-fluid h-100">
+<div class="container-fluid h-100 p-0 m-0">
   <div class="row h-100">
-    <div class="col bg-white d-flex flex-column justify-content-center p-5">
-      <h2>Welcome, Raju Hassan</h2>
-      <p>You are logged in as Org Admin</p>
+    <div class="col rounded d-flex background rounded flex-column justify-content-center align-items-center gap-4 p-5">
+      <h1 class="text-center">A Platform For Billing <br> & Management In One Place </h1>
+      <p>Welcome to SHL Billing, {{authService.appUserName}}. You are logged in as <b>{{authService.getRole().split("ROLE_")[1].replace('_', ' ') | titlecase}}</b>
+      </p>
       <span>
-      <button pButton label="Proceed to dashboard"></button>
+      <button [routerLink]="routerLink" pButton label="Start Journey" icon="pi pi-arrow-right" iconPos="right"></button>
       </span>
+
     </div>
-    <div class="col p-5"></div>
   </div>
 </div>

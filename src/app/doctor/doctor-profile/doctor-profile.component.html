@@ -22,7 +22,9 @@
       <div class="chipContainer text-md-start text-center">
         <p-tag>{{doctorService.doctor.email}}</p-tag>
         <p-tag>{{doctorService.doctor.phone}}</p-tag>
-        <p-tag>{{doctorService.doctor.gender}}</p-tag>
+        <p-tag>{{doctorService.doctor.gender | titlecase}}</p-tag>
+        <p-tag>{{doctorService.doctor.doctorType}}</p-tag>
+
       </div>
     </div>
 
@@ -78,7 +80,7 @@
 </div>
 
 <ng-template #orgAdminView>
-  <div class="container-md" *ngIf="doctorService.doctor">
+  <div class="container-md bg-white p-4 h-100" *ngIf="doctorService.doctor">
     <div class="text-center">
       <h5>Dr. {{doctorService.doctor.doctor.name}}</h5>
       <div class="chipContainer justify-content-center">
@@ -99,6 +101,8 @@
           <p-tag>{{doctorService.doctor.doctor.email}}</p-tag>
           <p-tag>{{doctorService.doctor.doctor.phone}}</p-tag>
           <p-tag>{{doctorService.doctor.doctor.gender | titlecase}}</p-tag>
+          <p-tag>{{doctorService.doctor.doctor.doctorType}}</p-tag>
+
         </div>
       </div>
 
@@ -123,26 +127,34 @@
       </div>
       <div class="docOrgInfoTables row">
 
-        <p-table [value]=[1] styleClass="p-datatable-gridlines"
-                 class="col" [tableStyle]="{'min-width': '20rem'}">
-          <ng-template pTemplate="caption">Availability</ng-template>
-          <ng-template pTemplate="header">
-            <tr>
-              <th *ngFor="let header of colHeaders">{{header}}</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body">
-            <tr *ngIf="doctorService.doctor.availableTimes as time">
-              <td><p *ngIf="time.includes('Saturday')">12:00 - 13:00</p></td>
-              <td><p *ngIf="time.includes('Sunday')">12:00 - 14:00</p></td>
-              <td><p *ngIf="time.includes('Monday')">12:00 - 15:00</p></td>
-              <td><p *ngIf="time.includes('Tuesday')">12:00 - 16:00</p></td>
-              <td><p *ngIf="time.includes('Wednesday')">12:00 - 16:00</p></td>
-              <td><p *ngIf="time.includes('Thursday')">12:00 - 16:00</p></td>
-              <td><p *ngIf="time.includes('Friday')">12:00 - 16:00</p></td>
-            </tr>
-          </ng-template>
-        </p-table>
+<!--        <p-table [value]=[1] styleClass="p-datatable-gridlines"-->
+<!--                 class="col" [tableStyle]="{'min-width': '20rem'}">-->
+<!--          <ng-template pTemplate="caption">Availability</ng-template>-->
+<!--          <ng-template pTemplate="header">-->
+<!--            <tr>-->
+<!--              <th *ngFor="let header of colHeaders">{{header}}</th>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--          <ng-template pTemplate="body">-->
+<!--            <tr *ngIf="doctorService.doctor.availableTimes as time">-->
+<!--              <td><p *ngIf="time.includes('Saturday')">12:00 - 13:00</p></td>-->
+<!--              <td><p *ngIf="time.includes('Sunday')">12:00 - 14:00</p></td>-->
+<!--              <td><p *ngIf="time.includes('Monday')">12:00 - 15:00</p></td>-->
+<!--              <td><p *ngIf="time.includes('Tuesday')">12:00 - 16:00</p></td>-->
+<!--              <td><p *ngIf="time.includes('Wednesday')">12:00 - 16:00</p></td>-->
+<!--              <td><p *ngIf="time.includes('Thursday')">12:00 - 16:00</p></td>-->
+<!--              <td><p *ngIf="time.includes('Friday')">12:00 - 16:00</p></td>-->
+<!--            </tr>-->
+<!--          </ng-template>-->
+<!--        </p-table>-->
+        <div class="col">
+          <span class="card text-center availableTimes" *ngFor="let dayTime of doctorService.doctor.availableDayTimes">
+          <b class="day">{{dayTime.day}}</b>
+          <p>S: {{dayTime.startTime}}</p>
+          <p>E: {{dayTime.endTime}}</p>
+        </span>
+        </div>
+
       </div>
     </div>
 

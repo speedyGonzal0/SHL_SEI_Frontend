@@ -4,6 +4,7 @@ import {OrgService} from "@shared/services/org.service";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {RegEx} from "@enums/regex";
 import {NotificationService} from "@shared/components/notification/notification.service";
+import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
   selector: 'app-org-registration',
@@ -20,6 +21,7 @@ export class OrgRegistrationComponent {
   submitLabel = this.orgService.editMode ? "Update" : "Confirm";
   constructor(public orgService: OrgService,
               private config: DynamicDialogConfig,
+              private refreshService: RefreshService,
               private notificationService: NotificationService
               ) {
   }
@@ -62,6 +64,7 @@ export class OrgRegistrationComponent {
       next: response => {
         this.notificationService.sendSuccessMessage("Created Successfully!")
         this.orgForm.reset();
+        this.refreshService.updateOrgTable();
         this.orgService.orgRef.close();
       },
       error: err => {
@@ -75,7 +78,8 @@ export class OrgRegistrationComponent {
       .subscribe({
         next: response => {
           this.notificationService.sendSuccessMessage("Edit Successful!")
-          this.orgForm.reset()
+          this.orgForm.reset();
+          this.refreshService.updateOrgTable();
           this.orgService.orgRef.close()
         },
         error: err => {

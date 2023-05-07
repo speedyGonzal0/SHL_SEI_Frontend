@@ -93,7 +93,7 @@ export class HistoryService {
   getDocHistoryByID(id: number){
     this.httpService.getRequest(`${this.docBillURL}/get/${id}`)
       .subscribe((response: any) => {
-        console.log(response)
+        // console.log(response)
         this.billingDetails = response
       })
   }

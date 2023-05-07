@@ -27,7 +27,7 @@ export class DoctorService {
 
   doctorTypes = [
     {type: "Medical", value: 0},
-    {type: "Dentist", value: 1}
+    {type: "Dental", value: 1}
   ]
 
   constructor(private httpService: HttpService, private authService: AuthService) {}
@@ -55,7 +55,7 @@ export class DoctorService {
     }
   }
 
-  createDoctor(doctorInfo: any){
+  createDoctor(doctorInfo: Doctor){
     if (this.role === 'ROLE_ADMIN'){
      return this.httpService.createRequest(`${this.doctorURL}/admin/${this.authService.adminID}/add`, doctorInfo)
     }
@@ -90,7 +90,6 @@ export class DoctorService {
       this.httpService.getRequest(`${this.orgDoctorURL}/get/${id}`)
         .subscribe((response: any) => {
           this.doctor = response
-          console.log(response.availableTimes)
         })
     }
 

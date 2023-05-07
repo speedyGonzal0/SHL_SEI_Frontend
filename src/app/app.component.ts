@@ -20,7 +20,7 @@ export class AppComponent implements OnInit{
     let token = localStorage.getItem('token');
     if (token){
       this.authService.fetchUser().subscribe({
-        next: response => {
+        next: (response : any) => {
           this.authService.setUser(response)
         },
         error: err => {

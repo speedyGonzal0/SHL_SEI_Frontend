@@ -55,8 +55,8 @@
           <td class="col">{{item.name}} {{item.formulation}}</td>
           <td class="col text-end">{{item.strength}}</td>
           <td class="col text-end">{{medBill.medQuantities[i]}}</td>
-          <td class="col text-end">{{item.price}}</td>
-          <td class="col text-end">{{item.price * medBill.medQuantities[i]}}</td>
+          <td class="col text-end">{{item.price.toFixed(2)}}</td>
+          <td class="col text-end">{{item.price.toFixed(2) * medBill.medQuantities[i]}}</td>
         </tr>
       </table>
   </span>
@@ -72,12 +72,12 @@
       <b>Total</b>
     </span>
     <span class="col">
-        <p>{{medBill.totalBill}}</p>
+        <p>{{medBill.totalBill.toFixed(2)}}</p>
         <p>{{medBill.discount}}%</p>
         <p>5%</p>
-        <b>{{medBill.finalBill}}</b>
+        <b>{{medBill.finalBill.toFixed(2)}}</b>
     </span>
-    <p class="text-end mt-3">In words: {{toWords(medBill.finalBill)}}</p>
+    <p class="text-end mt-3">In words: {{toWords(medBill.finalBill.toFixed(2))}}</p>
   </div>
 
   <hr class="border-0">
