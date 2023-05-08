@@ -51,15 +51,15 @@
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
         <td> {{index + 1}} </td>
-        <td> {{item.timestamp[1]+"/"+item.timestamp[2]+"/"+item.timestamp[0]}} </td>
-        <td> {{item.timestamp[3]+":"+item.timestamp[4]+":"+item.timestamp[5]}} </td>
+        <td> {{item.timestamp.split('T')[0]}} </td>
+        <td> {{tConvert(item.timestamp.split('T')[1].split('.')[0])}} </td>
         <td *ngIf="authService.getRole() === 'ROLE_ADMIN'"> {{item.organization.name}} </td>
         <td> {{item.patient.phone}} </td>
         <td> {{item.finalFeeAfterAllDiscount}} </td>
         <td> {{item.appUser.name}} </td>
         <td>
           <button [routerLink]="['/history/diagnostic', item.id]" pButton icon="pi pi-eye"
-                  class="p-button-outlined p-button-secondary"></button>
+                  class="p-button-outlined p-button-sm p-button-secondary"></button>
         </td>
       </tr>
     </ng-template>

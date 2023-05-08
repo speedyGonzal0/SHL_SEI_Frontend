@@ -49,3 +49,40 @@
     background: $primary-darker;
   }
 }
+
+.p-panelmenu{
+  .p-panelmenu-header > a {
+    color: black;
+    font-weight: 100;
+    border: none;
+    background: transparent;
+    padding: 14px;
+  }
+
+  .p-panelmenu-header.p-highlight > a{
+    background: transparent;
+    font-weight: 100;
+    padding: 14px;
+  }
+
+  .p-panelmenu-header:not(.p-highlight):not(.p-disabled)>a:hover ,
+  .p-panelmenu-header.p-highlight:not(.p-disabled)>a:hover
+  {
+    background-color: $primary-lighter;
+    color: $primary-darker;
+  }
+
+
+  .p-panelmenu-content{
+    border: none;
+  }
+
+  .p-panelmenu-content .p-menuitem .p-menuitem-link {
+    padding: 10px 20px;
+  }
+
+  .p-menuitem-link-active{
+    background-color: $primary-lighter;
+    color: $primary-darker;
+  }
+}

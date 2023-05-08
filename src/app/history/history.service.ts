@@ -23,12 +23,21 @@ export class HistoryService {
               private httpService: HttpService) { }
 
   getDiagHistory(params: Params){
-    this.httpService.getRequestWithParams(`${this.diagBillURL}/view/${this.authService.orgID}/all`, params)
-      .subscribe(
-        (response:any) => {
-          this.diagBillHistory = response.content;
-          this.totalDiagHistory = response.totalElements;
-        })
+    if(this.role === "ROLE_ADMIN"){
+      this.httpService.getRequestWithParams(`${this.diagBillURL}/view/all`, params)
+        .subscribe(
+          (response:any) => {
+            this.diagBillHistory = response.content;
+            this.totalDiagHistory = response.totalElements;
+          })
+    } else{
+      this.httpService.getRequestWithParams(`${this.diagBillURL}/view/${this.authService.orgID}/all`, params)
+        .subscribe(
+          (response:any) => {
+            this.diagBillHistory = response.content;
+            this.totalDiagHistory = response.totalElements;
+          })
+    }
   }
 
   getDiagHistoryByID(id: number){
@@ -47,7 +56,7 @@ export class HistoryService {
             this.totalMedHistory = response.totalElements;
           })
     } else{
-      this.httpService.getRequestWithParams(`${this.medBillURL}/get/org/${this.authService.orgID}/all`, params)
+      this.httpService.getRequestWithParams(`${this.medBillURL}/org/${this.authService.orgID}/search`, params)
         .subscribe(
           (response:any) => {
             this.medBillHistory = response.content;
@@ -72,7 +81,7 @@ export class HistoryService {
             this.totalDocHistory = response.totalElements;
           })
     } else{
-      this.httpService.getRequestWithParams(`${this.docBillURL}/get/org/${this.authService.orgID}/all`, params)
+      this.httpService.getRequestWithParams(`${this.docBillURL}/org/${this.authService.orgID}/search`, params)
         .subscribe(
           (response:any) => {
             this.docBillHistory = response.content;
@@ -84,6 +93,7 @@ export class HistoryService {
   getDocHistoryByID(id: number){
     this.httpService.getRequest(`${this.docBillURL}/get/${id}`)
       .subscribe((response: any) => {
+        console.log(response)
         this.billingDetails = response
       })
   }

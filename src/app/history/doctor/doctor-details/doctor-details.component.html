@@ -30,8 +30,8 @@
       <p class="m-0">Service: Dr Appointment</p>
       <ul>
         <li>Invoice#: {{docBill.id}}</li>
-        <li *ngIf="docBill.createdAt as time">
-          Issued: {{time[2]+"/"+time[1]+"/"+time[0]}}
+        <li>
+          Issued At: {{docBill.createdAt.split('T')[0]}}
         </li>
         <li>Issued By: {{docBill.createdBy.name}}</li>
 
@@ -44,14 +44,14 @@
       <table>
         <tr>
           <th>Dr Name</th>
-          <th>Time</th>
+<!--          <th>Time</th>-->
           <th>Service Type</th>
           <th>BMDC</th>
           <th>Email</th>
         </tr>
         <tr *ngIf="docBill">
           <td>{{docBill.doctor.name}}</td>
-          <td>{{docBill.drTime}}</td>
+<!--          <td>{{docBill.drTime}}</td>-->
           <td>{{docBill.type | titlecase}}</td>
           <td>{{docBill.doctor.bmdc}}</td>
           <td>{{docBill.doctor.email}}</td>

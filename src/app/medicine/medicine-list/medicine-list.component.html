@@ -72,7 +72,7 @@
         <td> {{medService.role === 'ROLE_ADMIN' ? item.price : item.medicine.price}}</td>
         <td *ngIf="medService.role === 'ROLE_ADMIN'">
 <!--          <span class="p-buttonset">-->
-            <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
+            <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-sm p-button-secondary" icon="pi pi-pencil"></button>
 <!--            <button *ngIf="medService.role !== 'ROLE_ADMIN'" (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>-->
 <!--          </span>-->
         </td>

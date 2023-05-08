@@ -25,7 +25,7 @@ import {PanelMenuModule} from "primeng/panelmenu";
     DashboardComponent,
     AdminDashboardComponent,
     OrgAdminDashboardComponent,
-    LandingPageComponent
+    LandingPageComponent,
   ],
   exports:[
     HomeComponent,

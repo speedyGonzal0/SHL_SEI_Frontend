@@ -62,12 +62,12 @@
           <!--          <span class="p-buttonset">-->
           <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
                   *ngIf="appUserService.role === 'ROLE_ADMIN' && item.role.includes('ROLE_ORG_ADMIN'); else orgAdminUserEdit"
-                  class="p-button-outlined p-button-secondary">
+                  class="p-button-outlined p-button-sm p-button-secondary">
           </button>
           <ng-template #orgAdminUserEdit>
             <button (click)="showEditDialog(index)" pButton icon="pi pi-pencil"
                     *ngIf="appUserService.role === 'ROLE_ORG_ADMIN' && !item.role.includes('ROLE_ORG_ADMIN')"
-                    class="p-button-outlined p-button-secondary">
+                    class="p-button-outlined p-button-sm p-button-secondary">
             </button>
           </ng-template>
           <!--            <button (click)="onDelete(index)" pButton icon="pi pi-trash"-->

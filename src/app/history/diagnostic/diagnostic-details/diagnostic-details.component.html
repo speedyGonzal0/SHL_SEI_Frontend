@@ -30,7 +30,7 @@
       <ul>
         <li>Invoice#: {{diagBill.id}}</li>
         <li>
-          Issued: {{diagBill.timestamp.split('T')[0]}}
+          Issued At: {{diagBill.timestamp.split('T')[0].split(' ')[0]}}
         </li>
         <li>Issued By: {{diagBill.appUser.name}}</li>
 
