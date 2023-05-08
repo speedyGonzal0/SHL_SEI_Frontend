@@ -61,8 +61,8 @@
       </ul>
 
       <ul class="col text-end">
-        <li >{{calculateTotal()}} BDT</li>
-        <li >-{{discountAmount}} BDT</li>
+        <li >{{calculateTotal().toFixed(2)}} BDT</li>
+        <li >-{{discountAmount.toFixed(2)}} BDT</li>
         <li >+{{(calculatePayable()*5)/100}} BDT</li>
         <li ><b>{{calculatePayable() + (calculatePayable()*5)/100}} BDT</b></li>
       </ul>

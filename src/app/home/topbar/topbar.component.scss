@@ -1,3 +1,6 @@
+@import "src/app/scss/variables.scss";
+
+
 .navContainer{
   background-color: white;
   width: 100%;
@@ -52,16 +55,13 @@ li{
   i {
     font-size: 20px;
   }
-
-}
-
-li:hover{
-  background-color: #d4ffe3;
-  color: green;
-
+  &:hover{
+    background-color: $primary-lighter;
+    color: $primary-color;
+  }
 }
 
 .linkActive{
-  background-color: #d4ffe3;
-  color: green;
+  background-color: $primary-lighter;
+  color: $primary-color;
 }

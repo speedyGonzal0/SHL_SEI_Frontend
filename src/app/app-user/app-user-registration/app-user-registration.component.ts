@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppUserService} from "@shared/services/app-user.service";
@@ -7,6 +7,8 @@ import {Organization} from "@models/organization";
 import {HttpService} from "@shared/services/http.service";
 import {ApiPaths} from "@enums/api-paths";
 import {NotificationService} from "@shared/components/notification/notification.service";
+import {RefreshService} from "@shared/services/refresh.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-app-user-registration',
@@ -15,13 +17,14 @@ import {NotificationService} from "@shared/components/notification/notification.
   providers: []
 
 })
-export class AppUserRegistrationComponent implements OnInit{
+export class AppUserRegistrationComponent implements OnInit, OnDestroy{
 
   addressValue!: string
   constructor(public appUserService: AppUserService,
               private config: DynamicDialogConfig,
               public authService: AuthService,
               private httpService: HttpService,
+              private refreshService: RefreshService,
               private notificationService: NotificationService
               ) {}
 
@@ -30,9 +33,13 @@ export class AppUserRegistrationComponent implements OnInit{
   submitLabel = this.appUserService.editMode ? "Update" : "Confirm";
   organizations!: Organization[];
   role!: string;
+  roleSub!: Subscription;
 
   ngOnInit() {
-    this.role = this.authService.getRole();
+    this.roleSub = this.authService.userSourceInfo.subscribe( (value: any) => {
+      this.role = value.role.toString();
+    })
+    // this.role = this.authService.getRole();
 
     this.appUserForm = new FormGroup({
       'name' : new FormControl(null, Validators.required),
@@ -41,13 +48,13 @@ export class AppUserRegistrationComponent implements OnInit{
       'gender' : new FormControl(null, [Validators.required]),
       'address' : new FormControl(null, [Validators.required]),
       'age' : new FormControl(null, [Validators.required, Validators.min(1)]),
-      'role' : new FormControl(this.authService.role === "ROLE_ADMIN" ? [2] : null, [Validators.required]),
+      'role' : new FormControl(this.role === "ROLE_ADMIN" ? 2 : null, [Validators.required]),
       'password' : new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)]),
       'orgID' : new FormControl(null, [Validators.required]),
     }
     )
 
-    if(this.appUserService.role === "ROLE_ORG_ADMIN"){
+    if(this.role === "ROLE_ORG_ADMIN"){
       this.appUserForm.controls['orgID'].setValue(this.authService.orgID);
     }
 
@@ -91,12 +98,14 @@ export class AppUserRegistrationComponent implements OnInit{
     // console.log(this.appUserForm.value)
 
     this.appUserService.editUser(this.appUserEditID, {
-      ...this.appUserForm.value
+      ...this.appUserForm.value,
+      role: [this.appUserForm.value.role].flat()
     })
       .subscribe({
         next: response => {
           this.notificationService.sendSuccessMessage("Edit Successful!")
           this.appUserForm.reset()
+          this.refreshService.updateUserTable()
           this.appUserService.appUserRef.close()
         },
         error: err => {
@@ -112,7 +121,8 @@ export class AppUserRegistrationComponent implements OnInit{
 
     this.appUserService.createUser({
         ...this.appUserForm.value,
-        gender: this.appUserForm.value.gender.value,
+        gender: this.appUserForm.value.gender,
+        role: [this.appUserForm.value.role],
         email: this.appUserForm.value.email.toLowerCase()
         // role: this.authService.role === "ROLE_ORG_ADMIN" ? roles : this.appUserForm.value.role,
       })
@@ -120,6 +130,7 @@ export class AppUserRegistrationComponent implements OnInit{
         next: response => {
           this.notificationService.sendSuccessMessage("Created Successfully!")
           this.appUserForm.reset();
+          this.refreshService.updateUserTable();
           this.appUserService.appUserRef.close();
         },
         error: err => {
@@ -139,5 +150,9 @@ export class AppUserRegistrationComponent implements OnInit{
 
   setOrgID(event: any){
     this.appUserForm.value.orgID = event.id;
+  }
+
+  ngOnDestroy() {
+    this.roleSub.unsubscribe();
   }
 }

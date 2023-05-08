@@ -4,6 +4,7 @@ import {ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ApiPaths} from "@enums/api-paths";
 import {BehaviorSubject, Observable, Subject, Subscriber} from "rxjs";
+import {AppUser} from "@models/appUser";
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,6 @@ export class AuthService{
   appUserName! : string;
   appUserEmail! : string;
   role !: string;
-  newRole!: Observable<any>;
-
-  userInfo: any;
 
   private userSource = new BehaviorSubject({});
 
@@ -41,9 +39,9 @@ export class AuthService{
     return this.httpService.getRequest(`${ApiPaths.users}/get/info`)
   }
 
-  setUser(user : any){
+  setUser(user : AppUser){
     this.userSource.next(user)
-    localStorage.setItem('userRole', user.role);
+    localStorage.setItem('userRole', user.role.toString());
     this.role = user.role.toString();
     this.orgID = user.organization.id
     this.orgName = user.organization.name

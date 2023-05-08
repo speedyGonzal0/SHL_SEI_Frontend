@@ -30,7 +30,7 @@
 
         <td>{{diagnostic.serviceName}}</td>
 
-        <td>{{diagnostic.price}}</td>
+        <td>{{diagnostic.price.toFixed(2)}}</td>
 
         <td>
           <div *ngIf="!diagnostic.discountApplied" class="p-inputgroup">
@@ -62,7 +62,7 @@
           </div>
         </td>
 
-        <td>{{diagnostic.final_price}}</td>
+        <td>{{diagnostic.final_price.toFixed(2)}}</td>
 
 
       </tr>
@@ -94,7 +94,7 @@
 
       <ul class="col text-end">
         <li >{{calculateAfterTotalIndividualDiscount()}} BDT</li>
-        <li >-{{discountAmount}} BDT</li>
+        <li >-{{discountAmount.toFixed(2)}} BDT</li>
         <li >+{{(calculatePayable()*5)/100}} BDT</li>
         <li ><b>{{calculatePayable() + (calculatePayable()*5)/100}} BDT</b></li>
       </ul>

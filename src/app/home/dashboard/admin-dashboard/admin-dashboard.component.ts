@@ -11,6 +11,7 @@ import {AuthService} from "@authentication/auth.service";
 })
 export class AdminDashboardComponent{
 
+  totalRevenue!: number;
   cardInfo = [
     {
       title: "Diagnostics",
@@ -68,6 +69,8 @@ export class AdminDashboardComponent{
         this.cardInfo[3].count = response.organizations
         this.cardInfo[4].count = response.employees
         this.cardInfo[5].count = response.patients
+
+        this.totalRevenue = response.totalRevenue;
       })
   }
 }

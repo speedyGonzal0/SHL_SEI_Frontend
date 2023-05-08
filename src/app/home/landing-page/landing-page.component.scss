@@ -1,1 +1,7 @@
 @import "../../scss/variables";
+.background{
+  background-color: #ffffff;
+  opacity: 0.8;
+  background-image: radial-gradient(#34b0b2 0.5px, #ffffff 0.5px);
+  background-size: 10px 10px;
+}

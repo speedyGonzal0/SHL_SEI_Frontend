@@ -6,7 +6,7 @@
         <i class="pi pi-search"></i>
         <input pInputText type="text" class="p-inputtext-sm"
                (input)="onSearch($any($event.target).value)"
-               placeholder="Search name" />
+               placeholder="Search by patient phone" />
       </div>
     </div>
   </div>
@@ -39,8 +39,8 @@
     <ng-template pTemplate="header">
       <tr>
         <th>#</th>
-        <th>Date</th>
-        <th>Time</th>
+        <th>Date (yyyy-mm-dd)</th>
+        <th>Issued At</th>
         <th *ngIf="authService.getRole() === 'ROLE_ADMIN'">Organization</th>
         <th>Patient Phone</th>
         <th>Total Bill (BDT)</th>
@@ -51,11 +51,11 @@
     <ng-template pTemplate="body" let-item let-index='rowIndex'>
       <tr>
         <td> {{index + 1}} </td>
-        <td> {{item.timestamp.split('T')[0]}} </td>
-        <td> {{tConvert(item.timestamp.split('T')[1].split('.')[0])}} </td>
+        <td> {{item.timestamp | date: "yyyy-MM-dd"}} </td>
+        <td> {{item.timestamp | date: "hh:mm a"}} </td>
         <td *ngIf="authService.getRole() === 'ROLE_ADMIN'"> {{item.organization.name}} </td>
         <td> {{item.patient.phone}} </td>
-        <td> {{item.finalFeeAfterAllDiscount}} </td>
+        <td> {{item.finalFeeAfterAllDiscount.toFixed(2)}} </td>
         <td> {{item.appUser.name}} </td>
         <td>
           <button [routerLink]="['/history/diagnostic', item.id]" pButton icon="pi pi-eye"

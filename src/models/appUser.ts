@@ -1,3 +1,5 @@
+import {Organization} from "@models/organization";
+
 export interface AppUser{
   id: number,
   name: string,
@@ -5,8 +7,8 @@ export interface AppUser{
   phone: string,
   gender: string,
   address: string,
-  organization_id: number,
+  organization: Organization,
   age: number,
-  role: [],
+  role: string[],
   password: string,
 }

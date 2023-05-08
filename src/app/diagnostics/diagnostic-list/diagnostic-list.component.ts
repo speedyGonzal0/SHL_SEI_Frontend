@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ConfirmationService} from 'primeng/api';
 import {DialogService} from "primeng/dynamicdialog";
 import {CreateDiagnosticComponent} from "@diagnostics/create-diagnostic/create-diagnostic.component";
@@ -6,6 +6,7 @@ import {DiagnosticsService} from "@diagnostics/diagnostics.service";
 import {FormControl} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RefreshService} from "@shared/services/refresh.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-diagnostic-diagnostic-list',
@@ -13,12 +14,13 @@ import {RefreshService} from "@shared/services/refresh.service";
   styleUrls: ['./diagnostic-list.component.scss'],
   providers: [ DialogService, ConfirmationService]
 })
-export class DiagnosticListComponent implements OnInit{
+export class DiagnosticListComponent implements OnInit, OnDestroy{
 
 
   // sortBy !: FormControl;
 
   // sortOptions !: any[];
+  diagTableSub !: Subscription;
 
   constructor(
               private dialogService: DialogService,
@@ -31,7 +33,7 @@ export class DiagnosticListComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.refreshService.refreshNeeded$
+    this.diagTableSub = this.refreshService.diagnosticTable
       .subscribe(() => {
         this.route.queryParams.subscribe(
           (qp:Params) => {
@@ -140,6 +142,10 @@ export class DiagnosticListComponent implements OnInit{
           queryParamsHandling: "merge"
         })
     }
+  }
+
+  ngOnDestroy() {
+    this.diagTableSub.unsubscribe();
   }
 
 }

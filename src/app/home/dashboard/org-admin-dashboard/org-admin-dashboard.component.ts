@@ -10,7 +10,7 @@ import {AuthService} from "@authentication/auth.service";
   styleUrls: ['./org-admin-dashboard.component.scss']
 })
 export class OrgAdminDashboardComponent {
-
+  totalRevenue!: number;
   cardInfo = [
     {
       title: "Diagnostics",
@@ -57,6 +57,10 @@ export class OrgAdminDashboardComponent {
         this.cardInfo[1].count = response.orgMedicines
         this.cardInfo[2].count = response.orgDoctors
         this.cardInfo[3].count = response.orgEmployees
+
+        this.totalRevenue = response.orgRevenue;
+
+        console.log(response)
       })
   }
 }

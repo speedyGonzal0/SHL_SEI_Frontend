@@ -4,6 +4,7 @@ import {PatientService} from "@shared/services/patient.service";
 import {DynamicDialogConfig} from "primeng/dynamicdialog";
 import {config} from "rxjs";
 import {NotificationService} from "@shared/components/notification/notification.service";
+import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
   selector: 'app-patient-registration',
@@ -17,6 +18,7 @@ export class PatientRegistrationComponent {
 
   constructor(public patientService: PatientService,
               private config: DynamicDialogConfig,
+              private refreshService: RefreshService,
               private notificationService: NotificationService
               ) {
   }
@@ -63,7 +65,8 @@ export class PatientRegistrationComponent {
       .subscribe({
         next: response => {
           this.notificationService.sendSuccessMessage("Edit Successful!")
-          this.patientRegForm.reset()
+          this.patientRegForm.reset();
+          this.refreshService.updatePatientTable();
           this.patientService.patientRef.close()
         },
         error: err => {
@@ -81,6 +84,7 @@ export class PatientRegistrationComponent {
       next: response => {
         this.notificationService.sendSuccessMessage("Created Successfully!")
         this.patientRegForm.reset();
+        this.refreshService.updatePatientTable();
         this.patientService.patientRef.close();
       },
       error: err => {

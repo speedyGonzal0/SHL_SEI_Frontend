@@ -2,7 +2,7 @@
 
   <div class="row p-0 ">
     <div class="col">
-      <h4>MEDECINE BILLING</h4>
+      <h4>MEDICINE BILLING</h4>
     </div>
   </div>
 
@@ -139,7 +139,7 @@
             <tr>
               <td> {{index + 1}} </td>
               <td> {{item.medicine.name}} </td>
-              <td> {{item.medicine.price}}</td>
+              <td> {{item.medicine.price.toFixed(2)}}</td>
               <td>
                 <p-inputNumber
                   [inputStyle]="{'width': '80px'}"
@@ -156,7 +156,7 @@
                   mode="decimal">
                 </p-inputNumber>
               </td>
-              <td> {{item.total_price}}</td>
+              <td> {{item.total_price.toFixed(2)}}</td>
               <td>
                 <button (click)="onDelete(index)" pButton class="p-button-outlined p-button-danger" icon="pi pi-trash"></button>
               </td>

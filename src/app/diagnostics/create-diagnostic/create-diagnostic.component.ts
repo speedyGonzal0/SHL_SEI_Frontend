@@ -6,6 +6,7 @@ import {HttpService} from "@shared/services/http.service";
 import {Diagnostic} from "@models/diagnostic";
 import {AuthService} from "@authentication/auth.service";
 import {NotificationService} from "@shared/components/notification/notification.service";
+import {RefreshService} from "@shared/services/refresh.service";
 
 @Component({
   selector: 'app-create-diagnostic',
@@ -26,6 +27,7 @@ export class CreateDiagnosticComponent implements OnInit{
               public diagService: DiagnosticsService,
               private httpService: HttpService,
               private authService: AuthService,
+              private refreshService: RefreshService,
               private notificationService: NotificationService
               ) {
   }
@@ -76,6 +78,7 @@ export class CreateDiagnosticComponent implements OnInit{
         next: response => {
           this.notificationService.sendSuccessMessage("Created Succefully!")
           this.createDiagForm.reset();
+          this.refreshService.updateDiagTable()
           this.diagService.diagRef.close();
         },
         error: err => {
@@ -91,6 +94,7 @@ export class CreateDiagnosticComponent implements OnInit{
       next: response => {
         this.notificationService.sendSuccessMessage("Edit Successful!")
         this.createDiagForm.reset();
+        this.refreshService.updateDiagTable()
         this.diagService.diagRef.close();
       },
       error: err => {
@@ -106,6 +110,7 @@ export class CreateDiagnosticComponent implements OnInit{
       next: response => {
         this.notificationService.sendSuccessMessage("Edit Successful!")
         this.selectDiagForm.reset();
+        this.refreshService.updateDiagTable()
         this.diagService.diagRef.close();
       },
       error: err => {
@@ -141,6 +146,7 @@ export class CreateDiagnosticComponent implements OnInit{
       next: response => {
         this.notificationService.sendSuccessMessage("Created Successfully!")
         this.diagService.selectedDiags = [];
+        this.refreshService.updateDiagTable()
         this.diagService.diagRef.close();
       },
       error: err => {
