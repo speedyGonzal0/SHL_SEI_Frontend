@@ -50,15 +50,15 @@
     <ng-template pTemplate="body" let-item>
       <tr>
         <td> {{item.id}} </td>
-        <td> {{item.createdAt[1]+"/"+item.createdAt[2]+"/"+item.createdAt[0]}} </td>
-        <td> {{item.createdAt[3]+":"+item.createdAt[4]+":"+item.createdAt[5]}} </td>
+        <td> {{item.createdAt.split('T')[0]}} </td>
+        <td> {{tConvert(item.createdAt.split('T')[1].split('.')[0])}} </td>
         <td *ngIf="authService.getRole() === 'ROLE_ADMIN'"> {{item.organization.name}} </td>
         <td> {{item.patient.phone}} </td>
         <td> {{item.finalFee}} </td>
         <td> {{item.createdBy.name}} </td>
         <td>
           <button [routerLink]="['/history/doctor-appointment', item.id]" pButton icon="pi pi-eye"
-                  class="p-button-outlined p-button-secondary"></button>
+                  class="p-button-outlined p-button-sm p-button-secondary"></button>
         </td>
       </tr>
     </ng-template>

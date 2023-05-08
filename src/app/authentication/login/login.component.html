@@ -1,8 +1,8 @@
 <div class="loginContainer container-fluid">
   <div class="row h-100">
     <div class="leftContainer col d-none d-md-flex align-items-center justify-content-center">
-          <div class="w-100">
-            <h1 class="text-center">SHL <br> Billing</h1>
+          <div class="w-100 d-flex justify-content-center">
+            <p class="title text-start">SHL <br> Billing</p>
           </div>
     </div>
     <div class="rightContainer col p-0 d-flex align-items-center justify-content-center">
@@ -11,7 +11,7 @@
               <div class="field mx-5">
                 <label for="email">E-mail</label>
                 <input
-                  class="w-100"
+                  class="w-100 p-inputtext-sm"
                   id="email"
                   pInputText
                   formControlName="email"/>
@@ -19,7 +19,7 @@
               <div class="field mx-5">
                 <label for="password">Password</label>
                 <p-password
-                  class="p-fluid"
+                  class="p-fluid p-inputtext-sm"
                   inputId="password"
                   [feedback]="false"
                   [toggleMask]="!!loginForm.controls['password'].value"
@@ -31,7 +31,7 @@
                   pButton
                   type="submit"
                   label="Log in"
-                  class=""
+                  class="p-button-sm"
                   [disabled]="!loginForm.valid"></button>
               </div>
             </form>

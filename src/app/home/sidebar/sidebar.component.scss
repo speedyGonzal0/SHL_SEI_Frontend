@@ -45,13 +45,6 @@ li{
   i {
     font-size: 20px;
   }
-
-}
-
-li:hover{
-  background-color: #d4ffe3;
-  color: green;
-
   &:hover{
     background-color: $primary-lighter;
     color: $primary-color;

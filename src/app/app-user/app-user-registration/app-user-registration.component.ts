@@ -56,7 +56,7 @@ export class AppUserRegistrationComponent implements OnInit{
       this.appUserForm.setValue({
         name: appUser.name,
         phone: appUser.phone,
-        email: appUser.email,
+        email: appUser.email.toLowerCase(),
         gender: this.appUserService.genders.find(
           (gender) =>
             gender.toLowerCase() === appUser.gender.toLowerCase()
@@ -113,6 +113,7 @@ export class AppUserRegistrationComponent implements OnInit{
     this.appUserService.createUser({
         ...this.appUserForm.value,
         gender: this.appUserForm.value.gender.value,
+        email: this.appUserForm.value.email.toLowerCase()
         // role: this.authService.role === "ROLE_ORG_ADMIN" ? roles : this.appUserForm.value.role,
       })
       .subscribe({

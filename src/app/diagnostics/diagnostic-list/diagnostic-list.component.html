@@ -53,7 +53,7 @@
         <td> {{item.serviceName}} </td>
         <td *ngIf="diagService.role !== 'ROLE_ADMIN'"> {{item.price}}</td>
         <td>
-          <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-secondary" icon="pi pi-pencil"></button>
+          <button (click)="showEditDialog(index)" pButton class="p-button-outlined p-button-sm p-button-secondary" icon="pi pi-pencil"></button>
         </td>
 
       </tr>
